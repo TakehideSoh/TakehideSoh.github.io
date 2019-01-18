@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Project Eulerに挑戦: 問題1</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Project Eulerに挑戦: 問題1"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-09-29 21:44:00 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="/include/mathjax/MathJax.js">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Project Eulerに挑戦: 問題1</h1>
+
+<ul>
+<li><a href="euler.html">Project Eulerに挑戦</a>
+</li>
+<li><a href="euler-001.html">問題1</a>
+</li>
+<li><a href="euler-002.html">問題2</a>
+</li>
+<li><a href="euler-003.html">問題3</a>
+</li>
+<li><a href="euler-004.html">問題4</a>
+</li>
+<li><a href="euler-005.html">問題5</a>
+</li>
+</ul>
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">問題1</a></li>
+<li><a href="#sec-2">Cで解く</a></li>
+<li><a href="#sec-3">Scalaで解く</a></li>
+<li><a href="#sec-4">手で解く</a></li>
+<li><a href="#sec-5">改善版</a></li>
+<li><a href="#sec-6">改善版 C</a></li>
+<li><a href="#sec-7">改善版 Scala</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">問題1</h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li><a href="http://projecteuler.net/index.php?section=problems&amp;id=1">問題1の問題文</a>
+</li>
+</ul>
+
+<blockquote>
+
+<p>1000未満の自然数で3あるいは5の倍数となっている数の総和を求めよ．
+</p>
+</blockquote>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Cで解く</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  1から1000未満まで繰り返すfor文を作成し，
+  その中で条件に合っている場合に総和に足し込む操作を行えば良い．
+</p>
+
+
+
+<pre class="src src-c"><span class="linenr">1:  </span><span class="org-type">int</span> <span class="org-function-name">e001</span>() {
+<span class="linenr">2:  </span>    <span class="org-type">int</span> <span class="org-variable-name">s</span> = 0;
+<span class="linenr">3:  </span>    <span class="org-type">int</span> <span class="org-variable-name">n</span>;
+<span class="linenr">4:  </span>    <span class="org-keyword">for</span> (n = 1; n &lt; 1000; n++) {
+<span class="linenr">5:  </span>        <span class="org-keyword">if</span> (n % 3 == 0 || n % 5 == 0)
+<span class="linenr">6:  </span>            s += n;
+<span class="linenr">7:  </span>    }
+<span class="linenr">8:  </span>    <span class="org-keyword">return</span> s;
+<span class="linenr">9:  </span>}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Scalaで解く</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  Range(1, n) あるいは 1 until n は1以上n未満の整数リストを作成する
+  (正確にはリストではない)．
+</p><pre class="example">
+scala&gt; Range(1, 10)
+res: ... = Range(1, 2, 3, 4, 5, 6, 7, 8, 9)
+scala&gt; 1 until 10
+res: ... = Range(1, 2, 3, 4, 5, 6, 7, 8, 9)
+</pre>
+
+
+<p>
+  filterで条件に合うものだけを取り出せる．
+</p><pre class="example">
+scala&gt; Range(1, 10).filter(n =&gt; n % 3 == 0 || n % 5 == 0)
+res: ... = Vector(3, 5, 6, 9)
+</pre>
+
+
+<p>
+  sumで合計を求めることができる．
+</p><pre class="example">
+scala&gt; Range(1, 10).filter(n =&gt; n % 3 == 0 || n % 5 == 0).sum
+res: Int = 23
+</pre>
+
+
+<p>
+  したがって回答は以下で求められる．
+</p><pre class="example">
+scala&gt; Range(1, 1000).filter(n =&gt; n % 3 == 0 || n % 5 == 0).sum
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">手で解く</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  15で割った余りで考える．
+  15m+0, 15m+1, &hellip;, 15m+14 のうち，
+  3または5で割り切れる数は 15m+0, 15m+3, 15m+5, 15m+6, 15m+9, 15m+10, 15m+12 であり，
+  合計は 105m+45 である．
+</p>
+<p>
+  m=66の時 15mは990となる．
+  したがって，以下の式は990未満についての求めるべき総和を与える．
+  \[ \sum_{m=0}^{65} (105m+45) = \frac{105}{2} 65\cdot 66 + 2970 \]
+  これに 990, 993, 995, 996, 999 を加えれば回答が得られる．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">改善版</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>  よく考えると，3あるいは5の倍数の総和は，
+  3の倍数の総和と5の倍数の総和の合計から，
+  15の倍数の総和を引いた値である．
+</p>
+<p>
+  したがって，与えられた数 p の倍数の総和さえ求められれば良い．
+  これは \(m = \lfloor 1000/p \rfloor\) と置けば，以下の式で求められる．
+  \begin{eqnarray*}
+  \sum_{i=1}^{m} p i & = & \frac{p}{2}m(m+1)
+  \end{eqnarray*}
+
+  p=3 の時の m は 333，p=5 の時の m は 199，p=15 の時の m は 66 であるから，
+  求める回答は以下の式で与えられる．
+  \[
+    \frac{3}{2}333\cdot 334 + \frac{5}{2}199\cdot 200 - \frac{15}{2}66\cdot 67
+  \]
+
+</p></div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6">改善版 C</h2>
+<div class="outline-text-2" id="text-6">
+
+<p>  プログラムは以下のように改善できる．
+</p>
+
+
+<pre class="src src-c"><span class="linenr">1:  </span><span class="org-type">int</span> <span class="org-function-name">msum</span>(<span class="org-type">int</span> <span class="org-variable-name">p</span>, <span class="org-type">int</span> <span class="org-variable-name">lim</span>) {
+<span class="linenr">2:  </span>    <span class="org-type">int</span> <span class="org-variable-name">m</span> = (lim - 1) / p;
+<span class="linenr">3:  </span>    <span class="org-keyword">return</span> p * m * (m + 1) / 2;
+<span class="linenr">4:  </span>}
+<span class="linenr">5:  </span>
+<span class="linenr">6:  </span><span class="org-type">int</span> <span class="org-function-name">e001</span>() {
+<span class="linenr">7:  </span>    <span class="org-keyword">return</span> msum(3, 1000) + msum(5, 1000) - msum(15, 1000);
+<span class="linenr">8:  </span>}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7">改善版 Scala</h2>
+<div class="outline-text-2" id="text-7">
+
+<p>  lim 未満の p の倍数の総和を求める関数を定義する．
+</p>
+
+
+<pre class="src src-scala"><span class="linenr">1:  </span><span class="org-keyword">def</span> <span class="org-function-name">msum</span>(<span class="org-variable-name">p</span>: <span class="org-type">Int</span>, <span class="org-variable-name">lim</span>: <span class="org-type">Int</span>) = {
+<span class="linenr">2:  </span>   <span class="org-keyword">val</span> <span class="org-variable-name">m</span> = (lim - 1) / p
+<span class="linenr">3:  </span>   p * m * (m + 1) / 2
+<span class="linenr">4:  </span> }
+</pre>
+
+
+<p>
+  したがって回答は以下で求められる．
+</p><pre class="example">
+scala&gt; msum(3, 1000) + msum(5, 1000) - msum(15, 1000)
+</pre>
+
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-09-29 21:44:00 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,273 @@
+% Created 2013-10-13 日 14:22
+\documentclass[a4j]{article}
+                  
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{プログラミング言語論および演習 (演習前半) @<br>** ライフゲーム (Game of Life) **}
+\author{Takehide Soh}
+\date{2013-10-13}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.11}}
+
+\begin{document}
+
+\maketitle
+
+
+\section*{ライフゲームとは?}
+\label{sec-1}
+
+\begin{itemize}
+\item John Horton Conway が1970年に考案した二次元セルオートマトンの一種．
+\item ライフゲームはいろいろな web page でデモをみることができる．
+\begin{itemize}
+\item \href{http://www.daiichi-g.co.jp/osusume/forfun/07_lifegame/07.html}{ライフゲーム (第一学習社)}
+\item \href{http://math.shinshu-u.ac.jp/~hanaki/lifegame/}{Life Game (信州大学の花木先生のページ)}
+\end{itemize}
+\item 近年になっても新しい発見があり (すなわち未解決問題が多く存在する) 世界中の人がいろいろな事項を調査している．
+\begin{itemize}
+\item \href{http://pentadecathlon.com/lifeNews/index.php}{Game of Life News}
+\begin{itemize}
+\item 2012年には Marijn Heule 先生により6x6より小さい行列には \href{http://ja.wikipedia.org/wiki/%E3%82%A8%E3%83%87%E3%83%B3%E3%81%AE%E5%9C%92%E9%85%8D%E7%BD%AE}{エデンの園配置} が存在しないことが証明された.
+\end{itemize}
+\end{itemize}
+\item \href{http://www.argentum.freeserve.co.uk/lex.htm}{Life Lexicon} には様々な初期状態が紹介されている!
+\begin{itemize}
+\item ``\href{http://www.argentum.freeserve.co.uk/lex_d.htm#diehard}{Diehard}'' は7個の \textbf{live} セルから始まる初期状態の中では長寿であり (最長寿?), 130世代で死滅する．
+\end{itemize}
+\item その他・参考資料
+\begin{itemize}
+\item \href{http://ja.wikipedia.org/wiki/%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B2%E3%83%BC%E3%83%A0}{Wikipedia -- ライフゲーム}
+\item \href{http://math.shinshu-u.ac.jp/~hanaki/lifegame/}{Wikipedia -- セル・オートマトン}
+\end{itemize}
+\end{itemize}
+\section*{ライフゲームの設定・ルール}
+\label{sec-2}
+
+\begin{itemize}
+\item ライフゲームでは \textbf{live} と \textbf{dead} の二つの状態を持つセル (cell) で構成される行列が与えられる．
+\item セルは世代 (単位時間) の経過によって状態が変化する．
+\item 各セルの次世代の状態は以下のルールによって決定される．
+\begin{itemize}
+\item 現在の状態が \textbf{dead} の場合
+\begin{itemize}
+\item 周囲のセルに \textbf{live} のセルがちょうど3つあれば次世代の状態は \textbf{live}
+\item 他の状態の時は，次世代の状態も \textbf{dead}
+\end{itemize}
+\item 現在の状態が \textbf{live} の場合
+\begin{itemize}
+\item 周囲のセルに \textbf{live} のセルが2つか3つあれば次世代の状態は \textbf{live}
+\item 他の状態の時は，次世代の状態は \textbf{dead}
+\end{itemize}
+\end{itemize}
+\item なお行列の外の状態は \textbf{dead} であるものとする.
+\item 例 ( \textbf{live} を 1 で表し,  \textbf{dead} を 0 で表す)
+\end{itemize}
+
+
+\begin{center}
+\begin{tabular}{rrr}
+\hline
+ 1  &  0  &  1  \\
+ 0  &  0  &  0  \\
+ 1  &  0  &  0  \\
+\hline
+\hline
+ 0  &  0  &  0  \\
+ 0  &  1  &  0  \\
+ 0  &  0  &  0  \\
+\hline
+\hline
+ 0  &  0  &  0  \\
+ 0  &  0  &  0  \\
+ 0  &  0  &  0  \\
+\hline
+\end{tabular}
+\end{center}
+
+
+  
+\section*{Scala によるライフゲームの実装 (エンジン部分)}
+\label{sec-3}
+\begin{itemize}
+
+\item 方針
+\label{sec-3-1}%
+\begin{itemize}
+\item 簡単な機能から一つずつ実装する
+\item 簡潔な実装を心がける
+\begin{itemize}
+\item 条件分岐がごちゃごちゃしたものを作らない!
+\end{itemize}
+\item 他の人がみても分かり易いコードを書く
+\begin{itemize}
+\item コメント文の追加
+\item 分かり易い変数名
+\end{itemize}
+\end{itemize}
+
+\item 実装のデザイン
+\label{sec-3-2}%
+\begin{itemize}
+\item セルの状態 \textbf{live} を整数の1, \textbf{dead} を整数の0で表す．
+\item 行列は Seq[Seq[Int]] で与えられるものとする．
+\item \textbf{show} 関数 (表示，デバッグ用)
+\begin{itemize}
+\item (入力) Seq[Seq[Int]]型の行列 matrix
+\item (出力) Unit. println によって行を一行ずつ表示する.
+\item 出力例
+\end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+scala> val a = Seq(0, 1, 0)      
+scala> val b = Seq(1, 1, 0)      
+scala> val c = Seq(0, 1, 0)      
+scala> val matrix = Seq(a, b, c)                           
+scala> show(matrix)              
+
+// 出力結果
+0 1 0
+1 1 0
+0 1 0
+\end{verbatim}
+\begin{itemize}
+\item \textbf{getNeighborsState}
+\begin{itemize}
+\item (入力) セルの行番号 row: Int, セルの列番号 col: Int (実装によっては matrix: Seq[Seq[Int]] も)
+\item (出力) Seq[Int]. 与えられたセルの周囲のセルの状態 (並びは任意)
+\item 但し，行列の外の状態は一律に \textbf{dead} すなわち 0 であるものとする
+\item 出力例
+\end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+scala> val a = Seq(0, 1, 0)      
+scala> val b = Seq(1, 1, 0)      
+scala> val c = Seq(0, 1, 0)      
+scala> val matrix = Seq(a, b, c)                           
+
+scala> getNeighborsState(0, 0, matrix)
+res0: Seq[Int] = Vector(0, 0, 0, 0, 1, 0, 1, 1)
+
+scala> getNeighborsState(0, 1, matrix)
+res1: Seq[Int] = Vector(0, 0, 0, 0, 0, 1, 1, 0)
+\end{verbatim}
+\begin{itemize}
+\item \textbf{getNextCellState}
+\begin{itemize}
+\item (入力) 現在のセルの状態 current: Int, 周囲のセルの状態 neighbors: Seq[Int]
+\item (出力) Int. 次世代のセルの状態
+\item 出力例
+\end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+scala> getNextCellState(1, Seq(0, 0, 0, 0, 0, 1, 1, 0))
+res2: Int = 1
+\end{verbatim}
+\begin{itemize}
+\item \textbf{trans}
+\begin{itemize}
+\item (入力) 現在の行列 matrix: Seq[Seq[Int]]
+\item (出力) Seq[Seq[Int]] 次世代の行列
+\item 出力例
+\end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+scala> val a = Seq(0, 1, 0)      
+scala> val b = Seq(1, 1, 0)      
+scala> val c = Seq(0, 1, 0)      
+scala> val matrix = Seq(a, b, c)                           
+
+scala> trans(matrix)
+res3: Seq[Seq[Int]] = Vector(Vector(1, 1, 0), Vector(1, 1, 1),
+Vector(1, 1, 0))
+\end{verbatim}
+
+\begin{itemize}
+\item 最終成果物の出力例
+\end{itemize}
+
+\begin{verbatim}
+scala> val a = Seq(0, 1, 0)      
+scala> val b = Seq(1, 1, 0)      
+scala> val c = Seq(0, 1, 0)      
+scala> val matrix = Seq(a, b, c)                           
+
+scala> show(matrix)
+0 1 0
+1 1 0
+0 1 0
+
+scala> show(trans(matrix))
+1 1 0
+1 1 1
+1 1 0
+
+scala> show(trans(trans(matrix)))
+1 0 1
+0 0 1
+1 0 1
+\end{verbatim}
+\end{itemize} % ends low level
+\section*{回答例}
+\label{sec-4}
+
+
+\begin{verbatim}
+ 1:  // 与えられた行列を表示する
+ 2:  def show(matrix: Seq[Seq[Int]]) {
+ 3:    for (row <- 0 until matrix.size)
+ 4:      println(
+ 5:        (0 until matrix.size).map(col => if (matrix(row)(col) == 1) 1 else 0).mkString(" ")
+ 6:      )
+ 7:  }
+ 8:  
+ 9:  // matrix において行番号row, 列番号colにあるセルの周囲のセルの状態を返す
+10:  def getNeighborsState(row: Int, col: Int, matrix: Seq[Seq[Int]]): Seq[Int] = {
+11:    for (x <- -1 to 1; y <- -1 to 1 if (x != 0 || y != 0))
+12:      yield (row + x, col + y) match {
+13:      case (-1, _) => 0
+14:      case (_, -1) => 0
+15:      case (m, n) => if (m == matrix.size || n == matrix.size) 0 else matrix(m)(n)
+16:    }
+17:  }
+18:  
+19:  // 次世代のセルの状態を返す
+20:  def getNextCellState(current: Int, neighbors: Seq[Int]): Int = {
+21:    if (current == 1)
+22:      if ((neighbors.count(_ == 1) == 2) || (neighbors.count(_ == 1) == 3)) 1 else 0
+23:    else if (neighbors.count(_ == 1) == 3) 1 else 0
+24:  }
+25:  
+26:  // 与えられた行列に対して次世代の行列を返す
+27:  def trans(matrix: Seq[Seq[Int]]): Seq[Seq[Int]] = {
+28:    assert(matrix.forall(_.size == matrix.size))
+29:  
+30:    for (row <- 0 until matrix.size)
+31:      yield for (col <- 0 until matrix.size)
+32:      yield getNextCellState(matrix(row)(col), getNeighborsState(row, col, matrix))
+33:  }
+\end{verbatim}
+\section*{発展問題 (未実装・要検証)}
+\label{sec-5}
+\begin{itemize}
+
+\item 4x4の行列について，与えた初期状態から動かない初期状態を列挙するプログラム
+\label{sec-5-1}%
+
+\item 4x4の行列について，振動する初期状態を列挙するプログラム
+\label{sec-5-2}%
+
+\item \href{http://en.wikipedia.org/wiki/Rule_30}{ルール30} の1次元のセルオートマトンをシミュレートするプログラム
+\label{sec-5-3}%
+
+\item 任意のルールを受け取る1次元のセルオートマトンシミュレーター
+\label{sec-5-4}%
+\end{itemize} % ends low level
+
+\end{document}

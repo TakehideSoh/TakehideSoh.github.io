@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Scarab: Documents</title>
+<!-- 2015-12-12 土 11:03 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="[[http://kix.istc.kobe-u.ac.jp/~soh/][Takehide Soh]]Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Scarab: Documents</h1>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-6313627-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</div>
+
+<table class="menu" border="0" cellspacing="0" cellpadding="20" width="900px">
+<tr>
+<td class="menu" bgcolor="#3B5998"><a href="index.html">Home</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="examples.html">Examples</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="doc.html">Documents</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="advanced.html">Advanced Usage</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="tutorial.html">Tutorial</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="apps.html">Apps</a></td>
+</tr>
+</table>
+
+<div id="content">
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This web page details <b>Scarab</b> system which is a prototyping tool for
+developing SAT-based systems. It provides a rich constraint modeling
+language on Scala and enables a programmer to rapidly specify problems
+and to experiment with different modelings.
+</p>
+</div>
+<ul class="org-ul"><li><a id="sec-1-1" name="sec-1-1"></a><b>Expressiveness:</b><br  /><div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Scarab DSL can concisely write constraint modelings with the help of rich functionalities of Scala.
+</li>
+<li>The expressiveness of Scarab will be also shown by some prototyping examples for an optimization version of Square Packing.
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-1-2" name="sec-1-2"></a><b>Efficiency:</b><br  /><div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>Scarab can be efficient in the sense that it uses an optimized version of the order encoding which an award-winning CSP solver <a href="http://bach.istc.kobe-u.ac.jp/sugar/">Sugar</a> adopted.
+</li>
+<li>Scarab also can utilize current state-of-the-art SAT techniques.
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-1-3" name="sec-1-3"></a><b>Customizability:</b><br  /><div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>Scarab allows a programmer to customize his/her own constraints and to customize the search strategies.
+</li>
+<li>Scarab itself can be also customizable since it is <b>500</b> lines
+(800 lines in version 1.0.4) long without any comments.
+</li>
+<li>In particular, our core part of order encoding module is only <b>25</b> lines long.
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-1-4" name="sec-1-4"></a><b>Portability:</b><br  /><div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li>The current version of Scarab adopts <a href="http://www.sat4j.org">Sat4j</a> as the back-end SAT solver. 
+</li>
+<li>The combination of Scarab and Sat4j makes it possible to develop portable SAT-based systems that run on any platform supporting Java.
+</li>
+</ul>
+</div>
+</li></ul>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Presentation Slide</h2>
+<div class="outline-text-2" id="text-2">
+</div><ul class="org-ul"><li><a id="sec-2-1" name="sec-2-1"></a><a href="talk.pdf">ScalaMatsuri2014</a><br  /></li>
+<li><a id="sec-2-2" name="sec-2-2"></a>(JP) <a href="talk-jp.pdf">ScalaMatsuri2014-jp</a><br  /></li></ul>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Scarab Paper (Presented in PoS-13)</h2>
+<div class="outline-text-2" id="text-3">
+</div><ul class="org-ul"><li><a id="sec-3-1" name="sec-3-1"></a>You can also see details of Scarab from a <a href="./pos2013scarab.pdf">paper</a> presented in PoS-13.<br  /></li></ul>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Process Flow of Scarab</h2>
+<div class="outline-text-2" id="text-4">
+<center>
+
+<div class="figure">
+<p><img src="figs/process_flow_v4.png" alt="process_flow_v4.png" />
+</p>
+</div>
+</center>
+</div>
+<ul class="org-ul"><li><a id="sec-4-1" name="sec-4-1"></a><b>User Program (in Scala and Scarab DSL):</b><br  /><div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li>The process starts with a user program, which will first define Scarab objects
+</li>
+<li>Those definitions are typically done by the followng Scala program:
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">csp</span> = <span style="color: #a020f0;">new</span> CSP()
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">satSolver</span> = <span style="color: #a020f0;">new</span> Sat4j()
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">encoder</span> = <span style="color: #a020f0;">new</span> OrderEncoder(csp,satSolver)
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">solver</span> = <span style="color: #a020f0;">new</span> Solver(csp,satSolver,encoder)
+</pre>
+</div>
+<ul class="org-ul">
+<li>Each line creates a new CSP object (<b>csp</b>), SAT solver object (<b>satSolver</b>), Encoder object (<b>encoder</b>), and Solver object (<b>solver</b>), which are shown in the above figure.
+</li>
+<li>Initially, of course, the CSP object has nothing and the next task is to add contents of it
+</li>
+<li>To do that, Scarab DSL provides the following methods for constructing a CSP:
+<ul class="org-ul">
+<li><b>int</b>, <b>bool</b> for adding integer variables and Boolean variables to the CSP object.
+</li>
+<li><b>add</b> for adding constraints to the CSP object.
+</li>
+<li>The syntax of constraints in Scarab is given below in this page.
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-4-2" name="sec-4-2"></a><b>CSP Object:</b><br  /><div class="outline-text-3" id="text-4-2">
+<ul class="org-ul">
+<li>A CSP object consists of the followings, which will be defined in the user program:
+<ol class="org-ol">
+<li>integer variables
+</li>
+<li>Boolean variables
+</li>
+<li>domain function of integer variables
+</li>
+<li>constraints
+</li>
+</ol>
+</li>
+<li>All objects above are defined as var objects. Totally, CSP is a mutable object.
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-4-3" name="sec-4-3"></a><b>Encoder (Decoder):</b><br  /><div class="outline-text-3" id="text-4-3">
+<ul class="org-ul">
+<li>It encodes each element of a given CSP according to SAT encoding method (currently, order encoding)
+</li>
+<li>Simultaneously, encoded SAT clauses are passed to Sat4j solver on memory
+</li>
+<li>It also decodes assignments of SAT variables to assiginments of CSP variables by using a mapping object.
+</li>
+</ul>
+</div>
+</li>
+<li><a id="sec-4-4" name="sec-4-4"></a><b>Sat4j:</b><br  /><div class="outline-text-3" id="text-4-4">
+<ul class="org-ul">
+<li>Scarab provides an interface to Sat4j and can directly call it.
+</li>
+<li>Thus, we can use Sat4j without generating CNF files, invoking outer processes, and parsing output logs.
+</li>
+<li>After solving problems, we can obtain assignments of SAT variables
+</li>
+</ul>
+</div>
+</li></ul>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">Syntax of Scarab DSL (for Constraints)</h2>
+<div class="outline-text-2" id="text-5">
+</div><ul class="org-ul"><li><a id="sec-5-1" name="sec-5-1"></a>Let <b>V</b>, <b>T</b>, <b>C</b> and <b>B</b> be the Scarab objects of <b>Var</b>, <b>Term</b>, <b>Constraint</b>, and <b>Bool</b>.<br  /></li>
+<li><a id="sec-5-2" name="sec-5-2"></a>Let Int, String, and Any be Scala objects.<br  /></li>
+<li><a id="sec-5-3" name="sec-5-3"></a>The syntax of Scarab DSL is defined as follows:<br  /><div class="outline-text-3" id="text-5-3">
+<pre class="example">
+T  ::= V | -T | T + Int | T + T | T - Int | T - T | T * Int | Sum(V, ...) | Sum(Seq(V, ...))  
+V  ::= Var(String, String, ...) | V(Any, ...)
+C  ::= B | T op T | !C | C &amp;&amp; C | C || C | alldiff(Seq(T, ...)) |  
+      And(C, ...) | And(Seq(C, ...)) | Or(C, ...) | Or(Seq(C, ...))
+op ::= &lt;= | &lt; | =&gt; | &gt; | === | !==
+B  ::= Bool(String, String, ...) | B(Any, ...)
+</pre>
+</div>
+</li>
+
+<li><a id="sec-5-4" name="sec-5-4"></a>Examples of Constraint<br  /><ul class="org-ul"><li><a id="sec-5-4-1" name="sec-5-4-1"></a>A constraint \(x_{1} + 3 \le 4\) is written as follows<br  /><div class="outline-text-4" id="text-5-4-1">
+<div class="org-src-container">
+
+<pre class="src src-scala">'x(1) + 3 &lt;= 4
+</pre>
+</div>
+</div>
+</li></ul>
+</li></ul>
+</div>
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">API Documents and Class Diagrams of Scarab</h2>
+<div class="outline-text-2" id="text-6">
+</div><ul class="org-ul"><li><a id="sec-6-1" name="sec-6-1"></a><a href="./docs/index.html">Scarab API</a> (see also Sat4j version 2.3.3 API <a href="./sat4j/doc/index.html">Sat4j API</a>)<br  /></li>
+<li><a id="sec-6-2" name="sec-6-2"></a>CSP package<br  /><div class="outline-text-3" id="text-6-2">
+<center>
+
+<div class="figure">
+<p><img src="figs/class_diagram_csp.png" alt="class_diagram_csp.png" />
+</p>
+</div>
+</center>
+</div>
+</li>
+<li><a id="sec-6-3" name="sec-6-3"></a>Solver package<br  /><div class="outline-text-3" id="text-6-3">
+<center>
+
+<div class="figure">
+<p><img src="figs/class_diagram_solver.png" alt="class_diagram_solver.png" />
+</p>
+</div>
+</center>
+</div>
+</li></ul>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: <a href="http://kix.istc.kobe-u.ac.jp/~soh/">Takehide Soh</a></p>
+<p class="date">Created: 2015-12-12 土 11:03</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,1102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Javaプログラミング入門</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Javaプログラミング入門"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-09-29 21:44:48 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="/include/mathjax/MathJax.js">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Javaプログラミング入門</h1>
+
+<ul>
+<li><a href="java.html">Javaプログラミング入門</a>
+</li>
+<li><a href="java-wc.html">Javaで語を数える</a>
+</li>
+</ul>
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Javaとは何?</a>
+<ul>
+<li><a href="#sec-1-1">1.1 参考リンク</a></li>
+<li><a href="#sec-1-2">1.2 Java言語の特徴: Cとの違いを中心に</a></li>
+<li><a href="#sec-1-3">1.3 HelloKobeプログラム</a></li>
+<li><a href="#sec-1-4">1.4 AccAppletプログラム</a></li>
+<li><a href="#sec-1-5">1.5 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 オブジェクト指向とは何?</a></li>
+<li><a href="#sec-3">3 オブジェクトとクラス</a>
+<ul>
+<li><a href="#sec-3-1">3.1 クラス定義の例</a></li>
+<li><a href="#sec-3-2">3.2 オブジェクト生成の例</a></li>
+<li><a href="#sec-3-3">3.3 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 クラス階層と継承</a>
+<ul>
+<li><a href="#sec-4-1">4.1 サブクラス定義の例</a></li>
+<li><a href="#sec-4-2">4.2 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 Java言語</a>
+<ul>
+<li><a href="#sec-5-1">5.1 基本データ型</a></li>
+<li><a href="#sec-5-2">5.2 配列オブジェクト</a></li>
+<li><a href="#sec-5-3">5.3 文字列</a></li>
+<li><a href="#sec-5-4">5.4 文</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 プログラム例</a>
+<ul>
+<li><a href="#sec-6-1">6.1 複素数クラスの例</a>
+<ul>
+<li><a href="#sec-6-1-1">6.1.1 練習問題</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Javaとは何?</h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li><b>オブジェクト指向プログラミング言語</b>
+<ul>
+<li>1995年にサン・マイクロシステムズ社(現オラクル)が開発
+</li>
+<li><a href="http://www.oracle.com/jp/technologies/java/">http://www.oracle.com/jp/technologies/java/</a>
+</li>
+</ul>
+
+</li>
+<li><b>アーキテクチャ独立</b>
+<ul>
+<li>計算機のCPUやOSの異なった様々なプラットフォーム上で，
+      同一プログラムを利用できる
+      (Write Once, Run Anywhere)．
+</li>
+<li>Javaプログラムは，
+      抽象機械JVMの機械語にコンパイルされ，
+      JVMインタプリタで実行される．
+</li>
+</ul>
+
+</li>
+<li><b>利用分野</b>
+<ul>
+<li>Webアプリケーション
+</li>
+<li>PDA
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 参考リンク</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<ul>
+<li><a href="http://java.sun.com/docs/books/tutorial/index.html">Java Tutorials</a>
+</li>
+<li>Essentials of the Java Programming Language: A Hands-On Guide
+<ul>
+<li><a href="http://www.oracle.com/technetwork/java/basicjava1-135508.html">Part1</a>
+</li>
+<li><a href="http://www.oracle.com/technetwork/java/basicjava2-138746.html">Part2</a>
+</li>
+</ul>
+
+</li>
+<li><a href="http://mindview.net/Books/TIJ/">Thinking in Java</a>
+</li>
+<li><a href="http://www.javaroad.jp">Javaの道</a>
+</li>
+<li><a href="http://www.pro.or.jp/~fuji/java/">Javaとパズルの世界</a> (藤原さん)
+</li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/lect/ProLang/">プログラミング言語論</a>
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Java言語の特徴: Cとの違いを中心に</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<ul>
+<li>オブジェクト指向言語
+</li>
+<li>Cに似た構文
+</li>
+<li>ポインタがない
+</li>
+<li>配列範囲などの動的なチェック
+</li>
+<li>ガーベジ・コレクション
+</li>
+<li>マルチスレッドのサポート
+</li>
+<li>例外処理
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> HelloKobeプログラム</h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+
+
+<pre class="src src-java"><span class="linenr">1:  </span><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">HelloKobe</span> {
+<span class="linenr">2:  </span>  <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span>(<span class="org-type">String</span> <span class="org-variable-name">args</span>[]) {
+<span class="linenr">3:  </span>    System.out.println(<span class="org-string">"Hello Kobe!"</span>);
+<span class="linenr">4:  </span>  }
+<span class="linenr">5:  </span>}
+</pre>
+
+
+<ol>
+<li><a href="prog/HelloKobe.java">HelloKobe.java</a> を作成する．
+</li>
+<li>コンパイル (HelloKobe.classが作成される)
+<pre class="example">
+$ javac HelloKobe.java
+</pre>
+
+</li>
+<li>実行 (HelloKobe.classが実行される)
+<pre class="example">
+$ java HelloKobe
+</pre>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> AccAppletプログラム</h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">AccApplet</span> <span class="org-keyword">extends</span> <span class="org-type">Applet</span> {
+<span class="linenr"> 2:  </span>  <span class="org-type">Accumulator</span> <span class="org-variable-name">acc</span>;
+<span class="linenr"> 3:  </span>  <span class="org-type">TextField</span> <span class="org-variable-name">accField</span>;
+<span class="linenr"> 4:  </span>  <span class="org-type">TextField</span> <span class="org-variable-name">inputField</span>;
+<span class="linenr"> 5:  </span>
+<span class="linenr"> 6:  </span>  <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">init</span>() {
+<span class="linenr"> 7:  </span>    .....
+<span class="linenr"> 8:  </span>  }
+<span class="linenr"> 9:  </span>
+<span class="linenr">10:  </span>  <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">paint</span>(<span class="org-type">Graphics</span> <span class="org-variable-name">g</span>) {
+<span class="linenr">11:  </span>    ....
+<span class="linenr">12:  </span>  }
+<span class="linenr">13:  </span>}
+<span class="linenr">14:  </span>
+<span class="linenr">15:  </span><span class="org-keyword">class</span> <span class="org-type">Accumulator</span> {
+<span class="linenr">16:  </span>  .....
+<span class="linenr">17:  </span>}
+</pre>
+
+
+<ol>
+<li><a href="prog/AccApplet.java">AccApplet.java</a> を作成し，コンパイルする
+</li>
+<li><a href="prog/AccApplet.html">AccApplet.html</a> を作成する
+</li>
+<li>Webブラウザで <a href="prog/AccApplet.html">AccApplet.html</a> を開くと，
+    AccApplet.classが実行される
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> 練習問題</h3>
+<div class="outline-text-3" id="text-1-5">
+
+<ul>
+<li>HelloKobeプログラムを実際に実行せよ．
+</li>
+<li>AccAppletアプレットを実際に実行せよ．
+<ul>
+<li>右側に数値を入力すると，左側に累計が表示される
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> オブジェクト指向とは何?</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  D. GelernterとS. Jagannathanは，「プログラムとは機械である」
+  と述べている．すなわちプログラムは，物質的な実体は存在しないが，
+  ある機能を実現するための機械の一種(ソフトウェア機械)と考えることができる．
+</p>
+<p>
+  すると，プログラムを設計しコーディングするいうことは，
+  機械を設計し作成することに相当する．
+  機械の設計・作成において，我々は普通，すでにある部品を利用し，
+  それらの機能を組み合わせることによって新しい機能を持った機械あるいは部品を作り上げる．
+</p>
+<p>
+  <b>オブジェクト指向プログラミング</b> は，
+  まさにそれと同じことをプログラムの作成において行うための考え方である．
+  すなわち，なんらかの機能を持った <b>オブジェクト</b> を組み合わせて新しい機能を持ったオブジェクトを構築し，
+  全体として一つのソフトウェア機械を実現するのである．
+</p>
+<p>
+  たとえば，前述の <a href="prog/AccApplet.java">AccApplet.java</a> は，以下のオブジェクトを組み合わせて
+  実現されている．
+</p>
+<ul>
+<li><code>acc</code> : 累計を数える累算器(アキュムレータ)
+</li>
+<li><code>accField</code> : 累算器の値の表示場所
+</li>
+<li><code>inputField</code> : 数の入力場所
+</li>
+</ul>
+
+
+<p>
+  最後の二つはJavaシステムにあらかじめ用意されているオブジェクト
+  (正確には用意されているクラスのオブジェクト)であり，
+  最初の累算器はこのプログラム中で機能を定義しているオブジェクトである．
+</p>
+<p>
+  Javaには数多くのクラスが用意されており，
+  プログラマはこれらおよび自分で定義したオブジェクトを自由に組み合わせて
+  自分のプログラムを作成できる．
+</p>
+<p>
+  Java以外のオブジェクト指向プログラミング言語としては，
+  C++, Objective C, Smalltalk, Python, Perl, Ruby, JavaScriptなどがある．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> オブジェクトとクラス</h2>
+<div class="outline-text-2" id="text-3">
+
+<p> では，Javaでのオブジェクトとはどんなものなのだろうか?
+ 累算器オブジェクトを見ると，以下のようなものから構成されている．
+</p>
+<ul>
+<li>累計を覚えておくint型の変数 <code>accumulator</code>
+</li>
+<li>累計に加算する機能を果たす <code>add</code>
+</li>
+<li>累計を答える機能を果たす <code>value</code>
+</li>
+</ul>
+
+
+<p>
+ 一般には，Javaのオブジェクトは，以下のものから構成される．
+</p>
+<ul>
+<li>オブジェクトの状態を覚えておくための <b>インスタンス変数</b>
+<ul>
+<li>累算器の場合は変数 <code>accumulator</code>
+</li>
+</ul>
+
+</li>
+<li>オブジェクトの機能を果たすための <b>メソッド</b>
+<ul>
+<li>累算器の場合は <code>add</code> と <code>value</code>
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+<p>
+ したがって，オブジェクトを定義するには，インスタンス変数とメソッドを定義すればよい．
+ しかし，プログラム中では
+ 同様の振る舞いをする複数のオブジェクトを必要とすることが多い．
+ たとえば，複数の累算器が必要な場合，それぞれの累算器を別々に定義するのは無駄である．
+</p>
+<p>
+ そこでJavaでは，オブジェクトの型紙となる <b>クラス</b> を定義する．
+ クラスの定義を型紙として，型紙から生成された具体例( <b>インスタンス</b> )が
+ 個々のオブジェクトとなる．
+ オブジェクトの生成はnew命令で行う．
+</p>
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> クラス定義の例</h3>
+<div class="outline-text-3" id="text-3-1">
+
+<p>  <a href="prog/AccTest.java">AccTest.java</a> 中の <code>Accumulator</code> クラスを見てみる．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-keyword">class</span> <span class="org-type">Accumulator</span> {
+<span class="linenr"> 2:  </span>  <span class="org-type">int</span> <span class="org-variable-name">accumulator</span> = 0;
+<span class="linenr"> 3:  </span>
+<span class="linenr"> 4:  </span>  <span class="org-type">void</span> <span class="org-function-name">add</span>(<span class="org-type">int</span> <span class="org-variable-name">x</span>) {
+<span class="linenr"> 5:  </span>    accumulator += x;
+<span class="linenr"> 6:  </span>  }
+<span class="linenr"> 7:  </span>
+<span class="linenr"> 8:  </span>  <span class="org-type">int</span> <span class="org-function-name">value</span>() {
+<span class="linenr"> 9:  </span>    <span class="org-keyword">return</span> accumulator;
+<span class="linenr">10:  </span>  }
+<span class="linenr">11:  </span>}
+</pre>
+
+
+<ul>
+<li>クラス名は <code>Accmulator</code>
+</li>
+<li>累算器の値を覚えておくインスタンス変数 <code>accumulator</code>
+</li>
+<li>渡された値を累算器に加えるメソッド <code>add</code>
+</li>
+<li>現在の累算器の値を返すメソッド <code>value</code>
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> オブジェクト生成の例</h3>
+<div class="outline-text-3" id="text-3-2">
+
+<p>  <a href="prog/AccTest.java">AccTest.java</a> 中の main の部分を見てみる．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">AccTest</span> {
+<span class="linenr"> 2:  </span>  <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span>(<span class="org-type">String</span> <span class="org-variable-name">args</span>[]) {
+<span class="linenr"> 3:  </span>    <span class="org-type">Accumulator</span> <span class="org-variable-name">acc1</span>;
+<span class="linenr"> 4:  </span>    <span class="org-type">Accumulator</span> <span class="org-variable-name">acc2</span>;
+<span class="linenr"> 5:  </span>    acc1 = <span class="org-keyword">new</span> <span class="org-type">Accumulator</span>();
+<span class="linenr"> 6:  </span>    acc2 = <span class="org-keyword">new</span> <span class="org-type">Accumulator</span>();
+<span class="linenr"> 7:  </span>    acc1.add(10);
+<span class="linenr"> 8:  </span>    acc2.add(20);
+<span class="linenr"> 9:  </span>    acc1.add(30);
+<span class="linenr">10:  </span>    acc2.add(40);
+<span class="linenr">11:  </span>    System.out.println(acc1.value());
+<span class="linenr">12:  </span>    System.out.println(acc2.value());
+<span class="linenr">13:  </span>  }
+<span class="linenr">14:  </span>}
+</pre>
+
+
+<p>
+  このプログラムでは，二つのAccumulatorオブジェクトを生成している．
+</p>
+<p>
+  変数 <code>acc1</code>, <code>acc2</code> は，Accumulatorオブジェクトを参照する変数として宣言されている．
+  文 <code>acc1 = new Accumulator()</code> により，
+  新しいAccumulatorオブジェクトが生成され，そのオブジェクトへの参照が
+  <code>acc1</code> に代入される．
+  次の文 <code>acc2 = new Accumulator()</code> も同様である．
+</p>
+<p>
+  それぞれのAccumulatorオブジェクトは，別々のインスタンス変数を持っている．
+</p>
+
+<p>
+<img src="images/java-accumulator1_54c4016c9b66ca9b7df816c04ddc7f20ce1865d0.png"  alt="images/java-accumulator1_54c4016c9b66ca9b7df816c04ddc7f20ce1865d0.png" />
+</p>
+
+
+<p>
+<img src="images/java-accumulator2_ee81e8f6aee7532acef79c9ac59067c75d8b451c.png"  alt="images/java-accumulator2_ee81e8f6aee7532acef79c9ac59067c75d8b451c.png" />
+</p>
+
+<p>
+  オブジェクトに対するメソッドの呼び出しは，以下のようにして行う．
+</p>
+<pre class="example">
+acc1.add(10);
+acc2.add(20);
+</pre>
+
+
+<p>
+  まず <code>acc1</code> の参照しているAccumulatorオブジェクトに対して，
+  <code>add(10)</code> というメソッドを実行し，
+  次に <code>acc2</code> の参照しているAccumulatorオブジェクトに対して，
+  <code>add(20)</code> というメソッドを実行している．
+</p>
+<p>
+  それぞれのオブジェクトのインスタンス変数は，別々だから結局40と60が表示される．
+</p>
+<p>
+  変数 <code>acc1</code>, <code>acc2</code> は，Accumulatorオブジェクトを参照する変数であるという点に注意する．
+  たとえば，以下の代入を行った後は， <code>acc1</code> と <code>acc2</code> は全く同じオブジェクトを
+  参照することになる．
+</p><pre class="example">
+acc1 = acc2;
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> 練習問題</h3>
+<div class="outline-text-3" id="text-3-3">
+
+<ul>
+<li>以下の場合，何が表示されるか．
+<pre class="example">
+acc1 = new Accumulator();
+acc2 = new Accumulator();
+acc1.add(10);
+acc2.add(20);
+acc1 = acc2;
+acc1.add(30);
+acc2.add(40);
+System.out.println(acc1.value());
+System.out.println(acc2.value());
+</pre>
+
+</li>
+<li>Accumulatorクラスの定義に，累算器の値を0にリセットするメソッド
+   <code>void reset()</code> の定義を加えよ．
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> クラス階層と継承</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  前節のAccumulatorクラスを拡張し，
+  これまでの平均値を返すメソッドを追加することを考えよう．
+</p>
+<p>
+  Accumulatorクラス自体の定義を書き換えるのでも良いが，
+  ここではそうせずに，Accという新しいクラスを定義したいとする
+  (たとえば，Accumulatorクラスの定義は他人が書いたものなので変更したくない，などの理由で)．
+</p>
+<p>
+  Accクラスの定義を書いてみると，例えば次のようになるだろう．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-keyword">class</span> <span class="org-type">Acc</span> {
+<span class="linenr"> 2:  </span>  <span class="org-type">int</span> <span class="org-variable-name">accumulator</span> = 0;
+<span class="linenr"> 3:  </span>  <span class="org-type">int</span> <span class="org-variable-name">count</span> = 0;
+<span class="linenr"> 4:  </span>
+<span class="linenr"> 5:  </span>  <span class="org-type">void</span> <span class="org-function-name">add</span>(<span class="org-type">int</span> <span class="org-variable-name">x</span>) {
+<span class="linenr"> 6:  </span>    accumulator += x;
+<span class="linenr"> 7:  </span>    count++;
+<span class="linenr"> 8:  </span>  }
+<span class="linenr"> 9:  </span>
+<span class="linenr">10:  </span>  <span class="org-type">int</span> <span class="org-function-name">value</span>() {
+<span class="linenr">11:  </span>    <span class="org-keyword">return</span> accumulator;
+<span class="linenr">12:  </span>  }
+<span class="linenr">13:  </span>
+<span class="linenr">14:  </span>  <span class="org-type">double</span> <span class="org-function-name">average</span>() {
+<span class="linenr">15:  </span>    <span class="org-keyword">return</span> (<span class="org-type">double</span>)accumulator / (<span class="org-type">double</span>)count;
+<span class="linenr">16:  </span>  }
+<span class="linenr">17:  </span>}
+</pre>
+
+
+<p>
+  この程度ならば，新たにAccクラスを定義するのは簡単である．
+  しかし，元のAccumulatorクラスが多くの機能を持っており，
+  プログラムの規模も大きい場合，
+  ほぼ同じ機能を持った別のAccクラスを新たに定義するのは無駄だろう．
+</p>
+<p>
+  Javaでは，AccクラスをAccumulatorクラスの <b>拡張クラス</b> として
+  定義することで，インスタンス変数やメソッドの定義を <b>継承</b> する
+  ことができる．
+</p>
+<p>
+  拡張クラスは， <b>サブクラス</b> あるいは <b>子クラス</b> とも呼ばれる．
+  逆に，元のクラス(今の場合Accumulatorクラス)は， <b>スーパークラス</b> あるいは
+  <b>親クラス</b> と呼ばれる．
+  すなわち，AccクラスはAccumulatorクラスのサブクラスであり，
+  AccumulatorクラスはAccクラスのスーパークラスである．
+</p>
+<p>
+  サブクラスでは，スーパークラスにあるインスタンス変数やメソッドは，
+  再度定義する必要はなく，そのまま利用できる．
+</p>
+<p>
+  サブクラスおよびスーパークラスというクラス間の関係を <b>クラス階層</b> と呼ぶ．
+  クラス階層は，生物学での生物の分類によく似ている．
+  人間のスーパークラスは哺乳類であり，
+  哺乳類のスーパークラスは脊椎動物，脊椎動物のスーパークラスは動物，
+  動物のスーパークラスは生物と続く．
+</p>
+<p>
+  Javaではクラス階層は木構造になっている．
+  すなわち，どのクラスも複数のスーパークラスを持つことはない．
+  また，Javaでは，クラス階層の頂点にあるスーパークラスは
+  Objectクラスと呼ばれる特別なクラスである．
+  先ほどのAccumulatorクラスはObjectクラスのサブクラスになる．
+</p>
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> サブクラス定義の例</h3>
+<div class="outline-text-3" id="text-4-1">
+
+<p>  Javaでサブクラスを定義する時は，extendsキーワードを用いる．
+  <a href="prog/AccTest2.java">AccTest2.java</a> 中のAccクラスは，
+  Accmulatorクラスのサブクラスとして定義した例である．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-keyword">class</span> <span class="org-type">Acc</span> <span class="org-keyword">extends</span> <span class="org-type">Accumulator</span> {
+<span class="linenr"> 2:  </span>  <span class="org-type">int</span> <span class="org-variable-name">count</span> = 0;
+<span class="linenr"> 3:  </span>
+<span class="linenr"> 4:  </span>  <span class="org-type">void</span> <span class="org-function-name">add</span>(<span class="org-type">int</span> <span class="org-variable-name">x</span>) {
+<span class="linenr"> 5:  </span>    accumulator += x;
+<span class="linenr"> 6:  </span>    count++;
+<span class="linenr"> 7:  </span>  }
+<span class="linenr"> 8:  </span>
+<span class="linenr"> 9:  </span>  <span class="org-type">double</span> <span class="org-function-name">average</span>() {
+<span class="linenr">10:  </span>    <span class="org-keyword">return</span> (<span class="org-type">double</span>)accumulator / (<span class="org-type">double</span>)count;
+<span class="linenr">11:  </span>  }
+<span class="linenr">12:  </span>}
+</pre>
+
+
+<p>
+  スーパークラスのAccmulatorクラスに定義されている
+  インスタンス変数 <code>accumulator</code> とメソッド <code>value</code> は，
+  サブクラスのAccでも同一なので，記述が省かれている．
+  すなわち，これらはAccmulatorクラスから継承されている．
+</p>
+<p>
+  ただし <code>add</code> メソッドは，Accmulatorクラスとは異なっているので，
+  Accクラスで定義し直している．
+  このようなメソッドの再定義を，メソッドの <b>オーバーライド</b> と呼ぶ．
+</p>
+<p>
+  まとめると以下のようになっている．
+</p>
+<ul>
+<li>インスタンス変数 <code>accumulator</code> : 継承
+</li>
+<li>インスタンス変数 <code>count</code> : 追加
+</li>
+<li>メソッド <code>add</code> : オーバーライド
+</li>
+<li>メソッド <code>value</code> : 継承
+</li>
+<li>メソッド <code>average</code> : 追加
+</li>
+</ul>
+
+
+<p>
+  このようにスーパークラスからの違いだけを記述する方法を
+  <b>差分プログラミング</b> という．
+  Javaの継承のメカニズムは，差分プログラミングを可能にしている．
+</p>
+<p>
+  複数のスーパークラスを持つことを許す(多重継承と呼ぶ)
+  オブジェクト指向言語も存在するが，
+  プログラムの動作の理解が困難になる．
+  Javaでは分かりやすさの点から単一継承である．
+</p>
+<p>
+  Accクラスのメソッド <code>add</code> をよく見ると，一部はAccumulatorクラスの <code>add</code> と同一である．
+  この場合は一行だけだから，再度記述しても問題ないが，
+  もっと多い場合にはどのようにすれば良いだろう．
+</p>
+<p>
+  これは，Accクラスの <code>add</code> メソッド内からAccumulatorクラスの <code>add</code> メソッドを
+  呼び出せれば解決する．
+  Javaでスーパークラスのメソッドを呼び出すには， <b>super</b> キーワードを用いる．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr">1:  </span><span class="org-type">void</span> <span class="org-function-name">add</span>(<span class="org-type">int</span> <span class="org-variable-name">x</span>) {
+<span class="linenr">2:  </span>  <span class="org-keyword">super</span>.add(x);
+<span class="linenr">3:  </span>  count++;
+<span class="linenr">4:  </span>}
+</pre>
+
+
+<p>
+  これを <code>super.add(x)</code> ではなく，単に <code>add(x)</code> としたとすると，
+  Accクラスの <code>add</code> メソッドが呼び出されるので無限ループになる．
+</p>
+<p>
+  また， <code>super</code> とよく似たキーワードに <b>this</b> がある．
+  <code>this</code> は，現在操作されようとしているオブジェクト自体を参照する．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> 練習問題</h3>
+<div class="outline-text-3" id="text-4-2">
+
+<ul>
+<li>Accクラスの <code>average</code> メソッドの定義を，
+   <code>value</code> メソッドを利用するように書き直せ．
+</li>
+<li>Accクラスのサブクラスとして，
+   分散を返すメソッド <code>double variance()</code> を持つクラスAccVを定義せよ．
+   \(x_1\), \(x_2\), &hellip;, \(x_n\) の分散 \(v\) は以下の式で求めることができる
+   (ここで &mu; は平均値)．
+   \begin{eqnarray*}
+     v & = & \frac{1}{n} \sum_{i=1}^n x_i^2 - \mu^2
+   \end{eqnarray*}
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Java言語</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>  ここでは，Javaの基本的な構文を説明する．
+</p>
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 基本データ型</h3>
+<div class="outline-text-3" id="text-5-1">
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left"><b>型</b></th><th scope="col" class="left"><b>値</b></th><th scope="col" class="left"><b>サイズ</b></th></tr>
+</thead>
+<tbody>
+<tr><td class="left"><code>byte</code></td><td class="left">符号付き整数 (-128..127)</td><td class="left">8ビット</td></tr>
+<tr><td class="left"><code>short</code></td><td class="left">符号付き整数 (-32768..32767)</td><td class="left">16ビット</td></tr>
+<tr><td class="left"><code>int</code></td><td class="left">符号付き整数 (-2<sup>31</sup>..2<sup>31</sup>-1)</td><td class="left">32ビット</td></tr>
+<tr><td class="left"><code>long</code></td><td class="left">符号付き整数 (-2<sup>63</sup>..2<sup>63</sup>-1)</td><td class="left">64ビット</td></tr>
+<tr><td class="left"><code>float</code></td><td class="left">浮動小数点数</td><td class="left">32ビット</td></tr>
+<tr><td class="left"><code>double</code></td><td class="left">浮動小数点数</td><td class="left">64ビット</td></tr>
+<tr><td class="left"><code>char</code></td><td class="left">ユニコード文字</td><td class="left">16ビット</td></tr>
+<tr><td class="left"><code>boolean</code></td><td class="left">論理値 (trueまたはfalse)</td><td class="left">1ビット</td></tr>
+</tbody>
+</table>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 配列オブジェクト</h3>
+<div class="outline-text-3" id="text-5-2">
+
+<p>  Javaでは，配列はオブジェクトと同様に取り扱われている．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr">1:  </span><span class="org-type">int</span> <span class="org-variable-name">a</span>[];
+<span class="linenr">2:  </span>a = <span class="org-keyword">new</span> <span class="org-type">int</span>[100];
+<span class="linenr">3:  </span><span class="org-keyword">for</span> (<span class="org-type">int</span> <span class="org-variable-name">i</span> = 0; i &lt; a.<span class="org-type">length</span>; i++) {
+<span class="linenr">4:  </span>  a[i] = i;
+<span class="linenr">5:  </span>}
+</pre>
+
+
+<ul>
+<li>上のプログラムで，変数 <code>a</code> は整数配列オブジェクトを参照する変数として宣言されている．
+    <code>a</code> の初期値は <code>null</code> である．
+</li>
+<li>次の文で，サイズ100の整数配列オブジェクトが生成され，
+    <code>a</code> はその配列オブジェクトを参照する．
+</li>
+<li><code>a.length</code> は， <code>a</code> の参照している配列オブジェクトのサイズを値とする．
+</li>
+</ul>
+
+
+<p>
+  多次元配列は以下のように記述する．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr">1:  </span><span class="org-type">double</span> <span class="org-variable-name">m</span>[][];
+<span class="linenr">2:  </span>m = <span class="org-keyword">new</span> <span class="org-type">double</span>[100][200];
+</pre>
+
+
+<p>
+  <code>m[i]</code> は，それぞれサイズ200のdouble配列への参照となる．
+  したがって， <code>m[i][j]</code> で各要素の値を取り出せる．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> 文字列</h3>
+<div class="outline-text-3" id="text-5-3">
+
+<p>  Javaでは， <code>String</code> オブジェクトを文字列として使用する．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr">1:  </span><span class="org-type">String</span> <span class="org-variable-name">s</span>;
+<span class="linenr">2:  </span>s = <span class="org-string">"abracadabra"</span>;
+<span class="linenr">3:  </span>System.out.println(s.length());
+<span class="linenr">4:  </span><span class="org-keyword">if</span> (s.equals(<span class="org-string">"sesami"</span>)) {
+<span class="linenr">5:  </span>  System.out.println(<span class="org-string">"open "</span> + s);
+<span class="linenr">6:  </span>}
+</pre>
+
+
+<p>
+  <code>length</code> は，文字列の長さを返すメソッドである．
+  <code>equals</code> は，文字列の比較を行うメソッドである．
+  <code>+</code> 演算子で連結した文字列を求めることができる．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> 文</h3>
+<div class="outline-text-3" id="text-5-4">
+
+<p>  制御構文は，Cと良く似ている．
+</p><ul>
+<li>if-else文
+</li>
+<li>switch文
+</li>
+<li>for文
+</li>
+<li>while文
+</li>
+<li>do-while文
+</li>
+<li>break文，continue文
+</li>
+</ul>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> プログラム例</h2>
+<div class="outline-text-2" id="text-6">
+
+
+</div>
+
+<div id="outline-container-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> 複素数クラスの例</h3>
+<div class="outline-text-3" id="text-6-1">
+
+
+<p>
+  Complexクラスは他のプログラムからも利用できるように，
+  <a href="prog/Complex.java">Complex.java</a> ファイル中でpublicなクラスとして宣言する．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">Complex</span> {
+<span class="linenr"> 2:  </span>  <span class="org-keyword">public</span> <span class="org-type">double</span> <span class="org-variable-name">re</span> = 0.0;
+<span class="linenr"> 3:  </span>  <span class="org-keyword">public</span> <span class="org-type">double</span> <span class="org-variable-name">im</span> = 0.0;
+<span class="linenr"> 4:  </span>
+<span class="linenr"> 5:  </span>  <span class="org-keyword">public</span> <span class="org-function-name">Complex</span>(<span class="org-type">double</span> <span class="org-variable-name">x</span>, <span class="org-type">double</span> <span class="org-variable-name">y</span>) {
+<span class="linenr"> 6:  </span>    re = x;
+<span class="linenr"> 7:  </span>    im = y;
+<span class="linenr"> 8:  </span>  }
+<span class="linenr"> 9:  </span>
+<span class="linenr">10:  </span>  <span class="org-keyword">public</span> <span class="org-type">Complex</span> <span class="org-function-name">plus</span>(<span class="org-type">Complex</span> <span class="org-variable-name">z</span>) {
+<span class="linenr">11:  </span>    <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">Complex</span>(re + z.re, im + z.im);
+<span class="linenr">12:  </span>  }
+<span class="linenr">13:  </span>
+<span class="linenr">14:  </span>  <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">toString</span>() {
+<span class="linenr">15:  </span>    <span class="org-keyword">return</span> re + <span class="org-string">"+"</span> + im + <span class="org-string">"i"</span>;
+<span class="linenr">16:  </span>  }
+<span class="linenr">17:  </span>}
+</pre>
+
+
+<p>
+  Complexクラス中の
+  <code>Complex(double x, double y)</code> は， <b>コンストラクタ</b> と呼ばれる．
+  コンストラクタは，オブジェクトをnew命令で生成する時に呼び出される．
+</p>
+<p>
+  以下のように複数のコンストラクタを定義できる．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-keyword">public</span> <span class="org-function-name">Complex</span>() {
+<span class="linenr"> 2:  </span>}
+<span class="linenr"> 3:  </span>
+<span class="linenr"> 4:  </span><span class="org-keyword">public</span> <span class="org-function-name">Complex</span>(<span class="org-type">double</span> <span class="org-variable-name">x</span>) {
+<span class="linenr"> 5:  </span>  re = x;
+<span class="linenr"> 6:  </span>}
+<span class="linenr"> 7:  </span>
+<span class="linenr"> 8:  </span><span class="org-keyword">public</span> <span class="org-function-name">Complex</span>(<span class="org-type">double</span> <span class="org-variable-name">x</span>, <span class="org-type">double</span> <span class="org-variable-name">y</span>) {
+<span class="linenr"> 9:  </span>  re = x;
+<span class="linenr">10:  </span>  im = y;
+<span class="linenr">11:  </span>}
+</pre>
+
+
+<p>
+  どのコンストラクタが呼び出されるかは，
+  new命令で生成する時の引数によって異なる．
+</p>
+<p>
+  <code>plus</code> メソッドも，
+  doubleが引数で与えられた場合とComplexオブジェクトが引数で与えられた場合の
+  二通りを定義することもできる．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr">1:  </span><span class="org-keyword">public</span> <span class="org-type">Complex</span> <span class="org-function-name">plus</span>(<span class="org-type">double</span> <span class="org-variable-name">x</span>) {
+<span class="linenr">2:  </span>  <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">Complex</span>(re + x, im);
+<span class="linenr">3:  </span>}
+<span class="linenr">4:  </span>
+<span class="linenr">5:  </span><span class="org-keyword">public</span> <span class="org-type">Complex</span> <span class="org-function-name">plus</span>(<span class="org-type">Complex</span> <span class="org-variable-name">z</span>) {
+<span class="linenr">6:  </span>  <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">Complex</span>(re + z.re, im + z.im);
+<span class="linenr">7:  </span>}
+</pre>
+
+
+<p>
+  <code>toString</code> メソッドは，Complexオブジェクトを文字列に変換するメソッドである．
+  <code>toString</code> メソッドは，文字列に変換する必要がある場合
+  (例えば <code>System.out.println</code> で印刷する場合)に，暗黙的に呼び出される．
+</p>
+<p>
+  <a href="prog/ComplexTest.java">ComplexTest.java</a> が利用例である．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr">1:  </span><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">ComplexTest</span> {
+<span class="linenr">2:  </span>  <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span>(<span class="org-type">String</span> <span class="org-variable-name">args</span>[]) {
+<span class="linenr">3:  </span>    <span class="org-type">Complex</span> <span class="org-variable-name">z1</span>, <span class="org-variable-name">z2</span>, <span class="org-variable-name">z</span>;
+<span class="linenr">4:  </span>    z1 = <span class="org-keyword">new</span> <span class="org-type">Complex</span>(1.0, 2.0);
+<span class="linenr">5:  </span>    z2 = <span class="org-keyword">new</span> <span class="org-type">Complex</span>(3.0, 4.0);
+<span class="linenr">6:  </span>    z = z1.plus(z2).plus(5.0);
+<span class="linenr">7:  </span>    System.out.println(z);
+<span class="linenr">8:  </span>  }
+<span class="linenr">9:  </span>}
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-6-1-1" class="outline-4">
+<h4 id="sec-6-1-1"><span class="section-number-4">6.1.1</span> 練習問題</h4>
+<div class="outline-text-4" id="text-6-1-1">
+
+<ul>
+<li>Complexクラスに，積を計算するメソッド <code>times</code> を追加せよ．
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-09-29 21:44:48 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

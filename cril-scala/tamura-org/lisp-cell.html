@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Lispのデータ構造</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Lispのデータ構造"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-09-29 21:45:01 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Lispのデータ構造</h1>
+
+<ul>
+<li><a href="lisp.html">Lispプログラミング入門</a>
+</li>
+<li><a href="lisp-cell.html">Lispのデータ構造</a>
+</li>
+<li><a href="lisp-sieve.html">Lispでエラトステネスの篩</a>
+</li>
+</ul>
+
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Lispのデータ構造</a></li>
+<li><a href="#sec-2">2 ドット対</a></li>
+<li><a href="#sec-3">3 リスト</a></li>
+<li><a href="#sec-4">4 CARとCDRの語源</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Lispのデータ構造</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>  Lispにおけるドット対(consセル)とリストのデータ構造について説明する．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> ドット対</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  Lispにおいて，基本的なデータ構造はドット対 (dotted pair)である．
+  ドット対はconsセルと呼ばれることもある．
+</p>
+<p>
+  ドット対は，cons 関数によって作成される．
+</p><pre class="example">
+(cons 1 2)
+  (1 . 2)
+</pre>
+
+
+<p>
+  (cons 1 2) により，数値1と数値2のドット対が作成されている．
+  ドット対は (1 . 2) のように表示され，
+  左側は car 要素，右側は cdr 要素と呼ばれる．
+</p>
+<p>
+  ドット対を以下のように図示することにする．
+</p>
+
+
+<center>
+
+<p>
+<img src="images/lisp_2775e2f7dd7e20d509731a8319ee05762293b670.png"  alt="images/lisp_2775e2f7dd7e20d509731a8319ee05762293b670.png" />
+</p>
+
+
+</center>
+
+<p>
+  丸はアトム(数値や記号)を表し，箱がドット対を表している．
+  箱の左側がドット対の左側の要素 (carの部分)，
+  右側が右側の要素 (cdrの部分)に対応する．
+</p>
+<p>
+  (cons (cons 1 2) (cons 3 4)) で作成される
+  データ構造 ((1 . 2) . (3 . 4)) を図示すると以下のようになる．
+</p>
+
+
+<center>
+
+<p>
+<img src="images/lisp_1aea2979ccc093bacaddd8c916ceac8b6becb1cf.png"  alt="images/lisp_1aea2979ccc093bacaddd8c916ceac8b6becb1cf.png" />
+</p>
+
+
+</center>
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> リスト</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+  以下は (1 . nil) で表されるデータ構造の図示である．
+</p>
+
+
+<center>
+
+<p>
+<img src="images/lisp_c7458c2a9d0718fb6b731f963d6e4fc231114b60.png"  alt="images/lisp_c7458c2a9d0718fb6b731f963d6e4fc231114b60.png" />
+</p>
+
+
+</center>
+
+<p>
+  nil を要素とするドット対は，頻繁に利用するので，
+  セル内に <code>/</code> を書いて表すことにする．
+</p>
+
+
+<center>
+
+<p>
+<img src="images/lisp_3ed420f6e5dcf8bfcced3d19db14a02239dd2fc6.png"  alt="images/lisp_3ed420f6e5dcf8bfcced3d19db14a02239dd2fc6.png" />
+</p>
+
+
+</center>
+
+<p>
+  このようにcdr要素がnil (空リスト)となっているドット対は，
+  リストと呼ばれる．
+</p>
+<p>
+  すなわち上のデータ構造は
+  (1) という長さ1のリストを表現していると考える．
+</p><pre class="example">
+(cons 1 nil)
+  (1)
+</pre>
+
+
+<p>
+  つまり，(1) と (1 . nil) の内部データ構造は完全に同一であり，
+  比較しても等しくなる．
+</p><pre class="example">
+(equal '(1 . nil) '(1))
+  t
+</pre>
+
+
+<p>
+  同様に，リスト (1 2 3) をドット対で表すと
+  (1 . (2 . (3 . nil))) となる．
+  以下では，ドット対を左右に並べてわかりやすく表示している．
+</p>
+
+
+<center>
+
+<p>
+<img src="images/lisp_97301d925f3c745353a3a67deb47ef930eabb686.png"  alt="images/lisp_97301d925f3c745353a3a67deb47ef930eabb686.png" />
+</p>
+
+
+</center>
+
+<p>
+  この図から，(1 2 3) すなわち (1 . (2 . (3 . nil))) のcdrが，
+  (2 3) すなわち (2 . (3. nil)) であることが良くわかる．
+</p><pre class="example">
+(cdr '(1 2 3))
+  (2 3)
+</pre>
+
+
+
+
+<center>
+
+<p>
+<img src="images/lisp_63033de2c6da24338819893e3aa5e698c8f3f27f.png"  alt="images/lisp_63033de2c6da24338819893e3aa5e698c8f3f27f.png" />
+</p>
+
+
+</center>
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> CARとCDRの語源</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  最初のLisp処理系はIBM 704上で実装された．
+  IBM 704の1ワードは36ビットで，
+  3ビットのprefix部，15ビットのdecrement部，
+  3ビットのtag部，15ビットのaddress部から構成されていた．
+  Lispのconsセルが1ワードで表現され，
+  address部にcar部分が，decrement部にcdr部分が格納されたため，
+  それぞれを取り出す命令として
+  CAR (Contents of Address part of Register),
+  CDR (Contents of Decrement part of Register)が使用された．
+</p>
+<ul>
+<li><a href="http://www-formal.stanford.edu/jmc/history/lisp/lisp.html">History of Lisp</a> (by John McCarthy)
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-09-29 21:45:01 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

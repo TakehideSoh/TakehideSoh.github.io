@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>プログラミング言語論および演習 (演習前半) <br>** 電卓 **</title>
+<!-- 2013-10-29 火 13:26 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">プログラミング言語論および演習 (演習前半) <br>** 電卓 **</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">木構造 (二分木)</a></li>
+<li><a href="#sec-2">二分木を用いた数式の表現</a></li>
+<li><a href="#sec-3">再帰プログラミングを使って以下のメソッドを実装してみよう</a></li>
+<li><a href="#sec-4">解答例</a></li>
+<li><a href="#sec-5">補足資料</a></li>
+<li><a href="#sec-6">チャレンジ問題</a></li>
+</ul>
+</div>
+</div>
+<style type="text/css">
+#table1 th { font-weight:normal; text-align: left; background-color: #ffeeee; border: none}
+#table1 td { background-color: #ffeeee; border: none}
+
+#table2 th    { background-color: #3B5998; color: white; border-style:
+#solid; border-color: black; border-width: thin; border: none;}
+#table2 td    { background-color: #eeeeee; color: black; border-style: solid; border-color: black; border-width: thin; border: none}
+#table2 td+td { background-color: #efefff; color: black;}
+#table2 td    { text-align: center; background-color: #3B5998; color: white; width:120px}
+#table2 td+td { text-align: center; width:120px; color: black;}
+#table2 td+td+td { text-align: left; width:500px; color: black;}
+
+#table3 th { font-weight:normal; text-align: left;  border: none; background-color: #f1f1f1}
+#table3 td { border: none; background-color: #f1f1f1}
+</style>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">木構造 (二分木)</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>根 (Root)
+<ul class="org-ul">
+<li>未作成
+</li>
+</ul>
+</li>
+<li>節 (Node)
+<ul class="org-ul">
+<li>未作成
+</li>
+</ul>
+</li>
+<li>葉 (Leaf)
+<ul class="org-ul">
+<li>未作成
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">二分木を用いた数式の表現</h2>
+<div class="outline-text-2" id="text-2">
+</div><ul class="org-ul"><li>(1+2)+(3*(1+2)) の表現<br  /><div class="outline-text-3" id="text-2-1">
+<p>
+ <img src="./calc.png">
+</p>
+</div>
+</li>
+<li>Scala による実装<br  /><div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">package</span> recPractice
+
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">CalcStructure</span> {
+  <span style="color: #b22222;">/*</span>
+<span style="color: #b22222;"> * Tree &#12463;&#12521;&#12473;</span>
+<span style="color: #b22222;"> * element      &#26681;&#12494;&#12540;&#12489;&#12434;&#34920;&#12377;&#65294;</span>
+<span style="color: #b22222;"> * left         &#24038;&#12398;&#37096;&#20998;&#26408;</span>
+<span style="color: #b22222;"> * right        &#21491;&#12398;&#37096;&#20998;&#26408;</span>
+<span style="color: #b22222;"> */</span>
+  <span style="color: #a020f0;">abstract</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Tree</span> {
+    <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">op</span>: <span style="color: #228b22;">String</span>
+    <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">left</span>: <span style="color: #228b22;">Tree</span>
+    <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">right</span>: <span style="color: #228b22;">Tree</span>
+  }
+
+  <span style="color: #b22222;">/*</span>
+<span style="color: #b22222;">   * Node &#12463;&#12521;&#12473;</span>
+<span style="color: #b22222;">   */</span>
+  <span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Node</span>(<span style="color: #a0522d;">op</span>: <span style="color: #228b22;">String</span>, <span style="color: #a0522d;">left</span>: <span style="color: #228b22;">Tree</span>, <span style="color: #a0522d;">right</span>: <span style="color: #228b22;">Tree</span>) <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">Tree</span>
+
+  <span style="color: #b22222;">/*</span>
+<span style="color: #b22222;">   * Leaf &#12463;&#12521;&#12473;</span>
+<span style="color: #b22222;">   */</span>
+  <span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>(<span style="color: #a0522d;">op</span>: <span style="color: #228b22;">String</span>) <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">Tree</span> {
+    <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">left</span>: <span style="color: #228b22;">Tree </span>= <span style="color: #008b8b;">null</span>
+    <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">right</span>: <span style="color: #228b22;">Tree </span>= <span style="color: #008b8b;">null</span>
+  }
+
+  <span style="color: #b22222;">/*</span>
+<span style="color: #b22222;">   * Tree &#12398;&#20363;  ((1+2)+(3*(1+2)))</span>
+<span style="color: #b22222;">   * ex1        1+2</span>
+<span style="color: #b22222;">   * ex2        3*(1+2)</span>
+<span style="color: #b22222;">   * ex3        (1+2)+(3*(1+2))</span>
+<span style="color: #b22222;">   */</span>
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ex1</span>: <span style="color: #228b22;">Tree </span>= <span style="color: #a020f0;">new</span> Node(<span style="color: #8b2252;">"+"</span>, <span style="color: #a020f0;">new</span> Leaf(<span style="color: #8b2252;">"1"</span>), <span style="color: #a020f0;">new</span> Leaf(<span style="color: #8b2252;">"2"</span>))
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ex2</span>: <span style="color: #228b22;">Tree </span>= <span style="color: #a020f0;">new</span> Node(<span style="color: #8b2252;">"*"</span>, <span style="color: #a020f0;">new</span> Leaf(<span style="color: #8b2252;">"3"</span>), ex1)
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ex3</span>: <span style="color: #228b22;">Tree </span>= <span style="color: #a020f0;">new</span> Node(<span style="color: #8b2252;">"+"</span>, ex1, ex2)
+}
+</pre>
+</div>
+</div>
+</li></ul>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">再帰プログラミングを使って以下のメソッドを実装してみよう</h2>
+<div class="outline-text-2" id="text-3">
+</div><ul class="org-ul"><li>toString 関数<br  /><ul class="org-ul"><li>(入力) Tree型の tree<br  /></li>
+<li>(出力) String. 数式を表した tree の構造を括弧をつけて文字列にしたもの<br  /></li>
+<li>(出力例) worksheet の出力例を以下に記載する<br  /><div class="outline-text-4" id="text-3-1-3">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ex1</span>: <span style="color: #228b22;">Tree </span>= <span style="color: #a020f0;">new</span> Node(<span style="color: #8b2252;">"+"</span>, <span style="color: #a020f0;">new</span> Leaf(<span style="color: #8b2252;">"1"</span>), <span style="color: #a020f0;">new</span> Leaf(<span style="color: #8b2252;">"2"</span>))
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ex2</span>: <span style="color: #228b22;">Tree </span>= <span style="color: #a020f0;">new</span> Node(<span style="color: #8b2252;">"*"</span>, <span style="color: #a020f0;">new</span> Leaf(<span style="color: #8b2252;">"3"</span>), ex1)
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ex3</span>: <span style="color: #228b22;">Tree </span>= <span style="color: #a020f0;">new</span> Node(<span style="color: #8b2252;">"+"</span>, ex1, ex2)
+
+toString(ex1)               <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res0: String = (1+2)</span>
+toString(ex2)               <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res1: String = (3*(1+2))</span>
+toString(ex3)               <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res2: String = ((1+2)+(3*(1+2)))</span>
+</pre>
+</div>
+</div>
+</li></ul>
+</li>
+<li>calc 関数<br  /><ul class="org-ul"><li>(入力) Tree型の tree<br  /></li>
+<li>(出力) Int. 数式の演算結果を返す<br  /></li>
+<li>(出力例) worksheet の出力例を以下に記載する<br  /><div class="outline-text-4" id="text-3-2-3">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ex1</span>: <span style="color: #228b22;">Tree </span>= <span style="color: #a020f0;">new</span> Node(<span style="color: #8b2252;">"+"</span>, <span style="color: #a020f0;">new</span> Leaf(<span style="color: #8b2252;">"1"</span>), <span style="color: #a020f0;">new</span> Leaf(<span style="color: #8b2252;">"2"</span>))
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ex2</span>: <span style="color: #228b22;">Tree </span>= <span style="color: #a020f0;">new</span> Node(<span style="color: #8b2252;">"*"</span>, <span style="color: #a020f0;">new</span> Leaf(<span style="color: #8b2252;">"3"</span>), ex1)
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ex3</span>: <span style="color: #228b22;">Tree </span>= <span style="color: #a020f0;">new</span> Node(<span style="color: #8b2252;">"+"</span>, ex1, ex2)
+
+calc(ex1)                                 <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res3: Int = 3</span>
+calc(ex2)                                 <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res4: Int = 9</span>
+calc(ex3)                                 <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res5: Int = 12</span>
+</pre>
+</div>
+</div>
+</li></ul>
+</li></ul>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">解答例</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span class="linenr"> 1: </span><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">isNumber</span>(<span style="color: #a0522d;">str</span>: <span style="color: #228b22;">String</span>): <span style="color: #228b22;">Boolean </span>= str <span style="color: #a020f0;">match</span> {
+<span class="linenr"> 2: </span>  <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> <span style="color: #a0522d;">|</span> <span style="color: #8b2252;">"+"</span> =&gt; <span style="color: #008b8b;">false</span>
+<span class="linenr"> 3: </span>  <span style="color: #a020f0;">case</span> <span style="color: #a0522d;">_</span> =&gt; <span style="color: #008b8b;">true</span>
+<span class="linenr"> 4: </span>}   <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; isNumber: (str: String)Boolean</span>
+<span class="linenr"> 5: </span>
+<span class="linenr"> 6: </span><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">toString</span>(<span style="color: #a0522d;">tree</span>: <span style="color: #228b22;">Tree</span>): <span style="color: #228b22;">String </span>= tree <span style="color: #a020f0;">match</span> {
+<span class="linenr"> 7: </span>  <span style="color: #a020f0;">case</span> <span style="color: #a0522d;">_</span>: <span style="color: #228b22;">Leaf =&gt; tree.op</span>
+<span class="linenr"> 8: </span>  <span style="color: #a020f0;">case</span> <span style="color: #a0522d;">_</span>: <span style="color: #228b22;">Node =&gt; {</span>
+<span class="linenr"> 9: </span>    <span style="color: #a020f0;">if</span> (isNumber(tree.op)) <span style="color: #8b2252;">" "</span> + tree.op + <span style="color: #8b2252;">" "</span>
+<span class="linenr">10: </span>    <span style="color: #a020f0;">else</span>
+<span class="linenr">11: </span>      Seq(toString(tree.left), toString(tree.right)).mkString(<span style="color: #8b2252;">"("</span>,tree.op,<span style="color: #8b2252;">")"</span>)
+<span class="linenr">12: </span>  }
+<span class="linenr">13: </span>}   <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; toString: (tree: recPractice.CalcStructure.Tree)String</span>
+<span class="linenr">14: </span>
+<span class="linenr">15: </span>toString(ex1)              <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res0: String = (1+2)</span>
+<span class="linenr">16: </span>toString(ex2)              <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res1: String = (3*(1+2))</span>
+<span class="linenr">17: </span>toString(ex3)              <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res2: String = ((1+2)+(3*(1+2)))</span>
+<span class="linenr">18: </span>
+<span class="linenr">19: </span><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">calc</span>(<span style="color: #a0522d;">tree</span>: <span style="color: #228b22;">Tree</span>): <span style="color: #228b22;">Int </span>= tree <span style="color: #a020f0;">match</span> {
+<span class="linenr">20: </span>  <span style="color: #a020f0;">case</span> <span style="color: #a0522d;">_</span>: <span style="color: #228b22;">Leaf =&gt; tree.op.toInt</span>
+<span class="linenr">21: </span>  <span style="color: #a020f0;">case</span> <span style="color: #a0522d;">_</span>: <span style="color: #228b22;">Node =&gt; {</span>
+<span class="linenr">22: </span>    <span style="color: #a020f0;">if</span> (isNumber(tree.op)) tree.op.toInt
+<span class="linenr">23: </span>    <span style="color: #a020f0;">else</span> tree.op <span style="color: #a020f0;">match</span> {
+<span class="linenr">24: </span>      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> =&gt; calc(tree.left) * calc(tree.right)
+<span class="linenr">25: </span>      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"+"</span> =&gt; calc(tree.left) + calc(tree.right)
+<span class="linenr">26: </span>    }
+<span class="linenr">27: </span>  }
+<span class="linenr">28: </span>}   <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; calc: (tree: recPractice.CalcStructure.Tree)Int</span>
+<span class="linenr">29: </span>
+<span class="linenr">30: </span>calc(ex1)                   <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res3: Int = 3</span>
+<span class="linenr">31: </span>calc(ex2)                   <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res4: Int = 9</span>
+<span class="linenr">32: </span>calc(ex3)                   <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res5: Int = 12</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">補足資料</h2>
+<div class="outline-text-2" id="text-5">
+</div><ul class="org-ul"><li>mkString<br  /><div class="outline-text-3" id="text-5-1">
+<ul class="org-ul">
+<li>Scala ではmkStringを使うことでSeqやListなどから簡単にStringを生成することができる.
+</li>
+<li>1引数のmkStringではデリミタを定義できる．
+</li>
+<li>3引数のmkStringでは，開始文字列，デリミタ，終了文字列を定義できる．
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">list</span> = List(2, 7, 1, 8)
+list: List[Int] = List(2, 7, 1, 8)
+
+scala&gt; list.mkString(<span style="color: #8b2252;">","</span>)
+res0: String = 2,7,1,8
+
+scala&gt; list.mkString(<span style="color: #8b2252;">"--"</span>,<span style="color: #8b2252;">","</span>,<span style="color: #8b2252;">"++"</span>)
+res1: String = --2,7,1,8++
+</pre>
+</div>
+</div>
+</li>
+<li>match式<br  /><div class="outline-text-3" id="text-5-2">
+<ul class="org-ul">
+<li>match式は値に応じて処理を分岐させる．
+</li>
+<li>単純に値が一致するかどうかだけでなく、パターンマッチングで色々な条件でマッチさせることが出来る。
+</li>
+<li>match式も式なので値を返すことができる．
+</li>
+<li>整数値に応じて分岐するのmatch式 (以下，Scala Worksheet の出力)
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 3                                 <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; n  : Int = 3</span>
+n <span style="color: #a020f0;">match</span> {
+        <span style="color: #a020f0;">case</span> 1 =&gt; <span style="color: #8b2252;">"This is one."</span>
+        <span style="color: #a020f0;">case</span> 2 =&gt; <span style="color: #8b2252;">"This is two."</span>
+        <span style="color: #a020f0;">case</span> 3 =&gt; <span style="color: #8b2252;">"This is three."</span>
+}                                         <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res0: String = This is three.</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>match式は値を返す. 
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">str</span> = n <span style="color: #a020f0;">match</span> {
+        <span style="color: #a020f0;">case</span> 1 =&gt; <span style="color: #8b2252;">"This is one."</span>
+        <span style="color: #a020f0;">case</span> 2 =&gt; <span style="color: #8b2252;">"This is two."</span>
+        <span style="color: #a020f0;">case</span> 3 =&gt; <span style="color: #8b2252;">"This is three."</span>
+}                                         <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; str  : String = This is three.</span>
+str                                       <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res0: String = This is three.</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>Tuple もマッチすることができる．記号 _ (アンダースコア) は任意のもの(ここでは任意の整数)にマッチする．
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">pair1</span> = (1, 3)                        <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; pair1  : (Int, Int) = (1,3)</span>
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">pair2</span> = (2, 4)                        <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; pair2  : (Int, Int) = (2,4)</span>
+
+pair1 <span style="color: #a020f0;">match</span> {
+        <span style="color: #a020f0;">case</span> (1, <span style="color: #a0522d;">_</span>) =&gt; <span style="color: #8b2252;">"First element is one."</span>
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">_</span>, 4) =&gt; <span style="color: #8b2252;">"Second element is four."</span>
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">_</span>, <span style="color: #a0522d;">_</span>) =&gt; <span style="color: #8b2252;">"Others."</span>
+}                                         <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res0: String = First element is one.</span>
+
+pair2 <span style="color: #a020f0;">match</span> {
+        <span style="color: #a020f0;">case</span> (1, <span style="color: #a0522d;">_</span>) =&gt; <span style="color: #8b2252;">"First element is one."</span>
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">_</span>, 4) =&gt; <span style="color: #8b2252;">"Second element is four."</span>
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">_</span>, <span style="color: #a0522d;">_</span>) =&gt; <span style="color: #8b2252;">"Others."</span>
+}                                         <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res0: String = Others.</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>case の部分に変数を使うと，マッチしたときにその変数に値を入れてくれる．
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">pair1</span> = (1, 3)               <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; pair1  : (Int, Int) = (1,3)</span>
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">pair2</span> = (2, 4)               <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; pair2  : (Int, Int) = (2,4)</span>
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">pair3</span> = (15, 999)            <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; pair3  : (Int, Int) = (15,999)</span>
+
+pair1 <span style="color: #a020f0;">match</span> {
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">m</span>, <span style="color: #a0522d;">n</span>) =&gt; <span style="color: #8b2252;">"First element is one."</span> + <span style="color: #8b2252;">"Second element is "</span> + n
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">m</span>, 4) =&gt; <span style="color: #8b2252;">"First element is "</span> + m + <span style="color: #8b2252;">" Second element is four."</span>
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">m</span>, <span style="color: #a0522d;">n</span>) =&gt; <span style="color: #8b2252;">"Others."</span> + Seq(m, n).mkString(<span style="color: #8b2252;">"("</span>,<span style="color: #8b2252;">","</span>,<span style="color: #8b2252;">")"</span>)
+}                               <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res0: String = First element is one.Second element is 3</span>
+
+pair2 <span style="color: #a020f0;">match</span> {
+        <span style="color: #a020f0;">case</span> (1, <span style="color: #a0522d;">n</span>) =&gt; <span style="color: #8b2252;">"First element is one."</span> + <span style="color: #8b2252;">"Second element is "</span> + n
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">m</span>, 4) =&gt; <span style="color: #8b2252;">"First element is "</span> + m + <span style="color: #8b2252;">" Second element is four."</span>
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">m</span>, <span style="color: #a0522d;">n</span>) =&gt; <span style="color: #8b2252;">"Others."</span> + Seq(m, n).mkString(<span style="color: #8b2252;">"("</span>,<span style="color: #8b2252;">","</span>,<span style="color: #8b2252;">")"</span>)
+}                               <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res1: String = First element is 2 Second element is four.</span>
+
+pair3 <span style="color: #a020f0;">match</span> {
+        <span style="color: #a020f0;">case</span> (1, <span style="color: #a0522d;">n</span>) =&gt; <span style="color: #8b2252;">"First element is one."</span> + <span style="color: #8b2252;">"Second element is "</span> + n
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">m</span>, 4) =&gt; <span style="color: #8b2252;">"First element is "</span> + m + <span style="color: #8b2252;">" Second element is four."</span>
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">m</span>, <span style="color: #a0522d;">n</span>) =&gt; <span style="color: #8b2252;">"Others."</span> + Seq(m, n).mkString(<span style="color: #8b2252;">"("</span>,<span style="color: #8b2252;">","</span>,<span style="color: #8b2252;">")"</span>)
+}                               <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res2: String = Others.(15,999)</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>if 式を使ってガード条件を記述できる (=&gt; の右側にif文を書くことはもちろんできる)．
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">pair4</span> = (6, 7)              <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; pair4  : (Int, Int) = (6,7)</span>
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">pair5</span> = (6, 6)              <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; pair5  : (Int, Int) = (6,6)</span>
+
+pair4 <span style="color: #a020f0;">match</span> {
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">m</span>, <span style="color: #a0522d;">n</span>) <span style="color: #a020f0;">if</span> m == n =&gt; <span style="color: #8b2252;">"First and second elemnts are the same."</span>
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">m</span>, <span style="color: #a0522d;">n</span>) =&gt; <span style="color: #8b2252;">"First and second elemnts are different."</span>
+}                               <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res3: String = First and second elemnts are different.</span>
+
+pair5 <span style="color: #a020f0;">match</span> {
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">m</span>, <span style="color: #a0522d;">n</span>) <span style="color: #a020f0;">if</span> m == n =&gt; <span style="color: #8b2252;">"First and second elemnts are the same."</span>
+        <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">m</span>, <span style="color: #a0522d;">n</span>) =&gt; <span style="color: #8b2252;">"First and second elemnts are different."</span>
+}                               <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res4: String = First and second elemnts are the same.</span>
+</pre>
+</div>
+</div>
+</li></ul>
+</div>
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">チャレンジ問題</h2>
+<div class="outline-text-2" id="text-6">
+</div><ul class="org-ul"><li>未作成<br  /></li></ul>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Takehide Soh</p>
+<p class="date">Created: 2013-10-29 火 13:26</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 23.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.1)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

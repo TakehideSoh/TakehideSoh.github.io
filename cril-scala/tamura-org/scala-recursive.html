@@ -1,0 +1,1537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Scalaで再帰プログラミング</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Scalaで再帰プログラミング"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2018-02-23 23:11:05 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="/include/mathjax/MathJax.js">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Scalaで再帰プログラミング</h1>
+
+
+<script type="text/javascript" src="prolang.js"></script>
+<ul>
+<li><a href="scala.html">Top</a>
+</li>
+<li><a href="scala-list.html">Scalaでリスト処理</a>
+</li>
+<li><a href="scala-recursive.html">Scalaで再帰プログラミング</a>
+</li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/lect/tfpl/">言語工学のページに戻る</a>
+</li>
+<li><a href="../index.html">プログラミング言語論のページに戻る</a>
+</li>
+</ul>
+
+
+
+
+
+
+<div class="clear"></div>
+<ul>
+<li><a href="scala-complex.html">Scalaで複素数計算</a>
+</li>
+<li><a href="scala-primeruler.html">Scalaで素数ものさしを探す</a>
+</li>
+<li><a href="scala-sieve.html">Scalaでエラトステネスの篩</a>
+</li>
+<li><a href="scala-parser.html">Scalaで言語処理</a>
+</li>
+</ul>
+
+
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 概要</a>
+<ul>
+<li><a href="#sec-1-1">1.1 注意</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 再帰的定義</a>
+<ul>
+<li><a href="#sec-2-1">2.1 階乗</a></li>
+<li><a href="#sec-2-2">2.2 練習問題</a></li>
+<li><a href="#sec-2-3">2.3 フィボナッチ数</a></li>
+<li><a href="#sec-2-4">2.4 練習問題</a></li>
+<li><a href="#sec-2-5">2.5 リストの総和</a></li>
+<li><a href="#sec-2-6">2.6 練習問題</a></li>
+<li><a href="#sec-2-7">2.7 リストの要素のインクリメント</a></li>
+<li><a href="#sec-2-8">2.8 練習問題</a></li>
+<li><a href="#sec-2-9">2.9 ファイルに保存しての実行</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 match構文</a>
+<ul>
+<li><a href="#sec-3-1">3.1 階乗</a></li>
+<li><a href="#sec-3-2">3.2 練習問題</a></li>
+<li><a href="#sec-3-3">3.3 リストの総和</a></li>
+<li><a href="#sec-3-4">3.4 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 末尾再帰</a>
+<ul>
+<li><a href="#sec-4-1">4.1 階乗</a></li>
+<li><a href="#sec-4-2">4.2 練習問題</a></li>
+<li><a href="#sec-4-3">4.3 リストの総和</a></li>
+<li><a href="#sec-4-4">4.4 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 高階関数</a>
+<ul>
+<li><a href="#sec-5-1">5.1 map関数</a></li>
+<li><a href="#sec-5-2">5.2 練習問題</a></li>
+<li><a href="#sec-5-3">5.3 filter関数</a></li>
+<li><a href="#sec-5-4">5.4 練習問題</a></li>
+<li><a href="#sec-5-5">5.5 fold関数</a></li>
+<li><a href="#sec-5-6">5.6 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 総称関数</a>
+<ul>
+<li><a href="#sec-6-1">6.1 リストの長さ</a></li>
+<li><a href="#sec-6-2">6.2 練習問題</a></li>
+<li><a href="#sec-6-3">6.3 map関数</a></li>
+<li><a href="#sec-6-4">6.4 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7 Seqの利用</a>
+<ul>
+<li><a href="#sec-7-1">7.1 練習問題</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 概要</h2>
+<div class="outline-text-2" id="text-1">
+
+<blockquote>
+
+<p>Scalaでの再帰プログラミングについて学ぶ．
+</p>
+</blockquote>
+
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 注意</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<p>  本Webページの作成には <a href="http://orgmode.org/">Emacs org-mode</a> を用い，
+  数式等の表示は <a href="http://www.mathjax.org">MathJax</a> を用いています．
+  IEでは正しく表示されないことがあるため，
+  Firefox, Safari等のWebブラウザでJavaScriptを有効にしてお使いください．
+  また <a href="http://orgmode.org/worg/code/org-info-js/">org-info.js</a> を利用しており，
+  「m」キーをタイプするとinfoモードでの表示になります．
+  利用できるショートカットは「?」で表示されます．
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 再帰的定義</h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 階乗</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<p>  数学では，定義の中に自分自身が現れることがある．
+  たとえば n の階乗は次のように定義される．
+  \begin{eqnarray*}
+  n! & = & \left\{ \begin{array}{ll}
+    1 & (n=0) \\
+    n\times (n-1)! & (n\geq1)
+  \end{array} \right.
+  \end{eqnarray*}
+
+  このように定義の中に自分自身が現れる定義を，
+  <b>再帰的定義</b> (recursive definition)と呼ぶ．
+</p>
+<p>
+  Scalaでは，階乗を求める関数 <code>fact</code> は次のように再帰的に定義できる．
+  なお，Scalaで関数を再帰的定義する場合は，返り値のデータ型を指定する必要がある．
+  下では BigInt としている．
+</p><pre class="example">
+scala&gt; def fact(n: Int): BigInt = if (n == 0) 1 else n * fact(n - 1)
+</pre>
+
+
+<p>
+  実行してみると以下のようになる．
+</p><pre class="example">
+scala&gt; fact(30)
+res: BigInt = 265252859812191058636308480000000
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 練習問題</h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+<div class="answer">
+<ol>
+<li>上の階乗の関数はいくつの階乗まで計算できるだろうか．
+     大きな数の階乗を計算した場合，どのようなエラーが表示されるだろうか．
+</li>
+<li>\(\sum_{i=1}^n 1/i\) をDoubleで計算する関数 <code>g(n)</code> を再帰的に定義せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<pre class="example">
+scala&gt; def g(n: Int): Double = if (n == 0) 0 else 1.0/n + g(n - 1)
+</pre>
+
+<p>       注意: 上の定義は，大きい値から和を計算しているため誤差が大きくなる可能性がある．
+       \(g(n) - \ln n\) は \(n \rightarrow \infty\) でおよそ 0.57721 の値に収束する
+       (オイラー定数)．
+</p><pre class="example">
+scala&gt; g(1000) - math.log(1000)
+res: Double = 0.5777155815682065
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> フィボナッチ数</h3>
+<div class="outline-text-3" id="text-2-3">
+
+<p>  以下の漸化式で定義されるフィボナッチ数を計算する関数を考えよう
+  (参考: <a href="euler-002.html">Project Eulerに挑戦: 問題2</a>)．
+  \begin{eqnarray*}
+     fib(n) & = & \left\{ \begin{array}{ll}
+     n & (n<2) \\
+     fib(n-1)+fib(n-2) & (n\geq 2)
+     \end{array} \right.
+  \end{eqnarray*}
+
+  関数 <code>fib</code> は次のように再帰的に定義できる．
+</p><pre class="example">
+scala&gt; def fib(n: Int): BigInt = if (n &lt; 2) n else fib(n - 1) + fib(n - 2)
+</pre>
+
+
+<p>
+  実行してみると以下のようになる．
+</p><pre class="example">
+scala&gt; fib(30)
+res: BigInt = 832040
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 練習問題</h3>
+<div class="outline-text-3" id="text-2-4">
+
+
+<div class="answer">
+<ol>
+<li><code>fib(50)</code> を実行してみよ．
+</li>
+<li>フィボナッチ数の一般項はどうなるか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       <a href="euler-002.html">Project Eulerに挑戦: 問題2</a> を参照．
+</p></dd>
+</dl>
+
+</li>
+<li><code>fib(n)</code> は，nについて指数的な計算時間を必要とすることを示せ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       <code>fib(n)</code> の再帰呼出しの回数を表す漸化式を考え，
+       その一般項を求めることでわかる．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> リストの総和</h3>
+<div class="outline-text-3" id="text-2-5">
+
+<p>  与えられた整数リストの要素の総和を計算する関数を考えよう．
+  すなわち以下のように動作する関数sumを実装する．
+</p><pre class="example">
+scala&gt; val list = List(3,1,4,2)
+list: List[Int] = List(3, 1, 4, 2)
+scala&gt; sum(list)
+res: Int = 10
+</pre>
+
+
+<p>
+  整数リストxsの要素の総和を計算する関数sum(xs)は，以下のように再帰的に定義できる．
+</p><ol>
+<li>xs が空リストの場合，0 を返す．
+</li>
+<li>xs が空リストでない場合，xs.tail に対して再帰的に総和を求めた値に
+     xs.head を加えた和を返す．
+</li>
+</ol>
+
+
+<p>
+  これをそのままScalaで記述したもの，および実行結果は以下のようになる．
+</p><pre class="example">
+scala&gt; def sum(xs: List[Int]): Int = if (xs.isEmpty) 0 else xs.head + sum(xs.tail)
+sum: (xs: List[Int])Int
+scala&gt; sum(list)
+res: Int = 10
+</pre>
+
+
+<p>
+  xs.tail に対して再帰的に処理するのではなく，
+  以下のように xs.init に対して再帰的に処理することも可能だ．
+</p><pre class="example">
+def sum(xs: List[Int]): Int = if (xs.isEmpty) 0 else xs.last + sum(xs.init)
+</pre>
+
+<p>  しかしリストのデータ構造は，xs.head と xs.tail が効率良く求められるようになっている．
+  したがって xs.tail に対して再帰的に処理するほうが自然だし効率が良い．
+</p></div>
+
+</div>
+
+<div id="outline-container-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> 練習問題</h3>
+<div class="outline-text-3" id="text-2-6">
+
+
+<div class="answer">
+<ol>
+<li>与えられた整数リストの要素の積を計算する関数prodを再帰的に定義せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<pre class="example">
+scala&gt; def prod(xs: List[Int]): Int = if (xs.isEmpty) 1 else xs.head * prod(xs.tail)
+prod: (xs: List[Int])Int
+scala&gt; prod(list)
+res: Int = 24
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> リストの要素のインクリメント</h3>
+<div class="outline-text-3" id="text-2-7">
+
+<p>  与えられた整数リストの各要素をインクリメントする関数を考えよう．
+  すなわち以下のように動作する関数mapIncを実装する．
+</p><pre class="example">
+scala&gt; val list = List(3,1,4,2)
+list: List[Int] = List(3, 1, 4, 2)
+scala&gt; mapInc(list)
+res: List[Int] = List(4, 2, 5, 3)
+</pre>
+
+
+<p>
+  関数mapInc(xs)は，以下のように再帰的に定義できる．
+</p><ol>
+<li>xs が空リストの場合，空リストを返す．
+</li>
+<li>xs が空リストでない場合，xs.tail に対して再帰的に処理した結果のリストの先頭に
+     xs.head+1 を加えたリストを返す．
+</li>
+</ol>
+
+
+<p>
+  これをそのままScalaで記述したもの，および実行結果は以下のようになる．
+</p><pre class="example">
+scala&gt; def mapInc(xs: List[Int]): List[Int] =
+         if (xs.isEmpty) Nil else xs.head + 1 :: mapInc(xs.tail)
+mapInc: (xs: List[Int])List[Int]
+scala&gt; mapInc(list)
+res: List[Int] = List(4, 2, 5, 3)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> 練習問題</h3>
+<div class="outline-text-3" id="text-2-8">
+
+
+<div class="answer">
+<ol>
+<li>与えられた整数リストの偶数要素だけからなるリストを求める関数filterEvenを再帰的に定義せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<pre class="example">
+scala&gt; def filterEven(xs: List[Int]): List[Int] =
+         if (xs.isEmpty) Nil
+         else if (xs.head % 2 == 0) xs.head :: filterEven(xs.tail)
+         else filterEven(xs.tail)
+filterEven: (xs: List[Int])List[Int]
+scala&gt; filterEven(list)
+res: List[Int] = List(4, 2)
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2-9" class="outline-3">
+<h3 id="sec-2-9"><span class="section-number-3">2.9</span> ファイルに保存しての実行</h3>
+<div class="outline-text-3" id="text-2-9">
+
+<p>  上の関数をファイルに保存して実行してみる．
+  まず，以下の内容を記述した <code>Ex.scala</code> ファイルを作成し保存する．
+</p>
+
+
+<pre class="src src-scala"><span class="linenr"> 1:  </span><span class="org-keyword">object</span> <span class="org-variable-name">Ex01</span> {
+<span class="linenr"> 2:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">fact</span>(<span class="org-variable-name">n</span>: <span class="org-type">Int</span>): <span class="org-type">BigInt </span>=
+<span class="linenr"> 3:  </span>    <span class="org-keyword">if</span> (n == 0) 1 <span class="org-keyword">else</span> n * fact(n - 1)
+<span class="linenr"> 4:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">fib</span>(<span class="org-variable-name">n</span>: <span class="org-type">Int</span>): <span class="org-type">BigInt </span>=
+<span class="linenr"> 5:  </span>    <span class="org-keyword">if</span> (n &lt; 2) n <span class="org-keyword">else</span> fib(n - 1) + fib(n - 2)
+<span class="linenr"> 6:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">sum</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>): <span class="org-type">Int </span>=
+<span class="linenr"> 7:  </span>    <span class="org-keyword">if</span> (xs.isEmpty) 0 <span class="org-keyword">else</span> xs.head + sum(xs.tail)
+<span class="linenr"> 8:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">mapInc</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> =
+<span class="linenr"> 9:  </span>    <span class="org-keyword">if</span> (xs.isEmpty) Nil <span class="org-keyword">else</span> xs.head + 1 :: mapInc(xs.tail)
+<span class="linenr">10:  </span>}
+</pre>
+
+
+<p>
+  Scala REPLからロードして実行するには以下のようにする．
+</p><pre class="example">
+$ scala
+scala&gt; :load Ex.scala
+Loading Ex.scala...
+defined module Ex01
+scala&gt; Ex01.fact(10)
+res: BigInt = 3628800
+</pre>
+
+
+<p>
+  Scalaコンパイラでコンパイルして実行するには以下のようにする．
+</p><pre class="example">
+$ scalac Ex.scala
+$ scala
+scala&gt; Ex01.fact(10)
+res: BigInt = 3628800
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> match構文</h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 階乗</h3>
+<div class="outline-text-3" id="text-3-1">
+
+<p>  Scalaのmatch構文を用いると場合分けの処理をわかりやすく記述できる．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">fact</span>(<span class="org-variable-name">n</span>: <span class="org-type">Int</span>): <span class="org-type">BigInt </span>=
+  n <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> 0 =&gt; 1
+    <span class="org-keyword">case</span> <span class="org-variable-name">_</span> =&gt; n * fact(n - 1)
+  }
+</pre>
+
+
+<p>
+  matchの前の n が場合分けの対象で，
+  match以降の case の後が場合分けのパターンを表す．
+  特に <code>_</code> は残りのすべての場合に対応する (Javaのswitch構文のdefaultに対応する)．
+</p></div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 練習問題</h3>
+<div class="outline-text-3" id="text-3-2">
+
+
+<div class="answer">
+<ol>
+<li>match構文を用いて，フィボナッチ数を計算する関数 fib を再帰的に定義せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">fib</span>(<span class="org-variable-name">n</span>: <span class="org-type">Int</span>): <span class="org-type">BigInt </span>=
+  n <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> 0 <span class="org-variable-name">|</span> 1 =&gt; n
+    <span class="org-keyword">case</span> <span class="org-variable-name">_</span> =&gt; fib(n - 1) + fib(n - 2)
+  }
+</pre>
+
+<p>
+       caseのパターンは <code>|</code> で複数の場合を記述できる．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> リストの総和</h3>
+<div class="outline-text-3" id="text-3-3">
+
+<p>  与えられた整数リストの要素の総和を計算する関数sumをmatch構文で定義しよう．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">sum</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>): <span class="org-type">Int </span>=
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; 0
+    <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; x + sum(xs1)
+  }
+</pre>
+
+
+<p>
+  リストの先頭要素 x と残りのリスト xs1 をパターンマッチで取り出している点に注意する．
+</p></div>
+
+</div>
+
+<div id="outline-container-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> 練習問題</h3>
+<div class="outline-text-3" id="text-3-4">
+
+
+<div class="answer">
+<ol>
+<li>match構文を用いて，与えられた整数リストの各要素をインクリメントする関数mapIncを再帰的に定義せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">mapInc</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> =
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; Nil
+    <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; x + 1 :: mapInc(xs1)
+  }
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>match構文を用いて，与えられた整数リストの偶数要素だけからなるリストを求める関数filterEvenを再帰的に定義せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">filterEven</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> =
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; Nil
+    <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> <span class="org-keyword">if</span> x % 2 == 0 =&gt; x :: filterEven(xs1)
+    <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; filterEven(xs1)
+  }
+</pre>
+
+<p>
+       リストの先頭要素 x と残りのリスト xs1 をパターンマッチで取り出し，
+       x の条件を if でチェックしている点に注意する．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 末尾再帰</h2>
+<div class="outline-text-2" id="text-4">
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 階乗</h3>
+<div class="outline-text-3" id="text-4-1">
+
+<p>  上で定義した階乗関数 fact は，大きな n については
+  スタックオーバーフローのエラーが表示される．
+</p><pre class="example">
+scala&gt; fact(10000)
+java.lang.StackOverflowError
+</pre>
+
+
+<p>
+  以下のようにしてJVMのスタックサイズを大きくして scala を起動すれば実行できる
+  (デフォールトのサイズは 512KB)．
+</p><pre class="example">
+$ JAVA_OPTS="-Xss2M" scala
+scala&gt; fact(10000)
+res: BigInt = 284625968...
+</pre>
+
+
+<p>
+  しかし fact のプログラムを書き換えて，
+  スタックの消費量を減らせば，JVMのスタックサイズを大きくする必要がなくなり，
+  メモリの有効利用が図れる．
+</p>
+<p>
+  では，どのようにすればスタックの消費量を減らすことができるのだろうか．
+  fact のプログラムの再帰呼出しの部分を見てみると <code>n * fact(n - 1)</code> のようになっている．
+  したがって fact(10000) の計算では fact(9999) が再帰的に呼び出され，
+  その実行が終了すると fact(10000) の処理に戻ってきて 10000 倍の計算が行われる．
+</p>
+<p>
+  再帰呼出しから戻ってきてから積を計算するのでなく，
+  再帰呼出し過程で積を累積して計算する方法に変更をしてみる．
+  具体的には，以下のように2引数の関数 fact を定義する．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">fact</span>(<span class="org-variable-name">n</span>: <span class="org-type">Int</span>, <span class="org-variable-name">f</span>: <span class="org-type">BigInt</span>): <span class="org-type">BigInt </span>=
+  n <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> 0 =&gt; f
+    <span class="org-keyword">case</span> <span class="org-variable-name">_</span> =&gt; fact(n - 1, n * f)
+  }
+</pre>
+
+
+<p>  
+  n の階乗は fact(n, 1) を実行する．
+</p><pre class="example">
+scala&gt; fact(10000, 1)
+res: BigInt = 284625968...
+</pre>
+
+
+<p>
+  このプログラムでの再帰呼出しの部分は <code>fact(n - 1, n * f)</code> となっており，
+  再帰呼出しから戻って来た場合，そのまま上位に戻るだけである．
+  このような場合，処理系はスタックを消費せずに再帰呼出しを処理できる．
+</p>
+<p>
+  このようなプログラムは <b>末尾再帰的</b> (tail recursive)なプログラムと呼ばれ，
+  処理系は末尾再帰呼出しの最適化を行うことが可能になる．
+</p>
+<p>
+  fact(n) は fact(n, 1) として定義すれば良いが，
+  後者は前者からしか呼び出されることがないため，
+  以下のように前者の内部に定義すれば良い．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">fact</span>(<span class="org-variable-name">n</span>: <span class="org-type">Int</span>): <span class="org-type">BigInt </span>= {
+  <span class="org-keyword">def</span> <span class="org-function-name">fact</span>(<span class="org-variable-name">n</span>: <span class="org-type">Int</span>, <span class="org-variable-name">f</span>: <span class="org-type">BigInt</span>): <span class="org-type">BigInt </span>=
+    n <span class="org-keyword">match</span> {
+      <span class="org-keyword">case</span> 0 =&gt; f
+      <span class="org-keyword">case</span> <span class="org-variable-name">_</span> =&gt; fact(n - 1, n * f)
+    }
+  fact(n, 1)
+}
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> 練習問題</h3>
+<div class="outline-text-3" id="text-4-2">
+
+
+<div class="answer">
+<ol>
+<li>フィボナッチ数を計算する関数も，引数を2つ追加すれば末尾再帰にできる．
+     どのようにすれば良いか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">fib</span>(<span class="org-variable-name">n</span>: <span class="org-type">Int</span>): <span class="org-type">BigInt </span>= {
+  <span class="org-keyword">def</span> <span class="org-function-name">fib</span>(<span class="org-variable-name">n</span>: <span class="org-type">Int</span>, <span class="org-variable-name">f0</span>: <span class="org-type">BigInt</span>, <span class="org-variable-name">f1</span>: <span class="org-type">BigInt</span>): <span class="org-type">BigInt </span>=
+    n <span class="org-keyword">match</span> {
+      <span class="org-keyword">case</span> 0 =&gt; f0
+      <span class="org-keyword">case</span> <span class="org-variable-name">_</span> =&gt; fib(n - 1, f1, f0 + f1)
+    }
+  fib(n, 0, 1)
+}
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> リストの総和</h3>
+<div class="outline-text-3" id="text-4-3">
+
+<p>  与えられた整数リストの要素の総和を計算する関数sumも末尾再帰にできる．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">sum</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>): <span class="org-type">Int </span>= {
+  <span class="org-keyword">def</span> <span class="org-function-name">sum</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">s</span>: <span class="org-type">Int</span>): <span class="org-type">Int </span>=
+    xs <span class="org-keyword">match</span> {
+      <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; s
+      <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; sum(xs1, x + s)
+    }
+  sum(xs, 0)
+}
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> 練習問題</h3>
+<div class="outline-text-3" id="text-4-4">
+
+
+<div class="answer">
+<ol>
+<li>与えられた整数リストの各要素をインクリメントする関数mapIncを末尾再帰的に定義せよ．
+     ヒント: 引数を一つ追加し，再帰呼出しの際にその最後尾にインクリメントした値を追加する．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">mapInc</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> = {
+  <span class="org-keyword">def</span> <span class="org-function-name">mapInc</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">ys</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> =
+    xs <span class="org-keyword">match</span> {
+      <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; ys
+      <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; mapInc(xs1, ys :+ x + 1)
+    }
+  mapInc(xs, Nil)
+}
+</pre>
+
+<p>
+       上の定義では <code>:+</code> により要素をリストの最後尾に追加している．
+       リスト構造を用いた場合，この方法の効率は悪い．
+       <code>x + 1 :: ys</code> で先頭に追加し，xsが空リストの場合に <code>ys.reverse</code> を返すようにするか，
+       最後尾への追加が効率良く行えるデータ構造を用いるのが良い．
+</p></dd>
+</dl>
+
+</li>
+<li>与えられた整数リストの偶数要素だけからなるリストを求める関数filterEvenを末尾再帰的に定義せよ．
+     ヒント: 引数を一つ追加し，再帰呼出しの際にその最後尾に偶数要素を追加する．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">filterEven</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> = {
+  <span class="org-keyword">def</span> <span class="org-function-name">filterEven</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">ys</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> =
+    xs <span class="org-keyword">match</span> {
+      <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; ys
+      <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> <span class="org-keyword">if</span> x % 2 == 0 =&gt; filterEven(xs1, ys :+ x)
+      <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; filterEven(xs1, ys)
+    }
+  filterEven(xs, Nil)
+}
+</pre>
+
+<p>
+       上の定義では <code>:+</code> により要素をリストの最後尾に追加している．
+       リスト構造を用いた場合，この方法の効率は悪い．
+       <code>x + 1 :: ys</code> で先頭に追加し，xsが空リストの場合に <code>ys.reverse</code> を返すようにするか，
+       最後尾への追加が効率良く行えるデータ構造を用いるのが良い．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 高階関数</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>  Scalaでは関数をデータとして利用できる．
+  関数を引数とする関数や，関数を返す関数を <b>高階関数</b> (higher-order function)という．
+</p>
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> map関数</h3>
+<div class="outline-text-3" id="text-5-1">
+
+<p>  与えられた整数リストの各要素をインクリメントする関数mapIncを抽象化し，
+  各要素に適用できる関数を引数として渡せるようにしよう．
+  すなわち以下のように動作する高階関数mapを実装する．
+</p><pre class="example">
+scala&gt; val list = List(3,1,4,2)
+list: List[Int] = List(3, 1, 4, 2)
+scala&gt; map(list, x =&gt; x+1)
+res: List[Int] = List(4, 2, 5, 3)
+</pre>
+
+
+<p>
+  map の2番目の引数は整数を受け取り整数を返す関数だから
+  そのデータ型は <code>Int =&gt; Int</code> となる．
+  このことに注意すると map 関数は以下のように定義できる．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">map</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">f</span>: <span class="org-type">Int =&gt; Int</span>): <span class="org-type">List[Int]</span> =
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; Nil
+    <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; f(x) :: map(xs1, f)
+  }
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 練習問題</h3>
+<div class="outline-text-3" id="text-5-2">
+
+
+<div class="answer">
+<ol>
+<li>上のmap関数を末尾再帰にせよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">map</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">f</span>: <span class="org-type">Int =&gt; Int</span>): <span class="org-type">List[Int]</span> = {
+  <span class="org-keyword">def</span> <span class="org-function-name">map</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">ys</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> =
+    xs <span class="org-keyword">match</span> {
+      <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; ys.reverse
+      <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; map(xs1, f(x) :: ys)
+    }
+  map(xs, Nil)
+}
+</pre>
+
+<p>
+       引数 f は内部メソッド実行中には変化しないので，
+       引数として渡す必要がない点に注意する．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> filter関数</h3>
+<div class="outline-text-3" id="text-5-3">
+
+<p>  次に，与えられた整数リストの偶数要素だけからなるリストを求める関数filterEvenを抽象化し，
+  各要素に適用できる関数を引数として渡せるようにする．
+  すなわち以下のように動作する高階関数filterを実装する．
+</p><pre class="example">
+scala&gt; filter(list, x =&gt; x % 2 == 0)
+res: List[Int] = List(4, 2, 5, 3)
+</pre>
+
+
+<p>
+  2番目の引数のデータ型が <code>Int =&gt; Boolean</code> となることに注意すれば，
+  filter 関数の定義は以下のようになる．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">filter</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">f</span>: <span class="org-type">Int =&gt; Boolean</span>): <span class="org-type">List[Int]</span> =
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; Nil
+    <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> <span class="org-keyword">if</span> f(x) =&gt; x :: filter(xs1, f)
+    <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; filter(xs1, f)
+  }
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> 練習問題</h3>
+<div class="outline-text-3" id="text-5-4">
+
+
+<div class="answer">
+<ol>
+<li>上のfilter関数を末尾再帰にせよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">filter</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">f</span>: <span class="org-type">Int =&gt; Boolean</span>): <span class="org-type">List[Int]</span> = {
+  <span class="org-keyword">def</span> <span class="org-function-name">filter</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">ys</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> =
+    xs <span class="org-keyword">match</span> {
+      <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; ys.reverse
+      <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> <span class="org-keyword">if</span> f(x) =&gt; filter(xs1, x :: ys)
+      <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; filter(xs1, ys)
+    }
+  filter(xs, Nil)
+}
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> fold関数</h3>
+<div class="outline-text-3" id="text-5-5">
+
+<p>  次に，与えられた整数リストの要素の総和を計算する関数sumを抽象化し，
+  要素に適用する関数を引数として渡せるようにする．
+  すなわち以下のように動作する高階関数foldを実装する．
+</p><pre class="example">
+scala&gt; fold(list, 0, (x,y) =&gt; x + y)
+res: Int = 10
+</pre>
+
+
+<p>
+  2番目の引数の 0 は，リストが空リストの場合の値を指定している．
+  3番目の引数のデータ型が <code>(Int,Int) =&gt; Int</code> となることに注意すれば，
+  fold 関数の定義は以下のようになる．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">fold</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">z</span>: <span class="org-type">Int</span>, <span class="org-variable-name">f</span>: <span class="org-type">(Int,Int) =&gt; Int</span>): <span class="org-type">Int </span>=
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; z
+    <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; f(x, fold(xs1, z, f))
+  }
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-5-6" class="outline-3">
+<h3 id="sec-5-6"><span class="section-number-3">5.6</span> 練習問題</h3>
+<div class="outline-text-3" id="text-5-6">
+
+
+<div class="answer">
+<ol>
+<li>上のfold関数は，リストのメソッドのfoldLeftとfoldRightのどちらになっているだろうか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       上のfold関数は，リスト x<sub>1</sub>, x<sub>2</sub>, &hellip;, x<sub>n</sub> について
+       f(x<sub>1</sub>, f(x<sub>2</sub>, &hellip;f(x<sub>n</sub>, z)&hellip;)) を計算している．
+       したがってfoldRightに相当する．
+</p></dd>
+</dl>
+
+</li>
+<li>上のfold関数を末尾再帰にせよ．
+     ただし引数として与えられる関数 f は結合的とする．
+     すなわち任意の x, y, z について f(x,f(y,z)) = f(f(x,y),z) とする．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">fold</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">z</span>: <span class="org-type">Int</span>, <span class="org-variable-name">f</span>: <span class="org-type">(Int,Int) =&gt; Int</span>): <span class="org-type">Int </span>= {
+  <span class="org-keyword">def</span> <span class="org-function-name">fold</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">s</span>: <span class="org-type">Int</span>): <span class="org-type">Int </span>=
+    xs <span class="org-keyword">match</span> {
+      <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; s
+      <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; fold(xs1, f(s, x))
+    }
+  fold(xs, z)
+}
+</pre>
+
+<p>
+       このfold関数は，リスト x<sub>1</sub>, x<sub>2</sub>, &hellip;, x<sub>n</sub> について
+       f(&hellip;f(f(z, x<sub>1</sub>), x<sub>2</sub>)&hellip;, x<sub>n</sub>) を計算している．
+       したがってfoldLeftに相当する．
+       適用する関数が結合的な場合，foldLeftの値とfoldRightの値は同一になる．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 総称関数</h2>
+<div class="outline-text-2" id="text-6">
+
+<p>  ここまではリストについては，整数を要素とするリストを考えてきたが，
+  任意のデータ型のリストについて動作する関数を定義する．
+</p>
+</div>
+
+<div id="outline-container-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> リストの長さ</h3>
+<div class="outline-text-3" id="text-6-1">
+
+<p>  まず，整数リストの長さを求める関数 size を定義してみよう．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">size</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>): <span class="org-type">Int </span>=
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; 0
+    <span class="org-keyword">case</span> <span class="org-variable-name">_</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; 1 + size(xs1)
+  }
+</pre>
+
+
+<p>
+  整数リストに対しては動作するが，文字列リストに対してはエラーとなる．
+</p><pre class="example">
+scala&gt; size(List(3,1,4,2))
+res: Int = 4
+
+scala&gt; size(List("p","i"))
+&lt;console&gt;:9: error: type mismatch;
+</pre>
+
+
+<p>
+  Javaでは <code>class ClassName&lt;T&gt;</code> のようにして，
+  型パラメータ <code>T</code> を持つ総称型 (generic type)を定義できた．
+  Scalaでも同様に総称型を定義できるだけでなく，
+  関数についても以下のように型パラメータを与えた
+  <b>総称関数</b> (generic function)を定義できる．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">size</span>[<span class="org-type">A</span>](<span class="org-variable-name">xs</span>: <span class="org-type">List[A]</span>): <span class="org-type">Int </span>=
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; 0
+    <span class="org-keyword">case</span> <span class="org-variable-name">_</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; 1 + size(xs1)
+  }
+</pre>
+
+
+<p>
+  ここで <code>size</code> の直後の <code>[A]</code> が型パラメータの指定で，
+  <code>A</code> が型パラメータ名である．
+  引数 xs のデータ型は，型パラメータを用いて <code>List[A]</code> と指定されている．
+</p>
+<p>
+  この関数は，整数リストに対しても文字列リストに対しても動作する．
+</p><pre class="example">
+scala&gt; size(List("p","i"))
+res: Int = 2
+
+scala&gt; size(List(3,1,4,2))
+res: Int = 4
+</pre>
+
+
+<p>
+  関数呼び出し時は <code>size[Int](List(3,1,4,2))</code> のように
+  データ型を指定しなくても良い点に注意する(もちろん指定しても良い)．
+  これは，Scala処理系が型推論によりデータ型を推論しているためである．
+</p></div>
+
+</div>
+
+<div id="outline-container-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> 練習問題</h3>
+<div class="outline-text-3" id="text-6-2">
+
+
+<div class="answer">
+<ol>
+<li>上のsize関数を末尾再帰にせよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">size</span>[<span class="org-type">A</span>](<span class="org-variable-name">xs</span>: <span class="org-type">List[A]</span>): <span class="org-type">Int </span>= {
+  <span class="org-keyword">def</span> <span class="org-function-name">size</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[A]</span>, <span class="org-variable-name">s</span>: <span class="org-type">Int</span>): <span class="org-type">Int </span>=
+    xs <span class="org-keyword">match</span> {
+      <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; s
+      <span class="org-keyword">case</span> <span class="org-variable-name">_</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; size(xs1, s + 1)
+    }
+  size(xs, 0)
+}
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>リストの最後の要素を求める関数lastを定義せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">last</span>[<span class="org-type">A</span>](<span class="org-variable-name">xs</span>: <span class="org-type">List[A]</span>): <span class="org-type">A </span>=
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-type">Nil</span> =&gt; x
+    <span class="org-keyword">case</span> <span class="org-variable-name">_</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; last(xs1)
+  }
+</pre>
+
+<p>
+       この定義ではmatch構文中に xs が Nil の場合が含まれていないため，
+       コンパイル時あるいはロード時に
+       "warning: match is not exhaustive!" というwarningが表示される．
+       そのままでも問題なく実行できるが，
+       warningの表示を抑制するには match の直前の <code>xs</code> を
+       <code>(xs: @unchecked)</code> に変更すれば良い．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6-3" class="outline-3">
+<h3 id="sec-6-3"><span class="section-number-3">6.3</span> map関数</h3>
+<div class="outline-text-3" id="text-6-3">
+
+<p>  次に，以前に定義したmap関数を総称化しよう．
+  元の要素のデータ型を <code>A</code> とし，結果の要素のデータ型を <code>B</code> とすると
+  以下のように定義できる．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">map</span>[<span class="org-type">A</span>, <span class="org-type">B</span>](<span class="org-variable-name">xs</span>: <span class="org-type">List[A]</span>, <span class="org-variable-name">f</span>: <span class="org-type">A =&gt; B</span>): <span class="org-type">List[B]</span> =
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; Nil
+    <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; f(x) :: map(xs1, f)
+  }
+</pre>
+
+
+<p>
+  <code>x =&gt; x + 1</code> の関数を適用してみるとエラーとなってしまう
+  (型推論できても良いと思うが&hellip;)．
+</p><pre class="example">
+scala&gt; map(List(3,1,4), x =&gt; x + 1)
+&lt;console&gt;:9: error: missing parameter type
+</pre>
+
+
+<p>
+  関数の引数のデータ型を与えれば正しく実行できる．
+</p><pre class="example">
+scala&gt; map(List(3,1,4), (x: Int) =&gt; x + 1)
+res: List[Int] = List(4, 2, 5)
+
+scala&gt; map(List(3,1,4), (_: Int) + 1)
+res: List[Int] = List(4, 2, 5)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-6-4" class="outline-3">
+<h3 id="sec-6-4"><span class="section-number-3">6.4</span> 練習問題</h3>
+<div class="outline-text-3" id="text-6-4">
+
+
+<div class="answer">
+<ol>
+<li>上のmap関数を末尾再帰にせよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">map</span>[<span class="org-type">A</span>, <span class="org-type">B</span>](<span class="org-variable-name">xs</span>: <span class="org-type">List[A]</span>, <span class="org-variable-name">f</span>: <span class="org-type">A =&gt; B</span>): <span class="org-type">List[B]</span> = {
+  <span class="org-keyword">def</span> <span class="org-function-name">map</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[A]</span>, <span class="org-variable-name">ys</span>: <span class="org-type">List[B]</span>): <span class="org-type">List[B]</span> =
+    xs <span class="org-keyword">match</span> {
+      <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; ys.reverse
+      <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; map(xs1, f(x) :: ys)
+    }
+  map(xs, Nil)
+}
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>以前に定義したfilter関数を総称化せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">filter</span>[<span class="org-type">A</span>](<span class="org-variable-name">xs</span>: <span class="org-type">List[A]</span>, <span class="org-variable-name">f</span>: <span class="org-type">A =&gt; Boolean</span>): <span class="org-type">List[A]</span> =
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; Nil
+    <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> <span class="org-keyword">if</span> f(x) =&gt; x :: filter(xs1, f)
+    <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; filter(xs1, f)
+  }
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>以前に定義したfold関数を総称化せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">fold</span>[<span class="org-type">A</span>, <span class="org-type">B</span>](<span class="org-variable-name">xs</span>: <span class="org-type">List[A]</span>, <span class="org-variable-name">z</span>: <span class="org-type">B</span>, <span class="org-variable-name">f</span>: <span class="org-type">(A,B) =&gt; B</span>): <span class="org-type">B </span>=
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-type">Nil</span> =&gt; z
+    <span class="org-keyword">case</span> <span class="org-variable-name">x</span> <span class="org-variable-name">::</span> <span class="org-variable-name">xs1</span> =&gt; f(x, fold(xs1, z, f))
+  }
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Seqの利用</h2>
+<div class="outline-text-2" id="text-7">
+
+<p>  ここまで List クラスを用いたプログラムを提示してきたが，
+  Seq クラスを用いたほうがより汎用的になる．
+</p>
+<p>
+  たとえば List に対して定義した以下のsum関数は，Seq, Vector, Range 等に対して適用できない．
+</p><pre class="example">
+scala&gt; def sum(xs: List[Int]): Int = if (xs.isEmpty) 0 else xs.head + sum(xs.tail)
+sum: (xs: List[Int])Int
+scala&gt; sum(List(3,1,4,2))
+res: Int = 10
+scala&gt; sum(Seq(3,1,4,2))
+&lt;console&gt;:9: error: type mismatch;
+scala&gt; sum(1 to 10)
+&lt;console&gt;:9: error: type mismatch;
+</pre>
+
+
+<p>
+  一方，Seq は List, Vector, Range 等の上位クラスであるので，
+  いずれにも適用できる．
+</p><pre class="example">
+scala&gt; def sum(xs: Seq[Int]): Int = if (xs.isEmpty) 0 else xs.head + sum(xs.tail)
+sum: (xs: Seq[Int])Int
+scala&gt; sum(List(3,1,4,2))
+res: Int = 10
+scala&gt; sum(Seq(3,1,4,2))
+res: Int = 10
+scala&gt; sum(1 to 10)
+res: Int = 55
+</pre>
+
+
+<p>
+  ただし Seq では <code>::</code> で先頭要素を追加することはできない．
+  代わりに <code>+:</code> を用いる必要がある．
+</p><pre class="example">
+scala&gt; 0 :: Seq(3,1,4)
+&lt;console&gt;:8: error: value :: is not a member of Seq[Int]
+scala&gt; 0 +: Seq(3,1,4)
+res: Seq[Int] = List(0, 3, 1, 4)
+</pre>
+
+
+<p>
+  また <code>::</code> をパターンマッチに用いることはできない．
+  代わりに以下のように記述する必要がある．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">sum</span>(<span class="org-variable-name">xs</span>: <span class="org-type">Seq[Int]</span>): <span class="org-type">Int </span>=
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-type">Seq</span>() =&gt; 0
+    <span class="org-keyword">case</span> <span class="org-type">Seq</span>(<span class="org-variable-name">x</span>, <span class="org-variable-name">xs1</span> <span class="org-variable-name">@</span> <span class="org-variable-name">_*</span>) =&gt; x + sum(xs1)
+  }
+</pre>
+
+
+<p>
+  ここで <code>Seq()</code> は空の Seq のパターンを表し，
+  <code>Seq(x, xs1 @ _*)</code> は先頭が x で残りが xs1 となっている Seq のパターンを表す．
+  正確には <code>_*</code> が残りを表すパターンで，
+  <code>@</code> の前の xs1 がパターンに一致する部分の名前を表している．
+</p>
+</div>
+
+<div id="outline-container-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-7-1">
+
+
+<div class="answer">
+<ol>
+<li>Seqに対するlast関数を定義せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">last</span>[<span class="org-type">A</span>](<span class="org-variable-name">xs</span>: <span class="org-type">Seq[A]</span>): <span class="org-type">A </span>=
+  xs <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-type">Seq</span>(<span class="org-variable-name">x</span>) =&gt; x
+    <span class="org-keyword">case</span> <span class="org-type">Seq</span>(<span class="org-variable-name">_</span>, <span class="org-variable-name">xs1</span> <span class="org-variable-name">@</span> <span class="org-variable-name">_*</span>) =&gt; last(xs1)
+  }
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2018-02-23 23:11:05 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>プログラミング言語論および演習 (演習前半) <br>** 環境のセットアップ **</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="プログラミング言語論および演習 (演習前半) <br>** 環境のセットアップ **"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-10-04 16:44:27 JST"/>
+<meta name="author" content="Takehide Soh"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">プログラミング言語論および演習 (演習前半) <br>** 環境のセットアップ **</h1>
+
+
+<style type="text/css">
+#table1 th { font-weight:normal; text-align: left; background-color: #ffeeee; border: none}
+#table1 td { background-color: #ffeeee; border: none}
+
+#table2 th    { background-color: #3B5998; color: white; border-style:
+#solid; border-color: black; border-width: thin; border: none;}
+#table2 td    { background-color: #eeeeee; color: black; border-style: solid; border-color: black; border-width: thin; border: none}
+#table2 td+td { background-color: #efefff; color: black;}
+#table2 td    { text-align: center; background-color: #3B5998; color: white; width:120px}
+#table2 td+td { text-align: center; width:120px; color: black;}
+#table2 td+td+td { text-align: left; width:500px; color: black;}
+
+#table3 th { font-weight:normal; text-align: left;  border: none; background-color: #f1f1f1}
+#table3 td { border: none; background-color: #f1f1f1}
+</style>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 講義資料ファイル prolang.tar.gz のダウンロードと展開</a></li>
+<li><a href="#sec-2">2 Scala へのパスを通す</a></li>
+<li><a href="#sec-3">3 Eclipse の起動と Scala IDE のインストール</a></li>
+<li><a href="#sec-4">4 Eclipse にプロジェクトをインポートする</a></li>
+<li><a href="#sec-5">5 Scala Worksheet で遊んでみる</a></li>
+<li><a href="#sec-6">6 参考資料</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 講義資料ファイル prolang.tar.gz のダウンロードと展開</h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li id="sec-1-1"><font size="+2" color="blue">操作</font><br/>
+<ol>
+<li><a href="./prolang.tar.gz">ここ</a> をクリックして講義資料のファイル prolang.tar.gz をダウンロードする. 
+</li>
+<li>以下のコマンドを実行 (コピー&amp;ペーストしましょう♪) <br> 
+
+
+
+<pre class="src src--sh">cd                               # &#12507;&#12540;&#12512;&#12487;&#12451;&#12524;&#12463;&#12488;&#12522;&#12408;&#31227;&#21205;
+mv ~/Downloads/prolang.tar ./    # prolang.tar &#12434;&#12507;&#12540;&#12512;&#12487;&#12451;&#12524;&#12463;&#12488;&#12522;&#12408;&#31227;&#21205;
+tar xvzf prolang.tar             # prolang.tar &#12434;&#23637;&#38283;
+</pre>
+
+<ul>
+<li><font color="red">(注意)</font> Safari のデフォルト設定ではダウンロードしたファイルが自動的に prolang.tar へと解凍されます．他のブラウザを使用しているなどで解凍されない場合は上記の説明の prolang.tar を prolang.tar.gz に変更して実行してください．
+</li>
+</ul>
+
+</li>
+</ol>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-2"><font size="+2" color="red">確認</font><br/>
+<ol>
+<li>以下のコマンドの実行結果を確認する
+
+
+
+<pre class="src src--sh">cd prolang                       # prolang &#12487;&#12451;&#12524;&#12463;&#12488;&#12522;&#12408;&#31227;&#21205;
+pwd                               
+</pre>
+
+</li>
+<li><font color="red"><b>チェック!</b></font> 以下のように出力されればOK! <br>
+     <b>/home*/ユーザ名/prolang</b> 
+</li>
+</ol>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-3"><font size="+2" color="red">確認</font><br/>
+<ol>
+<li>以下のコマンドの実行結果を確認する
+
+
+
+<pre class="src src--sh">echo $PATH                       # &#12497;&#12473;&#12398;&#24773;&#22577;&#12434;&#30906;&#35469;
+</pre>
+
+</li>
+<li><font color="red"><b>チェック!</b></font> 特にパスを変えてな
+     ければ以下のように出力される <br>
+<ul>
+<li><i>home4/soh/prolang/scala-2.10.2/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/local/bin</i>:/opt/local/sbin/:/usr/local/mysql/bin/:/opt/X11/bin:/usr/X11/bin:/usr/local/ncbi/blast/bin
+</li>
+</ul>
+
+</li>
+</ol>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Scala へのパスを通す</h2>
+<div class="outline-text-2" id="text-2">
+
+<ul>
+<li id="sec-2-1"><font size="+2" color="blue">操作</font><br/>
+<ol>
+<li>以下のコマンドを実行
+
+
+
+<pre class="src src--java">cd
+cd prolang/scala-2.10.2/bin
+pwd                         # <span style="color: #8b2252;">"&#20986;&#21147;&#30906;&#35469;"</span> /home*/&#12518;&#12540;&#12470;&#21517;/prolang/scala-2.10.2/bin
+E=`pwd`; echo export PATH=$E:\$PATH &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</pre>
+
+</li>
+</ol>
+
+</li>
+</ul>
+<ul>
+<li id="sec-2-2"><font size="+2" color="red">確認</font><br/>
+<ol>
+<li>以下のコマンドの実行結果を確認する
+
+
+
+<pre class="src src--sh">scala -version
+</pre>
+
+</li>
+<li><font color="red"><b>チェック!</b></font> 以下のように表示されればOK!<br>
+      <b>Scala code runner version 2.10.2 &ndash; Copyright 2002-2013, LAMP/EPFL</b> 
+</li>
+</ol>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Eclipse の起動と Scala IDE のインストール</h2>
+<div class="outline-text-2" id="text-3">
+
+<ol>
+<li>Eclipse を起動
+<ol>
+<li>画面右下にある [アプリケーション] をクリックするとアプリケーショ
+          ンフォルダの内容が表示されるので，eclipse と書かれた青紫色のアイコンを Dock へドラッグする
+</li>
+<li>Dock へ Eclipse が配置されたらダブルクリックして Eclipse を
+          起動する
+</li>
+</ol>
+
+</li>
+<li>ワークスペース・ランチャーが立ち上がるので <b>/home*/ユーザ名/prolang/</b> を指定する
+</li>
+<li>[ヘルプ] -&gt; [新規ソフトウェアのインストール] を選択
+</li>
+<li>開いたウィンドウの [作業対象] のところに以下をコピーして，ペースト
+<table  border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" id="table3">
+<caption></caption>
+<colgroup><col class="left" />
+</colgroup>
+<tbody>
+<tr><td class="left"><a href="http://download.scala-ide.org/sdk/e38/scala210/stable/site" id="table3">http://download.scala-ide.org/sdk/e38/scala210/stable/site</a></td></tr>
+</tbody>
+</table>
+
+</li>
+<li>Scala IDE の項目が白い枠内に表示されるので，[すべて選択] をチェックし，[次へ] をクリック. <br> (表示されない場合は [作業対象] のところで Return キーを押してみる)
+</li>
+<li>インストール詳細画面になる．[次へ].
+</li>
+<li>ライセンスをレビュー画面になる．使用条件の条項に同意しますをチェックして，[完了].
+</li>
+<li>Scala IDE のインストールが始まる．セキュリティー警告が出るが [ok] をクリックして進める．
+</li>
+<li>インストールが完了したら再起動するかどうか聞かれるので，[はい] をクリック．
+</li>
+<li>再起動すると Run Scala Setup Dianostics が出る．[はい] をクリック．
+</li>
+<li>Setup Dianostics 画面の Scala JDT の項目で [推奨されたデフォルト設定を使用する] をチェックして [OK] をクリック.
+</li>
+</ol>
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Eclipse にプロジェクトをインポートする</h2>
+<div class="outline-text-2" id="text-4">
+
+<ol>
+<li>[ファイル] -&gt; [インポート]
+</li>
+<li>インポート画面が開くので，[一般] -&gt; [既存プロジェクトをワークスペースへ] を選択し，[次へ] をクリック．
+</li>
+<li>ルートディレクトリの選択をチェックし，参照ボタンを押して prolang ディレクトリの下にある week01 を選択する．/home*/ユーザ名/prolang/week01 と表示される．
+</li>
+<li>[完了] をクリック
+</li>
+</ol>
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Scala Worksheet で遊んでみる</h2>
+<div class="outline-text-2" id="text-5">
+
+<ol>
+<li>プロジェクトがインポートできたら，左側にある [プロジェクト・エクスプローラー] の中にある [week01] -&gt; [/src/main/scala/] -&gt; [listPractice] を選択してみる．
+</li>
+<li>test.sc が出てくるのでダブルクリック
+</li>
+<li>test.sc では書いたコードが1行1行評価される．試しに 1+3 と入力して command + s を押すと計算結果である 4 が右側に表示される
+</li>
+</ol>
+
+<ul>
+<li id="sec-5-1">Scala Worksheet への日本語入力でエラーが出る場合<br/>
+<ul>
+<li>[Eclipse] -&gt; [環境設定] -&gt; [ワークスペース] -&gt; [テキスト・ファイル・エンコード] で [その他] にチェックを入れ UTF-8 を指定する
+</li>
+<li>参考
+<ul>
+<li>本家サイト <a href="https://sites.google.com/site/scalajp/home/scala-pitfalls/file_encoding">https://sites.google.com/site/scalajp/home/scala-pitfalls/file\_encoding</a>
+</li>
+<li>Java Drive <a href="http://www.javadrive.jp/eclipse3/setup/index1.html">http://www.javadrive.jp/eclipse3/setup/index1.html</a>
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 参考資料</h2>
+<div class="outline-text-2" id="text-6">
+
+<ul>
+<li id="sec-6-1">Eclipseのインストール<br/>
+<ol>
+<li>Juno を <a href="http://www.eclipse.org/downloads/download.php?file=/eclipse/downloads/drops4/R-4.2.2-201302041200/eclipse-SDK-4.2.2-macosx-cocoa-x86_64.tar.gz">ここ</a> からダウンロードして展開
+</li>
+</ol>
+
+</li>
+</ul>
+<ul>
+<li id="sec-6-2">Eclipseの日本語化 (<a href="http://www.cyber-funnel.com/eclipse/index301.html">参考</a>)<br/>
+<ol>
+<li>Eclipse を起動
+</li>
+<li>[Help] -&gt; [Install New Software] -&gt; [add] -&gt; 以下を入力し [ok]
+        をクリック
+<table  border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" id="table3">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">Name</th><th scope="col" class="left">babel</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">Location</td><td class="left"><a href="http://archive.eclipse.org/technology/babel/update-site/R0.10.0/juno" id="table3">http://archive.eclipse.org/technology/babel/update-site/R0.10.0/juno</a></td></tr>
+</tbody>
+</table>
+
+</li>
+<li>Babel Language Packs in Japanese のチェックボックスをオンにし
+        て [Next] をクリック
+</li>
+<li>ダウンロードする項目の一覧が表示されるので [Next] をクリック
+</li>
+<li>使用許諾契約をよく読んだ上で I accept the terms of the license
+        agreement のラジオボタンをチェックし [Next] をクリック
+</li>
+<li>ダウンロードとインストールが開始される (途中 Security Warning
+        が出るので [ok] をクリックする).
+</li>
+</ol>
+
+
+
+
+
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2013-10-04 16:44:27 JST</p>
+<p class="author">Author: Takehide Soh</p>
+<p class="creator">Org version 7.8.11 with Emacs version 23</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

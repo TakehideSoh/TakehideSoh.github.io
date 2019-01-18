@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>プログラミング言語論および演習 (演習前半) <br>** 複素数の計算 **</title>
+<!-- 2013-10-30 水 15:29 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">プログラミング言語論および演習 (演習前半) <br>** 複素数の計算 **</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">複素数のクラスを作る (オブジェクト，クラス等の説明は後述する)</a>
+<ul>
+<li><a href="#sec-1-1">まずは手を動かしてみよう</a></li>
+<li><a href="#sec-1-2">クラス，オブジェクト，関数</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">演習: 複素数クラスを完成させてみよう</a>
+<ul>
+<li><a href="#sec-2-1">複素数クラスに減算関数 minus を定義 (1引数)</a></li>
+<li><a href="#sec-2-2">複素数クラスに乗算関数 times を定義 (1引数)</a></li>
+<li><a href="#sec-2-3">複素数クラスにマイナスを計算する関数 negate を定義 (引数なし)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<style type="text/css">
+#table1 th { font-weight:normal; text-align: left; background-color: #ffeeee; border: none}
+#table1 td { background-color: #ffeeee; border: none}
+
+#table2 th    { background-color: #3B5998; color: white; border-style:
+#solid; border-color: black; border-width: thin; border: none;}
+#table2 td    { background-color: #eeeeee; color: black; border-style: solid; border-color: black; border-width: thin; border: none}
+#table2 td+td { background-color: #efefff; color: black;}
+#table2 td    { text-align: center; background-color: #3B5998; color: white; width:120px}
+#table2 td+td { text-align: center; width:120px; color: black;}
+#table2 td+td+td { text-align: left; width:500px; color: black;}
+
+#table3 th { font-weight:normal; text-align: left;  border: none; background-color: #f1f1f1}
+#table3 td { border: none; background-color: #f1f1f1}
+</style>
+<p>
+このページは「<a href="http://bach.istc.kobe-u.ac.jp/lect/ProLang/org/scala-complex.html">Scalaで複素数計算</a>」 を「プログラミング言語論および演習(演習前半)」用に再構成したものです．
+このページではScalaを使って複素数計算をする方法について説明します．
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">複素数のクラスを作る (オブジェクト，クラス等の説明は後述する)</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">まずは手を動かしてみよう</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+ここではまずまず複素数のクラスを作って動かしてみる．クラス等の説明については後述する．
+Scalaでクラスを定義する場合 case class を用いるのが便利である．
+複素数の実数部を re で，虚数部を im で表し， 複素数のクラス Complex は以下のように定義する．
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Complex</span>(<span style="color: #a0522d;">re</span>: <span style="color: #228b22;">Double</span>, <span style="color: #a0522d;">im</span>: <span style="color: #228b22;">Double</span>)
+</pre>
+</div>
+
+<p>
+クラスに関数 (ここでは複素数の和) を定義する場合は以下のように書ける．
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Complex</span>(<span style="color: #a0522d;">re</span>: <span style="color: #228b22;">Double</span>, <span style="color: #a0522d;">im</span>: <span style="color: #228b22;">Double</span>) = {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">plus</span>(<span style="color: #a0522d;">that</span>: <span style="color: #228b22;">Complex</span>): <span style="color: #228b22;">Complex </span>= Complex(re + that.re, im + that.im)
+}
+</pre>
+</div>
+
+<p>
+Scala Worksheet を使って Complex クラスのオブジェクト (注1) を作ってテストしてみよう．
+</p>
+<ul class="org-ul">
+<li>1つめのオブジェクトは実数部が1, 虚数部が2
+</li>
+<li>2つめのオブジェクトは実数部が2，虚数部が3
+</li>
+</ul>
+
+<p>
+(注1) この注は分からなければ読飛ばして良いです．Scala におけるシングルトンオブジェクト object ではなく，クラスから生成された実体一般のことをここではオブジェクトと呼ぶことにします．
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #b22222;">// </span><span style="color: #b22222;">Scala Worksheet &#12398;&#35352;&#36848;&#12398;&#20363;</span>
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">ComplexTest</span> {
+  Complex(1,2)                              <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res0: complex.Complex = Complex(1.0,2.0)</span>
+  Complex(2,3)                              <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res1: complex.Complex = Complex(2.0,3.0)</span>
+
+  Complex(1,2).plus(Complex(2,3))           <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res2: complex.Complex = Complex(3.0,5.0)</span>
+}
+
+<span style="color: #b22222;">// </span><span style="color: #b22222;">&#35079;&#32032;&#25968;&#12463;&#12521;&#12473;&#12398;&#23450;&#32681;</span>
+<span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Complex</span>(<span style="color: #a0522d;">re</span>: <span style="color: #228b22;">Double</span>, <span style="color: #a0522d;">im</span>: <span style="color: #228b22;">Double</span>) = {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">plus</span>(<span style="color: #a0522d;">that</span>: <span style="color: #228b22;">Complex</span>): <span style="color: #228b22;">Complex </span>= Complex(re + that.re, im + that.im)
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">クラス，オブジェクト，関数</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><ul class="org-ul"><li>簡単な説明<br  /><div class="outline-text-4" id="text-1-2-1">
+<ul class="org-ul">
+<li>プログラミング言語論の講義でオブジェクトとクラスについては説明される (<a href="http://bach.istc.kobe-u.ac.jp/lect/ProLang/org/java.html">URL</a>) 予定なので，ここでは簡単に説明する．
+</li>
+<li>オブジェクト指向プログラミングではなんらかの機能を持った オブジェクト を組み合わせて新しい機能を持ったオブジェクトを構築し， 全体として一つのソフトウェア機械を実現する．
+</li>
+<li>しかし，同じ機能をもつ類似のオブジェクトを別々に定義するのは効率が悪い．
+</li>
+<li>Scala ではオブジェクトの型紙となるクラスを定義する．
+</li>
+<li>クラスの定義を型紙として，型紙から生成された具体例 (インスタンス) が個々のオブジェクトとなる．
+</li>
+<li>一般には Scala のクラスはインスタンス変数と関数から構成される．
+</li>
+</ul>
+</div>
+</li>
+
+<li>複素数クラスを用いた説明<br  /><div class="outline-text-4" id="text-1-2-2">
+<ul class="org-ul">
+<li>上記の例ではインスタンス変数としてDouble型の実数部reと虚数部imを持つ複素数クラスを定義している．
+</li>
+<li>また複素数同士の加算を行う plus 関数を定義している. 
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">plus</span>(<span style="color: #a0522d;">that</span>: <span style="color: #228b22;">Complex</span>): <span style="color: #228b22;">Complex </span>= Complex(re + that.re, im + that.im)
+</pre>
+</div>
+<ul class="org-ul">
+<li>この関数は他の複素数  <font color="red">that</font> を引数として与え，関数  <font color="red">plus(that)</font> を呼出すと， this (現在のオブジェクト)と that の和になっている新しい複素数が返るようにする．
+</li>
+<li> <font color="red">def</font> は関数定義を意味するキーワードで，  <font color="red">plus</font> が定義する関数名である． that は引数を表す変数名を表しており，その直後の Complex は引数 that の データ型を表している (もちろん引数名は that ではなく他の名前を用いても良い)． その後の Complex は plus 関数が返す値のデータ型を表す． そして  <font color="red">=</font> の後に関数の定義本体を記述する．
+</li>
+<li>複素数の和は，関数呼出しの対象である複素数オブジェクトの this と， 引数として与えられた複素数オブジェクト that について， 実数部の和と虚数部の和をそれぞれ求め， それらを実数部と虚数部にした複素数オブジェクトを生成すれば良い．
+</li>
+<li>実数部の和は  <font color="red">re + that.re</font> (あるいは  <font color="red">this.re + that.re</font>) で求められ， 虚数部の和は  <font color="red">im + that.im</font> (あるいは  <font color="red">this.im + that.im</font>) で求められる．
+</li>
+<li>なお上記の関数は波括弧を省略した形であり以下のようにも書ける．関数の定義が複数行になるときはこのように波括弧で囲む．
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">plus</span>(<span style="color: #a0522d;">that</span>: <span style="color: #228b22;">Complex</span>): <span style="color: #228b22;">Complex </span>= {
+  Complex(re + that.re, im + that.im)
+}
+</pre>
+</div>
+</div>
+</li></ul>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">演習: 複素数クラスを完成させてみよう</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">複素数クラスに減算関数 minus を定義 (1引数)</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>(出力例) 未作成
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">複素数クラスに乗算関数 times を定義 (1引数)</h3>
+<div class="outline-text-3" id="text-2-2">
+<ul class="org-ul">
+<li>(出力例) 未作成
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3">複素数クラスにマイナスを計算する関数 negate を定義 (引数なし)</h3>
+<div class="outline-text-3" id="text-2-3">
+<ul class="org-ul">
+<li>(出力例) 未作成
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Takehide Soh</p>
+<p class="date">Created: 2013-10-30 水 15:29</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 23.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.1)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

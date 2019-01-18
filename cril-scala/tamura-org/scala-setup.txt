@@ -1,0 +1,17 @@
+#+AUTHOR: 田村直之
+#+STARTUP: content showstars
+# #+STARTUP: customtime
+#+LANGUAGE: ja
+#+OPTIONS: toc:t H:3 num:t author:t creator:nil todo:t pri:nil tags:nil LaTeX:t ^:t
+#+MATHJAX: align:"left" mathml:nil path:"/include/mathjax/MathJax.js"
+#+STYLE: <link rel="stylesheet" type="text/css" href="/include/org-common.css">
+#+STYLE: <link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+#+STYLE: <link rel="stylesheet" type="text/css" href="prolang.css">
+#+MACRO: ans @<a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)@</a> 
+#+MACRO: hint @<a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)@</a> 
+#+MACRO: em @<span class="emphasis">$1@</span>
+#+INFOJS_OPT: view:showall toc:t tdepth:2 ltoc:nil mouse:#ffffcc path:/include/org-info.js
+# #+INFOJS_OPT: view:info toc:t tdepth:2 ltoc:nil mouse:#ffffcc path:/include/org-info.js
+#+LINK: scala-api http://www.scala-lang.org/api/current/
+#+LINK: wikipedia-en https://en.wikipedia.org/wiki/
+#+LINK: wikipedia-ja https://ja.wikipedia.org/wiki/

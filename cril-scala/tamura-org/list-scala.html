@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Scalaで多項式計算</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Scalaで多項式計算"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-09-29 21:45:58 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Scalaで多項式計算</h1>
+
+<ul>
+<li><a href="list.html">リスト処理の例: 多項式計算</a>
+</li>
+<li><a href="list-c.html">C版</a>
+</li>
+<li><a href="list-lisp.html">Lisp版</a>
+</li>
+<li><a href="list-prolog.html">Prolog版</a>
+</li>
+<li><a href="list-java.html">Java版</a>
+</li>
+<li><a href="list-scala.html">Scala版</a>
+</li>
+</ul>
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 定数倍</a></li>
+<li><a href="#sec-2">2 加算</a></li>
+<li><a href="#sec-3">3 乗算</a></li>
+<li><a href="#sec-4">4 プログラム全体</a></li>
+<li><a href="#sec-5">5 練習問題</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 定数倍</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>  多項式を定数倍した新しい多項式を求める関数 mul は以下のように定義できる．
+</p>
+
+
+<pre class="src src-scala"><span class="linenr">1:  </span><span class="org-keyword">def</span> <span class="org-function-name">mul</span>(<span class="org-variable-name">b</span>: <span class="org-type">Int</span>, <span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>) =
+<span class="linenr">2:  </span>  xs.map(b * _)
+</pre>
+
+
+<p>
+  imulではなく，mul としている点に注意する．
+  ScalaでもJavaと同様に，
+  メソッドの <b>オーバーローディング</b> (多重定義，overloading)が可能である．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 加算</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  二つの多項式の和になっている新しい多項式を求める関数 add を作成する．
+</p>
+
+
+<pre class="src src-scala"><span class="linenr">1:  </span><span class="org-keyword">def</span> <span class="org-function-name">add</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">ys</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> =
+<span class="linenr">2:  </span>  <span class="org-keyword">if</span> (xs.isEmpty)
+<span class="linenr">3:  </span>    ys
+<span class="linenr">4:  </span>  <span class="org-keyword">else</span> <span class="org-keyword">if</span> (ys.isEmpty)
+<span class="linenr">5:  </span>    xs
+<span class="linenr">6:  </span>  <span class="org-keyword">else</span>
+<span class="linenr">7:  </span>    xs.head + ys.head :: add(xs.tail, ys.tail)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 乗算</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  二つの多項式の積になっている新しい多項式を求める関数 mul を作成する．
+</p>
+
+
+<pre class="src src-scala"><span class="linenr">1:  </span><span class="org-keyword">def</span> <span class="org-function-name">mul</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">ys</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> =
+<span class="linenr">2:  </span>  <span class="org-keyword">if</span> (xs.isEmpty)
+<span class="linenr">3:  </span>    Nil
+<span class="linenr">4:  </span>  <span class="org-keyword">else</span>
+<span class="linenr">5:  </span>    add(mul(xs.head, ys), 0 :: mul(xs.tail, ys))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> プログラム全体</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  プログラム全体は，以下のようになる．
+</p>
+
+
+<pre class="src src-scala"><span class="linenr"> 1:  </span><span class="org-keyword">object</span> <span class="org-variable-name">Poly</span> {
+<span class="linenr"> 2:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">add</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">ys</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> =
+<span class="linenr"> 3:  </span>    <span class="org-keyword">if</span> (xs.isEmpty)
+<span class="linenr"> 4:  </span>      ys
+<span class="linenr"> 5:  </span>    <span class="org-keyword">else</span> <span class="org-keyword">if</span> (ys.isEmpty)
+<span class="linenr"> 6:  </span>      xs
+<span class="linenr"> 7:  </span>    <span class="org-keyword">else</span>
+<span class="linenr"> 8:  </span>      xs.head + ys.head :: add(xs.tail, ys.tail)
+<span class="linenr"> 9:  </span>
+<span class="linenr">10:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">mul</span>(<span class="org-variable-name">b</span>: <span class="org-type">Int</span>, <span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>) =
+<span class="linenr">11:  </span>    xs.map(b * _)
+<span class="linenr">12:  </span>
+<span class="linenr">13:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">mul</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>, <span class="org-variable-name">ys</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> =
+<span class="linenr">14:  </span>    <span class="org-keyword">if</span> (xs.isEmpty)
+<span class="linenr">15:  </span>      Nil
+<span class="linenr">16:  </span>    <span class="org-keyword">else</span>
+<span class="linenr">17:  </span>      add(mul(xs.head, ys), 0 :: mul(xs.tail, ys))
+<span class="linenr">18:  </span>
+<span class="linenr">19:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">main</span>(<span class="org-variable-name">args</span>: <span class="org-type">Array[String]</span>) {
+<span class="linenr">20:  </span>    println(mul(2, List(1, -1, 0, 2, -3)))
+<span class="linenr">21:  </span>    println(add(List(1, 2, 3), List(1, -2, 3, -4)))
+<span class="linenr">22:  </span>    println(mul(List(1, 2, 3), List(1, -2, 3)))
+<span class="linenr">23:  </span>  }
+<span class="linenr">24:  </span>}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 練習問題</h2>
+<div class="outline-text-2" id="text-5">
+
+<ol>
+<li>二つの多項式の差を求める述語 diff を作成せよ．
+</li>
+<li>多項式と整数bが与えられた時，
+     多項式が単項式 x-b で割り切れるかどうか調べる述語 divisible を作成せよ．
+</li>
+<li>多項式を微分した新しい多項式を求める述語 deriv を作成せよ．
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-09-29 21:45:58 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>ScalaでSGBのデータ処理</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="ScalaでSGBのデータ処理"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2018-02-23 23:11:25 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">ScalaでSGBのデータ処理</h1>
+
+
+<script type="text/javascript" src="prolang.js"></script>
+<ul>
+<li><a href="scala.html">Top</a>
+</li>
+<li><a href="scala-list.html">Scalaでリスト処理</a>
+</li>
+<li><a href="scala-recursive.html">Scalaで再帰プログラミング</a>
+</li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/lect/tfpl/">言語工学のページに戻る</a>
+</li>
+<li><a href="../index.html">プログラミング言語論のページに戻る</a>
+</li>
+</ul>
+
+
+
+
+
+
+<div class="clear"></div>
+<ul>
+<li><a href="scala-complex.html">Scalaで複素数計算</a>
+</li>
+<li><a href="scala-primeruler.html">Scalaで素数ものさしを探す</a>
+</li>
+<li><a href="scala-sieve.html">Scalaでエラトステネスの篩</a>
+</li>
+<li><a href="scala-parser.html">Scalaで言語処理</a>
+</li>
+</ul>
+
+
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 概要</a>
+<ul>
+<li><a href="#sec-1-1">1.1 注意</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 sgb-words.txt</a>
+<ul>
+<li><a href="#sec-2-1">2.1 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 正規表現</a>
+<ul>
+<li><a href="#sec-3-1">3.1 練習問題</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 概要</h2>
+<div class="outline-text-2" id="text-1">
+
+<blockquote>
+
+<p>Stanford Graph Base (SGB)のデータ <code>sgb-words.txt</code> を使って，
+Scalaでのプログラミングについて学ぶ．
+</p>
+</blockquote>
+
+
+<p>
+  <font color="red">以下は，作成中である．</font>
+</p>
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 注意</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<p>  本Webページの作成には <a href="http://orgmode.org/">Emacs org-mode</a> を用い，
+  数式等の表示は <a href="http://www.mathjax.org">MathJax</a> を用いています．
+  IEでは正しく表示されないことがあるため，
+  Firefox, Safari等のWebブラウザでJavaScriptを有効にしてお使いください．
+  また <a href="http://orgmode.org/worg/code/org-info-js/">org-info.js</a> を利用しており，
+  「m」キーをタイプするとinfoモードでの表示になります．
+  利用できるショートカットは「?」で表示されます．
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> sgb-words.txt</h2>
+<div class="outline-text-2" id="text-2">
+
+<p><code>sgb-words.txt</code> は，チューリング賞受賞者の <a href="http://www-cs-faculty.stanford.edu/~knuth/">Knuth氏</a> が収集した，
+5文字からなる英単語のデータファイルである．
+同氏による著名な教科書"The Art of Computer Programming"の演習問題などで利用されている．
+</p>
+<p>
+全部で5757語が含まれており，出現頻度の高いものから順に1行に1語が記載されている
+(複数形や過去形なども含まれている)．
+1行目は <code>which</code> で，最後の5757行目は <code>pupal</code> である．
+</p>
+<p>
+このデータを <code>XXX</code> ディレクトリに保存するには以下のようにする．
+</p><pre class="example">
+$ cd ~/XXX
+$ curl -O http://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt
+</pre>
+
+
+<p>
+以下のようにすると5757行，5757語，34542バイトであることが確認できる．
+</p><pre class="example">
+$ wc sgb-words.txt 
+5757  5757 34542 sgb-words.txt
+</pre>
+
+
+<p>
+行数だけを表示したい場合には，以下のようにする．
+</p><pre class="example">
+$ wc -l sgb-words.txt 
+5757 sgb-words.txt
+</pre>
+
+
+<p>
+出現頻度が1000番目の単語は何だろうか?
+以下のように <code>less</code> コマンドを <code>-N</code> オプションを指定して起動し，
+スペースキーを押してスクロールしていけば，確認できる．
+</p><pre class="example">
+$ less -N sgb-words.txt
+</pre>
+
+<p><code>less</code> コマンドを終了するには，'q'のキーを押す．
+また，'h'のキーを押せばヘルプが表示される．
+</p>
+<p>
+あるいは <code>head</code> コマンドと <code>tail</code> コマンドを組み合すほうが簡単だ．
+</p><pre class="example">
+$ head -1000 sgb-words.txt | tail -1
+ditch
+</pre>
+
+<p>"<code>head -1000 sbg-words.txt</code>"によって，最初の1000行が取り出され，
+"<code>tail -1</code>"によって，その最後の1行目が取り出されている．
+ここで，縦棒 '<code>|</code>' は，その前のコマンドの標準出力を，その後のコマンドの
+標準入力に接続する指示であり，パイプと呼ばれる．
+</p>
+<p>
+英字'e'を含む単語がいくつあるかを調べるにはどうすれば良いだろうか?
+以下のように <code>grep</code> コマンドを使えば，それがわかる．
+</p><pre class="example">
+$ grep e sgb-words.txt | wc -l
+2658
+</pre>
+
+<p>"<code>grep e sbg-words.txt</code>"によって，'e'を含む行が取り出され，
+"<code>wc -l</code>"によって，その行数が求められている．
+</p>
+<p>
+<code>grep</code> コマンドの <code>-v</code> オプションを指定すると，英字'e'を含まない行を取り出せる．
+</p><pre class="example">
+$ grep -v e sgb-words.txt | wc -l
+3099
+</pre>
+
+
+<p>
+英字'e'も'a'も含まない単語はいくつあるだろうか?
+後述の正規表現を用いる方法もあるが，パイプを使えば以下のようにできる．
+</p><pre class="example">
+$ grep -v e sgb-words.txt | grep -v a | wc -l
+1770
+</pre>
+
+
+<p>
+そのような単語で，最も出現頻度の高いものから最初の5個は何だろうか?
+</p><pre class="example">
+$ grep -v e sgb-words.txt | grep -v a | head -5
+which
+would
+words
+could
+first
+</pre>
+
+
+<p>
+もちろん，以下のようにして最初の5個を見てみるのでも良い．
+</p><pre class="example">
+$ grep -v e sgb-words.txt | grep -v a | less
+</pre>
+
+
+<p>
+<code>grep</code> コマンドの <code>-n</code> オプションを指定すると，何行目にあるかがわかる．
+</p><pre class="example">
+$ grep -n japan sgb-words.txt
+5048:japan
+</pre>
+
+
+<p>
+あるいは <code>less</code> コマンド中で，'/'キーを押し，検索語"japan"を指定する方法もある．
+</p><pre class="example">
+$ less -N sgb-words.txt
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<div class="answer">
+<ol>
+<li>出現頻度が2000番目の単語は何か．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       以下のようにする．
+</p><pre class="example">
+$ head -2000 sgb-words.txt | tail -1
+galls
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>英字'e'も'a'も含まない単語で，最も出現頻度の低いものは何か．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       以下のようにする．
+</p><pre class="example">
+$ grep -v e sgb-words.txt | grep -v a | tail -1
+biffy
+</pre>
+
+<p>       次のようにすれば，元々で何番目の出現頻度の単語なのかがわかる．
+</p><pre class="example">
+$ grep -n -v e sgb-words.txt | grep -v a | tail -1
+5756:biffy
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>英字'e'も'a'も含まない単語で，10番目の出現頻度のものは何か．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       以下のようにする．
+</p><pre class="example">
+$ grep -v e sgb-words.txt | grep -v a | head -10 | tail -1
+found
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>出現頻度が1000番目以内で，英字'e'も'a'も含まない単語はいくつあるか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       以下のようにする．
+</p><pre class="example">
+$ head -1000 sgb-words.txt | grep -v e | grep -v a | wc -l
+285
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>英字'k', 'o', 'b', 'e'をすべて含む単語はあるか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       以下のようにする．
+</p><pre class="example">
+$ grep k sgb-words.txt | grep o | grep b | grep e
+broke
+bloke
+kebob
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 正規表現</h2>
+<div class="outline-text-2" id="text-3">
+
+<p><code>grep</code> コマンドを使うと，指定した文字列を含む(あるいは含まない)行を検索できた．
+<code>egrep</code> コマンドを使うと，オートマトンの講義等で学ぶ正規表現を用いて検索できる
+(より正確には， <code>grep</code> では簡単な正規表現しか利用できないが， <code>egrep</code> では
+通常の正規表現が利用できる)．
+</p>
+<p>
+例えば，'a'から始まる単語は以下のようにして検索できる(最初の3語だけを表示している)．
+</p><pre class="example">
+$ egrep '^a' sgb-words.txt | head -3
+about
+after
+again
+</pre>
+
+<p>ここで'<code>^</code>'は，文字列の先頭を表す正規表現の記号である．
+また，上記および以下ではshellによる式の評価を避けるため，
+正規表現の文字列は常にシングルクォート(')で囲んで記述している．
+shellによって評価されない式の場合は，シングルクォートで囲む必要はないが，
+簡単のためそのようにする．
+</p>
+<p>
+次に，'a'から終わる単語は以下のようにして検索できる(最初の3語だけを表示している)．
+</p><pre class="example">
+$ egrep 'a$' sgb-words.txt | head -3
+extra
+opera
+drama
+</pre>
+
+<p>ここで'<code>$</code>'は，文字列の最後を表す正規表現の記号である．
+</p>
+<p>
+任意の1文字を表すには'<code>.</code>'を用いる．したがって，以下は2文字目が'a'の単語を検索している．
+</p><pre class="example">
+$ egrep '^.a' sgb-words.txt | head -3
+water
+large
+earth
+</pre>
+
+
+<p>
+いずれかの文字とマッチさせたい場合は，それらの文字を'<code>[]</code>'で囲む．
+例えば，以下は'a', 'e', 'i', 'o', 'u'のいずれかの文字で始まる単語を検索している．
+</p><pre class="example">
+$ egrep '^[aeiou]' sgb-words.txt | head -3
+about
+other
+after
+</pre>
+
+
+<p>
+文字コードが連続している場合は'<code>-</code>'を使って，文字の範囲を指定できる．
+以下は'w', 'x', 'y', 'z'のいずれかの文字で終わる単語を検索している．
+</p><pre class="example">
+$ egrep '[w-z]$' sgb-words.txt | head -3
+every
+below
+study
+</pre>
+
+
+<p>
+すると，以下はどんな単語を検索しているだろうか?
+</p><pre class="example">
+$ egrep '[a-e][a-e][a-e][a-e][a-e]' sgb-words.txt
+</pre>
+
+
+<p>
+これは，'a'から'e'までの文字だけの単語を検索している(すべての単語が5文字なことに注意)．
+繰り返しを表す'<code>*</code>'を用いれば，これは以下のようにもできる(こちらのほうが簡単だ)．
+</p><pre class="example">
+$ egrep '^[a-e]*$' sgb-words.txt
+</pre>
+
+<p>つまり，先頭の後，'a'から'e'の文字が0回以上繰り返され，文字列の最後に至る場合だけが
+マッチする(オートマトンの動作を思い出そう)．
+</p>
+<p>
+1回以上の繰り返しには'<code>+</code>'を用いる．今の場合，どちらでも同じになる．
+</p><pre class="example">
+$ egrep '^[a-e]+$' sgb-words.txt
+</pre>
+
+
+<p>
+では，母音 '<code>[aeiou]</code>' 以外の文字だけからなる単語を探すにはどうすれば良いか?
+オプション <code>-v</code> を用いれば可能だ．
+</p><pre class="example">
+$ egrep -v '[aeiou]' sgb-words.txt | head -3
+gypsy
+myths
+hymns
+</pre>
+
+
+<p>
+しかし，このオプションを用いずに，正規表現だけで書くことはできないだろうか．
+母音以外の文字にマッチする正規表現は，すべてを列挙して
+'<code>[bcdfghjklmnpqrstvwxyz]</code>' と書ける(大変だ)．
+あるいは，文字の範囲も利用して '<code>[b-df-hj-np-tv-z]</code>' でも良い(少し短くなった)．
+</p>
+<p>
+ところが，便利な表現がある．'<code>[]</code>'中の先頭に'<code>^</code>'を書くと，指定された文字以外とマッチする．
+すなわち '<code>[^aeiou]</code>' は母音以外の文字とマッチする正規表現である．
+結局，以下で母音以外の文字だけからなる単語を探すことができる．
+</p><pre class="example">
+$ egrep '^[^aeiou]*$' sgb-words.txt | head -3
+gypsy
+myths
+hymns
+</pre>
+
+
+<p>
+正規表現には，他にも様々な表現方法があるが，とりあえず以上で説明を終える．
+</p>
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+<div class="answer">
+<ol>
+<li>先頭が'z'の単語はいくつあるか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       以下のようにする．
+</p><pre class="example">
+$ egrep '^z' sgb-words.txt | wc -l
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>最後から2番目の文字が'z'の単語はいくつあるか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       以下のようにする．
+</p><pre class="example">
+$ egrep 'z.$' sgb-words.txt | wc -l
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>先頭が'a'で最後も'a'の単語はいくつあるか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       以下のようにする．
+</p><pre class="example">
+$ egrep '^a...a' sgb-words.txt | wc -l
+</pre>
+
+<p>       もちろん，以下のようにもできる
+</p><pre class="example">
+$ egrep '^a' sgb-words.txt | egrep 'a$' | wc -l
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>'k', 'o', 'b', 'e'の文字だけからなる単語はあるか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       以下のようにする．
+</p><pre class="example">
+$ egrep '^[kobe]+$' sgb-words.txt
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>2文字目が母音以外の単語はいくつあるか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       以下のようにする．
+</p><pre class="example">
+$ egrep '^.[^aeiou]' sgb-words.txt | wc -l
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>'q'の次が'u'以外の単語はあるか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       以下のようにする．
+</p><pre class="example">
+$ egrep 'q[^u]' sgb-words.txt
+qophs
+</pre>
+
+<p>       'q'で終わる単語がないかどうかも確認しておく．
+</p><pre class="example">
+$ egrep 'q$' sgb-words.txt
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>正規表現 '<code>^[^e]*e[^e]*$</code>' はどのような単語にマッチするか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       'e'以外の文字が0回以上繰り返された後，'e'があり，
+       また'e'以外の文字が0回以上繰り返されている．
+       すなわち，文字'e'を1つだけ含む単語にマッチする．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2018-02-23 23:11:25 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

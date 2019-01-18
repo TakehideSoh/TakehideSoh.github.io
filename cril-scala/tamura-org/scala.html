@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Scalaプログラミング入門</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Scalaプログラミング入門"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2018-03-02 22:23:24 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Scalaプログラミング入門</h1>
+
+
+<script type="text/javascript" src="prolang.js"></script>
+<ul>
+<li><a href="scala.html">Top</a>
+</li>
+<li><a href="scala-list.html">Scalaでリスト処理</a>
+</li>
+<li><a href="scala-recursive.html">Scalaで再帰プログラミング</a>
+</li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/lect/tfpl/">言語工学のページに戻る</a>
+</li>
+<li><a href="../index.html">プログラミング言語論のページに戻る</a>
+</li>
+</ul>
+
+
+
+
+
+
+<div class="clear"></div>
+<ul>
+<li><a href="scala-complex.html">Scalaで複素数計算</a>
+</li>
+<li><a href="scala-primeruler.html">Scalaで素数ものさしを探す</a>
+</li>
+<li><a href="scala-sieve.html">Scalaでエラトステネスの篩</a>
+</li>
+<li><a href="scala-parser.html">Scalaで言語処理</a>
+</li>
+</ul>
+
+
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Scalaの概要</a>
+<ul>
+<li><a href="#sec-1-1">1.1 注意</a></li>
+<li><a href="#sec-1-2">1.2 News!</a></li>
+<li><a href="#sec-1-3">1.3 参考リンク</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 インストール</a>
+<ul>
+<li><a href="#sec-2-1">2.1 Javaのインストール</a>
+<ul>
+<li><a href="#sec-2-1-1">2.1.1 Windows系OSの場合</a></li>
+<li><a href="#sec-2-1-2">2.1.2 Mac OS XおよびLinuxの場合</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-2">2.2 Scalaのインストール</a>
+<ul>
+<li><a href="#sec-2-2-1">2.2.1 Windows系OSの場合</a></li>
+<li><a href="#sec-2-2-2">2.2.2 Mac OS XおよびLinuxの場合</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 Scala REPLの起動</a>
+<ul>
+<li><a href="#sec-3-1">3.1 Windows系OSの場合</a></li>
+<li><a href="#sec-3-2">3.2 Mac OS XおよびLinuxの場合</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 Scalaコンパイラ</a></li>
+<li><a href="#sec-5">5 Scalaプログラミング入門の内容</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Scalaの概要</h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li>Martin Oderskyによる <b>関数型かつオブジェクト指向プログラミング言語</b>
+<ul>
+<li>Java 1.1&ndash;1.4コンパイラの開発者
+</li>
+<li>Pizzaの開発者 (Philip Wadlerと共同)
+</li>
+</ul>
+
+</li>
+<li>オープンソース
+<ul>
+<li>活発に開発が行われている
+</li>
+</ul>
+
+</li>
+<li>応用
+<ul>
+<li>Twitterの分散DBフレームワークGizzardはScalaで記述されている
+</li>
+<li>Foursquare, Tumblr, LinkedIn, Amazon, VMWareなどでも利用されている
+</li>
+<li>WebアプリケーションフレームワークとしてLift, Playなどがある
+</li>
+</ul>
+
+</li>
+<li>言語の特徴
+<ul>
+<li>関数型プログラミング言語とオブジェクト指向プログラミング言語の融合
+</li>
+<li>強力な型推論
+</li>
+<li>高階関数
+</li>
+<li>Immutable Collections
+</li>
+<li>Actorによる並行計算
+</li>
+</ul>
+
+</li>
+<li>処理系の特徴
+<ul>
+<li>JVM(Java Virtual Machine)へのコンパイラ処理系
+</li>
+<li>インタラクティブな実行環境(REPL)も用意されている
+</li>
+<li>Javaのクラス・ライブラリをそのまま利用できる
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 注意</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<p>  本Webページの作成には <a href="http://orgmode.org/">Emacs org-mode</a> を用い，
+  数式等の表示は <a href="http://www.mathjax.org">MathJax</a> を用いています．
+  IEでは正しく表示されないことがあるため，
+  Firefox, Safari等のWebブラウザでJavaScriptを有効にしてお使いください．
+  また <a href="http://orgmode.org/worg/code/org-info-js/">org-info.js</a> を利用しており，
+  「m」キーをタイプするとinfoモードでの表示になります．
+  利用できるショートカットは「?」で表示されます．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> News!</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<blockquote>
+
+<p>  Martin Oderskyが <a href="https://courseware.epfl.ch/courses">EPFLのMOOC</a> でオンラインレクチャーを実施中!
+  こんな機会はめったにない! ぜひ登録して勉強してみよう!
+</p><ul>
+<li>Functional Programming Principles in Scala
+</li>
+<li>Functional Program Design in Scala
+</li>
+</ul>
+
+
+</blockquote>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> 参考リンク</h3>
+<div class="outline-text-3" id="text-1-3">
+
+<ul>
+<li>本家
+<ul>
+<li><a href="http://www.scala-lang.org">http://www.scala-lang.org</a>
+<ul>
+<li>Documentation / Manuals / Translations に日本語のマニュアル等がある
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+<li>英語
+<ul>
+<li><a href="http://www.artima.com/pins1ed/">Programming in Scala, First Edition</a> (by Martin Odersky, Lex Spoon, and Bill Venners)
+</li>
+<li><a href="http://programming-scala.labs.oreilly.com/index.html">Programming Scala</a> (by Dean Wampler and Alex Payne)
+</li>
+<li><a href="http://twitter.github.com/effectivescala/index-ja.html">Effective Scala</a> (by Marius Eriksen, translated by Yuta Okamoto and Satoshi Kobayashi)
+</li>
+<li><a href="http://twitter.github.com/scala_school/">Twitter's Scala School!</a>
+</li>
+<li><a href="https://wiki.scala-lang.org">Scala Wiki</a>
+</li>
+</ul>
+
+</li>
+<li>日本語
+<ul>
+<li><a href="https://sites.google.com/site/scalajp/">プログラミング言語Scala 日本語情報サイト</a>
+</li>
+<li><a href="http://dwango.github.io/scala_text/">Scala研修テキスト</a> (ドワンゴ)
+</li>
+<li><a href="http://www29.atwiki.jp/tmiya/">プログラミング言語 Scala Wiki</a>
+</li>
+<li><a href="http://sites.google.com/site/scalatohoku/勉強会資料">Scala勉強会＠東北 勉強会資料</a>
+</li>
+<li><a href="http://www.atmarkit.co.jp/fjava/index/index_scala.html">スケーラブルで関数型でオブジェクト指向なScala入門</a> (@IT)
+</li>
+<li><a href="http://itpro.nikkeibp.co.jp/article/COLUMN/20080613/308019/?ST=develop">刺激を求める技術者に捧げるScala講座</a> (ITpro)
+</li>
+<li><a href="http://codezine.jp/article/corner/375">今からでも遅くない これから始めるScala</a> (CodeZine)
+</li>
+<li><a href="http://www.ne.jp/asahi/hishidama/home/tech/scala/index.html">Scala</a> (by ひしだまさん)
+</li>
+<li><a href="http://www.h7.dion.ne.jp/~samwyn/Scala/scalaindex.htm">Scala開眼</a> (by Samwyn)
+</li>
+</ul>
+
+</li>
+<li>書籍
+<ul>
+<li>Martin Odersky 他著: Scalaスケーラブルプログラミング，インプレスジャパン
+      (<a href="http://www.amazon.co.jp/Scalaスケーラブルプログラミング-コンセプト-コーディング-Programming-Scala/dp/4844327453?SubscriptionId=AKIAJ6OSJLMPLGTWVU3A&amp;tag=ws&amp;linkCode=xm2&amp;camp=2025&amp;creative=165953&amp;creativeASIN=4844327453">Amazon</a>)
+</li>
+<li>デイビッド・ポラック 著: Scalaプログラミング入門，日経BP社
+      (<a href="http://www.amazon.co.jp/Scalaプログラミング入門-デイビッド・ポラック/dp/4822284239/ref=sr_1_3?ie=UTF8&amp;qid=1295969556&amp;sr=8-3">Amazon</a>)
+</li>
+<li>Dean Wampler, Alex Payne 著: プログラミングScala，オライリー・ジャパン
+      (<a href="http://www.oreilly.co.jp/books/9784873114811/">O'Reilly</a>)
+</li>
+<li>長瀬 嘉秀，町田 修一 著: オブジェクト指向プログラマが次に読む本&mdash;Scalaで学ぶ関数脳入門，
+      技術評論社
+      (<a href="http://www.amazon.co.jp/gp/product/4774144363">Amazon</a>)
+</li>
+<li>浅海 智晴 著: ボクらのScala&mdash;次世代Java徹底入門，
+      ソフトバンククリエイティブ
+      (<a href="http://www.amazon.co.jp/dp/4797359404">Amazon</a>)
+</li>
+<li>Cay Horstmann: <a href="http://typesafe.com/resources/scala-for-the-impatient">Scala for the Impatient</a>, Addison-Wesley 2012.
+</li>
+<li>Joshua D. Suereth: <a href="http://www.manning.com/suereth/">Scala in Depth</a>, Manning, 2012.
+</li>
+</ul>
+
+</li>
+<li>問題集
+<ul>
+<li><a href="http://aperiodic.net/phil/scala/s-99/">S-99: Ninety-Nine Scala Problems</a>
+</li>
+<li><a href="http://blog.tmorris.net/scala-exercises-for-beginners/">Scala exercises for beginners</a>
+</li>
+</ul>
+
+</li>
+<li>本サイト内
+<ul>
+<li><a href="list.html">リスト処理の例: 多項式計算</a> (Scalaのプログラム例を含む)
+</li>
+<li><a href="euler.html">Project Eulerに挑戦</a> (Scalaのプログラム例を含む)
+</li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/lect/soft/org/scala-proplogic.html">Scalaと命題論理</a>
+</li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/copris/">Copris: Constraint Programming in Scala</a> (Scala上の制約プログラミング用DSL)
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> インストール</h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Javaのインストール</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<p>  Java 8がインストールされている必要がある．
+</p>
+</div>
+
+<div id="outline-container-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> Windows系OSの場合</h4>
+<div class="outline-text-4" id="text-2-1-1">
+
+<p>  「コマンド プロンプト」を開いて，以下のコマンドを実行し，
+  バージョン1.8がインストールされていることを確認する．
+</p><pre class="example">
+&gt; java -version
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> Mac OS XおよびLinuxの場合</h4>
+<div class="outline-text-4" id="text-2-1-2">
+
+<p>  「ターミナル」を開いて，以下のコマンドを実行し，
+  バージョン1.8がインストールされていることを確認する．
+</p><pre class="example">
+$ java -version
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Scalaのインストール</h3>
+<div class="outline-text-3" id="text-2-2">
+
+<p>  ここでは Version 2.12 系をインストールする．
+</p>
+</div>
+
+<div id="outline-container-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> Windows系OSの場合</h4>
+<div class="outline-text-4" id="text-2-2-1">
+
+<ol>
+<li><a href="http://www.scala-lang.org">http://www.scala-lang.org</a> を開き Download をクリックし，一番下のOther resourcesを見る．
+</li>
+<li>Version 2.12 系で現時点で最新の scala-2.12.4.zip をダウンロード
+</li>
+<li>パッケージを展開する
+<ul>
+<li>例えば <code>C:\XXX</code> というフォルダ内で展開したとする
+</li>
+<li><code>C:\XXX</code> フォルダ内に <code>scala-2.12.4</code> というフォルダが作成される
+</li>
+</ul>
+
+</li>
+<li>「コンピュータ」を右クリックして「プロパティ」を開く
+</li>
+<li>「コンピュータの詳細設定」の「環境変数」を開く
+</li>
+<li>「ユーザ環境変数」に以下を登録する
+     (PATH環境変数の設定が既にあれば，値の最後に「;」を付けて追加する)
+     <font size=-1>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">変数</th><th scope="col" class="left">値</th></tr>
+</thead>
+<tbody>
+<tr><td class="left"><code>PATH</code></td><td class="left"><code>C:\XXX\scala-2.12.4\bin</code></td></tr>
+</tbody>
+</table>
+
+     </font>
+</li>
+</ol>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> Mac OS XおよびLinuxの場合</h4>
+<div class="outline-text-4" id="text-2-2-2">
+
+<ol>
+<li><a href="http://www.scala-lang.org">http://www.scala-lang.org</a> を開き Download をクリックし，一番下のOther resourcesを見る．
+</li>
+<li>Version 2.12 系で現時点で最新の scala-2.12.4.tgz をダウンロード
+</li>
+<li>パッケージを展開する
+<ul>
+<li>例えば <code>/XXX</code> というフォルダ内で展開したとする
+</li>
+<li><code>/XXX</code> フォルダ内に <code>scala-2.12.4</code> というフォルダが作成される
+</li>
+</ul>
+
+</li>
+<li>PATH環境変数に <code>/XXX/scala-2.12.4/bin</code> を追加する
+<pre class="example">
+export PATH=/XXX/scala-2.12.4/bin:$PATH
+</pre>
+
+</li>
+</ol>
+
+
+<p>
+  以下はコマンドラインで上記のインストール作業を行う例 (bashの場合)
+</p><pre class="example">
+$ cd ~
+$ mkdir XXX
+$ cd XXX
+$ curl -O https://downloads.lightbend.com/scala/2.12.4/scala-2.12.4.tgz
+$ tar xvzf scala-2.12.4.tgz
+$ echo 'export PATH=~/XXX/scala-2.12.4/bin:$PATH' &gt;&gt;~/.profile
+$ . ~/.profile
+</pre>
+
+
+<ul>
+<li>2018年度言語工学の履修者は，上記の <code>XXX</code> を <code>tfpl2018</code> とすること．
+</li>
+<li>2018年度プログラミング言語論の履修者は，上記の <code>XXX</code> を <code>pl2018</code> とすること．
+</li>
+</ul>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Scala REPLの起動</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  Scala REPLの起動方法を説明する．
+</p><ul>
+<li>REPLはRead Eval Print Loopの省略で，Scalaを対話的に利用するプログラムである．
+</li>
+<li>REPLに入力した文は，コンパイルされてから実行されているため，
+    正確にはインタープリタではない．
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Windows系OSの場合</h3>
+<div class="outline-text-3" id="text-3-1">
+
+<p>  「コマンド プロンプト」からscala.batと入力する．
+</p><pre class="example">
+&gt; scala.bat
+Welcome to Scala version 2.10.5 (Java HotSpot(TM) Client VM, Java 1.7.0_75).
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala&gt; 1+2
+res0: Int = 3
+
+scala&gt; (BigInt(1) to 100).product
+res1: BigInt = 93326215443944152681......4000000000000000000000000
+</pre>
+
+
+<ul>
+<li>最初の入力は，結果が出るまで少し時間がかかる．
+</li>
+<li>次の入力は，100の階乗を計算している．
+</li>
+<li>終了は <code>Ctrl-D</code> あるいは <code>:quit</code> と入力する．
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Mac OS XおよびLinuxの場合</h3>
+<div class="outline-text-3" id="text-3-2">
+
+<p>  「ターミナル」あるいは「端末」からscalaと入力する．
+</p><pre class="example">
+$ scala
+Welcome to Scala version 2.10.5 (OpenJDK 64-Bit Server VM, Java 1.7.0_75).
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala&gt; 1+2
+res0: Int = 3
+
+scala&gt; (BigInt(1) to 100).product
+res1: BigInt = 93326215443944152681......4000000000000000000000000
+</pre>
+
+
+<ul>
+<li>最初の入力は，結果が出るまで少し時間がかかる．
+</li>
+<li>次の入力は，100の階乗を計算している．
+</li>
+<li>終了は <code>Ctrl-D</code> あるいは <code>:quit</code> と入力する．
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Scalaコンパイラ</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  Scalaコンパイラを用いるには，
+  まずScalaのソースファイルを作成する．
+</p>
+<p>
+  まず，以下の内容のファイル <code>Hello.scala</code> を作成してみる．
+</p>
+
+
+<pre class="src src-scala"><span class="linenr">1:  </span><span class="org-keyword">object</span> <span class="org-variable-name">Hello</span> {
+<span class="linenr">2:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">main</span>(<span class="org-variable-name">args</span>: <span class="org-type">Array[String]</span>) {
+<span class="linenr">3:  </span>    println(<span class="org-string">"Hello Kobe!"</span>)
+<span class="linenr">4:  </span>  }
+<span class="linenr">5:  </span>}
+</pre>
+
+
+<p>
+  Windows系OSでは，以下のようにコンパイルし，実行する．
+</p><pre class="example">
+&gt; scalac.bat Hello.scala
+&gt; scala.bat Hello
+Hello Kobe!
+</pre>
+
+
+<p>
+  Mac OS XおよびLinuxでは，以下のようにコンパイルし，実行する．
+</p><pre class="example">
+$ scalac Hello.scala
+$ scala Hello
+Hello Kobe!
+</pre>
+
+
+<p>
+  コンパイルせずに，REPL実行中にロードし実行することもできる．
+</p><pre class="example">
+scala&gt; :load Hello.scala
+Loading Hello.scala...
+defined module Hello
+
+scala&gt; Hello.main(Array())
+Hello Kobe!
+</pre>
+
+
+<p>
+  その他，Scala開発ツールとして sbt あるいは Eclipse IDE 上のプラグインがあるが，
+  ここでは詳細は紹介しない．
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Scalaプログラミング入門の内容</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>  本Webページ上部のメニューから以下を参照できる．
+</p><ol>
+<li><a href="scala-list.html">Scalaでリスト処理</a>
+</li>
+<li><a href="scala-recursive.html">Scalaで再帰プログラミング</a>
+</li>
+<li><a href="scala-complex.html">Scalaで複素数計算</a>
+</li>
+<li><a href="scala-primeruler.html">Scalaで素数ものさしを探す</a>
+</li>
+<li><a href="scala-sieve.html">Scalaでエラトステネスの篩</a>
+</li>
+<li><a href="scala-parser.html">Scalaで言語処理</a>
+</li>
+</ol>
+
+
+<p>
+  また，本サイト内には以下のページがある．
+</p><ul>
+<li><a href="list.html">リスト処理の例: 多項式計算</a> (Scalaのプログラム例を含む)
+</li>
+<li><a href="euler.html">Project Eulerに挑戦</a> (Scalaのプログラム例を含む)
+</li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/lect/soft/org/scala-proplogic.html">Scalaと命題論理</a>
+</li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/copris/">Copris: Constraint Programming in Scala</a> (Scala上の制約プログラミング用DSL)
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2018-03-02 22:23:24 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,3338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-03-05 月 13:39 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Introduction of Scala Programming Language <br> List and its Manipulation</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
+<script type="text/javascript" src="support.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Introduction of Scala Programming Language <br> List and its Manipulation</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline7">1. List</a></li>
+<li><a href="#orgheadline12">2. Definition of Functions</a></li>
+<li><a href="#orgheadline20">3. List and function</a></li>
+<li><a href="#orgheadline21">4. Sequence (Seq)</a></li>
+<li><a href="#orgheadline23">5. Set</a></li>
+<li><a href="#orgheadline24">6. Map</a></li>
+<li><a href="#orgheadline28">7. List of List</a></li>
+<li><a href="#orgheadline30">8. Pair and Tuple</a></li>
+<li><a href="#orgheadline32">9. Option</a></li>
+<li><a href="#orgheadline34">10. Iterator</a></li>
+</ul>
+</div>
+</div>
+<style type="text/css">
+div.answer dd {
+  display: none;
+}
+
+div.answer dl {
+  background: white;
+  margin: 0.5em;
+  padding: 0em;
+}
+</style>
+<ul class="org-ul">
+<li>In Scala, there are many data structures so called ``collection&rsquo;&rsquo;.</li>
+<li>Here, we will learn the basic use of those collections.</li>
+</ul>
+
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">1</span> List</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Basics</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+We will explain Scala&rsquo;s List. 
+</p>
+
+<p>
+In Scala, a list \(x_1, x_2, ..., x_n\) is written by using
+ <font color="#228b22">List</font> class as follows.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(3, 1, 4)
+res: List[Int] = List(3, 1, 4)
+</pre>
+</div>
+
+<p>
+In practice, Scala&rsquo;s REPL displays indexed result like <code>res0</code> instead of <code>res</code>. 
+This indexed result can be re-used later. 
+</p>
+
+<p>
+A list can also be written as \(x_1\) :: \(x_2\) :: &#x2026; :: \(x_n\) :: Nil
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; 3 :: 1 :: 4 :: Nil
+res: List[Int] = List(3, 1, 4)
+</pre>
+</div>
+
+<p>
+The above two results tell us that those two lists are  <font color="#228b22">List[Int]</font>
+(list of integer) which is automatically inferred by the Scala's
+type inference. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(<span style="color: #8b2252;">"a"</span>, <span style="color: #8b2252;">"b"</span>, <span style="color: #8b2252;">"c"</span>)
+res: List[String] = List(a, b, c)
+</pre>
+</div>
+<p>
+In this case, the list is inferred as  <font color="#228b22">List[String]</font> (list of strings).
+</p>
+
+<p>
+Then, how Scala infer when we put several types of objects to list?
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(3, 1, 4, 3.14)
+res: List[Double] = List(3.0, 1.0, 4.0, 3.14)
+
+scala&gt; List(<span style="color: #8b2252;">"scala"</span>, 2.12)
+res: List[Any] = List(scala, 2.12)
+</pre>
+</div>
+
+<p>
+If we mix Int and Double typed objects, Int is cast to Double, and then 
+ <font color="#228b22">List[Double]</font> (list of Double) is inferred. 
+</p>
+
+<p>
+If we mix  <font color="#228b22">String</font> and  <font color="#228b22">Int</font>,
+ <font color="#228b22">List[Any]</font> is inferred. 
+ <font color="#228b22">Any</font> is super class of all classes (called root class). 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Range</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+ <font color="#228b22">Range(m, n)</font> makes a sequence of integers which are ranged from m
+until n. (m until n) also makes the same sequence. 
+We can those sequence to list by using  <font color="#0000ff">toList</font>. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; Range(2, 8).toList
+res: List[Int] = List(2, 3, 4, 5, 6, 7)
+scala&gt; (2 until 8).toList
+res: List[Int] = List(2, 3, 4, 5, 6, 7)
+</pre>
+</div>
+
+<p>
+Using m to n, we can make a sequence of integers which are from m to
+n. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (2 to 8).toList
+res: List[Int] = List(2, 3, 4, 5, 6, 7, 8)
+</pre>
+</div>
+
+<p>
+Using m to n by k, we can make a sequence of integers which are from
+m to n by k. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (2 to 8 by 3).toList
+res: List[Int] = List(2, 5, 8)
+</pre>
+</div>
+
+<p>
+Indeed, we can do the same without translating to list by toList,
+for simplify the discussion, we use toList for translating sequences
+to List. In the following, we do not use toList if results becomes
+same. 
+</p>
+
+<p>
+Instead of toList, we can use the companion object of List. Then we
+can create the same lists as follows. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List.range(2, 8)
+res: List[Int] = List(2, 3, 4, 5, 6, 7)
+scala&gt; List.range(2, 8, 2)
+res: List[Int] = List(2, 4, 6)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">1.3</span> Methods of List.</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+ <font color="#228b22">List</font> provides various methods. 
+</p>
+
+<p>
+Here, we introduce its basic methods. 
+</p>
+
+<p>
+Before starting, we assign List(2, 7, 1, 8) to a variable  <font color="#a0522d">list</font>. 
+Here  <font color="#a020f0">var</font> denotes a new declaration of a variable and  <font color="#a0522d">list</font>
+is the name of the variable. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">list</span> = List(2, 7, 1, 8)
+list: List[Int] = List(2, 7, 1, 8)
+</pre>
+</div>
+
+<p>
+If we do not reassign a value to ``list&rsquo;&rsquo; we use ``val&rsquo;&rsquo; for the
+declaration. (here, you can use any of each).  
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">list</span> = List(2, 7, 1, 8)
+list: List[Int] = List(2, 7, 1, 8)
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><p>
+ <font color="#0000ff">head</font> returns the first element of the list (car in Lisp). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.head
+res: Int = 2
+</pre>
+</div></li>
+
+<li><p>
+ <font color="#0000ff">tail</font> returns the list without the first element (cdr in Lisp).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.tail
+res: List[Int] = List(7, 1, 8)
+
+scala&gt; list.tail.tail.tail.head
+res: Int = 8
+
+scala&gt; list.tail.tail.tail.tail
+res: List[Int] = List()
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">::</font> returns the list appended an element in its first position
+(cons in Lisp).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; 3 :: list
+res: List[Int] = List(3, 2, 7, 1, 8)
+</pre>
+</div>
+<p>
+ <font color="#0000ff">+:</font> returns the same. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; 3 +: list
+res: List[Int] = List(3, 2, 7, 1, 8)
+</pre>
+</div>
+<p>
+In particular, another kind collection Seq, we use <code>+:</code> instead of
+<code>::</code>
+</p></li>
+<li><p>
+ <font color="#0000ff">length</font> returns the length of the list (length in Lisp). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.length
+res: Int = 4
+</pre>
+</div>
+<p>
+ <font color="#0000ff">size</font> returns the same.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.size
+res: Int = 4
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">isEmpty</font> returns whether the list is empty or not (null in Lisp). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.isEmpty
+res: Boolean = <span style="color: #008b8b;">false</span>
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">==</font> returns the result of the comparison with other list (equal
+in Lisp). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list == List(2, 7, 1, 8)
+res: Boolean = <span style="color: #008b8b;">true</span>
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">last</font> returns the last element of list
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.last
+res: Int = 8
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">init</font> returns the list without the last element.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.init
+res: List[Int] = List(2, 7, 1)
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">:+</font> returns the list appended an element in its last position.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list :+ 3
+res: List[Int] = List(2, 7, 1, 8, 3)
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">apply(n)</font> returns the n th element of the list.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.apply(3)
+res: Int = 8
+</pre>
+</div>
+<p>
+Simply,  <font color="#0000ff">list(i)</font> returns the same. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list(3)
+res: Int = 8
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">take(n)</font> returns the list consists of the first n elements. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.take(2)
+res: List[Int] = List(2, 7)
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">takeRight(n)</font> returns the list consists of the last n elements. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.takeRight(3)
+res: List[Int] = List(7, 1, 8)
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">drop(n)</font> returns the list without the first n elements. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.drop(2)
+res: List[Int] = List(1, 8)
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">dropRight(n)</font> returns the list without the last n elements. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.dropRight(3)
+res: List[Int] = List(2)
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">contains(x)</font> returns whether an object x is contained in the
+elements of the list.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.contains(1)
+res: Boolean = <span style="color: #008b8b;">true</span>
+
+scala&gt; list.contains(3)
+res: Boolean = <span style="color: #008b8b;">false</span>
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">:::</font> returns the list concatenated (append in Lisp). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list ::: list
+res: List[Int] = List(2, 7, 1, 8, 2, 7, 1, 8)
+</pre>
+</div>
+
+<p>
+In particular, another kind collection Seq, we use  <font color="#0000ff">++</font> instead of <code>:::</code> 
+</p></li>
+<li><p>
+ <font color="#0000ff">reverse</font> returns the list of its reverse ordering (reverse in
+Lisp). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.reverse
+res: List[Int] = List(8, 1, 7, 2)
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">sorted</font> returns the list sorted with increasing order. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.sorted
+res: List[Int] = List(1, 2, 7, 8)
+</pre>
+</div>
+<p>
+The following returns the list sorted with decreasing order. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.sorted(Ordering[Int].reverse)
+res: List[Int] = List(8, 7, 2, 1)
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">sum</font> returns the summation of the all elements of the list.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.sum
+res: Int = 18
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">product</font> returns the products of the all elements of the list.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.product
+res: Int = 112
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">max</font> returns the maximum element of the list.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.max
+res: Int = 8
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">min</font> returns the minimum element of the list. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.min
+res: Int = 1
+</pre>
+</div></li>
+
+<li><p>
+Using the  <font color="#0000ff">fill</font> method of the companion object of List, we can
+create a list having the sample elements. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List.fill(5)(1)
+res: List[Int] = List(1, 1, 1, 1, 1)
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">1.4</span> Exercise</h3>
+<div class="outline-text-3" id="text-1-4">
+<div class="answer">
+<ol class="org-ol">
+<li>Calculate the summation of the integer sequence from 1
+to 7. Similarly, one from 1 to 63. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1 to 7).sum
+res: Int = 28
+scala&gt; (1 to 63).sum
+res: Int = 2016
+</pre>
+</div></dd>
+</dl></li>
+<li>We can get the last element of the list by  <font color="#a0522d">list</font>. <font color="#0000ff">last</font>. In other
+way, it is possible by  <font color="#a0522d">list</font>( <font color="#a0522d">list</font>. <font color="#0000ff">size</font> - 1) or  <font color="#a0522d">list</font>. <font color="#0000ff">takeRight</font>(1).head. Any other ways (at least 5 ways)? 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.takeRight(1)(0)
+res: Int = 8
+scala&gt; list.reverse.head
+res: Int = 8
+scala&gt; list.reverse(0)
+res: Int = 8
+scala&gt; list.drop(list.size - 1).head
+res: Int = 8
+scala&gt; list.drop(list.size - 1)(0)
+res: Int = 8
+</pre>
+</div></dd>
+</dl></li>
+<li>How can we calculate the average of all elements in the list? 
+(Hint: we need to translate integers of Int Type to Double type
+by toDouble method). 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.sum.toDouble / list.size
+res: Double = 4.5
+</pre>
+</div></dd>
+</dl></li>
+<li>How can we calculate the summation of the odd numbers from 1 to 19. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1 to 19 by 2).sum
+res: Int = 100
+</pre>
+</div>
+<p>
+Note the summation of the odd numbers from 1 to \(2n-1\) becomes \(n^2\). 
+</p></dd>
+</dl></li>
+<li>How can we calculate the list consists of i-th element to j-th
+element. Note that the first element is 0-th element. Consider
+the case of i=1, j=3. When the list is List(2,7,1,8), the result
+becomes List(7,1). 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.drop(1).take(3-1)
+res: List[Int] = List(7, 1)
+</pre>
+</div>
+<p>
+We do not explain it, we can use slice to do the same. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.slice(1, 3)
+res: List[Int] = List(7, 1)
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">1.5</span> Calculation of Factorial</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Using the methods explained so far, we can compute the factorial of
+an integer n. Since the factorial n is a product from 1 to n, we can
+calculate the factorial of 10 as follows. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1 to 10).product
+res: Int = 3628800
+</pre>
+</div>
+
+<p>
+How about the factorial of 20?
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1 to 20).product
+res: Int = -2102132736
+</pre>
+</div>
+
+<p>
+It seems that it is wrong. 
+This is because, the result of the factorial of 20 becomes more than
+2^{31}&#x2014;the limit of the possible value of Int type. So, we
+calculate it using Long type by denoting 1L. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1L to 20).product
+res: Long = 2432902008176640000
+</pre>
+</div>
+
+<p>
+However, if we test the factorial of 30, again, the result becomes
+more than the limit of the possible value of Long type. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1L to 30).product
+res: Long = -8764578968847253504
+</pre>
+</div>
+
+<p>
+Then, you can use BigInt!
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (BigInt(1) to 30).product
+res: BigInt = 265252859812191058636308480000000
+</pre>
+</div>
+
+<p>
+You also can calculate the factorial of 100 or 1000. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">1.6</span> Exercise</h3>
+<div class="outline-text-3" id="text-1-6">
+<div class="answer">
+<ol class="org-ol">
+<li>What is the factorial of 0, that is, (1 to 0).product?
+And why?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1 to 0).product
+res: Int = 1
+</pre>
+</div>
+<p>
+It is natural to think the 0 element products becomes the unity
+   of the product, the unity is 1.
+</p></dd>
+</dl></li>
+<li>How can we calculate the permutation of \(r\) elements from \(n\) elements, that is, \({}_n\mbox{P}_r\) ?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><p>
+       The following calculates \({}_{100}\mbox{P}_{20}\).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 100
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">r</span> = 20
+scala&gt; (BigInt(n-r+1) to n).product
+res: BigInt = 1303995018204712451095685346159820800000
+</pre>
+</div></dd>
+</dl></li>
+
+<li>How can we calculate combination of \(r\) elements form \(n\)
+     elements, that is, \({}_n\mbox{C}_r\) ?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><p>
+       The following calculates \({}_{100}\mbox{C}_{20}\). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 100
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">r</span> = 20
+scala&gt; (BigInt(n-r+1) to n).product / (BigInt(1) to r).product
+res: BigInt = 535983370403809682970
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">2</span> Definition of Functions</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">2.1</span> Basics</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Let&rsquo;s define functions in Scala. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">inc</span>(<span style="color: #a0522d;">x</span>: <span style="color: #228b22;">Int</span>): <span style="color: #228b22;">Int </span>= x + 1
+inc: (x: Int)Int
+</pre>
+</div>
+
+<p>
+Here  <font color="#0000ff">inc</font> denotes the name of the function,  <font color="#a0522d">x</font>:  <font color="#228b22">Int</font> denotes
+ its arguments and data type, next,  <font color="#228b22">Int</font>
+ denotes the return type, in last, the right hand side of ``=''
+ denotes the main definition of this function. 
+</p>
+
+<p>
+It corresponds to the definition of the function of C language. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #228b22;">int</span> <span style="color: #0000ff;">inc</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>) {
+  <span style="color: #a020f0;">return</span> x + 1;
+}
+</pre>
+</div>
+
+<p>
+We can use this function in REPL as follows. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; inc(123)
+res: Int = 124
+</pre>
+</div>
+
+<p>
+We can omit the return type Int, because it is decided by the type
+inference of Scala. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">inc</span>(<span style="color: #a0522d;">x</span>: <span style="color: #228b22;">Int</span>) = x + 1
+inc: (x: Int)Int
+</pre>
+</div>
+
+<p>
+ <font color="#a020f0">if</font> formula can be used to define a function which returns the bigger
+one between 2 integers. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">larger</span>(<span style="color: #a0522d;">x</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">y</span>: <span style="color: #228b22;">Int</span>) = <span style="color: #a020f0;">if</span> (x &gt; y) x <span style="color: #a020f0;">else</span> y
+inc: larger: (x: Int,y: Int)Int
+</pre>
+</div>
+
+<p>
+Next, let&rsquo;s define a function which calculates the average of all
+elements of a given list of integers. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">average</span>(<span style="color: #a0522d;">list</span>: <span style="color: #228b22;">List[Int]</span>) = list.sum / list.size
+average: (list: List[Int])Int
+</pre>
+</div>
+
+<p>
+However, when you run it, we cannot obtain an expected result&#x2014;the
+average of Double. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; average(List(1,2))
+res: Int = 1
+</pre>
+</div>
+
+<p>
+You can use toDouble method to translate each element to Double
+type. Scala automatically infer the return type is Double. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">average</span>(<span style="color: #a0522d;">list</span>: <span style="color: #228b22;">List[Int]</span>) = list.sum.toDouble / list.size
+average: (list: List[Int])Double
+
+average(List(1,2))
+res: Double = 1.5
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">2.2</span> Exercise</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="answer">
+<ul class="org-ul">
+<li>Define a function permutation(n, r) which calculates the permutation
+\({}_n\mbox{P}_r\) of \(r\) elements from \(n\) elements. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">permutation</span>(<span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">r</span>:<span style="color: #228b22;">Int</span>) = (BigInt(n-r+1) to n).product
+scala&gt; permutation(100, 20)
+res: BigInt = 1303995018204712451095685346159820800000
+</pre>
+</div></dd>
+</dl></li>
+<li>Define a function rotateLeft which shift all elements of (not empty)
+list to left. The result of rotateLeft(List(1,2,3)) becomes
+List(2,3,1). 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">rotateLeft</span>(<span style="color: #a0522d;">list</span>: <span style="color: #228b22;">List[Int]</span>) = list.tail :+ list.head
+scala&gt; rotateLeft(List(1,2,3))
+res: List[Int] = List(2, 3, 1)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Define a function rotateRight which shift all elements of (not empty) list to right. The result of rotateRight(List(1,2,3)) becomes List(3,1,2). 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">rotateRight</span>(<span style="color: #a0522d;">list</span>: <span style="color: #228b22;">List[Int]</span>) = list.last +: list.init
+scala&gt; rotateRight(List(1,2,3))
+res: List[Int] = List(3, 1, 2)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Define a function isPalindrome which check a given list of integers are palindrom or not. The result of palindrome(List(1,2,1)) or palindrome(List(1,2,2,1)) becomes true. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">palindrome</span>(<span style="color: #a0522d;">list</span>: <span style="color: #228b22;">List[Int]</span>) = list == list.reverse
+scala&gt; palindrome(List(1,2,1))
+res: Boolean = <span style="color: #008b8b;">true</span>
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Define a function slice which returns a list consists of from i-th element to j-th element. Note that we assume the first element is 0-the element. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">slice</span>(<span style="color: #a0522d;">list</span>: <span style="color: #228b22;">List[Int]</span>, <span style="color: #a0522d;">i</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">j</span>: <span style="color: #228b22;">Int</span>) = list.take(j).drop(i)
+scala&gt; slice(list, 1, 3)
+res: List[Int] = List(7, 1)
+</pre>
+</div></dd>
+</dl></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">2.3</span> Generic Method</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+It is natural that we want to define methods rotateLeft,
+rotateRight, palindrome in the above exercise, to be more
+general. This is, make it applicable to any type of list. 
+</p>
+
+<p>
+In Scala, we realize such methods by ``generic method&rsquo;&rsquo;. 
+In case of generic method, we denote type parameter just after the
+name of the method. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">rotateLeft</span>[<span style="color: #228b22;">A</span>](<span style="color: #a0522d;">list</span>: <span style="color: #228b22;">List[A]</span>) = list.tail :+ list.head
+</pre>
+</div>
+
+<p>
+Here, the A denotes the type parameter, and it tells us the data
+type of the list. Using type parameter A, the data type of the
+argument list becomes List[A]. 
+</p>
+
+<p>
+By using such method, we can define a method applicable to any type
+of List instead of List[Int]. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; rotateLeft[Int](List(1, 2, 3))
+res: List[Int] = List(2, 3, 1)
+
+scala&gt; rotateLeft[String](List(<span style="color: #8b2252;">"a"</span>, <span style="color: #8b2252;">"b"</span>, <span style="color: #8b2252;">"c"</span>))
+res: List[String] = List(b, c, a)
+</pre>
+</div>
+
+<p>
+We can omit the part of type parameter, because it is inferred by
+Scala.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; rotateLeft(List(1, 2, 3))
+res: List[Int] = List(2, 3, 1)
+
+scala&gt; rotateLeft(List(<span style="color: #8b2252;">"a"</span>, <span style="color: #8b2252;">"b"</span>, <span style="color: #8b2252;">"c"</span>))
+res: List[String] = List(b, c, a)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">2.4</span> Exercise</h3>
+<div class="outline-text-3" id="text-2-4">
+<div class="answer">
+<ol class="org-ol">
+<li>Define rotateRight as a generic method and run.</li>
+<li>Define palindrome as a generic method and run.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-2">
+<h2 id="orgheadline20"><span class="section-number-2">3</span> List and function</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">3.1</span> map and filter</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+In Scala, it is easy to make a new list which is made by applying a
+function to each element of the original list. 
+</p>
+
+<p>
+We use map to apply a function to each elements of the list. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.map(inc)
+res: List[Int] = List(3, 8, 2, 9)
+</pre>
+</div>
+
+<p>
+In Scala, we can use function without definition. It is so called
+anonymous function.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.map(x =&gt; x + 1)
+res: List[Int] = List(3, 8, 2, 9)
+</pre>
+</div>
+
+<p>
+Here, ``x =&gt; x + 1&rsquo;&rsquo; denotes the anonymous function, and the first x
+is the name of its argument, x + 1 is the main part of the
+function. 
+</p>
+
+<p>
+We can omit the name of argument by using the underline <code>_</code>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.map(_ + 1)
+res: List[Int] = List(3, 8, 2, 9)
+</pre>
+</div>
+
+<p>
+Scala provides several methods having functions as its arguments. 
+</p>
+
+<ul class="org-ul">
+<li><p>
+ <font color="#0000ff">map(f)</font> calculates a list \(f(x_1), f(x_2), \ldots, f(x_n)\) for a given
+list \(x_1, x_2, \ldots, x_n\)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.map(_ &gt; 2)
+res: List[Boolean] = List(<span style="color: #008b8b;">false</span>, <span style="color: #008b8b;">true</span>, <span style="color: #008b8b;">false</span>, <span style="color: #008b8b;">true</span>)
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">filter(f)</font> calculates a list consists of the elements x_i makes
+\(f(x_i)\) be true for a given list \(x_1, x_2, \ldots, x_n\).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.filter(_ &gt; 2)
+res: List[Int] = List(7, 8)
+
+scala&gt; (2 until 8).filter(_ % 2 != 0)
+res: IndexedSeq[Int] = Vector(3, 5, 7)
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">count(f)</font> calculates the number of elements \(x_i\) makes \(f(x_i)\) be
+true for a given list \(x_1, x_2, \ldots, x_n\).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.count(_ &gt; 2)
+res: Int = 2
+</pre>
+</div>
+<p>
+Since there are two elements 7 and 8, 2 is returned. 
+</p></li>
+<li><p>
+ <font color="#0000ff">forall(f)</font> calculates whether all elements makes \(f(x_i)\) be true or
+not for a given list \(x_1, x_2, \ldots, x_n\). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.forall(_ &gt; 2)
+res: Boolean = <span style="color: #008b8b;">false</span>
+
+scala&gt; list.forall(_ &gt; 0)
+res: Boolean = <span style="color: #008b8b;">true</span>
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">exists(f)</font> calculates whether some elements make \(f(x_i)\) be true or
+not for a given list \(x_1, x_2, \ldots, x_n\). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.exists(_ &gt; 2)
+res: Boolean = <span style="color: #008b8b;">true</span>
+
+scala&gt; list.exists(_ &gt; 8)
+res: Boolean = <span style="color: #008b8b;">false</span>
+</pre>
+</div></li>
+
+<li><p>
+ <font color="#0000ff">indexWhere(f)</font> calculates the index of the first element making
+\(f(x_i)\) be true. (if there is not, -1 is returned)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.indexWhere(_ &gt; 2)
+res: Int = 1
+
+scala&gt; list.indexWhere(_ &gt; 8)
+res: Int = -1
+</pre>
+</div></li>
+<li><p>
+ <font color="#0000ff">sortWith(f)</font> calculates a sorted list using a comparator function
+\(f\). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.sortWith((a,b) =&gt; a &gt; b)
+res: List[Int] = List(8, 7, 2, 1)
+
+scala&gt; list.sortWith(_ &gt; _)
+res: List[Int] = List(8, 7, 2, 1)
+</pre>
+</div></li>
+
+<li><p>
+ <font color="#0000ff">sortBy(f)</font> calculates a sorted list (increasing order) with
+translated elements by a function \(f\). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.sortBy(a =&gt; -a)
+res: List[Int] = List(8, 7, 2, 1)
+
+scala&gt; list.sortWith(-_)
+res: List[Int] = List(8, 7, 2, 1)
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">3.2</span> Exercise</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="answer">
+<p>
+Answer the followings. 
+</p>
+<ol class="org-ol">
+<li>Given a list of integers, return a list each of whose elements is the square of the original elements. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.map(x =&gt; x*x)
+res: List[Int] = List(4, 49, 1, 64)
+</pre>
+</div>
+<p>
+Note that we cannot write it as <code>list.map(_*_)</code>.
+This is because <code>_*_</code> is interpreted as a 2 arguments function.
+</p></dd>
+</dl></li>
+<li>Given a list of integers, return the sum of a list each of whose   elements is the square of the original elements. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.map(x =&gt; x*x).sum
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Given a list of integers, return the average of a list each of  whose elements is the square of the original elements. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.map(x =&gt; x*x).sum.toDouble / list.size
+res: Double = 29.5
+</pre>
+</div></dd>
+</dl></li>
+<li>Given a list of strings, return the maximum size of elements in the list.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(<span style="color: #8b2252;">"ab"</span>, <span style="color: #8b2252;">"ra"</span>, <span style="color: #8b2252;">"ca"</span>, <span style="color: #8b2252;">"dab"</span>, <span style="color: #8b2252;">"ra"</span>).map(_.size).max
+res: Int = 3
+</pre>
+</div></dd>
+</dl></li>
+<li>Given a list of integers, return the list only consisting of even  numbers of the original list.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.filter(_ % 2 == 0)
+res: List[Int] = List(2, 8)
+</pre>
+</div></dd>
+</dl></li>
+<li>Given a list of integers, return the maximum number of even      numbers in the original list. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.filter(_ % 2 == 0).max
+res: Int = 8
+</pre>
+</div></dd>
+</dl></li>
+<li>Given a list of integers, return whether this list contains even      number or not.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.exists(_ % 2 == 0)
+res: Boolean = <span style="color: #008b8b;">true</span>
+</pre>
+</div></dd>
+</dl></li>
+<li>Given a list of integers, return whether all elements are odd      numbers or not. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.forall(_ % 2 != 0)
+res: Boolean = <span style="color: #008b8b;">false</span>
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">3.3</span> Exercise</h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="answer">
+
+<ol class="org-ol">
+<li>Return a list consisting of the numbers of 142857 multiplied by 1 to 7. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1 to 7).map(142857 * _)
+res: IndexedSeq[Int] = Vector(142857, 285714, 428571, 571428, 714285, 857142, 999999)
+</pre>
+</div></dd>
+</dl></li>
+<li>Return a list consisting of the numbers from 1 to 100 which are not multiples of 3 and are not multiples of 5. (e.g., 1 is okay, 2 is okay, 3 is no, 4 is okay, 5 is not, and so on to 100).
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1 to 100).filter(n =&gt; n % 3 != 0 &amp;&amp; n % 5 != 0)
+res: IndexedSeq[Int] = Vector(1, 2, 4, 7, 8, 11, ..., 97, 98)
+scala&gt; (1 to 100).filter(_ % 3 != 0).filter(_ % 5 != 0)
+res: IndexedSeq[Int] = Vector(1, 2, 4, 7, 8, 11, ..., 97, 98)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Numbers like 0, 101, 11011, 1110111, 111101111, 11111011111
+containing 0 in the center and others are 1, are called Cyclops
+numbers with binary digits only (see
+<a href="http://oeis.org/A138148">http://oeis.org/A138148</a>). Make a list strings denoting the first
+10 elements of this Cyclops numbers. (Hint) ~&ldquo;1&rdquo;*n~ will return a
+string iterating n times 1. And, we can get a concatenated string
+by <code>+</code>. For instance, the result of ~&ldquo;1&rdquo;*2+&ldquo;0&rdquo;+&ldquo;1&rdquo;*2~ is ~&ldquo;11011&rdquo;~.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (0 until 10).map(n =&gt; <span style="color: #8b2252;">"1"</span>*n + <span style="color: #8b2252;">"0"</span> + <span style="color: #8b2252;">"1"</span>*n)
+res: IndexedSeq[String] = Vector(0, 101, 11011, 1110111, 111101111, ..., 1111111110111111111)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Using <code>Integer.parseInt(s, 2)</code>, we can convert a string (binary
+representation) into an integer. Then, calculate the first 10
+cyclops numbers in integer (note 101 means 5 here). 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (0 until 10).map(n =&gt; <span style="color: #8b2252;">"1"</span>*n + <span style="color: #8b2252;">"0"</span> + <span style="color: #8b2252;">"1"</span>*n).map(Integer.parseInt(_, 2))          
+res: IndexedSeq[Int] = Vector(0, 5, 27, 119, 495, 2015, 8127, 32639, 130815, 523775)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Using <code>x.toBinaryString</code>, we can calculate a string of binary
+representation of an integer x. Calculate a list (from 1800
+to 2100) of integer values whose binary representation is palindrome.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">palindrome</span>(<span style="color: #a0522d;">s</span>: <span style="color: #228b22;">String</span>) = s == s.reverse          
+scala&gt; (1800 to 2100).filter(x =&gt; palindrome(x.toBinaryString))
+res: IndexedSeq[Int] = Vector(1831, 1879, 1911, 1935, 1967, 2015, 2047, 2049)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Define a function is Prime which returns true if a given integer
+n (n &gt;= 2) is a prime number. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><p>
+       A number \(n\) is a prime number when it can not be exactly divided
+by other number from 2 until \(n\). So we can define the
+function as follows. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">isPrime</span>(<span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int</span>) = (2 until n).forall(n % _ != 0)
+</pre>
+</div>
+
+<p>
+A refinment, the divisor is enough to \(\sqrt{n}\), it works better.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">isPrime</span>(<span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int</span>) = (2 to math.sqrt(n).toInt).forall(n % _ != 0)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Count the number of prime numbers which are less than or equal to 10000. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (2 to 10000).count(isPrime)          
+res: Int = 1229
+</pre>
+</div></dd>
+</dl></li>
+
+<li>For \(k\) taking values from 1 to 10, calculates the number of
+prime numbers which are less than or equal to \(10000k\). 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1 to 10).map(k =&gt; (2 to 10000*k).count(isPrime))          
+res: IndexedSeq[Int] = Vector(1229, 2262, 3245, 4203, 5133, 6057, 6935, 7837, 8713, 9592)
+</pre>
+</div>
+<p>
+We can also define a function <code>pi</code> calculates the number of
+   prime numbers less than or equal to \(n\). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">pi</span>(<span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int</span>) = (2 to n).count(isPrime)          
+scala&gt; (1 to 10).map(k =&gt; pi(10000*k))
+</pre>
+</div>
+<p>
+According to prime number theorem, <code>pi(n)</code> can be approximated
+   to \(n/\ln n\). 
+</p></dd>
+</dl></li>
+
+<li>Among natural number from 2 to 10000, calculates the list of
+prime numbers whose binary representation becomes
+palindrome. Also, calculates the list of
+prime numbers whose decimal representation becomes
+palindrome. Finally, calculates the list of
+prime numbers both of whose binary/decimal representation becomes
+palindrome. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (2 to 10000).filter(x =&gt; palindrome(x.toBinaryString)).filter(isPrime)          
+res: IndexedSeq[Int] = Vector(3, 5, 7, 17, ..., 1831, 1879, 4889, ..., 8191)
+scala&gt; (2 to 10000).filter(x =&gt; palindrome(x.toBinaryString) &amp;&amp; isPrime(x))
+res: IndexedSeq[Int] = Vector(3, 5, 7, 17, ..., 1831, 1879, 4889, ..., 8191)
+scala&gt; (2 to 10000).filter(x =&gt; palindrome(x.toString) &amp;&amp; isPrime(x))
+res: IndexedSeq[Int] = Vector(2, 3, 5, 7, 11, 101, ..., 797, 919, 929)
+scala&gt; (2 to 10000).filter(x =&gt; palindrome(x.toString) &amp;&amp; palindrome(x.toBinaryString) &amp;&amp; isPrime(x))
+IndexedSeq[Int] = Vector(3, 5, 7, 313)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Given \(n=100\), calculates \(\sum_{i=1}^n 1/i\).
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1 to 100).map(1.0 / _).sum           
+res: Double = 5.187377517639621
+</pre>
+</div>
+<p>
+The value of \(\sum_{i=1}^n 1/i\) minus \(\ln n\) converges to
+   0.57721 when \(n \rightarrow \infty\) (Euler&rsquo;s constant).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1 to 100).map(1.0 / _).sum - math.log(100)        
+res: Double = 0.5822073316515288
+scala&gt; (1 to 1000).map(1.0 / _).sum - math.log(1000)
+res: Double = 0.5777155815682065
+scala&gt; (1 to 10000).map(1.0 / _).sum - math.log(10000)
+res: Double = 0.5772656640681646
+</pre>
+</div>
+<p>
+Note that, to be more accurate, to minimize calculation error,
+some ideas are necessary such as starting from the summation
+of small value terms etc. 
+</p></dd>
+</dl></li>
+
+<li>The formula <code>if (i % 2 == 0) x else y</code> means, 
+if i is even then the value of x, otherwise the value of y. 
+Using this, calculates a sequence \(a_0\), \(a_1\), &#x2026; of first 100
+numbers whose general term is \(a_i = \frac{(-1)^i}{2i+1}\). 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (0 to 99).map(i =&gt; <span style="color: #a020f0;">if</span> (i % 2 == 0) 1.0/(2*i+1) <span style="color: #a020f0;">else</span> -1.0/(2*i+1))           
+res: IndexedSeq[Double] = Vector(1.0, -0.3333333333333333, 0.2, ...)
+</pre>
+</div>
+<p>
+This sequence represents 1, -1/3, 1/5, -1/7, 1/9, &#x2026;
+</p></dd>
+</dl></li>
+
+<li>Calculate the summation of the above list and multiply it by 4.
+When we increase the number of term, the value close to what?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (0 to 99).map(i =&gt; <span style="color: #a020f0;">if</span> (i % 2 == 0) 1.0/(2*i+1) <span style="color: #a020f0;">else</span> -1.0/(2*i+1)).sum * 4           
+res: Double = 3.1315929035585537
+</pre>
+</div>
+<p>
+It is slow, but converges to \(\pi\).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (0 to 999).map(i =&gt; <span style="color: #a020f0;">if</span> (i % 2 == 0) 1.0/(2*i+1) <span style="color: #a020f0;">else</span> -1.0/(2*i+1)).sum * 4        
+res: Double = 3.140592653839794
+scala&gt; (0 to 9999).map(i =&gt; <span style="color: #a020f0;">if</span> (i % 2 == 0) 1.0/(2*i+1) <span style="color: #a020f0;">else</span> -1.0/(2*i+1)).sum * 4
+res: Double = 3.1414926535900345
+scala&gt; (0 to 99999).map(i =&gt; <span style="color: #a020f0;">if</span> (i % 2 == 0) 1.0/(2*i+1) <span style="color: #a020f0;">else</span> -1.0/(2*i+1)).sum * 4
+res: Double = 3.1415826535897198
+</pre>
+</div>
+
+<p>
+Note that, to be more accurate, to minimize calculation error,
+some ideas are necessary such as starting from the summation
+of small value terms etc. 
+For instance, we can do better by the following.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (99999 to 0 by -1).map(i =&gt; <span style="color: #a020f0;">if</span> (i % 2 == 0) 1.0/(2*i+1) <span style="color: #a020f0;">else</span> -1.0/(2*i+1)).sum * 4        
+res: Double = 3.1415826535897935
+</pre>
+</div></dd>
+</dl></li>
+
+<li>The summation \(\sum_{i=0}^n 1/i!\) converges to \(e\) when \(n \rightarrow \infty\).
+Calculate when \(n=20\) is given.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (20 to 0 by -1).map(n =&gt; (1 to n).map(1.0 / _).product).sum           
+res: Double = 2.718281828459045
+scala&gt; (20 to 0 by -1).map(n =&gt; (1 to n).map(1.0 / _).product).sum - math.E
+res: Double = 0.0
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">3.4</span> reduce and fold</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Given a list (list of integers), list.sum calculates the summation
+of all elements. That is, when a list \(x_1, x_2, \ldots, x_n\) is given,
+it calculates \(x_1+x_2+ \cdots +x_n\). 
+</p>
+
+<p>
+In Scala, we can use a generalization of this method like
+reduceLeft, reduceRight, reduce. 
+</p>
+
+<ul class="org-ul">
+<li><p>
+ <font color="#0000ff">reduceLeft(f)</font> calculates \(f(f(...f(f(x_1, x_2), x_3), ...), x_n)\)
+when a list \(x_1, x_2, \ldots, x_n\) is given. For instance, when \(n=4\) is
+given, it calculates \(f(f(f(x_1, x_2), x_3), x_4)\). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.reduceLeft((a,b) =&gt; a + b)    
+res: Int = 18
+
+scala&gt; list.reduceLeft(_ + _)
+res: Int = 18
+
+scala&gt; list.reduceLeft((a,b) =&gt; 10*a + b)
+res: Int = 2718
+
+scala&gt; list.reduceLeft(10*_ + _)
+res: Int = 2718
+</pre>
+</div>
+
+<p>
+If the length of a given list is 1, x_1 is returned.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(12).reduceLeft((a,b) =&gt; a + b)    
+res: Int = 12
+</pre>
+</div></li>
+
+<li><p>
+ <font color="#0000ff">reduceRight(f)</font> calculates \(f(x_1, f(x_2, ... f(x_{n-1}, x_n)...))\)
+when a list \(x_1, x_2, \ldots, x_n\) is given. For instance, when \(n=4\) is
+given, it calculates \(f(x_1, f(x_2, f(x_3, x_4)))\). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.reduceRight((a,b) =&gt; a + b)    
+res: Int = 18
+
+scala&gt; list.reduceRight(_ + _)
+res: Int = 18
+
+scala&gt; list.reduceRight((a,b) =&gt; a + 10*b)
+res: Int = 8172
+
+scala&gt; list.reduceRight(_ + 10*_)
+res: Int = 8172
+</pre>
+</div></li>
+</ul>
+
+
+<p>
+Similar to reduceLeft, reduceRight, reduce, there are 
+foldLeft, foldRight, fold. 
+</p>
+<ul class="org-ul">
+<li><p>
+ <font color="#0000ff">foldLeft(e)(f)</font> calculates \(f(f(...f(f(f(e, x_1), x_2), x_3), ...), x_n)\) for a given list \(x_1, x_2, \ldots, x_n\). For instance, when \(n=4\)
+    is given, it calculates \(f(f(f(f(e, x_1), x_2), x_3), x_4)\). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.foldLeft(0)(_ + _)    
+res: Int = 18
+
+list.foldLeft(0)(10*_ + _)
+res: Int = 2718
+</pre>
+</div></li>
+
+<li><p>
+ <font color="#0000ff">foldRight(e)(f)</font> calculates \(f(x_1, f(x_2, ... f(x_{n-1}, f(x_n, e))...))\), for a given list \(x_1, x_2, ..., x_n\). For instance, when
+\(n=4\) is given, it calculates \(f(x_1, f(x_2, f(x_3, f(x_4, e))))\).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.foldRight(0)(_ + _)    
+res: Int = 18
+
+scala&gt; list.foldRight(0)(_ + 10*_)
+res: Int = 8172
+</pre>
+</div></li>
+</ul>
+
+
+<p>
+reduceLeft(f) and reduceRight(f) are the same, when the function \(f\)
+is associative---\(f(x,f(y,z)) = f(f(x,y),z)\). Similarly, 
+foldLeft(e)(f) and foldRight(e)(f) are the same when the function \(f\)
+is associative and e is the unity of the operation f. 
+</p>
+
+<p>
+When it is the case, the use of reduce(f) and fold(e)(f) is
+recommended. Because we might have better performance for parallel
+collections. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">3.5</span> Exercise</h3>
+<div class="outline-text-3" id="text-3-5">
+<div class="answer">
+<ol class="org-ol">
+<li>How can we calculate \(x_1 - x_2 - \cdots - x_n\) for a list \(x_1, x_2, \ldots, x_n\)? For instance, we want to calculate 3-1-4 (-2) for <code>List(3,1,4)</code>.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(3,1,4).reduceLeft(_ - _)          
+res: Int = -2
+</pre>
+</div>
+<p>
+If we use reduceRight, it becomes 3-(1-4) that is 6.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(3,1,4).reduceRight(_ - _)       
+res: Int = 6
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>Given a list consists of 0 and 1 and it is a binary
+representation of integer. Then, how can we calculate its integer
+value? For instance, how can we calculate 13 from <code>List(1,1,0,1)</code>?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(1,1,0,1).reduceLeft(2*_ + _)          
+res: Int = 13
+</pre>
+</div>
+<p>
+If we use <code>List(1,1,0,1).reduceRight(_ + 2*_)</code>, we can
+calculate an integer value of binary representation in
+reverse ordering. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(1,1,0,1).reduceRight(_ + 2*_)          
+res: Int = 11
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+
+<ol class="org-ol">
+<li><code>x ^ y</code> returns bit-wise XOR (exclusive or; \(x\oplus y\)) of x and y.
+What is the XOR from 0 to 7, that is <code>0 ^ 1 ^ 2 ^ ... ^ 7</code>?
+How about XOR from 0 to 15, XOR from 0 to 31?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (0 to 7).reduce(_ ^ _)          
+res: Int = 0
+scala&gt; (0 to 15).reduce(_ ^ _)
+res: Int = 0
+scala&gt; (0 to 31).reduce(_ ^ _)
+res: Int = 0
+</pre>
+</div>
+
+<p>
+Since XOR is a associative operation (that is \((x \oplus (y \oplus z)) = ((x \oplus y) \oplus z)\)),
+we can use either reduceLeft or reduceRight. 
+Since XOR from 0 to 2^n-1 have 1 for every digits even number
+   times, the results always become 0. 
+</p></dd>
+</dl></li>
+<li>Calculate <code>List(2,7,1,8).reduceLeft((a,b) =&gt; 100*a + b)</code>.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(2,7,1,8).reduceLeft((a,b) =&gt; 100*a + b)          
+res: Int = 2070108
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Calculate <code>List(2,7,1,8).reduceRight((a,b) =&gt; a + 100*b)</code>
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(2,7,1,8).reduceRight((a,b) =&gt; a + 100*b)          
+res: Int = 8010702
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Calculate <code>List("a","b","c").reduceLeft(_ + "," + _)</code>.
+How about the result of  <code>List("a","b","c").reduceRight(_ + "," + _)</code>?
+Note that <code>+</code> returns the concatenation of strings.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(<span style="color: #8b2252;">"a"</span>,<span style="color: #8b2252;">"b"</span>,<span style="color: #8b2252;">"c"</span>).reduceLeft(_ + <span style="color: #8b2252;">","</span> + _)          
+res: String = a,b,c
+scala&gt; List(<span style="color: #8b2252;">"a"</span>,<span style="color: #8b2252;">"b"</span>,<span style="color: #8b2252;">"c"</span>).reduceRight(_ + <span style="color: #8b2252;">","</span> + _)
+res: String = a,b,c
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Calculate <code>List("a","b","c").foldLeft("e")("(" + _ + "," + _ + ")")</code>.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(<span style="color: #8b2252;">"a"</span>,<span style="color: #8b2252;">"b"</span>,<span style="color: #8b2252;">"c"</span>).foldLeft(<span style="color: #8b2252;">"e"</span>)(<span style="color: #8b2252;">"("</span> + _ + <span style="color: #8b2252;">","</span> + _ + <span style="color: #8b2252;">")"</span>)          
+res: String = (((e,a),b),c)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Calculate <code>List("a","b","c").foldRight("e")("(" + _ + "," + _ + ")")</code>.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(<span style="color: #8b2252;">"a"</span>,<span style="color: #8b2252;">"b"</span>,<span style="color: #8b2252;">"c"</span>).foldRight(<span style="color: #8b2252;">"e"</span>)(<span style="color: #8b2252;">"("</span> + _ + <span style="color: #8b2252;">","</span> + _ + <span style="color: #8b2252;">")"</span>)          
+res: String = (a,(b,(c,e)))
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Calculate <code>List("a","b","c","d").reduceRight("(" + _ + "+1/" + _ + ")")</code>.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(<span style="color: #8b2252;">"a"</span>,<span style="color: #8b2252;">"b"</span>,<span style="color: #8b2252;">"c"</span>,<span style="color: #8b2252;">"d"</span>).reduceRight(<span style="color: #8b2252;">"("</span> + _ + <span style="color: #8b2252;">"+1/"</span> + _ + <span style="color: #8b2252;">")"</span>)          
+res: String = (a+1/(b+1/(c+1/d)))
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">3.6</span> foreach and for</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+Using foreach, we can iteratively process for each element of a
+given list.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.foreach { println }  
+2
+7
+1
+8
+
+scala&gt; (1 to 4).foreach { println }
+1
+2
+3
+4
+</pre>
+</div>
+
+
+<p>
+Using for, we can do the same.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (x &lt;- list) { println(x) }  
+2
+7
+1
+8
+
+scala&gt; <span style="color: #a020f0;">for</span> (x &lt;- 1 to 4) { println(x) }
+1
+2
+3
+4
+</pre>
+</div>
+
+
+<p>
+Using for, we can do the same thing as map by using yield. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (x &lt;- list) <span style="color: #a020f0;">yield</span> x+1  
+res: List[Int] = List(3, 8, 2, 9)
+</pre>
+</div>
+
+<p>
+We can write loop with multiple variables. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (i &lt;- list; j &lt;- list) <span style="color: #a020f0;">yield</span> 10*i+j  
+res: List[Int] = List(22, 27, 21, 28, 72, 77, 71, 78, 12, 17, 11, 18, 82, 87, 81, 88)
+scala&gt; <span style="color: #a020f0;">for</span> (i &lt;- 1 to 3; j &lt;- 1 to 3) <span style="color: #a020f0;">yield</span> 10*i+j
+res: IndexedSeq[Int] = Vector(11, 12, 13, 21, 22, 23, 31, 32, 33)
+</pre>
+</div>
+
+
+<p>
+We can filter out some elements by if statement. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (i &lt;- 1 to 3; j &lt;- 1 to 3 <span style="color: #a020f0;">if</span> i != j) <span style="color: #a020f0;">yield</span> 10*i+j  
+res: IndexedSeq[Int] = Vector(12, 13, 21, 23, 31, 32)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">3.7</span> Exercise</h3>
+<div class="outline-text-3" id="text-3-7">
+<div class="answer">
+<ol class="org-ol">
+<li>Using for, calculate a list (or vector) consists from 1! to 10!.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (n &lt;- 1 to 10) <span style="color: #a020f0;">yield</span> (1 to n).product          
+res: IndexedSeq[Int] = Vector(1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Calculate a list of string iterating a,b,c from 1 to 3. That is
+generate &ldquo;a&rdquo;, &ldquo;aa&rdquo;, &ldquo;aaa&rdquo;, &ldquo;b&rdquo;, &ldquo;bb&rdquo;, &ldquo;bbb&rdquo;, &ldquo;c&rdquo;, &ldquo;cc&rdquo;, &ldquo;ccc&rdquo;. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (s &lt;- List(<span style="color: #8b2252;">"a"</span>,<span style="color: #8b2252;">"b"</span>,<span style="color: #8b2252;">"c"</span>); n &lt;- 1 to 3) <span style="color: #a020f0;">yield</span> s * n          
+res: List[String] = List(a, aa, aaa, b, bb, bbb, c, cc, ccc)
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>For all 3 digit integers, calculate all integers whose summation
+of each digit equals to 10. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (i &lt;- 1 to 9; j &lt;- 0 to 9; k &lt;- 0 to 9; <span style="color: #a020f0;">if</span> i+j+k==10) <span style="color: #a020f0;">yield</span> 100*i+10*j+k          
+res: IndexedSeq[Int] = Vector(109, 118, 127, 136, 145, ..., 811, 820, 901, 910)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Calculate a list containing 10n and 10n+1 from n=1 to n=10, that
+is, 10, 11, 20, 21, &#x2026;, 100, 101. How can we do that?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (n &lt;- 1 to 10; x &lt;- List(10*n, 10*n+1)) <span style="color: #a020f0;">yield</span> x          
+res: IndexedSeq[Int] = Vector(10, 11, 20, 21, 30, 31, ..., 100, 101)
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline21" class="outline-2">
+<h2 id="orgheadline21"><span class="section-number-2">4</span> Sequence (Seq)</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Sequence (Seq) is an upper class of list and we can use methods of
+Seq also for List. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">seq</span> = Seq(2, 7, 1, 8)  
+seq: Seq[Int] = List(2, 7, 1, 8)
+
+scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">s</span>(<span style="color: #a0522d;">seq</span>: <span style="color: #228b22;">Seq[Int]</span>) = seq.size
+s: (seq: Seq[Int])Int
+scala&gt; s(seq)
+res: Int = 4
+scala&gt; s(list)
+res: Int = 4
+</pre>
+</div>
+
+
+<p>
+So, if you do not have specific reason, it is recommended to use Seq
+instead of List. However, we cannot use  <code>::</code> and <code>:::</code> etc. We use
+<code>+:</code> and <code>++</code> instead. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-2">
+<h2 id="orgheadline23"><span class="section-number-2">5</span> Set</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+In Scala, we can use a set as same as list. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">set</span> = Set(2, 7, 1, 8, 2, 8)  
+set: scala.collection.immutable.Set[Int] = Set(2, 7, 1, 8)
+</pre>
+</div>
+
+<p>
+Note that, in the following we omit scala.collection.immutable in
+the output. 
+</p>
+
+<p>
+Set also has various methods as same as List, it additionally has
+the following Set operations. 
+</p>
+<ul class="org-ul">
+<li><p>
+ <font color="#0000ff">intersect(s)</font> calculates the common elements (we can also use <code>&amp;</code>).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">set.intersect(Set(3,1,4))    
+res: Set[Int] = Set(1)
+</pre>
+</div></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><p>
+ <font color="#0000ff">union(s)</font> calculates the elements in either two sets (we can also
+use <code>|</code>). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">set.union(Set(3,1,4))    
+res: Set[Int] = Set(8, 4, 1, 2, 7, 3)
+</pre>
+</div></li>
+
+<li><p>
+ <font color="#0000ff">diff(s)</font> calculates the difference of two sets (we can also use
+<code>&amp;~</code>). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">set.diff(Set(3,1,4))    
+res: Set[Int] = Set(2, 7, 8)
+</pre>
+</div></li>
+
+<li><p>
+ <font color="#0000ff">subsetOf(s)</font> calculates whether the set is a subset of the other.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; set.subsetOf(Set(3,1,4))    
+res: Boolean = <span style="color: #008b8b;">false</span>
+
+scala&gt; set.subsetOf(set)
+res: Boolean = <span style="color: #008b8b;">true</span>
+</pre>
+</div></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><font color="#0000ff">toList</font> can be used to translate from Set to List. toSeq can be used</li>
+</ul>
+<p>
+for sequence. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; set.toList  
+res: List[Int] = List(2, 7, 1, 8)
+scala&gt; set.toSeq
+res: Seq[Int] = ArrayBuffer(2, 7, 1, 8)
+</pre>
+</div>
+
+
+<ul class="org-ul">
+<li>In the opposite direction,  <font color="#0000ff">toSet</font> can be used.</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; list.toSet  
+res: Set[Int] = Set(2, 7, 1, 8)
+scala&gt; seq.toSet
+res: Set[Int] = Set(2, 7, 1, 8)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22"><span class="section-number-3">5.1</span> Exercise</h3>
+<div class="outline-text-3" id="text-5-1">
+<div class="answer">
+<ol class="org-ol">
+<li>Make a set <code>set1</code> containing integers from 1 to 100.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">set1</span> = (1 to 100).toSet          
+set1: Set[Int] = Set(69, ...)
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>Make a set consists of elements which is remainders of the
+square of elements of <code>set1</code> divided by 4. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; set1.map(x =&gt; x*x % 4)          
+res: Set[Int] = Set(1, 0)
+scala&gt; <span style="color: #a020f0;">for</span> (x &lt;- set1) <span style="color: #a020f0;">yield</span> x*x % 4
+res: Set[Int] = Set(1, 0)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Make a set <code>evens</code> consists of even integers under (less than or
+equal to) 100.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">evens</span> = (2 to 100 by 2).toSet          
+evens: Set[Int] = Set(88, 10, 56, ..., 100)
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>Make a set <code>primes</code> consists of prime numbers under (less than or
+equal to) 100.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">isPrime</span>(<span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int</span>) = (2 to math.sqrt(n).toInt).forall(n % _ != 0)          
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">primes</span> = (2 to 100).filter(isPrime).toSet
+primes: Set[Int] = Set(5, 37, 29, ..., 83)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Make a set <code>primes2</code> consists of composite numbers made from the
+sum of two prime numbers under (less than or equal to) 100. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">primes2</span> = <span style="color: #a020f0;">for</span> (p1 &lt;- primes; p2 &lt;- primes) <span style="color: #a020f0;">yield</span> p1+p2          
+primes2: Set[Int] = Set(69, 138, 88, ..., 100)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Make a set consists of even numbers under 100 and each of which
+can not be represented by the sum of two prime numbers. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; evens diff primes          
+res: Set[Int] = Set(2)
+</pre>
+</div>
+
+<p>
+Goldbach&rsquo;s conjecture&#x2014;it is conjectured that even numbers
+   greater than or equal to 4 can be represented by the
+   sum of two prime numbers. 
+(<a href="https://en.wikipedia.org/wiki/Goldbach's_conjecture">https://en.wikipedia.org/wiki/Goldbach's_conjecture</a>)
+</p></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-2">
+<h2 id="orgheadline24"><span class="section-number-2">6</span> Map</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+We can create an object of Map as follows. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">map</span> = Map(<span style="color: #8b2252;">"hamlet"</span>-&gt;118, <span style="color: #8b2252;">"ophelia"</span>-&gt;31)  
+res: Map[String,Int] = Map(hamlet -&gt; 118, ophelia -&gt; 31)
+</pre>
+</div>
+
+<p>
+The left hand side of `` <code>-&gt;</code> &rsquo;&rsquo; is key, the right hand side is its value.
+We can also use a pair for its creation. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; Map((<span style="color: #8b2252;">"hamlet"</span>, 118), (<span style="color: #8b2252;">"ophelia"</span>, 31))  
+res: Map[String,Int] = Map(hamlet -&gt; 118, ophelia -&gt; 31)
+</pre>
+</div>
+
+
+
+<p>
+By using `` <code>+</code> &rsquo;&rsquo;, we can have a new map extended by the new key
+and value. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; map + (<span style="color: #8b2252;">"horatio"</span>-&gt;48)  
+res: Map[String,Int] = Map(hamlet -&gt; 118, ophelia -&gt; 31, horatio -&gt; 48)
+</pre>
+</div>
+
+<p>
+However, since this map immutable class, if you want to use map
+extended, we need to reassign to the variable ``map&rsquo;&rsquo;.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; map = map + (<span style="color: #8b2252;">"horatio"</span>-&gt;48)  
+map: Map[String,Int] = Map(hamlet -&gt; 118, ophelia -&gt; 31, horatio -&gt; 48)
+</pre>
+</div>
+
+<p>
+You can also use `` <code>+=</code> &rsquo;&rsquo; instead. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; map += (<span style="color: #8b2252;">"horatio"</span>-&gt;48)
+</pre>
+</div>
+
+
+<p>
+The following is the basic methods of map.
+</p>
+<ul class="org-ul">
+<li><p>
+ <font color="#0000ff">contains</font> check whether a given key is contained in the map.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; map.contains(<span style="color: #8b2252;">"hamlet"</span>)    
+res: Boolean = <span style="color: #008b8b;">true</span>
+
+scala&gt; map.contains(<span style="color: #8b2252;">"king"</span>)
+res: Boolean = <span style="color: #008b8b;">false</span>
+</pre>
+</div></li>
+
+<li><p>
+ <font color="#0000ff">apply</font> get the value of the given key. We can omit apply. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; map.apply(<span style="color: #8b2252;">"hamlet"</span>)    
+res: Int = 118
+
+scala&gt; map(<span style="color: #8b2252;">"hamlet"</span>)
+res: Int = 118
+</pre>
+</div>
+
+<p>
+Of course, error is returned when there is no key given.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; map(<span style="color: #8b2252;">"king"</span>)    
+java.util.NoSuchElementException: key not found: king
+</pre>
+</div></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><p>
+Instead,  <font color="#0000ff">getOrElse</font> returns a default value when there is no key. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; map.getOrElse(<span style="color: #8b2252;">"hamlet"</span>, 0)    
+res: Int = 118
+
+scala&gt; map.getOrElse(<span style="color: #8b2252;">"king"</span>, 0)
+res: Int = 0
+</pre>
+</div></li>
+
+<li><p>
+ <font color="#0000ff">keys</font> returns the set of keys. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; map.keys    
+res: Iterable[String] = Set(hamlet, ophelia, horatio)
+</pre>
+</div></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><p>
+ <font color="#0000ff">size</font> returns the number of keys.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; map.size    
+res: Int = 3
+</pre>
+</div></li>
+</ul>
+
+
+<p>
+Of course,  <font color="#0000ff">keys.size</font> can also be used. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; map.keys.size    
+res: Int = 3
+</pre>
+</div>
+
+
+<ul class="org-ul">
+<li><p>
+ <font color="#0000ff">filterKeys</font> returns a filtered keys. 
+The following example, calculates keys having more than 7 characters.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; map.filterKeys(_.length &gt;= 7)    
+res: Map[String,Int] = Map(ophelia -&gt; 31, horatio -&gt; 48)
+</pre>
+</div></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><p>
+When we directly apply filter to maps, 
+we give a function which takes a pair of key and value as argument.
+The following calculates filtered elements whose value is greater
+than or equal to 40. Note that `` <code>kv._2</code> &rsquo;&rsquo; denotes the second
+element of the pair kv, that is, the value. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; map.filter(kv =&gt; kv._2 &gt;= 40)    
+res: Map[String,Int] = Map(hamlet -&gt; 118, horatio -&gt; 48)
+</pre>
+</div>
+
+<p>
+Or, we can use anonymous function using pattern match of case.
+Note that case is surrounded by curly braces { } instead of ( ).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; map.filter{ <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">w</span>,<span style="color: #a0522d;">c</span>) =&gt; c &gt;= 40 }    
+res: Map[String,Int] = Map(hamlet -&gt; 118, horatio -&gt; 48)
+</pre>
+</div></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><p>
+We can do the same using for. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (kv &lt;- map; <span style="color: #a020f0;">if</span> kv._2 &gt;= 40) <span style="color: #a020f0;">yield</span> kv    
+res: Map[String,Int] = Map(hamlet -&gt; 118, horatio -&gt; 48)
+scala&gt; <span style="color: #a020f0;">for</span> ((w,c) &lt;- map; <span style="color: #a020f0;">if</span> c &gt;= 40) <span style="color: #a020f0;">yield</span> (w,c)
+res: Map[String,Int] = Map(hamlet -&gt; 118, horatio -&gt; 48)
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline28" class="outline-2">
+<h2 id="orgheadline28"><span class="section-number-2">7</span> List of List</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+List of List is given as follows. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">lists</span> = List(List(3,1,4), List(2,7,1,8,2,8), List(0,5,7,7))
+</pre>
+</div>
+
+
+<p>
+We can compute the length of each element of this list as follows.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; lists.map(_.size)  
+res: List[Int] = List(3, 6, 4)
+
+scala&gt; <span style="color: #a020f0;">for</span> (list &lt;- lists) <span style="color: #a020f0;">yield</span> list.size
+res: List[Int] = List(3, 6, 4)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline25" class="outline-3">
+<h3 id="orgheadline25"><span class="section-number-3">7.1</span> Exercise</h3>
+<div class="outline-text-3" id="text-7-1">
+<div class="answer">
+<ol class="org-ol">
+<li>How can we calculate the maximum length of elements of the given
+List of List.
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; lists.map(_.size).max          
+res: Int = 6
+scala&gt; (<span style="color: #a020f0;">for</span> (list &lt;- lists) <span style="color: #a020f0;">yield</span> list.size).max
+res: Int = 6
+</pre>
+</div></dd>
+</dl></li>
+
+<li>How can we calculate the summation of the elements of elements of
+the List of List (becomes 55)?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; lists.map(_.sum).sum          
+res: Int = 55
+scala&gt; (<span style="color: #a020f0;">for</span> (list &lt;- lists) <span style="color: #a020f0;">yield</span> list.sum).sum
+res: Int = 55
+</pre>
+</div></dd>
+</dl></li>
+
+<li>How can we calculate a list concatenating all elements of the given
+List of List by using reduceLeft?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; lists.reduceLeft(_ ++ _)          
+res: List[Int] = List(3, 1, 4, 2, 7, 1, 8, 2, 8, 0, 5, 7, 7)
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+
+<p>
+We can use for instead.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (list &lt;- lists; x &lt;- list) <span style="color: #a020f0;">yield</span> x       
+res: List[Int] = List(3, 1, 4, 2, 7, 1, 8, 2, 8, 0, 5, 7, 7)
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>How can we calculate a list concatenating all elements of reverse
+direction. (Hint) We can use <code>List[Int]()</code> as empty list. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; lists.foldLeft(List[Int]())(_ ++ _.reverse)          
+res: List[Int] = List(4, 1, 3, 8, 2, 8, 1, 7, 2, 7, 7, 5, 0)
+</pre>
+</div>
+
+<p>
+We can use for instead.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (list &lt;- lists; x &lt;- list.reverse) <span style="color: #a020f0;">yield</span> x       
+res: List[Int] = List(4, 1, 3, 8, 2, 8, 1, 7, 2, 7, 7, 5, 0)
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>How can we calculate a list consisting sets which are translated
+from each element of the given List of List. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; lists.map(_.toSet)          
+res: List[Set[Int]] = List(Set(3, 1, 4), Set(2, 7, 1, 8), Set(0, 5, 7))
+scala&gt; <span style="color: #a020f0;">for</span> (list &lt;- lists) <span style="color: #a020f0;">yield</span> list.toSet
+res: List[Set[Int]] = List(Set(3, 1, 4), Set(2, 7, 1, 8), Set(0, 5, 7))
+</pre>
+</div></dd>
+</dl></li>
+
+<li>How can we calculate a set of integers appeared in this List of
+List. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; lists.map(_.toSet).reduceLeft(_ ++ _)          
+res: Set[Int] = Set(0, 5, 1, 2, 7, 3, 8, 4)
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+
+<ol class="org-ol">
+<li><p>
+Given a List of List representing a matrix. 
+When a variable ``matrix&rsquo;&rsquo; is defined as List(List(3,1,4,1),
+List(2,7,1,8), List(0,5,7,7)), how can we calculate a transposed
+matrix?　That is, translate 
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">3</td>
+<td class="org-right">1</td>
+<td class="org-right">4</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-right">7</td>
+<td class="org-right">1</td>
+<td class="org-right">8</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">5</td>
+<td class="org-right">7</td>
+<td class="org-right">7</td>
+</tr>
+</tbody>
+</table>
+<p>
+to 
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">3</td>
+<td class="org-right">2</td>
+<td class="org-right">0</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">7</td>
+<td class="org-right">5</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-right">1</td>
+<td class="org-right">7</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">8</td>
+<td class="org-right">7</td>
+</tr>
+</tbody>
+</table>
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">matrix</span> = List(List(3,1,4,1), List(2,7,1,8), List(0,5,7,7))          
+scala&gt; (0 until matrix(0).size).map(j =&gt; (0 until matrix.size).map(i =&gt; matrix(i)(j)))
+res: IndexedSeq[List[Int]] = Vector(List(3, 2, 0), List(1, 7, 5), List(4, 1, 7), List(1, 8, 7))
+scala&gt; <span style="color: #a020f0;">for</span> (j &lt;- 0 until matrix(0).size) <span style="color: #a020f0;">yield</span> <span style="color: #a020f0;">for</span> (i &lt;- 0 until matrix.size) <span style="color: #a020f0;">yield</span> matrix(i)(j)
+res: IndexedSeq[IndexedSeq[Int]] = Vector(Vector(3, 2, 0), Vector(1, 7, 5), Vector(4, 1, 7), Vector(1, 8, 7))
+scala&gt; (0 until matrix(0).size).map(j =&gt; matrix.map(r =&gt; r(j)))
+res: IndexedSeq[List[Int]] = Vector(List(3, 2, 0), List(1, 7, 5), List(4, 1, 7), List(1, 8, 7))
+scala&gt; <span style="color: #a020f0;">for</span> (j &lt;- 0 until matrix(0).size) <span style="color: #a020f0;">yield</span> <span style="color: #a020f0;">for</span> (r &lt;- matrix) <span style="color: #a020f0;">yield</span> r(j)
+res: IndexedSeq[IndexedSeq[Int]] = Vector(Vector(3, 2, 0), Vector(1, 7, 5), Vector(4, 1, 7), Vector(1, 8, 7))
+</pre>
+</div>
+
+<p>
+We can use transpose method instead.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; matrix.transpose       
+res: List[List[Int]] = List(List(3, 2, 0), List(1, 7, 5), List(4, 1, 7), List(1, 8, 7))
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+
+<ol class="org-ol">
+<li><p>
+Given a List of List representing a matrix. 
+How can we pick up m rows n columns from the original i rows j
+columns matrix? Note that index starts from 0. For instance, when a matrix is given by
+List(List(3,1,4,1), List(2,7,1,8), List(0,5,7,7)), pick up 2 rows
+and 2 columns from 1st row 2nd column gives List(List(1, 8), List(7, 7)).
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">3</td>
+<td class="org-right">1</td>
+<td class="org-right">4</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-right">7</td>
+<td class="org-right">1</td>
+<td class="org-right">8</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">5</td>
+<td class="org-right">7</td>
+<td class="org-right">7</td>
+</tr>
+</tbody>
+</table>
+<p>
+to 
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">7</td>
+</tr>
+
+<tr>
+<td class="org-right">8</td>
+<td class="org-right">7</td>
+</tr>
+</tbody>
+</table>
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; matrix.slice(1, 3).map(col =&gt; col.slice(2, 4))          
+res: List[List[Int]] = List(List(1, 8), List(7, 7))
+scala&gt; <span style="color: #a020f0;">for</span> (i &lt;- 1 until 1+2) <span style="color: #a020f0;">yield</span> <span style="color: #a020f0;">for</span> (j &lt;- 2 until 2+2) <span style="color: #a020f0;">yield</span> matrix(i)(j)
+res: List[List[Int]] = List(List(1, 8), List(7, 7))
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">7.2</span> flatMap</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+Let&rsquo;s make a list of odd numbers from a list of list of integers.
+That is, in case of List List(List(3,1,4), List(2,7,1,8,2,8),
+List(0,5,7,7)), <code>List(3,1,7,1,5,7,7)</code> is the list we want to have. 
+</p>
+
+<p>
+We can make a list of lists of odd numbers by filtering each
+element as follows. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; lists.map(_.filter(_ % 2 != 0))   
+res: List[List[Int]] = List(List(3, 1), List(7, 1), List(5, 7, 7))
+</pre>
+</div>
+
+
+
+<p>
+Then, we can concatenate each element by reduceLeft.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; lists.map(_.filter(_ % 2 != 0)).reduceLeft(_ ++ _)   
+res: List[Int] = List(3, 1, 7, 1, 5, 7, 7)
+</pre>
+</div>
+
+
+
+<p>
+ <font color="#0000ff">flatMap</font> method can do the above simultaneously, that is, do the
+both map and concatenate. 
+flatMap(f) make a list f(x_1) <del>+ f(x_2) +</del> &#x2026; ++ f(x_n) from a
+list x_1, x_2, &#x2026;, x_n. 
+The performance is better than combination of map and concatenate
+since it does not require any intermediate list. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; lists.flatMap(_.filter(_ % 2 != 0))   
+res: List[Int] = List(3, 1, 7, 1, 5, 7, 7)
+</pre>
+</div>
+
+
+
+<p>
+Using an identity function x =&gt; x as a function f, it can be used
+as a simple concatenation for a list of list.
+flatten method does the same.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; lists.flatMap(x =&gt; x)   
+res: List[Int] = List(3, 1, 4, 2, 7, 1, 8, 2, 8, 0, 5, 7, 7)
+
+scala&gt; lists.flatten
+res: List[Int] = List(3, 1, 4, 2, 7, 1, 8, 2, 8, 0, 5, 7, 7)
+</pre>
+</div>
+
+
+<p>
+When integers i and j are changed from 1 to 3 respectively, 
+we can calculate a list consists of 10*i+j by using flatMap as
+follows. (Vector is returned but we can translate it to list by toList).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1 to 3).flatMap(i =&gt; (1 to 3).map(j =&gt; 10*i+j))   
+res: IndexedSeq[Int] = Vector(11, 12, 13, 21, 22, 23, 31, 32, 33)
+</pre>
+</div>
+
+
+
+<p>
+The same can be done as follows by using for. However, in fact,
+this is converted to flatMap inside of Scala interpreter. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (i &lt;- 1 to 3; j &lt;- 1 to 3) <span style="color: #a020f0;">yield</span> 10*i+j   
+res: IndexedSeq[Int] = Vector(11, 12, 13, 21, 22, 23, 31, 32, 33)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline27" class="outline-3">
+<h3 id="orgheadline27"><span class="section-number-3">7.3</span> Exercise</h3>
+<div class="outline-text-3" id="text-7-3">
+<div class="answer">
+<ol class="org-ol">
+<li>How can we make a list consists of the first two elements of a
+given List of List? That is, in case of List List(List(3,1,4),
+List(2,7,1,8,2,8), List(0,5,7,7)), the result should be List(3,1,2,7,0,5).
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; lists.flatMap(_.take(2))          
+res: List[Int] = List(3, 1, 2, 7, 0, 5)
+scala&gt; <span style="color: #a020f0;">for</span> (list &lt;- lists; x &lt;- list.take(2)) <span style="color: #a020f0;">yield</span> x
+res: List[Int] = List(3, 1, 2, 7, 0, 5)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>When integers i, j, k are changed from 1 to 3 respectively, 
+how can we make a list (or Vector) consists of 100*i+10*j+k?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1 to 3).flatMap(i =&gt; (1 to 3).flatMap(j =&gt; (1 to 3).map(k =&gt; 100*i+10*j+k)))          
+res: IndexedSeq[Int] = Vector(111, 112, 113, 121, ..., 333)
+scala&gt; <span style="color: #a020f0;">for</span> (i &lt;- 1 to 3; j &lt;- 1 to 3; k &lt;- 1 to 3) <span style="color: #a020f0;">yield</span> 100*i+10*j+k
+res: IndexedSeq[Int] = Vector(111, 112, 113, 121, ..., 333)
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline30" class="outline-2">
+<h2 id="orgheadline30"><span class="section-number-2">8</span> Pair and Tuple</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+List and Seq are data types of any length. 
+Tuple is a data type of fixed length. 
+It can have elements of different type. 
+Tuple of length \(n\) is denoted as (a_1,a_2,&#x2026;,a_n). 
+</p>
+
+<p>
+The tuple of length 2 is called Tuple2 or Pair.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">pair</span> = (<span style="color: #8b2252;">"scala"</span>, 2.9)  
+pair: (String, Double) = (scala,2.9)
+</pre>
+</div>
+
+
+
+<p>
+The pair can be written as follows.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #8b2252;">"scala"</span> -&gt; 2.9  
+scala&gt; Tuple2(<span style="color: #8b2252;">"scala"</span>, 2.9)
+scala&gt; Pair(<span style="color: #8b2252;">"scala"</span>, 2.9)
+</pre>
+</div>
+
+
+<p>
+i th element of Tuple is accessed by the indexed method like <code>_1</code>, <code>_2</code>, <code>_3</code>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; pair._1  
+res: String = scala
+scala&gt; pair._2
+res: Double = 2.9
+</pre>
+</div>
+
+
+<p>
+Or, we can get elements by the declaration of variables as follows. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> (<span style="color: #a0522d;">s</span>,<span style="color: #a0522d;">v</span>) = pair  
+s: String = scala
+v: Double = 2.9
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline29" class="outline-3">
+<h3 id="orgheadline29"><span class="section-number-3">8.1</span> Exercise</h3>
+<div class="outline-text-3" id="text-8-1">
+<div class="answer">
+<p>
+Consider a variable pairs is defined as follows.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">pairs</span> = <span style="color: #a020f0;">for</span> (x &lt;- 1 to 3; y &lt;- 1 to 3) <span style="color: #a020f0;">yield</span> (x,y)  
+pairs: IndexedSeq[(Int, Int)] = Vector((1,1), (1,2), (1,3), (2,1), ..., (3,3))
+</pre>
+</div>
+
+
+
+<ol class="org-ol">
+<li>How can we calculate a list consists of pairs created by
+interchanging the 1st and 2nd element of original pairs. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; pairs.map(p =&gt; (p._2,p._1))          
+res: IndexedSeq[(Int, Int)] = Vector((1,1), (2,1), (3,1), (1,2), ..., (3,3))
+scala&gt; <span style="color: #a020f0;">for</span> ((x,y) &lt;- pairs) <span style="color: #a020f0;">yield</span> (y,x)
+res: IndexedSeq[(Int, Int)] = Vector((1,1), (2,1), (3,1), (1,2), ..., (3,3))
+</pre>
+</div></dd>
+</dl></li>
+
+<li>How can we calculate a list consists of only the 1st element of
+elements of the original list of pairs. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; pairs.map(_._1).toSet          
+res: Set[Int] = Set(1, 2, 3)
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>How can we calculate a list sorted by the summation of the 1st
+and 2nd elements of pairs? (Hint, use sortBy)
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; pairs.sortBy(p =&gt; p._1 + p._2)          
+res: IndexedSeq[(Int, Int)] = Vector((1,1), (1,2), (2,1), ..., (2,3), (3,2), (3,3))
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline32" class="outline-2">
+<h2 id="orgheadline32"><span class="section-number-2">9</span> Option</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+In Scala, we use Option type when there is possibility have no values.
+For instance, consider the following map. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ageMap</span> = Map(<span style="color: #8b2252;">"Taro"</span> -&gt; 21, <span style="color: #8b2252;">"Jiro"</span> -&gt; 19)  
+ageMap: Map[String,Int] = Map(Taro -&gt; 21, Jiro -&gt; 19)
+</pre>
+</div>
+
+
+
+<p>
+When the value of p is a, ageMap.get(p) returns Some(a), in other
+case there is no value, it returns None. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; ageMap.get(<span style="color: #8b2252;">"Taro"</span>)  
+res: Option[Int] = Some(21)
+scala&gt; ageMap.get(<span style="color: #8b2252;">"Saburo"</span>)
+res: Option[Int] = None
+</pre>
+</div>
+
+
+<p>
+We use get method when retrieve a value from Some(a). 
+Exception is caused when we use get method for None. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; ageMap.get(<span style="color: #8b2252;">"Taro"</span>).get  
+res Int = 21
+scala&gt; ageMap.get(<span style="color: #8b2252;">"Saburo"</span>).get
+java.util.NoSuchElementException: None.get
+</pre>
+</div>
+
+
+<p>
+ <font color="#0000ff">isEmpty</font> method can be used to check if the object is Some(a) or None.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; ageMap.get(<span style="color: #8b2252;">"Taro"</span>).isEmpty  
+res: Boolean = <span style="color: #008b8b;">false</span>
+scala&gt; ageMap.get(<span style="color: #8b2252;">"Saburo"</span>).isEmpty
+res: Boolean = <span style="color: #008b8b;">true</span>
+</pre>
+</div>
+
+
+<p>
+Some(a) correspond to the list of length 1, None correspond to empty
+list. For instance, we can use filter method for it.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; ageMap.get(<span style="color: #8b2252;">"Taro"</span>).filter(_ &gt;= 20)  
+res: Option[Int] = Some(21)
+scala&gt; ageMap.get(<span style="color: #8b2252;">"Jiro"</span>).filter(_ &gt;= 20)
+res: Option[Int] = None
+scala&gt; ageMap.get(<span style="color: #8b2252;">"Saburo"</span>).filter(_ &gt;= 20)
+res: Boolean = None
+</pre>
+</div>
+
+
+<p>
+We can do the same by using for. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (a &lt;- ageMap.get(<span style="color: #8b2252;">"Taro"</span>); <span style="color: #a020f0;">if</span> a &gt;= 20) <span style="color: #a020f0;">yield</span> a  
+res: Option[Int] = Some(21)
+scala&gt; <span style="color: #a020f0;">for</span> (a &lt;- ageMap.get(<span style="color: #8b2252;">"Jiro"</span>); <span style="color: #a020f0;">if</span> a &gt;= 20) <span style="color: #a020f0;">yield</span> a
+res: Option[Int] = None
+scala&gt; <span style="color: #a020f0;">for</span> (a &lt;- ageMap.get(<span style="color: #8b2252;">"Saburo"</span>); <span style="color: #a020f0;">if</span> a &gt;= 20) <span style="color: #a020f0;">yield</span> a
+res: Option[Int] = None
+</pre>
+</div>
+
+
+<p>
+Let&rsquo;s see an example of the application to the list of string.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">names</span> = Seq(<span style="color: #8b2252;">"Taro"</span>, <span style="color: #8b2252;">"Jiro"</span>, <span style="color: #8b2252;">"Saburo"</span>)  
+res: Seq[String] = List(Taro, Jiro, Saburo)
+scala&gt; names.map(p =&gt; ageMap.get(p).filter(_ &gt;= 20))
+res: Seq[Option[Int]] = List(Some(21), None, None)
+scala&gt; names.map(p =&gt; ageMap.get(p).map(_ + 1))
+res: Seq[Option[Int]] = List(Some(22), Some(20), None)
+</pre>
+</div>
+
+
+<p>
+We can concatenate the data of Option type since they can be treat
+as List. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; Some(21) ++ Some(19)  
+res: Iterable[Int] = List(21, 19)
+scala&gt; Some(21) ++ None
+res: Iterable[Int] = List(21)
+scala&gt; names.map(p =&gt; ageMap.get(p))
+res: Seq[Option[Int]] = List(Some(21), Some(19), None)
+scala&gt; names.map(p =&gt; ageMap.get(p)).flatten
+res: Seq[Int] = List(21, 19)
+</pre>
+</div>
+
+
+<p>
+It is convenient when we use flatMap or for. 
+Because we can filter ones whose value are defined. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; names.flatMap(p =&gt; ageMap.get(p))  
+res: Seq[Int] = List(21, 19)
+scala&gt; <span style="color: #a020f0;">for</span> (p &lt;- names; a &lt;- ageMap.get(p)) <span style="color: #a020f0;">yield</span> a
+res: Seq[Int] = List(21, 19)
+</pre>
+</div>
+
+
+<p>
+It provides us an easy and integrated way to treat them without
+considering value is defined or not.
+</p>
+</div>
+
+<div id="outline-container-orgheadline31" class="outline-3">
+<h3 id="orgheadline31"><span class="section-number-3">9.1</span> Exercise</h3>
+<div class="outline-text-3" id="text-9-1">
+<div class="answer">
+<ol class="org-ol">
+<li>What is the result of <code>names.map(p =&gt; ageMap.get(p).filter(_ &gt;= 20).map(_ + 1))</code>?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; names.map(p =&gt; ageMap.get(p).filter(_ &gt;= 20).map(_ + 1))          
+res: Seq[Option[Int]] = List(Some(22), None, None)
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+
+<ol class="org-ol">
+<li>What is the result of <code>names.flatMap(p =&gt; ageMap.get(p).filter(_ &gt;= 20).map(_ + 1))</code>?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; names.flatMap(p =&gt; ageMap.get(p).filter(_ &gt;= 20).map(_ + 1))          
+res: Seq[Int] = List(22)
+</pre>
+</div></dd>
+</dl></li>
+
+<li>What is the result of <code>for (p &lt;- names; a &lt;- ageMap.get(p); if a &gt;= 20) yield a + 1</code>?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (p &lt;- names; a &lt;- ageMap.get(p); <span style="color: #a020f0;">if</span> a &gt;= 20) <span style="color: #a020f0;">yield</span> a + 1          
+res: Seq[Int] = List(22)
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline34" class="outline-2">
+<h2 id="orgheadline34"><span class="section-number-2">10</span> Iterator</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+Iterator looks similar to List and Seq, but it is different in the
+point that it can refer its element only once. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">iter</span> = Iterator(3, 1, 4)  
+iter: Iterator[Int] = non-empty iterator
+</pre>
+</div>
+
+
+
+<p>
+If we refer its element once, the element is removed.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; iter.size  
+res: Int = 3
+
+scala&gt; iter.size
+res: Int = 0
+</pre>
+</div>
+
+
+<p>
+If we want refer it multiple times, we can translate it to List by
+using  <font color="#0000ff">toList</font> method (of course, translate to Seq by toSeq is also
+fine. This case it becomes Stream data). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">iter</span> = Iterator(2, 7, 1, 8)  
+iter: Iterator[Int] = non-empty iterator
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">list</span> = iter.toList
+list: List[Int] = List(2, 7, 1, 8)
+</pre>
+</div>
+
+
+<p>
+Iterator has a disadvantage that it can refer an element only once,
+but has an advantage that it can treat a huge size of data as same
+as List and Seq. 
+</p>
+
+<p>
+Methods using Iterator are permutations which calculates all
+permutation of lists or combination which calculates all combinations.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; List(1,2,3).permutations.foreach(println)  
+List(1, 2, 3)
+List(1, 3, 2)
+List(2, 1, 3)
+List(2, 3, 1)
+List(3, 1, 2)
+List(3, 2, 1)
+
+scala&gt; List(1,2,3).combinations(2).foreach(println)
+List(1, 2)
+List(1, 3)
+List(2, 3)
+</pre>
+</div>
+
+
+<p>
+In others,  <font color="#0000ff">grouped(n)</font> splits a given list to smaller lists of length
+n,  <font color="#0000ff">sliding(n)</font> returns n wise elements (n window) from a given list. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; (1 to 10).grouped(3).foreach(println)  
+Vector(1, 2, 3)
+Vector(4, 5, 6)
+Vector(7, 8, 9)
+Vector(10)
+
+scala&gt; (1 to 10).sliding(3).foreach(println)
+Vector(1, 2, 3)
+Vector(2, 3, 4)
+Vector(3, 4, 5)
+Vector(4, 5, 6)
+Vector(5, 6, 7)
+Vector(6, 7, 8)
+Vector(7, 8, 9)
+Vector(8, 9, 10)
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline33" class="outline-3">
+<h3 id="orgheadline33"><span class="section-number-3">10.1</span> Exercise</h3>
+<div class="outline-text-3" id="text-10-1">
+<div class="answer">
+<ol class="org-ol">
+<li>Define a function  alldiff(seq) which checks any two elements are
+mutually different. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">alldiff</span>(<span style="color: #a0522d;">seq</span>: <span style="color: #228b22;">Seq[Int]</span>) = seq.combinations(2).forall(s =&gt; s(0) != s(1))          
+scala&gt; alldiff(Seq(1,2,3,4))
+res: Boolean = <span style="color: #008b8b;">true</span>
+scala&gt; alldiff(Seq(1,2,3,4,1))
+res: Boolean = <span style="color: #008b8b;">false</span>
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Define a function ascending(seq) which checks the elements of the
+integer sequence seq are sorted in increasing order. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">ascending</span>(<span style="color: #a0522d;">seq</span>: <span style="color: #228b22;">Seq[Int]</span>) = seq.sliding(2).forall(s =&gt; s(0) &lt;= s(1))          
+scala&gt; ascending(Seq(1,3,5))
+res: Boolean = <span style="color: #008b8b;">true</span>
+scala&gt; ascending(Seq(1,3,5,2))
+res: Boolean = <span style="color: #008b8b;">false</span>
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Define a function maxSum(n, seq) which returns the maximum value
+of the summation of consecutive n elements. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">maxSum</span>(<span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">seq</span>: <span style="color: #228b22;">Seq[Int]</span>) = seq.sliding(n).map(_.sum).max          
+scala&gt; maxSum(3, Seq(3,1,4,1,5,9,2,6,5,3,5))
+res: Int = 17
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Takehide Soh</p>
+<p class="date">Created: 2018-03-05 月 13:39</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

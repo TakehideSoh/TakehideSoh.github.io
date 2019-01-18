@@ -1,0 +1,13 @@
+  - [[file:scala-complex.org][Scalaで複素数計算]]
+  - [[file:scala-primeruler.org][Scalaで素数ものさしを探す]]
+  - [[file:scala-sieve.org][Scalaでエラトステネスの篩]]
+  - [[file:scala-parser.org][Scalaで言語処理]]
+# - [[file:scala-sgb.org][ScalaでSGBのデータ処理]]
+
+# Scalaでパズル
+#   数独
+# グラフ処理
+#   digraph, graph, connected, adjacent
+#   tree, GCP
+# リスト処理: 連分数
+# DSL

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Project Eulerに挑戦: 問題3</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Project Eulerに挑戦: 問題3"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-09-29 21:44:13 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Project Eulerに挑戦: 問題3</h1>
+
+<ul>
+<li><a href="euler.html">Project Eulerに挑戦</a>
+</li>
+<li><a href="euler-001.html">問題1</a>
+</li>
+<li><a href="euler-002.html">問題2</a>
+</li>
+<li><a href="euler-003.html">問題3</a>
+</li>
+<li><a href="euler-004.html">問題4</a>
+</li>
+<li><a href="euler-005.html">問題5</a>
+</li>
+</ul>
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">問題3</a></li>
+<li><a href="#sec-2">Cで解く</a></li>
+<li><a href="#sec-3">Scalaで解く</a></li>
+<li><a href="#sec-4">手で解く</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">問題3</h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li><a href="http://projecteuler.net/index.php?section=problems&amp;id=3">問題3の問題文</a>
+</li>
+</ul>
+
+<blockquote>
+
+<p>600851475143の最大の素因数を求めよ．
+</p>
+</blockquote>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Cで解く</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  600851475143は 2<sup>31</sup> 以上であり，64ビット整数を用いる必要がある．
+  gccではlong longで64ビット整数を用いることができる．
+</p>
+
+
+
+<pre class="src src-c"><span class="linenr"> 1:  </span><span class="org-type">long</span> <span class="org-type">long</span> <span class="org-function-name">e003</span>() {
+<span class="linenr"> 2:  </span>    <span class="org-type">long</span> <span class="org-type">long</span> <span class="org-variable-name">n</span> = 600851475143LL;
+<span class="linenr"> 3:  </span>    <span class="org-type">long</span> <span class="org-type">long</span> <span class="org-variable-name">k</span> = 2;
+<span class="linenr"> 4:  </span>    <span class="org-keyword">while</span> (k*k &lt;= n) {
+<span class="linenr"> 5:  </span>        <span class="org-keyword">while</span> (n % k == 0)
+<span class="linenr"> 6:  </span>            n /= k;
+<span class="linenr"> 7:  </span>        k++;
+<span class="linenr"> 8:  </span>    }
+<span class="linenr"> 9:  </span>    <span class="org-keyword">return</span> n == 1 ? k : n;
+<span class="linenr">10:  </span>}
+</pre>
+
+<ul>
+<li>このプログラム間違っていそうですね&hellip; 後日修正します&hellip;
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Scalaで解く</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  素因数のリストを求める関数を作成する．
+</p>
+
+
+<pre class="src src-scala"><span class="linenr">1:  </span><span class="org-keyword">def</span> <span class="org-function-name">factor</span>(<span class="org-variable-name">n</span>: <span class="org-type">Long</span>, <span class="org-variable-name">p</span>: <span class="org-type">Long</span>): <span class="org-type">List[Long]</span> =
+<span class="linenr">2:  </span>  <span class="org-keyword">if</span> (n &lt; p * p)
+<span class="linenr">3:  </span>    List(n)
+<span class="linenr">4:  </span>  <span class="org-keyword">else</span> <span class="org-keyword">if</span> (n % p == 0)
+<span class="linenr">5:  </span>    p :: factor(n / p, p)
+<span class="linenr">6:  </span>  <span class="org-keyword">else</span>
+<span class="linenr">7:  </span>    factor(n, p + 1)
+<span class="linenr">8:  </span><span class="org-keyword">def</span> <span class="org-function-name">factor</span>(<span class="org-variable-name">n</span>: <span class="org-type">Long</span>): <span class="org-type">List[Long]</span> = factor(n, 2)
+</pre>
+
+
+<p>
+  factorの実行結果は以下のようになる．
+</p><pre class="example">
+scala&gt; factor(8)
+res: List[Long] = List(2, 2, 2)
+
+scala&gt; factor(2310)
+res: List[Long] = List(2, 3, 5, 7, 11)
+</pre>
+
+
+<p>
+  したがって回答は以下で求められる．
+</p><pre class="example">
+scala&gt; factor(600851475143L).last
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">手で解く</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  <a href="http://www.wolframalpha.com">Wolfram Alpha</a> で600851475143を入力し，素因数分解の結果を見る．
+</p>
+<p>
+  Linuxのfactorコマンドを用いる．
+</p><pre class="example">
+$ factor 600851475143
+</pre>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-09-29 21:44:13 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

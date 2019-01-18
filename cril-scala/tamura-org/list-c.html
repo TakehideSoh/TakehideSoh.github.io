@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Cで多項式計算</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Cで多項式計算"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-09-29 21:45:26 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Cで多項式計算</h1>
+
+<ul>
+<li><a href="list.html">リスト処理の例: 多項式計算</a>
+</li>
+<li><a href="list-c.html">C版</a>
+</li>
+<li><a href="list-lisp.html">Lisp版</a>
+</li>
+<li><a href="list-prolog.html">Prolog版</a>
+</li>
+<li><a href="list-java.html">Java版</a>
+</li>
+<li><a href="list-scala.html">Scala版</a>
+</li>
+</ul>
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 データ構造</a></li>
+<li><a href="#sec-2">2 リストの作成</a></li>
+<li><a href="#sec-3">3 リストの印刷</a></li>
+<li><a href="#sec-4">4 定数倍</a></li>
+<li><a href="#sec-5">5 加算</a></li>
+<li><a href="#sec-6">6 乗算</a></li>
+<li><a href="#sec-7">7 プログラム全体</a>
+<ul>
+<li><a href="#sec-7-1">7.1 注意</a></li>
+</ul>
+</li>
+<li><a href="#sec-8">8 練習問題</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> データ構造</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>  まず，整数リストのデータ構造を定義する．
+</p>
+
+
+<pre class="src src-c"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">node_struct</span> <span class="org-type">NODE</span>;
+<span class="org-keyword">struct</span> <span class="org-type">node_struct</span> {
+  <span class="org-type">int</span> <span class="org-variable-name">elem</span>;
+  <span class="org-type">NODE</span> *<span class="org-variable-name">next</span>;
+};
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> リストの作成</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  リストセルを作成するための関数を定義する．
+</p>
+
+
+<pre class="src src-c"><span class="linenr">1:  </span><span class="org-type">NODE</span> *<span class="org-function-name">new_node</span>(<span class="org-type">int</span> <span class="org-variable-name">elem</span>, <span class="org-type">NODE</span> *<span class="org-variable-name">next</span>) {
+<span class="linenr">2:  </span>  <span class="org-type">NODE</span> *<span class="org-variable-name">p</span>;
+<span class="linenr">3:  </span>  p = (<span class="org-type">NODE</span>*)malloc(<span class="org-keyword">sizeof</span>(NODE));
+<span class="linenr">4:  </span>  p-&gt;elem = elem;
+<span class="linenr">5:  </span>  p-&gt;next = next;
+<span class="linenr">6:  </span>  <span class="org-keyword">return</span> p;
+<span class="linenr">7:  </span>}
+</pre>
+
+
+<p>
+  たとえば，以下のようにするとリスト 3, 2, 1 が作成できる．
+</p>
+
+
+<pre class="src src-c"><span class="org-type">NODE</span> *<span class="org-variable-name">p</span>;
+p = new_node(1, <span class="org-constant">NULL</span>);
+p = new_node(2, p);
+p = new_node(3, p);
+</pre>
+
+
+<p>
+  あるいは，以下のようにしても良い．
+</p>
+
+
+<pre class="src src-c"><span class="org-type">NODE</span> *<span class="org-variable-name">p</span>;
+p = new_node(3, new_node(2, new_node(1, <span class="org-constant">NULL</span>)));
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> リストの印刷</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  デバッグのため，リストを印刷するプログラムを作成しておく．
+</p>
+
+
+<pre class="src src-c"><span class="linenr">1:  </span><span class="org-type">void</span> <span class="org-function-name">print</span>(<span class="org-type">NODE</span> *<span class="org-variable-name">p</span>) {
+<span class="linenr">2:  </span>  <span class="org-keyword">for</span> (; p != <span class="org-constant">NULL</span>; p = p-&gt;next) {
+<span class="linenr">3:  </span>    printf(<span class="org-string">"%d "</span>, p-&gt;elem);
+<span class="linenr">4:  </span>  }
+<span class="linenr">5:  </span>  printf(<span class="org-string">"\n"</span>);
+<span class="linenr">6:  </span>}
+</pre>
+
+
+<p>
+  下のように記述したプログラムで確認する．
+</p>
+
+
+<pre class="src src-c"><span class="org-type">NODE</span> *<span class="org-variable-name">p</span>;
+p = new_node(3, new_node(2, new_node(1, <span class="org-constant">NULL</span>)));
+print(p);
+</pre>
+
+
+<p>
+  以下のように出力される．
+</p><pre class="example">
+3 2 1
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 定数倍</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  多項式を定数倍した新しい多項式を求める関数 imul は以下のように定義できる．
+</p>
+
+
+<pre class="src src-c"><span class="linenr">1:  </span><span class="org-type">NODE</span> *<span class="org-function-name">imul</span>(<span class="org-type">int</span> <span class="org-variable-name">b</span>, <span class="org-type">NODE</span> *<span class="org-variable-name">p</span>) {
+<span class="linenr">2:  </span>  <span class="org-keyword">if</span> (p == <span class="org-constant">NULL</span>) {
+<span class="linenr">3:  </span>    <span class="org-keyword">return</span> <span class="org-constant">NULL</span>;
+<span class="linenr">4:  </span>  } <span class="org-keyword">else</span> {
+<span class="linenr">5:  </span>    <span class="org-keyword">return</span> new_node(b * p-&gt;elem, imul(b, p-&gt;next));
+<span class="linenr">6:  </span>  }
+<span class="linenr">7:  </span>}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 加算</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>  二つの多項式の和になっている新しい多項式を求める関数 add を作成する．
+</p>
+<p>
+  add(p, q)の動作は，以下のように再帰的に定義できる．
+</p><ul>
+<li>pが空リストの場合qが答えであり，qが空リストの場合pが答えである．
+</li>
+<li>どちらも空リストでない場合，p-&gt;nextとq-&gt;nextに対して
+    再帰的にaddを実行した結果のリストの前に，
+    双方の先頭要素の和を付け加えたリストが答えである．
+</li>
+</ul>
+
+
+<p>
+  これをプログラムとして記述すると，以下のようになる．
+</p>
+
+
+<pre class="src src-c"><span class="linenr"> 1:  </span><span class="org-type">NODE</span> *<span class="org-function-name">add</span>(<span class="org-type">NODE</span> *<span class="org-variable-name">p</span>, <span class="org-type">NODE</span> *<span class="org-variable-name">q</span>) {
+<span class="linenr"> 2:  </span>  <span class="org-keyword">if</span> (p == <span class="org-constant">NULL</span>) {
+<span class="linenr"> 3:  </span>    <span class="org-keyword">return</span> q;
+<span class="linenr"> 4:  </span>  } <span class="org-keyword">else</span> <span class="org-keyword">if</span> (q == <span class="org-constant">NULL</span>) {
+<span class="linenr"> 5:  </span>    <span class="org-keyword">return</span> p;
+<span class="linenr"> 6:  </span>  } <span class="org-keyword">else</span> {
+<span class="linenr"> 7:  </span>    <span class="org-keyword">return</span> new_node(p-&gt;elem + q-&gt;elem, 
+<span class="linenr"> 8:  </span>                    add(p-&gt;next, q-&gt;next));
+<span class="linenr"> 9:  </span>  }
+<span class="linenr">10:  </span>}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 乗算</h2>
+<div class="outline-text-2" id="text-6">
+
+<p>  二つの多項式の積になっている新しい多項式を求める関数 mul を作成する．
+</p>
+<p>
+  mul(p, q)の動作は，以下のように再帰的に定義できる．
+</p><ul>
+<li>pが空リストの場合，空リストが答えである．
+</li>
+<li>pが空リストでない場合，p-&gt;nextとqに対して
+    再帰的にmulを実行した結果のリストの前に0を付け加えたリストと，
+    qをp-&gt;elem倍 (imul)したリストとの和 (add)が答えである．
+</li>
+</ul>
+
+
+<p>
+  これをプログラムとして記述すると，以下のようになる．
+</p>
+
+
+<pre class="src src-c"><span class="linenr">1:  </span><span class="org-type">NODE</span> *<span class="org-function-name">mul</span>(<span class="org-type">NODE</span> *<span class="org-variable-name">p</span>, <span class="org-type">NODE</span> *<span class="org-variable-name">q</span>) {
+<span class="linenr">2:  </span>  <span class="org-keyword">if</span> (p == <span class="org-constant">NULL</span>) {
+<span class="linenr">3:  </span>    <span class="org-keyword">return</span> <span class="org-constant">NULL</span>;
+<span class="linenr">4:  </span>  } <span class="org-keyword">else</span> {
+<span class="linenr">5:  </span>    <span class="org-type">NODE</span> *<span class="org-variable-name">r</span> = mul(p-&gt;next, q);
+<span class="linenr">6:  </span>    <span class="org-keyword">return</span> add(imul(p-&gt;elem, q), new_node(0, r));
+<span class="linenr">7:  </span>  }
+<span class="linenr">8:  </span>}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> プログラム全体</h2>
+<div class="outline-text-2" id="text-7">
+
+<p>  プログラム全体は，以下のようになる．
+</p>
+
+
+<pre class="src src-c"><span class="linenr"> 1:  </span><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
+<span class="linenr"> 2:  </span><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdlib.h&gt;</span>
+<span class="linenr"> 3:  </span>
+<span class="linenr"> 4:  </span><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">node_struct</span> <span class="org-type">NODE</span>;
+<span class="linenr"> 5:  </span><span class="org-keyword">struct</span> <span class="org-type">node_struct</span> {
+<span class="linenr"> 6:  </span>  <span class="org-type">int</span> <span class="org-variable-name">elem</span>;
+<span class="linenr"> 7:  </span>  <span class="org-type">NODE</span> *<span class="org-variable-name">next</span>;
+<span class="linenr"> 8:  </span>};
+<span class="linenr"> 9:  </span>
+<span class="linenr">10:  </span><span class="org-type">NODE</span> *<span class="org-function-name">new_node</span>(<span class="org-type">int</span> <span class="org-variable-name">elem</span>, <span class="org-type">NODE</span> *<span class="org-variable-name">next</span>) {
+<span class="linenr">11:  </span>  <span class="org-type">NODE</span> *<span class="org-variable-name">p</span>;
+<span class="linenr">12:  </span>  p = (<span class="org-type">NODE</span>*)malloc(<span class="org-keyword">sizeof</span>(NODE));
+<span class="linenr">13:  </span>  p-&gt;elem = elem;
+<span class="linenr">14:  </span>  p-&gt;next = next;
+<span class="linenr">15:  </span>  <span class="org-keyword">return</span> p;
+<span class="linenr">16:  </span>}
+<span class="linenr">17:  </span>
+<span class="linenr">18:  </span><span class="org-type">NODE</span> *<span class="org-function-name">imul</span>(<span class="org-type">int</span> <span class="org-variable-name">b</span>, <span class="org-type">NODE</span> *<span class="org-variable-name">p</span>) {
+<span class="linenr">19:  </span>  <span class="org-keyword">if</span> (p == <span class="org-constant">NULL</span>) {
+<span class="linenr">20:  </span>    <span class="org-keyword">return</span> <span class="org-constant">NULL</span>;
+<span class="linenr">21:  </span>  } <span class="org-keyword">else</span> {
+<span class="linenr">22:  </span>    <span class="org-keyword">return</span> new_node(b * p-&gt;elem, imul(b, p-&gt;next));
+<span class="linenr">23:  </span>  }
+<span class="linenr">24:  </span>}
+<span class="linenr">25:  </span>
+<span class="linenr">26:  </span><span class="org-type">NODE</span> *<span class="org-function-name">add</span>(<span class="org-type">NODE</span> *<span class="org-variable-name">p</span>, <span class="org-type">NODE</span> *<span class="org-variable-name">q</span>) {
+<span class="linenr">27:  </span>  <span class="org-keyword">if</span> (p == <span class="org-constant">NULL</span>) {
+<span class="linenr">28:  </span>    <span class="org-keyword">return</span> q;
+<span class="linenr">29:  </span>  } <span class="org-keyword">else</span> <span class="org-keyword">if</span> (q == <span class="org-constant">NULL</span>) {
+<span class="linenr">30:  </span>    <span class="org-keyword">return</span> p;
+<span class="linenr">31:  </span>  } <span class="org-keyword">else</span> {
+<span class="linenr">32:  </span>    <span class="org-keyword">return</span> new_node(p-&gt;elem + q-&gt;elem, 
+<span class="linenr">33:  </span>                    add(p-&gt;next, q-&gt;next));
+<span class="linenr">34:  </span>  }
+<span class="linenr">35:  </span>}
+<span class="linenr">36:  </span>
+<span class="linenr">37:  </span><span class="org-type">NODE</span> *<span class="org-function-name">mul</span>(<span class="org-type">NODE</span> *<span class="org-variable-name">p</span>, <span class="org-type">NODE</span> *<span class="org-variable-name">q</span>) {
+<span class="linenr">38:  </span>  <span class="org-keyword">if</span> (p == <span class="org-constant">NULL</span>) {
+<span class="linenr">39:  </span>    <span class="org-keyword">return</span> <span class="org-constant">NULL</span>;
+<span class="linenr">40:  </span>  } <span class="org-keyword">else</span> {
+<span class="linenr">41:  </span>    <span class="org-type">NODE</span> *<span class="org-variable-name">r</span> = mul(p-&gt;next, q);
+<span class="linenr">42:  </span>    <span class="org-keyword">return</span> add(imul(p-&gt;elem, q), new_node(0, r));
+<span class="linenr">43:  </span>  }
+<span class="linenr">44:  </span>}
+<span class="linenr">45:  </span>
+<span class="linenr">46:  </span><span class="org-type">void</span> <span class="org-function-name">print</span>(<span class="org-type">NODE</span> *<span class="org-variable-name">p</span>) {
+<span class="linenr">47:  </span>  <span class="org-keyword">for</span> (; p != <span class="org-constant">NULL</span>; p = p-&gt;next) {
+<span class="linenr">48:  </span>    printf(<span class="org-string">"%d "</span>, p-&gt;elem);
+<span class="linenr">49:  </span>  }
+<span class="linenr">50:  </span>  printf(<span class="org-string">"\n"</span>);
+<span class="linenr">51:  </span>}
+<span class="linenr">52:  </span>
+<span class="linenr">53:  </span><span class="org-type">int</span> <span class="org-function-name">main</span>(<span class="org-type">int</span> <span class="org-variable-name">argc</span>, <span class="org-type">char</span> *<span class="org-variable-name">argv</span>[]) {
+<span class="linenr">54:  </span>  <span class="org-type">NODE</span> *<span class="org-variable-name">p</span>, *<span class="org-variable-name">q</span>, *<span class="org-variable-name">r</span>;
+<span class="linenr">55:  </span>  p = new_node(1, <span class="org-constant">NULL</span>);
+<span class="linenr">56:  </span>  p = new_node(2, p);
+<span class="linenr">57:  </span>  p = new_node(3, p);
+<span class="linenr">58:  </span>  print(p);
+<span class="linenr">59:  </span>  p = new_node(1, new_node(-1, new_node(0, new_node(2, new_node(-3, <span class="org-constant">NULL</span>)))));
+<span class="linenr">60:  </span>  q = imul(2, p);
+<span class="linenr">61:  </span>  print(q);
+<span class="linenr">62:  </span>  p = new_node(1, new_node(2, new_node(3, <span class="org-constant">NULL</span>)));
+<span class="linenr">63:  </span>  q = new_node(1, new_node(-2, new_node(3, new_node(-4, <span class="org-constant">NULL</span>))));
+<span class="linenr">64:  </span>  r = add(p, q);
+<span class="linenr">65:  </span>  print(r);
+<span class="linenr">66:  </span>  p = new_node(1, new_node(2, new_node(3, <span class="org-constant">NULL</span>)));
+<span class="linenr">67:  </span>  q = new_node(1, new_node(-2, new_node(3, <span class="org-constant">NULL</span>)));
+<span class="linenr">68:  </span>  r = mul(p, q);
+<span class="linenr">69:  </span>  print(r);
+<span class="linenr">70:  </span>  <span class="org-keyword">return</span> 0;
+<span class="linenr">71:  </span>}
+</pre>
+
+
+<p>
+  実行結果は，以下のようになる．
+</p><pre class="example">
+3 2 1 
+2 -2 0 4 -6 
+2 0 6 -4 
+1 0 2 0 9 
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> 注意</h3>
+<div class="outline-text-3" id="text-7-1">
+
+<p>  ここでは，malloc した領域の free を全く考慮していない．
+  特に add は，領域の共有が生じる可能性があるプログラムコードになっているため，
+  単純に free することが難しくなっている点に注意すること．
+</p>
+<p>
+  Lisp, Prolog, Java, Scala等の場合，処理系が自動的にゴミ集め(Garbage Collection)を
+  行うため，このような問題は生じない．
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> 練習問題</h2>
+<div class="outline-text-2" id="text-8">
+
+<ol>
+<li>二つの多項式の差を求める関数 sub を作成せよ．
+</li>
+<li>多項式と整数bが与えられた時，
+     多項式が単項式 x-b で割り切れるかどうか調べる関数 divisible を作成せよ．
+</li>
+<li>多項式を微分した新しい多項式を求める関数 deriv を作成せよ．
+</li>
+</ol>
+
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-09-29 21:45:26 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

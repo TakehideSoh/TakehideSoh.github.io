@@ -1,0 +1,4 @@
+#!/bin/sh
+DIR=`dirname $0`/..
+JARS=$DIR/lib/scarab-v1-0-2.jar
+exec scalac -optimize -cp .:classes:$JARS -d classes $*

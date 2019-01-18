@@ -1,0 +1,1871 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-03-20 火 10:11 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Introduction of Scala Programming Language <br> List and its Manipulation</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
+<script type="text/javascript" src="support.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Introduction of Scala Programming Language <br> List and its Manipulation</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Overview</a></li>
+<li><a href="#orgheadline3">2. Regular Expressions</a></li>
+<li><a href="#orgheadline4">3. Context Free Languages and Extended Backus-Naur Form (EBNF)</a></li>
+<li><a href="#orgheadline11">4. Prefix Notation Calculator</a></li>
+<li><a href="#orgheadline13">5. Other Working Materials</a></li>
+<li><a href="#orgheadline14">6. Calculator can read French langugage</a></li>
+<li><a href="#orgheadline15">7. Projects</a></li>
+</ul>
+</div>
+</div>
+<style type="text/css">
+div.answer dd {
+  display: none;
+}
+
+div.answer dl {
+  background: white;
+  margin: 0.5em;
+  padding: 0em;
+}
+
+div#content {
+    width:600px;
+    padding:50px;
+    padding-top:5px;
+    padding-bottom:20px;
+    background-color:#ffffff;
+}
+
+div#postamble {
+    width:600px;
+    padding:10px 50px 50px 50px;
+    font-size:0.7em;
+    background-color:#3B5998;
+}
+
+</style>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Overview</h2>
+<div class="outline-text-2" id="text-1">
+<blockquote>
+<p>
+The goal of this subject is to study the parser combinator of Scala
+and the development of a calculator. 
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">2</span> Regular Expressions</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li><font color="#3B5998"><b>Regular expressions</b></font> of Scala is used to check that a
+string is matched to a given pattern.</li>
+<li>Note that, regular expressions correspond to  <font color="#3B5998"><b>regular languages</b></font> in
+ <font color="#3B5998"><b>formal language theory</b></font>, that is,  <font color="#3B5998"><b>finite automata</b></font>.</li>
+
+<li>Reference (Wikipedia):
+<ul class="org-ul">
+<li><a href="https://en.wikipedia.org/wiki/Regular_expression">Regular Expression</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Regular_language">Regular Language</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Formal_language">Formal Language Theory</a></li>
+</ul></li>
+</ul>
+
+<p>
+For instance, a regular expression <code>w*</code> (asterisk) represent a pattern that 
+iterates a character <code>w</code> \(n\) times (\(n \ge 0\)). It matches, an empty string, <code>w</code>, <code>ww</code>, <code>www</code>, <code>wwww</code> etc. 
+We can use it in Scala as follows. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #8b2252;">"www"</span>.matches(<span style="color: #8b2252;">"w*"</span>)
+res: Boolean = <span style="color: #008b8b;">true</span>
+
+scala&gt; <span style="color: #8b2252;">"vvv"</span>.matches(<span style="color: #8b2252;">"w*"</span>)
+res: Boolean = <span style="color: #008b8b;">false</span>
+</pre>
+</div>
+
+<p>
+Similarly, a regular expression <code>w+</code> (plus) represent a pattern that 
+iterates a character <code>w</code> \(n\) times (\(n \ge 1\)). 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #8b2252;">"www"</span>.matches(<span style="color: #8b2252;">"w+"</span>)
+res: Boolean = <span style="color: #008b8b;">true</span>
+
+scala&gt; <span style="color: #8b2252;">""</span>.matches(<span style="color: #8b2252;">"w+"</span>)
+res: Boolean = <span style="color: #008b8b;">false</span>
+</pre>
+</div>
+
+<p>
+Let&rsquo;s consider that there are several characters \(r_1, r_2, \cdots, r_n\).
+<br>
+We can represent it as \((r_1|r_2|\cdots|r_n)\). <br>
+For instance, <code>(A|T|G|C)+</code> represents a pattern which iterates <code>A</code> or
+<code>T</code> or <code>G</code> or <code>C</code> \(n\) times (\(n \ge 1\)).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #8b2252;">"ATTACCA"</span>.matches(<span style="color: #8b2252;">"(A|T|G|C)+"</span>)
+res: Boolean = <span style="color: #008b8b;">true</span>
+</pre>
+</div>
+
+<p>
+The above example can be represented also by <code>[ATGC]+</code>. <br>
+\([c_1c_2\cdots c_n]\) represents a pattern that either one of
+characters \(c_i\) matches to a given string. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #8b2252;">"ATTACCA"</span>.matches(<span style="color: #8b2252;">"[ATGC]+"</span>)
+res: Boolean = <span style="color: #008b8b;">true</span>
+</pre>
+</div>
+
+<p>
+In a regular expression \([c_1c_2\cdots c_n]\), 
+suppose that we have characters with continuous character codes 
+such as <code>[0123456789]</code>. <br>
+We can write it by using range like <code>[0-9]</code>. <br>
+</p>
+
+<ul class="org-ul">
+<li>Examples
+<ul class="org-ul">
+<li><code>[0-9]</code> matches to one digit of decimal representation</li>
+<li><code>[0-9a-fA-F]</code> matches to one digit of hexadecimal representation</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #8b2252;">"2018"</span>.matches(<span style="color: #8b2252;">"[0-9]+"</span>)
+res: Boolean = <span style="color: #008b8b;">true</span>
+
+scala&gt; <span style="color: #8b2252;">"7E2"</span>.matches(<span style="color: #8b2252;">"[0-9a-fA-F]+"</span>)
+res: Boolean = <span style="color: #008b8b;">true</span>
+</pre>
+</div>
+
+<p>
+Furthermore, <code>[0-9]</code> can be written as <code>\d</code>. <br>
+Here, &ldquo;\&rdquo; (back slash) is interpreted as an escape character in
+Scala. <br>
+So, we need to write it with =&ldquo;\\d&rdquo;= (double back slashes). <br>
+Or, we can use another string representation with &ldquo;&rdquo;&ldquo; (triple double
+quotes). It ignores escape characters and we can write =&rdquo;&ldquo;&rdquo;\d&ldquo;&rdquo;&ldquo;=. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #8b2252;">"2018"</span>.matches(<span style="color: #8b2252;">"\\d+"</span>)
+res: Boolean = <span style="color: #008b8b;">true</span>
+
+scala&gt; <span style="color: #8b2252;">"2018"</span>.matches(<span style="color: #8b2252;">"""\d+"""</span>)
+res: Boolean = <span style="color: #008b8b;">true</span>
+
+scala&gt; <span style="color: #8b2252;">"7E2"</span>.matches(<span style="color: #8b2252;">"""[\da-fA-F]+"""</span>)
+res: Boolean = <span style="color: #008b8b;">true</span>
+</pre>
+</div>
+
+<p>
+In addition, \(r?\) matches \(r\) or the empty string. <br>
+For instance, <code>-?</code> matches a string <code>-</code> or the empty string.<br>
+So, we can use a regular expression <code>-?\d+</code> to match to decimal 
+representation of integers (including negative integers). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #8b2252;">"-2018"</span>.matches(<span style="color: #8b2252;">"""-?\d+"""</span>)
+res: Boolean = <span style="color: #008b8b;">true</span>
+</pre>
+</div>
+
+<p>
+There are various other ways in regular expressions but we ends it
+here for a meanwhile. <br>
+Please check the other detail in the following web pages. 
+</p>
+
+<ul class="org-ul">
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html">Regular expressions in Java 8</a></li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">2.1</span> Exercise</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="answer">
+<ol class="org-ol">
+<li>A regular expression <code>(A*|T*|G*|C*)</code>  matches to which kind of
+strings? Check it by trying several strings. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd>empty string, <code>A</code>, <code>T</code>, <code>G</code>, <code>C</code>, <code>AA</code>, <code>TT</code>, <code>GG</code>, <code>CC</code>, <code>AAA</code>, <code>TTT</code>, <code>GGG</code>, <code>CCC</code> etc.</dd>
+</dl></li>
+<li>A regular expression  <code>(A*|T*|G*|C*)+</code> matches to which kind of 
+strings? Check it by trying several strings. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd>It matches to the same ones as a regular expression <code>(A|T|G|C)*</code>.</dd>
+</dl></li>
+<li>What does regular expression match to a non-empty string that has
+both of the following two condititions (1) only consists of <code>A</code>, <code>T</code>, <code>G</code>, <code>C</code>,
+(2) lengths are ones multiplied by 3 (e.g. 3, 6, 18, 123, 252 etc). 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd>For instance, <code>([ATGC][ATGC][ATGC])+</code> matches. 
+We can also use another way using \(\{m\}\) which represent the 
+number of iterations, then it can be written as <code>([ATGC]{3})+</code>.</dd>
+</dl></li>
+<li>A regular expression <code>\d+</code> also matches to a redundant decimal 
+representations like <code>007</code> &#x2014; it has redundant prefix
+<code>0</code>. What regular expressions can be used to avoid it?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><p>
+       An expression <code>[1-9]\d*</code> looks fine but it does not match to <code>0</code>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #8b2252;">"0"</span>.matches(<span style="color: #8b2252;">"""[1-9]\d*"""</span>)
+res: Boolean = <span style="color: #008b8b;">false</span>
+</pre>
+</div>
+<p>
+We can fix it by using <code>(0|[1-9]\d*)</code>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #8b2252;">"0"</span>.matches(<span style="color: #8b2252;">"""(0|[1-9]\d*)"""</span>)
+res: Boolean = <span style="color: #008b8b;">true</span>
+</pre>
+</div></dd>
+</dl></li>
+<li>A regular expression  <code>-?\d+</code> matches to ones have redundant prefix
+<code>0</code> and it also matches <code>-0</code> which is meaningless. 
+What can we do to avoid this problem?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd>We can avoid it by <code>(0|-?[1-9]\d*)</code>.</dd>
+</dl></li>
+</ol>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">3</span> Context Free Languages and Extended Backus-Naur Form (EBNF)</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Syntax, like ones used in calculator, can be defined by 
+by using  <font color="#3B5998"><b>context free languages</b></font> which is a kind of  <font color="#3B5998"><b>formal grammar</b></font>. <br>
+ <font color="#3B5998"><b>Extended Backus-Naur Form (EBNF)</b></font>, an extention of
+ <font color="#3B5998"><b>Backus-Naur Form (BNF)</b></font> is often used for a syntax defined by context free languages.
+EBNF is sometimes called  <font color="#3B5998"><b>metalanguage</b></font> because it is a
+language defining object languages. 
+</p>
+
+<ul class="org-ul">
+<li>References (Wikipedia): 
+<ul class="org-ul">
+<li><a href="https://en.wikipedia.org/wiki/Formal_grammar">Formal Grammar</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Context-free_grammar">Context-free Grammar</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form">Backus–Naur Form</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form">Extended Backus-Naur Form</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Metalanguage">Metalanguage</a></li>
+</ul></li>
+</ul>
+
+
+<p>
+EBNF has several variants though, here we define it as follows:
+</p>
+
+<ul class="org-ul">
+<li><b>terminal symbols</b> (strings in object language): 
+we describe it with double quotations like  <code>"a"</code>.</li>
+<li><b>nonterminal symbols</b> (symbols of EBNF): 
+we descrive it by italic font like <i>expression</i>. It represents
+categories of syntax.</li>
+<li><p>
+<b>syntax rules</b>: 
+It is represented by the following form. It defines a string
+represented by nonterminal symbols. 
+</p>
+\begin{align*}
+\mbox{Nonterminal symbols} & ::= \mbox{Definition}
+\end{align*}</li>
+</ul>
+
+<p>
+We use the following forms in definitions. 
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" align="center">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">EBNF</th>
+<th scope="col" class="org-left">Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">\(\alpha_1\ \alpha_2\)</td>
+<td class="org-left">concatenation of \(\alpha_1\) and \(\alpha_2\)</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\alpha_1 \mid \alpha_2\)</td>
+<td class="org-left">\(\alpha_1\) or \(\alpha_2\)</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\{\ \alpha\ \}\)</td>
+<td class="org-left">\(n\) times iterations of \(\alpha\) (\(n \ge 0\))</td>
+</tr>
+
+<tr>
+<td class="org-left">\([\ \,\alpha\ \,]\)</td>
+<td class="org-left">\(\alpha\) or empty</td>
+</tr>
+
+<tr>
+<td class="org-left">\((\ \alpha\ )\)</td>
+<td class="org-left">grouping \(\alpha\)</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+For instance, the following EBNF defines 
+</p>
+<ul class="org-ul">
+<li>a sytax category <i>digit</i> representing decimal digits and</li>
+<li>a syntax category <i>integer</i> representing integers of decimal representation.</li>
+</ul>
+\begin{align*}
+  \textit{digit} & ::=\ 
+  \mbox{"0"}\ \mid\ \mbox{"1"}\ \mid\ \mbox{"2"}\ \mid\ \mbox{"3"}\ \mid\ \mbox{"4"}\ \mid\ 
+  \mbox{"5"}\ \mid\ \mbox{"6"}\ \mid\ \mbox{"7"}\ \mid\ \mbox{"8"}\ \mid\ \mbox{"9"} \\
+  \textit{integer} & ::=\ 
+  [\ \mbox{"-"}\ ]\ \textit{digit}\ \{\ \textit{digit}\ \}
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11"><span class="section-number-2">4</span> Prefix Notation Calculator</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">4.1</span> Syntax Definition</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+At first, let&rsquo;s consider a calculator of  <font color="#3B5998"><b>prefix notation</b></font> which has a
+comparatively easy syntax. <br>
+Prefix notation is a notation describing arithmetic operations like 
+<code>+(x,y)</code>, <code>-(x,y)</code>, <code>*(x,y)</code>, <code>/(x,y)</code>. <br>
+Using this notation, \(3+1-4*2\) is written by <code>-(+(3,1),*(4,2))</code>.
+</p>
+
+<p>
+This syntax is defined by EBNF as follows. 
+</p>
+
+\begin{align*}
+  \textit{expr} & ::=\ 
+  \textit{integer}\ \mid\ 
+  \textit{func}\ \mbox{"("}\ \textit{expr}\ \mbox{","}\ \textit{expr}\ \mbox{")"} \\
+  \textit{func} & ::=\ 
+  \mbox{"+"}\ \mid\ \mbox{"-"}\ \mid\ \mbox{"*"}\ \mid\ \mbox{"/"}
+  %
+\end{align*}
+
+<p>
+By using  <font color="#3B5998"><b>parser combinator</b></font> in Scala, we can define our own
+syntax by similar notations to EBNF and can parse it. <br>
+However, there is one limiation in the parser combinator in Scala.<br>
+Since it uses a top-down recursive descent parsing, we cannot use left
+recursive syntax rules. But, in practice it is not so a problem
+because we can find some workaround. 
+</p>
+
+<ul class="org-ul">
+<li>Reference: <a href="http://www.scala-lang.org/api/current/scala-parser-combinators/scala/util/parsing/combinator/Parsers.html">scala.util.parsing.combinator.Parsers</a></li>
+<li>Reference: <a href="http://www.artima.com/pins1ed/">Programming in Scala, First Edition</a>: 31. Combinator Parsing</li>
+<li>Reference: <a href="https://en.wikipedia.org/wiki/Parser_combinator">Wikipedia: Parser combinator</a></li>
+</ul>
+
+<p>
+When we define a syntax using EBNF, it bothers to treat white spaces:
+</p>
+<ul class="org-ul">
+<li>we do not want to white spaces in a string seqnence of numbers</li>
+<li>but we want to allow white spaces before and after commas and parentheses.</li>
+</ul>
+<p>
+The following is a precise definition using EBNF for the one including white spaces but it is not necessarily complex.
+</p>
+\begin{align*}
+  \textit{expr} & ::=\ 
+  \textit{spaces}\ (\ 
+  \textit{integer}\ \mid\ 
+  \textit{func}\ \mbox{"("}\ \textit{expr}\ \mbox{","}\ \textit{expr}\ \mbox{")"}\ 
+  )\ \textit{spaces} \\
+  \textit{func} & ::=\ 
+  \textit{spaces}\ (\ 
+  \mbox{"+"}\ \mid\ \mbox{"-"}\ \mid\ \mbox{"*"}\ \mid\ \mbox{"/"}\ 
+  )\ \textit{spaces} \\
+  \textit{spaces} & ::=\ 
+  \{\ \mbox{" "}\ \}
+\end{align*}
+
+<p>
+So, it is convenient to use a sytactic unit called <b>token</b> which do not
+allow white spaces in a middle of numbers and names of variables. 
+</p>
+
+<p>
+In <a href="http://www.scala-lang.org/api/current/scala-parser-combinators/scala/util/parsing/combinator/JavaTokenParsers.html">scala.util.parsing.combinator.JavaTokenParsers</a>, the following
+functions are already defined and we can use it as tokens. 
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Function Name</th>
+<th scope="col" class="org-left">Type of Tokens</th>
+<th scope="col" class="org-left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>ident</code></td>
+<td class="org-left">identifier of variables</td>
+<td class="org-left"><code>x</code>, <code>x1</code>, <code>Name</code> etc</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>wholeNumber</code></td>
+<td class="org-left">integers</td>
+<td class="org-left"><code>12</code>, <code>-34</code> etc</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>decimalNumber</code></td>
+<td class="org-left">unsigned decimal</td>
+<td class="org-left"><code>12</code>, <code>12.3</code>, <code>.14</code> etc</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>floatingPointNumber</code></td>
+<td class="org-left">floating-point number</td>
+<td class="org-left"><code>3.14</code>, <code>6.02e23</code> etc</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>stringLiteral</code></td>
+<td class="org-left">string</td>
+<td class="org-left">="abc"=, ="\\d"= etc</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Note that JavaTokenParsers is a subclass of
+<a href="http://www.scala-lang.org/api/current/scala-parser-combinators/scala/util/parsing/combinator/RegexParsers.html">scala.util.parsing.combinator.RegexParsers</a> and we can create new token
+using regular expressions.
+</p>
+
+<p>
+A program of defining a prefix notation calculator can be written as
+follows (<a href="prog/parser/CalcP0.scala">CalcP0.scala</a>). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> scala.util.parsing.combinator._
+
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">CalcP0</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">JavaTokenParsers</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Any]</span> = integer | func ~ <span style="color: #8b2252;">"("</span> ~ expr ~ <span style="color: #8b2252;">","</span> ~ expr ~ <span style="color: #8b2252;">")"</span>
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func</span> = <span style="color: #8b2252;">"+"</span> | <span style="color: #8b2252;">"-"</span> | <span style="color: #8b2252;">"*"</span> | <span style="color: #8b2252;">"/"</span>
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">integer</span> = wholeNumber
+}
+</pre>
+</div>
+<ul class="org-ul">
+<li>Function  <font color="#3B5998"><b>expr</b></font> is the parser (syntax analyzer) of
+prefix notation expressions.</li>
+<li>Function  <font color="#3B5998"><b>func</b></font> is the parser of operators.</li>
+<li>Function  <font color="#3B5998"><b>integer</b></font> is the parser of integers.</li>
+</ul>
+
+<p>
+Note that, as is written in the definition of the function expr, 
+</p>
+<ul class="org-ul">
+<li><code>|</code> is used for &ldquo;or&rdquo;</li>
+<li>but <code>~</code> is used for &ldquo;concatenation&rdquo;.</li>
+</ul>
+
+<p>
+Other notations are written as follows. <br>
+We can see that notations of EBNF can be naturally written by the
+parser combinator of Scala. 
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Notations in Scala</th>
+<th scope="col" class="org-left">Notations of EBNF</th>
+<th scope="col" class="org-left">Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">\(\alpha_1\) ~ \(\alpha_2\)</td>
+<td class="org-left">\(\alpha_1\ \alpha_2\)</td>
+<td class="org-left">Concatenation of \(\alpha_1\) and \(\alpha_2\)</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\alpha_1 \mid \alpha_2\)</td>
+<td class="org-left">\(\alpha_1 \mid \alpha_2\)</td>
+<td class="org-left">\(\alpha_1\) or \(\alpha_2\)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>rep(</code> \(\alpha\) <code>)</code></td>
+<td class="org-left">\(\{\ \alpha\ \}\)</td>
+<td class="org-left">\(n\) times iteration of \(\alpha\) (\(n \ge 0\))</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>opt(</code> \(\alpha\) <code>)</code></td>
+<td class="org-left">\([\ \,\alpha\ \,]\)</td>
+<td class="org-left">\(\alpha\) or empty</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>(</code> \(\alpha\) <code>)</code></td>
+<td class="org-left">\((\ \alpha\ )\)</td>
+<td class="org-left">grouping \(\alpha\)</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+This program can be executed from Scala REPL <br>
+( <font color="red">NOTE: CalcP0.scala is necessarily saved in the same directory</font>). 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">$ scala
+scala&gt; :load CalcP0.scala
+</pre>
+</div>
+
+<p>
+At first, write import command so that we can execute functions
+defined in the CalcP0 object. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">import</span> CalcP0._
+</pre>
+</div>
+<p>
+Note that,  <font color="#3B5998"><b>import</b></font> command is necessary to be executed
+every time we load programs.
+</p>
+
+<p>
+By using the fuction  <font color="#0000ff"><b>parseAll</b></font>, we can execute <b>parsing</b> 
+for a given string. For instance, the following is the result of
+parsing <code>+(12,34)</code> as <i>expr</i>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; parseAll(expr, <span style="color: #8b2252;">"+(12,34)"</span>)
+res: CalcP0.ParseResult[Any] = [1.9] parsed: (((((+~()~12)~,)~34)~))
+</pre>
+</div>
+
+<p>
+The meaning of the result is as follows:
+</p>
+<ul class="org-ul">
+<li><code>[1.9]</code> in the result represents that we can parse from the 1st
+character to the 9th character (that is the last character), and</li>
+<li><code>(((((+~()~12)~,)~34)~))</code> is a string representation of a parse
+tree obtained by the parsing.</li>
+</ul>
+
+<p>
+This representation looks difficult!! but it indeed has the following
+structure (can you understand?). 
+</p>
+<pre class="example">
+((((("+" ~ "(") ~ "12") ~ ",") ~ "34") ~ ")")
+</pre>
+
+<p>
+This can be drawn as the following syntax tree (also called syntactic
+tree). Here, tokens are represented as a square box. 
+</p>
+
+<center>
+
+<div class="figure">
+<p><img src="images/scala-parse-tree1.png" alt="scala-parse-tree1.png" />
+</p>
+</div>
+
+</center>
+
+<p>
+For each token 
+ <code>"+"</code>, 
+ <code>"("</code>, 
+ <code>"12"</code>, 
+ <code>"</code>, 
+ <code>"34"</code>, 
+ <code>")"</code>, 
+the binary operator  <code>"~"</code> left-associatively created pairs.
+</p>
+
+<p>
+But isn&rsquo;t it too complex? <br>
+Because there are unnecessary tokens ( <code>"("</code>,  <code>","</code>,
+ <code>")"</code>). <br>
+They consequently make the obtained syntax tree complex. 
+</p>
+
+<p>
+The parser combinator of Scala has an operation which remove
+unnecessary structures. <br>
+So, there are two convenient operators: 
+</p>
+<ul class="org-ul">
+<li>If we use an operator  <code>"~>"</code> instead of  <code>"~"</code>
+    then the left hand side result is removed from the syntax tree.</li>
+<li>In case we use  <code>"<~"</code> then the right hand side result is
+removed from the syntax tree.</li>
+</ul>
+
+<p>
+The following program <a href="prog/parser/CalcP1.scala">CalcP1.scala</a> removes unnecessary token from the
+resulting syntax tree by using the operator  <code>"<~"</code>. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> scala.util.parsing.combinator._
+
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">CalcP1</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">JavaTokenParsers</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Any]</span> = integer | (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">","</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>)
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func</span> = <span style="color: #8b2252;">"+"</span> | <span style="color: #8b2252;">"-"</span> | <span style="color: #8b2252;">"*"</span> | <span style="color: #8b2252;">"/"</span>
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">integer</span> = wholeNumber
+}
+</pre>
+</div>
+
+<p>
+We can execute it as follows. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">$ scala
+scala&gt; :load CalcP1.scala
+scala&gt; <span style="color: #a020f0;">import</span> CalcP1._
+scala&gt; parseAll(expr, <span style="color: #8b2252;">"+(12,34)"</span>)
+res: CalcP1.ParseResult[Any] = [1.9] parsed: ((+~12)~34)
+</pre>
+</div>
+
+<p>
+The obtained result represents the following syntax tree. 
+</p>
+
+<center>
+
+<div class="figure">
+<p><img src="images/scala-parse-tree2.png" alt="scala-parse-tree2.png" />
+</p>
+</div>
+
+</center>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">4.2</span> Exercise</h3>
+<div class="outline-text-3" id="text-4-2">
+<div class="answer">
+<ol class="org-ol">
+<li>Modify CalcP1.scala to be able to use floating point numbers instead of integers. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><p>
+       For instance we can modify it as follows (<a href="prog/parser/CalcP1float.scala">CalcP1float.scala</a>).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Any]</span> = 
+          number | 
+          (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">","</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>)
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func</span> = <span style="color: #8b2252;">"+"</span> | <span style="color: #8b2252;">"-"</span> | <span style="color: #8b2252;">"*"</span> | <span style="color: #8b2252;">"/"</span>
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">number</span> = floatingPointNumber
+</pre>
+</div></dd>
+</dl></li>
+<li>Modify CalcP1.scala to be able to use one argument operation/function like &ldquo;-(12)&rdquo;= or =&ldquo;abs(-34)&rdquo;=. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><p>
+       For instance we can modify it as follows (<a href="prog/parser/CalcP1unary.scala">CalcP1unary.scala</a>). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Any]</span> =
+  integer |
+  (func1 &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>) |
+  (func2 &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">","</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>)
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func1</span> = <span style="color: #8b2252;">"-"</span> | ident
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func2</span> = <span style="color: #8b2252;">"+"</span> | <span style="color: #8b2252;">"-"</span> | <span style="color: #8b2252;">"*"</span> | <span style="color: #8b2252;">"/"</span> | ident
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">integer</span> = wholeNumber
+</pre>
+</div>
+<p>
+Here, since we allow <code>ident</code> as the name of one argument
+function name, we can use not only <code>abs</code> but also any
+indentifiers. And, we can also use any two arguments function
+names. 
+</p></dd>
+</dl></li>
+<li><p>
+By using the following function <code>hexnum</code>, we can use integers of
+Hexadecimal notation like <code>#7E2</code> as tokens. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">hexnum</span> = <span style="color: #8b2252;">"#"</span> ~&gt; <span style="color: #8b2252;">"[0-9a-fA-F]+"</span>.r
+</pre>
+</div>
+<p>
+Modify CalcP1.scala to be able to use integers of Hexadecimal notations.
+</p>
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><p>
+       For instance we can modify it like <a href="prog/parser/CalcP1hex.scala">CalcP1hex.scala</a>. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> scala.util.parsing.combinator._
+
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">CalcP1hex</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">JavaTokenParsers</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Any]</span> =
+    integer |
+    hexnum |
+    (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">","</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>)
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func</span> = <span style="color: #8b2252;">"+"</span> | <span style="color: #8b2252;">"-"</span> | <span style="color: #8b2252;">"*"</span> | <span style="color: #8b2252;">"/"</span>
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">integer</span> = wholeNumber
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">hexnum</span> = <span style="color: #8b2252;">"#"</span> ~&gt; <span style="color: #8b2252;">"[0-9a-fA-F]+"</span>.r
+}
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">4.3</span> Use of the result of parsing</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+So far, we implemented a parser for formulas of prefix notations. <br>
+The parse combinator of Scala allow us to describe any process we want 
+after parsing. <br>
+From here, let&rsquo;s implement a calculator by using this functionality. <br>
+Note that, here, we assume results of calculation are integers. 
+Calculators on floating point numbers will be an exercise lator.
+</p>
+
+<p>
+How is the definition of expr in <a href="prog/parser/CalcP1.scala">CalcP1.scala</a> ?
+It is given as follows. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Any]</span> = integer | (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">","</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>)
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">FunctionName</span>: <span style="color: #228b22;">Parser[Any]</span> = 
+  Syntax Definition 1 | 
+  Syntax Definition 2 | 
+  ... | 
+  Syntax Definition n
+</pre>
+</div>
+
+<p>
+In order to modify it to be able to return  <font color="#228b22"><b>Int</b></font>, a data
+type of integers in Scala, we need to describe the followings. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">FunctionName</span>: <span style="color: #228b22;">Parser[Int]</span> =
+  Syntax Definition 1 ^^ Function 1 returning Int |
+  Syntax Definition 2 ^^ Function 2 returning Int |
+  ...
+  Syntax Definition n ^^ Function n returning Int |
+</pre>
+</div>
+
+<p>
+Here, &ldquo; <font color="#3B5998"><b>Function i returning Int</b></font>&rdquo; 
+means a function which has 
+</p>
+<ul class="org-ul">
+<li>the results of parsing &ldquo; <font color="#3B5998"><b>Syntax Definition i</b></font>&rdquo; as input arguments and</li>
+<li>return the result of calculation as  <font color="#228b22"><b>Int</b></font> type.</li>
+</ul>
+
+<p>
+&ldquo; <font color="#3B5998"><b>Syntax Definition 1</b></font>&rdquo; of expr is <code>integer</code>, and it returns
+a string sequence as a result of parsing. <br>
+So, the remaining task for &ldquo; <font color="#3B5998"><b>Function 1 returning Int</b></font>&rdquo; 
+is to implement a function which has 
+</p>
+<ul class="org-ul">
+<li>a string representation of decimal integers as input arguments and</li>
+<li>returns a Int value from it</li>
+</ul>
+<p>
+In other words, a function of <code>String =&gt; Int</code> in Scala. 
+</p>
+
+<p>
+By using anonymous functions of Scala, 
+the function converting a string representation of decimal integers to
+its value would be the followings:
+</p>
+<ul class="org-ul">
+<li><code>(s =&gt; s.toInt)</code></li>
+<li><code>{ s =&gt; s.toInt }</code></li>
+<li><code>(_.toInt)</code></li>
+<li><code>{ _.toInt }</code></li>
+</ul>
+<p>
+That is, we can write it as follows. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Int]</span> =
+  integer ^^ { _.toInt } |
+  (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">","</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>) ^^ { t =&gt; ... }
+</pre>
+</div>
+
+<p>
+&ldquo; <font color="#3B5998"><b>Syntax Definition 2</b></font>&rdquo; of expr is <br>
+<code>(func &lt;~ "(") ~ (expr &lt;~ ",") ~ (expr &lt;~ ")")</code> <br>
+and it returns a structure like <code>(("+" ~ 12) ~ 34)</code> whose data type is <br>
+ <code>~[~[String,Int],Int]</code>. Remember the syntax tree of it: 
+</p>
+<center>
+
+<div class="figure">
+<p><img src="images/scala-parse-tree2.png" alt="scala-parse-tree2.png" />
+</p>
+</div>
+
+</center>
+<ul class="org-ul">
+<li>1st element of <code>(x ~ y)</code> is obtained by the method  <code>._1</code></li>
+<li>2nd element is obtained by the method <code>._2</code>.</li>
+</ul>
+<p>
+That is, when the value of <code>t</code> is <code>(("+" ~ 12) ~ 34)</code>, then we can
+obtain 12 by  <code>t._1._2</code> and obtain 34 by <code>t._2</code>. Because, 
+</p>
+<ul class="org-ul">
+<li>12 is the 2nd element of the 1st element of <code>t</code></li>
+<li>34 is the 2nd element of <code>t</code></li>
+</ul>
+
+<p>
+A bit complex?
+In such a complex case, we can use  <font color="#3B5998"><b>switch expression</b></font> of Scala.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">t <span style="color: #a020f0;">match</span> {
+  <span style="color: #a020f0;">case</span> <span style="color: #a0522d;">pattern</span> 1 =&gt; process 1
+  <span style="color: #a020f0;">case</span> <span style="color: #a0522d;">pattern</span> 2 =&gt; process 2
+  ...
+  <span style="color: #a020f0;">case</span> <span style="color: #a0522d;">pattern</span> <span style="color: #a0522d;">n</span> =&gt; process n
+}
+</pre>
+</div>
+
+<p>
+In this example, pattern matching of the structure of <code>t</code> is executed
+from  <font color="#a0522d"><b>pattern</b></font> 1, and process i is executed for the first pattern i
+matched to the structure of <code>t</code>. 
+</p>
+
+<p>
+A pattern for &ldquo; <font color="#3B5998"><b>Syntax Definition 2</b></font>&rdquo; of expr <br>
+ <code>(func &lt;~ "(") ~ (expr &lt;~ ",") ~ (expr &lt;~ ")")</code> <br>
+can be written as <code>f ~ x ~ y</code>. Then, we can write it as follows.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Int]</span> =
+  integer ^^ { _.toInt } |
+  (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">","</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>) ^^ { t =&gt; t <span style="color: #a020f0;">match</span> {
+    <span style="color: #a020f0;">case</span> <span style="color: #a0522d;">f</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; ...
+  }}
+</pre>
+</div>
+
+<p>
+Here, there is the following correspondence: 
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" align="center">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left"> <font color="#3B5998"><b>Syntax Definition</b></font></th>
+<th scope="col" class="org-left"> <font color="#3B5998"><b>Function Definition</b></font></th>
+<th scope="col" class="org-left">Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">func</td>
+<td class="org-left">f</td>
+<td class="org-left"> <font color="#228b22"><b>String</b></font></td>
+</tr>
+
+<tr>
+<td class="org-left">expr (1st one)</td>
+<td class="org-left">x</td>
+<td class="org-left"> <font color="#228b22"><b>Int</b></font></td>
+</tr>
+
+<tr>
+<td class="org-left">expr (2nd one)</td>
+<td class="org-left">y</td>
+<td class="org-left"> <font color="#228b22"><b>Int</b></font></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+The expression <code>func</code> in the syntax definition is assigned to a variable <code>f</code>, 
+First <code>expr</code> is assigned to a variable <code>x</code>, 
+Second <code>expr</code> is assigned to a variable <code>y</code>. <br>
+Note that, the data type of <code>f</code> is <code>String</code>, the data type of <code>x</code> and
+<code>y</code> are <code>Int</code>. 
+</p>
+
+<p>
+The value assigned to <code>f</code> is either
+ <code>"+"</code>, 
+ <code>"-"</code>, 
+ <code>"*"</code>, or  <code>"/"</code>.
+So, for readability, we can write 4 patterns as follows.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Int]</span> =
+  integer ^^ { _.toInt } |
+  (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">","</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>) ^^ { t =&gt; t <span style="color: #a020f0;">match</span> {
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"+"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; ...
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; ...
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; ...
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"/"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; ...
+  }}
+</pre>
+</div>
+
+<p>
+In addition, we can write <code>{ t =&gt; t match { ... } }</code> as simply <code>{ ... }</code>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Int]</span> =
+  integer ^^ { _.toInt } |
+  (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">","</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>) ^^ {
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"+"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; ...
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; ...
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; ...
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"/"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; ...
+  }
+</pre>
+</div>
+
+<p>
+The following program is obtaned after we add process of calculating
+values for each arithmetic operations. 
+(<a href="prog/parser/CalcP2.scala">CalcP2.scala</a>)．
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> scala.util.parsing.combinator._
+
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">CalcP2</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">JavaTokenParsers</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Int]</span> =
+    integer ^^ { _.toInt } |
+    (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">","</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>) ^^ {
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"+"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; x + y
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; x - y
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; x * y
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"/"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; x / y
+    }
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func</span> = <span style="color: #8b2252;">"+"</span> | <span style="color: #8b2252;">"-"</span> | <span style="color: #8b2252;">"*"</span> | <span style="color: #8b2252;">"/"</span>
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">integer</span> = wholeNumber
+}
+</pre>
+</div>
+
+<p>
+The following is an example of execution.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; :load CalcP2.scala
+scala&gt; <span style="color: #a020f0;">import</span> CalcP2._
+scala&gt; parseAll(expr, <span style="color: #8b2252;">"+(*(1,2), *(3,4))"</span>)
+res: CalcP2.ParseResult[Int] = [1.18] parsed: 14
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">4.4</span> Exercise</h3>
+<div class="outline-text-3" id="text-4-4">
+<div class="answer">
+<ol class="org-ol">
+<li>Modify CalcP2.scala to be able to use floating point numbers
+instead of integers. Note that the data type of the result
+becomes <code>Double</code>. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><p>
+       For instance, we can modify it like <a href="prog/parser/CalcP2float.scala">CalcP2float.scala</a>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> scala.util.parsing.combinator._
+
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">CalcP2float</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">JavaTokenParsers</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Double]</span> =
+    number ^^ { _.toDouble } |
+    (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">","</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>) ^^ {
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"+"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; x + y
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; x - y
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; x * y
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"/"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; x / y
+    }
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func</span> = <span style="color: #8b2252;">"+"</span> | <span style="color: #8b2252;">"-"</span> | <span style="color: #8b2252;">"*"</span> | <span style="color: #8b2252;">"/"</span>
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">number</span> = floatingPointNumber
+}
+</pre>
+</div></dd>
+</dl></li>
+<li>Further modify CalcP2.scala to be able to use more operations
+like  <code>"-(0.1)"</code>,  <code>"abs(-2.3)"</code>,  <code>"max(4, 5)"</code> . Note that we
+assume that those process can be implemented as <code>math.abs(-2.3)</code>,
+<code>math.max((4, 5)</code>. Refer <a href="http://www.scala-lang.org/api/current/scala/math/">scala.math</a> package to check available
+functions. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><p>
+       For instance, we can modify it like <a href="prog/parser/CalcP2float2.scala">CalcP2float2.scala</a>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> scala.util.parsing.combinator._
+
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">CalcP2float2</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">JavaTokenParsers</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Double]</span> =
+    number ^^ { _.toDouble } |
+    (func1 &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>) ^^ {
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> =&gt; - x
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"abs"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> =&gt; math.abs(x)
+    } |
+    (func2 &lt;~ <span style="color: #8b2252;">"("</span>) ~ (expr &lt;~ <span style="color: #8b2252;">","</span>) ~ (expr &lt;~ <span style="color: #8b2252;">")"</span>) ^^ {
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"+"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; x + y
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; x - y
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; x * y
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"/"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; x / y
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"max"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">y</span> =&gt; math.max(x, y)
+    }
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func1</span> = <span style="color: #8b2252;">"-"</span> | ident
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func2</span> = <span style="color: #8b2252;">"+"</span> | <span style="color: #8b2252;">"-"</span> | <span style="color: #8b2252;">"*"</span> | <span style="color: #8b2252;">"/"</span> | ident
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">number</span> = floatingPointNumber
+}
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">4.5</span> Extension for multiple arguments.</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+Let&rsquo;s extend the current program to allow to have multiple arguments
+like <br>
+ <code>+(x_1, x_2, ..., x_n)</code> (\(n \ge 1\)). <br>
+This syntax can be defined by EBNF as follows. 
+</p>
+\begin{align*}
+  \textit{expr} & ::=\ 
+  \textit{integer}\ \mid\ 
+  \textit{func}\ \mbox{"("}\ \textit{expr}\ \{\ \mbox{","}\ \textit{expr}\ \}\ \mbox{")"}
+\end{align*}
+<p>
+Here, \(\{\ \alpha\ \}\) represents \(n\) time iterations of \(\alpha\) (\(n \ge 0\)).
+</p>
+
+<p>
+Using the parser combinator of Scala, it can be written as follows. 
+(<a href="prog/parser/CalcP3.scala">CalcP3.scala</a>)．
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> scala.util.parsing.combinator._
+
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">CalcP3</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">JavaTokenParsers</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Any]</span> =
+    integer |
+    (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ expr ~ (rep(<span style="color: #8b2252;">","</span> ~&gt; expr) &lt;~ <span style="color: #8b2252;">")"</span>)
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func</span> = <span style="color: #8b2252;">"+"</span> | <span style="color: #8b2252;">"-"</span> | <span style="color: #8b2252;">"*"</span> | <span style="color: #8b2252;">"/"</span> | ident
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">integer</span> = wholeNumber
+}
+</pre>
+</div>
+
+<p>
+The expression <code>rep("," ~&gt; expr)</code> corresponds to \(\{\ \mbox{","}\ \textit{expr}\ \}\). <br>
+Also, we add <code>ident</code> to the definition of <code>func</code> to be able to use any
+identifiers as function names. 
+</p>
+
+<p>
+We obtain the following results when execute this program for <code>+(1,2,3,4)</code>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; :load CalcP3.scala
+scala&gt; <span style="color: #a020f0;">import</span> CalcP3._
+scala&gt; parseAll(expr, <span style="color: #8b2252;">"+(1,2,3,4)"</span>)
+res: CalcP3.ParseResult[Any] = [1.11] parsed: ((+~1)~List(2, 3, 4))
+</pre>
+</div>
+
+<p>
+The result for the part of <code>rep("," ~&gt; expr)</code> becomes a list of integers  <code>List(2,3,4)</code>. <br>
+So, we can write the program for calculating the result of integers as follows.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Int]</span> =
+  integer ^^ { _.toInt } |
+  (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ expr ~ (rep(<span style="color: #8b2252;">","</span> ~&gt; expr) &lt;~ <span style="color: #8b2252;">")"</span>) ^^ {
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"+"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; ...
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; ...
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; ...
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"/"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; ...
+  }
+</pre>
+</div>
+
+<p>
+In case of <code>+(1,2,3,4)</code>, 
+</p>
+<ul class="org-ul">
+<li>an integer <code>1</code> is assigned to a variable <code>x</code>,</li>
+<li>a list of integers <code>List(2,3,4)</code> is assigned to a variable <code>ys</code>.</li>
+</ul>
+<p>
+So, we can calculate the result by <code>x + ys.sum</code>. <br>
+Also, <code>(x +: ys).sum</code> is fine. 
+</p>
+
+<p>
+In case of <code>-(1,2,3,4)</code>, representing \(1-2-3-4\), 
+the result is calculated as <code>x - ys.sum</code>. 
+In case of <code>*(1,2,3,4)</code>, representing \(1\times 2\times 3\times 4\), 
+the result is calculated as <code>x * ys.product</code>.
+Similarly, <code>/(1,2,3,4)</code> is calculated as <code>x / ys.product</code>.
+</p>
+
+<p>
+However, a problem happens when we have only one argument. 
+The results of <code>+(1)</code>, <code>-(1)</code>, <code>*(1)</code>, <code>/(1)</code> are all <code>1</code>.
+It is fine for <code>+</code>, <code>*</code>, <code>/</code>. <br>
+But <code>-1</code> should be returned in case <code>-(1)</code>.
+</p>
+
+<p>
+It is resolved by writing a program as follows. 
+(<a href="prog/parser/CalcP4.scala">CalcP4.scala</a>)．
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> scala.util.parsing.combinator._
+
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">CalcP4</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">JavaTokenParsers</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[Int]</span> =
+    integer ^^ { _.toInt } |
+    (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ expr ~ (rep(<span style="color: #8b2252;">","</span> ~&gt; expr) &lt;~ <span style="color: #8b2252;">")"</span>) ^^ {
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"+"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x + ys.sum
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #228b22;">Nil</span> =&gt; - x
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x - ys.sum
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x * ys.product
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"/"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x / ys.product
+    }
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func</span> = <span style="color: #8b2252;">"+"</span> | <span style="color: #8b2252;">"-"</span> | <span style="color: #8b2252;">"*"</span> | <span style="color: #8b2252;">"/"</span> | ident
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">integer</span> = wholeNumber
+}
+</pre>
+</div>
+
+<p>
+In this program, a case pattern matching when the part of <code>ys</code> is
+<code>Nil</code> is added. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">4.6</span> Exercise</h3>
+<div class="outline-text-3" id="text-4-6">
+<div class="answer">
+<ol class="org-ol">
+<li>What is happen when we run CalcP4.scala with <br> <code>parseAll(expr, "abs(-1)")</code> ?
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd>Parising goes well but we will have  <code>scala.MatchError</code> while
+calculation because there is no pattern matched to <code>abs(x)</code>.</dd>
+</dl></li>
+<li>Modify CalcP4.scala to be able to use <code>abs(x)</code> which returns the
+absolute value of <code>x</code>. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><p>
+       We can do that by adding the following line. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"abs"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #228b22;">Nil</span> =&gt; math.abs(x)
+</pre>
+</div></dd>
+</dl></li>
+<li>Modify CalcP4.scala to be able to get the result as <code>BigInt</code>
+instead of <code>Int</code>. In addition, implement <code>fact(x)</code> which returns
+the factorial of <code>x</code>. Note that we can translate a string <code>s</code> 
+representing a decimal integer by using  <code>BigInt(s)</code>. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(answer example)</font></a></dt><dd><p>
+       For instance, we can modify it as <a href="prog/parser/CalcP4bigint.scala">CalcP4bigint.scala</a>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> scala.util.parsing.combinator._
+
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">CalcP4bigint</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">JavaTokenParsers</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[BigInt]</span> =
+    integer ^^ { BigInt(_) } |
+    (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ expr ~ (rep(<span style="color: #8b2252;">","</span> ~&gt; expr) &lt;~ <span style="color: #8b2252;">")"</span>) ^^ {
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"+"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x + ys.sum
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #228b22;">Nil</span> =&gt; - x
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x - ys.sum
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x * ys.product
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"/"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x / ys.product
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"fact"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #228b22;">Nil</span> =&gt; (BigInt(1) to x).product
+    }
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func</span> = <span style="color: #8b2252;">"+"</span> | <span style="color: #8b2252;">"-"</span> | <span style="color: #8b2252;">"*"</span> | <span style="color: #8b2252;">"/"</span> | ident
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">integer</span> = wholeNumber
+}
+</pre>
+</div></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13"><span class="section-number-2">5</span> Other Working Materials</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Modify <a href="prog/parser/Work1.scala">Work1.scala</a> to be able to do the followings. 
+</p>
+
+<div class="answer">
+<ol class="org-ol">
+<li>Add a function  <code>max(x1, x2, ..., xn)</code> which returns the maximum
+value among x1, x2, &#x2026;, xn. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(hint)</font></a></dt><dd>We can compute the maximum value of a list <code>ys</code> of <code>BigInt</code> by
+using <code>ys.max</code>.</dd>
+</dl></li>
+<li>Add a function <code>gcd(x, y)</code> which returns the greatest common
+devisor (GCD) for positive integers x and y. 
+Refer <a href="http://www.scala-lang.org/api/current/scala/math/BigInt.html">scala.math.BigInt</a> for the calculatoin of the greatest common
+devisor (GCD) for <code>BigInt</code>. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(hint)</font></a></dt><dd>Use  <code>gcd</code> method of <code>BigInt</code>.</dd>
+</dl></li>
+<li>Add a function <code>gcd(x1, x2, ... xn)</code> which returns the greatest
+common deviser (GCD) for positive integers x1, x2, &#x2026; xn. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(hint)</font></a></dt><dd>Use <code>reduce</code> method for a list of  <code>BigInt</code>.</dd>
+</dl></li>
+<li>Add a function <code>lcm(x1, x2, ... xn)</code> which returns the least common
+multiple (LCM) for positive integers  x1, x2, &#x2026; xn. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(hint)</font></a></dt><dd><p>
+     First, define a function <code>lcm(x, y)</code> which returns the least common
+multiple for positive integer x and y as follows. Then, use
+<code>reduce</code> for a given list x1, x2, &#x2026; xn. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">lcm</span>(<span style="color: #a0522d;">x</span>: <span style="color: #228b22;">BigInt</span>, <span style="color: #a0522d;">y</span>: <span style="color: #228b22;">BigInt</span>) = ...
+</pre>
+</div></dd>
+</dl></li>
+<li>Add a function <code>lcm(x1, x2, ... xn)</code> which returns the least common
+multiple (LCM) for positive integers  x1, x2, &#x2026; xn. 
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(hint)</font></a></dt><dd><p>
+     First, define a function <code>lcm(x, y)</code> which returns the least common
+multiple for positive integer x and y as follows. Then, use
+<code>reduce</code> for a given list x1, x2, &#x2026; xn. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">lcm</span>(<span style="color: #a0522d;">x</span>: <span style="color: #228b22;">BigInt</span>, <span style="color: #a0522d;">y</span>: <span style="color: #228b22;">BigInt</span>) = ...
+</pre>
+</div></dd>
+</dl></li>
+
+<li>Add a function <code>prime(n)</code> which returns the \(n\) th prime 
+number. We here limit the prime number to be in the range of
+<code>Int</code>. Note that the 1st prime number is 2.</li>
+</ol>
+
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">5.1</span> Verify your programs for working materials</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+The following is how to verify your current program. 
+</p>
+<ol class="org-ol">
+<li>Download the base program <a href="prog/parser/Work1.scala">Work1.scala</a></li>
+<li>Download the test numbers 1 to 99 <a href="prog/parser/testF1.txt">prog/parser/testF1.txt</a></li>
+<li>Launch your REPL on the same directory of the above two files</li>
+<li>Type the followings, then you will see how many numbers are OK with your program.</li>
+</ol>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">[soh@rokko:parser]$ scala
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121)<span style="color: #483d8b;">.</span>
+Type<span style="color: #a020f0;"> in</span> expressions for evaluation. Or try :help.
+
+scala&gt; :load Work1.scala
+Loading Work1.scala...
+import scala.util.parsing.combinator._
+Work1.scala:17: warning: match may not be exhaustive.
+It would fail on the following inputs: ~(_, List(_)), ~(_, Nil)
+    (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ expr ~ (rep(<span style="color: #8b2252;">","</span> ~&gt; expr) &lt;~ <span style="color: #8b2252;">")"</span>) ^^ {
+                                                        ^
+defined object Work1
+
+scala&gt; Work1.test
+OK: max(123456789, 987654321) --&gt; 987654321
+OK: max(+(3,3), -(3,3), *(3,3), /(3,3)) --&gt; 9
+OK: fact(20) --&gt; 2432902008176640000
+OK: /(fact(100), fact(99)) --&gt; 100
+OK: gcd(123456789, 987654321) --&gt; 9
+OK: gcd(360, 72, 180) --&gt; 36
+OK: lcm(123456789, 987654321) --&gt; 13548070123626141
+OK: lcm(360, 72, 180) --&gt; 360
+OK: prime(306) --&gt; 2017
+OK: prime(2018) --&gt; 17551
+</pre>
+</div>
+<ul class="org-ul">
+<li><code>OK</code> denotes everything is fine!</li>
+<li><code>NG</code> denotes that parsing is fine but the calculation result is wrong.</li>
+<li><code>ERR</code> denotes that parsing is wrong.</li>
+<li><code>scala.MatchError</code> denotes your program is incorrect.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14"><span class="section-number-2">6</span> Calculator can read French langugage</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Let&rsquo;s extend the calculator to be able to read &ldquo;quatre-vingt-dix-neuf&rdquo; etc.!
+</p>
+
+<p>
+The basement program is <a href="prog/parser/CalcP4.scala">CalcP4.scala</a>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> scala.util.parsing.combinator._
+
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">CalcP4bigint</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">JavaTokenParsers</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[BigInt]</span> =
+    integer ^^ { BigInt(_) } |
+    (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ expr ~ (rep(<span style="color: #8b2252;">","</span> ~&gt; expr) &lt;~ <span style="color: #8b2252;">")"</span>) ^^ {
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"+"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x + ys.sum
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #228b22;">Nil</span> =&gt; - x
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x - ys.sum
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x * ys.product
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"/"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x / ys.product
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"fact"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #228b22;">Nil</span> =&gt; (BigInt(1) to x).product
+    }
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func</span> = <span style="color: #8b2252;">"+"</span> | <span style="color: #8b2252;">"-"</span> | <span style="color: #8b2252;">"*"</span> | <span style="color: #8b2252;">"/"</span> | ident
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">integer</span> = wholeNumber
+}
+</pre>
+</div>
+
+<p>
+At first, let&rsquo;s implement a program that can parse &ldquo;un&rdquo; to &ldquo;neuf&rdquo;.
+(<a href="prog/parser/CalcPF0.scala">CalcPF0.scala</a>). 
+In the program, <code>fint1</code> is a function that parse one digit integers and
+return a value of <code>BigInt</code> type. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> scala.util.parsing.combinator._
+
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">CalcPF0</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">JavaTokenParsers</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">expr</span>: <span style="color: #228b22;">Parser[BigInt]</span> = 
+    integer ^^ { BigInt(_) } |
+    fint |
+    (func &lt;~ <span style="color: #8b2252;">"("</span>) ~ expr ~ (rep(<span style="color: #8b2252;">","</span> ~&gt; expr) &lt;~ <span style="color: #8b2252;">")"</span>) ^^ {
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"+"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x + ys.sum
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #228b22;">Nil</span> =&gt; - x
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x - ys.sum
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x * ys.product
+      <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"/"</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">x</span> <span style="color: #a0522d;">~</span> <span style="color: #a0522d;">ys</span> =&gt; x / ys.product
+      <span style="color: #a020f0;">case</span> <span style="color: #a0522d;">err</span> =&gt; <span style="color: #a020f0;">throw</span> <span style="color: #a020f0;">new</span> Exception(s<span style="color: #8b2252;">"Error in matching to parse $err"</span>)
+    }
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">func</span> = <span style="color: #8b2252;">"+"</span> | <span style="color: #8b2252;">"-"</span> | <span style="color: #8b2252;">"*"</span> | <span style="color: #8b2252;">"/"</span> | ident
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">integer</span> = wholeNumber
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">fint</span> = fint1word
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">fint1word</span> =
+    <span style="color: #8b2252;">"un"</span> ^^ { _ =&gt; BigInt(1) } |
+    <span style="color: #8b2252;">"deux"</span> ^^ { _ =&gt; BigInt(2) } |
+    <span style="color: #8b2252;">"trois"</span> ^^ { _ =&gt; BigInt(3) } |
+    <span style="color: #8b2252;">"quatre"</span> ^^ { _ =&gt; BigInt(4) } |
+    <span style="color: #8b2252;">"cinq"</span> ^^ { _ =&gt; BigInt(5) } |
+    <span style="color: #8b2252;">"six"</span> ^^ { _ =&gt; BigInt(6) } |
+    <span style="color: #8b2252;">"sept"</span> ^^ { _ =&gt; BigInt(7) } |
+    <span style="color: #8b2252;">"huit"</span> ^^ { _ =&gt; BigInt(8) } |
+    <span style="color: #8b2252;">"neuf"</span> ^^ { _ =&gt; BigInt(9) }
+
+  <span style="color: #b22222;">// </span><span style="color: #b22222;">Do not modify the following lines</span>
+  <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">verbose</span> = <span style="color: #008b8b;">true</span>
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">test</span>:<span style="color: #228b22;">Unit </span>= test(1L,999999999999L)
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">test</span>(<span style="color: #a0522d;">ub</span>: <span style="color: #228b22;">Long</span>):<span style="color: #228b22;">Unit </span>= test(1,ub)
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">test</span>(<span style="color: #a0522d;">lb</span>: <span style="color: #228b22;">Long</span>, <span style="color: #a0522d;">ub</span>: <span style="color: #228b22;">Long</span>):<span style="color: #228b22;">Unit </span>= {
+    <span style="color: #a020f0;">for</span> {
+      line &lt;- scala.io.Source.fromFile(<span style="color: #8b2252;">"frenchNumbersBillion.txt"</span>).getLines
+      <span style="color: #a020f0;">if</span> ! line.matches(<span style="color: #8b2252;">"""\s*"""</span>)
+      <span style="color: #a020f0;">if</span> ! line.matches(<span style="color: #8b2252;">"""\s*;.*"""</span>)
+      d = line.split(<span style="color: #8b2252;">"""\s*\t\s*"""</span>, 3)
+      ex = d(1).trim
+      value = BigInt(d(0).trim)
+      <span style="color: #a020f0;">if</span> BigInt(lb) &lt;= value &amp;&amp; value &lt;= BigInt(ub)
+    } {
+      parseAll(expr, ex) <span style="color: #a020f0;">match</span> {
+        <span style="color: #a020f0;">case</span> <span style="color: #228b22;">Success</span>(<span style="color: #a0522d;">v</span>, <span style="color: #a0522d;">n</span>) <span style="color: #a020f0;">if</span> v == value =&gt;
+          <span style="color: #a020f0;">if</span> (verbose) println(s<span style="color: #8b2252;">"OK: $ex --&gt; $v"</span>)
+        <span style="color: #a020f0;">case</span> <span style="color: #228b22;">Success</span>(<span style="color: #a0522d;">v</span>, <span style="color: #a0522d;">n</span>) =&gt;
+          println(s<span style="color: #8b2252;">"NG: $ex --&gt; $v != $value"</span>)
+        <span style="color: #a020f0;">case</span> <span style="color: #a0522d;">err</span> =&gt;
+          println(s<span style="color: #8b2252;">"ERR: $ex --&gt; $err"</span>)
+      }
+    }
+  }
+
+}
+</pre>
+</div>
+
+<p>
+Next, let&rsquo;s extend it to be able to parse two digits
+integers. <br>
+Shall we write all remaining 90 numbers for each line? Like: <br>
+</p>
+<ul class="org-ul">
+<li>&#x2026;</li>
+<li><code>"vingt-deux" ^^ { _ => BigInt(22) }</code></li>
+<li>&#x2026;</li>
+<li><code>"quatre-vingt-dix-neuf" ^^ { _ => BigInt(99) }</code></li>
+<li><code>"quatre-vingt-dix-huit" ^^ { _ => BigInt(98) }</code></li>
+</ul>
+<p>
+No! <br>
+You know there is a rule! <br>
+Let&rsquo;s minimize our code by capturing a rule under the numbers in French languages. <br> 
+</p>
+
+<p>
+Remind our tools in parsing: 
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" align="center">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Notations in Scala</th>
+<th scope="col" class="org-left">Notations of EBNF</th>
+<th scope="col" class="org-left">Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">\(\alpha_1\) ~ \(\alpha_2\)</td>
+<td class="org-left">\(\alpha_1\ \alpha_2\)</td>
+<td class="org-left">Concatenation of \(\alpha_1\) and \(\alpha_2\)</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\alpha_1 \mid \alpha_2\)</td>
+<td class="org-left">\(\alpha_1 \mid \alpha_2\)</td>
+<td class="org-left">\(\alpha_1\) or \(\alpha_2\)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>rep(</code> \(\alpha\) <code>)</code></td>
+<td class="org-left">\(\{\ \alpha\ \}\)</td>
+<td class="org-left">\(n\) times iteration of \(\alpha\) (\(n \ge 0\))</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>opt(</code> \(\alpha\) <code>)</code></td>
+<td class="org-left">\([\ \,\alpha\ \,]\)</td>
+<td class="org-left">\(\alpha\) or empty</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>(</code> \(\alpha\) <code>)</code></td>
+<td class="org-left">\((\ \alpha\ )\)</td>
+<td class="org-left">grouping \(\alpha\)</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+The following is how to verify your current program. 
+</p>
+<ol class="org-ol">
+<li>Download the base program <a href="prog/parser/CalcPF0.scala">CalcPF0.scala</a></li>
+<li>Download the test numbers 1 to 99 <a href="prog/parser/frenchNumbersBillion.txt">prog/parser/frenchNumbersBillion.txt</a></li>
+<li>Launch your REPL on the same directory of the above two files</li>
+<li>Type the followings, then you will see how many numbers are OK with your program.</li>
+</ol>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ ls frenchNumbersBillion.txt 
+frenchNumbersBillion.txt
+$ ls CalcPF0.scala 
+CalcPF0.scala
+$ scala
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121)<span style="color: #483d8b;">.</span>
+Type<span style="color: #a020f0;"> in</span> expressions for evaluation. Or try :help.
+
+scala&gt; :load CalcPF0.scala
+Loading CalcPF0.scala...
+import scala.util.parsing.combinator._
+defined object CalcPF0
+
+scala&gt; CalcPF0.test(1,3)
+OK: un --&gt; 1
+OK: deux --&gt; 2
+OK: trois --&gt; 3
+
+scala&gt; CalcPF0.test(1,4)
+OK: un --&gt; 1
+OK: deux --&gt; 2
+OK: trois --&gt; 3
+OK: quatre --&gt; 4
+
+scala&gt; CalcPF0.test(1,10)
+OK: un --&gt; 1
+OK: deux --&gt; 2
+OK: trois --&gt; 3
+OK: quatre --&gt; 4
+OK: cinq --&gt; 5
+OK: six --&gt; 6
+OK: sept --&gt; 7
+OK: huit --&gt; 8
+OK: neuf --&gt; 9
+ERR: dix --&gt; [1.4] failure: <span style="color: #ff00ff;">`(' expected but end of source found</span>
+
+<span style="color: #ff00ff;">dix</span>
+<span style="color: #ff00ff;">   ^</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-2">
+<h2 id="orgheadline15"><span class="section-number-2">7</span> Projects</h2>
+<div class="outline-text-2" id="text-7">
+<ul class="org-ul">
+<li>French Calculator can handle milliard/trillion etc.</li>
+<li>English Calculator can handle English like &ldquo;nine hundreds and
+ninety nine&rdquo; etc.</li>
+<li>French Translator can translate &ldquo;+(1,1)&rdquo; to &ldquo;+(un,un)&rdquo; etc.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Takehide Soh</p>
+<p class="date">Created: 2018-03-20 火 10:11</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

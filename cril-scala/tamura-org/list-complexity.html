@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>多項式計算: 計算量</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="多項式計算: 計算量"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-09-29 21:45:31 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">多項式計算: 計算量</h1>
+
+<ul>
+<li><a href="list.html">リスト処理の例: 多項式計算</a>
+</li>
+<li><a href="list-c.html">C版</a>
+</li>
+<li><a href="list-lisp.html">Lisp版</a>
+</li>
+<li><a href="list-prolog.html">Prolog版</a>
+</li>
+<li><a href="list-java.html">Java版</a>
+</li>
+<li><a href="list-scala.html">Scala版</a>
+</li>
+</ul>
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 定数倍</a></li>
+<li><a href="#sec-2">2 加算</a></li>
+<li><a href="#sec-3">3 乗算</a></li>
+<li><a href="#sec-4">4 プログラム全体</a></li>
+<li><a href="#sec-5">5 練習問題</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 定数倍</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>  多項式を定数倍した新しい多項式を求める関数 imul は以下のように定義できる．
+</p>
+
+
+<pre class="src src-lisp"><span class="linenr">1:  </span>(<span class="org-keyword">defun</span> <span class="org-function-name">imul</span> (b xs)
+<span class="linenr">2:  </span>  (<span class="org-keyword">if</span> (null xs)
+<span class="linenr">3:  </span>    ()
+<span class="linenr">4:  </span>    (cons (* b (car xs)) (imul b (cdr xs)))
+<span class="linenr">5:  </span>))
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 加算</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  二つの多項式の和になっている新しい多項式を求める関数 add を作成する．
+</p>
+<p>
+  (add xs ys)の動作は，以下のように再帰的に定義できる．
+</p><ul>
+<li>xsが空リストの場合ysが答えであり，ysが空リストの場合xsが答えである．
+</li>
+<li>どちらも空リストでない場合，(cdr xs)と(cdr ys)に対して
+    再帰的にaddを実行した結果のリストの前に，
+    双方の先頭要素の和を付け加えたリストが答えである．
+</li>
+</ul>
+
+
+<p>
+  これをプログラムとして記述すると，以下のようになる．
+</p>
+
+
+<pre class="src src-lisp"><span class="linenr">1:  </span>(<span class="org-keyword">defun</span> <span class="org-function-name">add</span> (xs ys)
+<span class="linenr">2:  </span>  (<span class="org-keyword">if</span> (null xs)
+<span class="linenr">3:  </span>    ys
+<span class="linenr">4:  </span>    (<span class="org-keyword">if</span> (null ys)
+<span class="linenr">5:  </span>      xs
+<span class="linenr">6:  </span>      (cons (+ (car xs) (car ys)) (add (cdr xs) (cdr ys)))
+<span class="linenr">7:  </span>)))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 乗算</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  二つの多項式の積になっている新しい多項式を求める関数 mul を作成する．
+</p>
+<p>
+  (mul xs ys)の動作は，以下のように再帰的に定義できる．
+</p><ul>
+<li>xsが空リストの場合，空リストが答えである．
+</li>
+<li>xsが空リストでない場合，(cdr xs)とysに対して
+    再帰的にmulを実行した結果のリストの前に0を付け加えたリストと，
+    ysを(car xs)倍 (imul)したリストとの和 (add)が答えである．
+</li>
+</ul>
+
+
+<p>
+  これをプログラムとして記述すると，以下のようになる．
+</p>
+
+
+<pre class="src src-lisp"><span class="linenr">1:  </span>(<span class="org-keyword">defun</span> <span class="org-function-name">mul</span> (xs ys)
+<span class="linenr">2:  </span>  (<span class="org-keyword">if</span> (null xs)
+<span class="linenr">3:  </span>    ()
+<span class="linenr">4:  </span>    (add (imul (car xs) ys) (cons 0 (mul (cdr xs) ys)))
+<span class="linenr">5:  </span>))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> プログラム全体</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  プログラム全体は，以下のようになる．
+</p>
+
+
+<pre class="src src-lisp"><span class="linenr"> 1:  </span>(<span class="org-keyword">defun</span> <span class="org-function-name">imul</span> (b xs)
+<span class="linenr"> 2:  </span>  (<span class="org-keyword">if</span> (null xs)
+<span class="linenr"> 3:  </span>    ()
+<span class="linenr"> 4:  </span>    (cons (* b (car xs)) (imul b (cdr xs)))
+<span class="linenr"> 5:  </span>))
+<span class="linenr"> 6:  </span>
+<span class="linenr"> 7:  </span>(<span class="org-keyword">defun</span> <span class="org-function-name">add</span> (xs ys)
+<span class="linenr"> 8:  </span>  (<span class="org-keyword">if</span> (null xs)
+<span class="linenr"> 9:  </span>    ys
+<span class="linenr">10:  </span>    (<span class="org-keyword">if</span> (null ys)
+<span class="linenr">11:  </span>      xs
+<span class="linenr">12:  </span>      (cons (+ (car xs) (car ys)) (add (cdr xs) (cdr ys)))
+<span class="linenr">13:  </span>)))
+<span class="linenr">14:  </span>
+<span class="linenr">15:  </span>(<span class="org-keyword">defun</span> <span class="org-function-name">mul</span> (xs ys)
+<span class="linenr">16:  </span>  (<span class="org-keyword">if</span> (null xs)
+<span class="linenr">17:  </span>    ()
+<span class="linenr">18:  </span>    (add (imul (car xs) ys) (cons 0 (mul (cdr xs) ys)))
+<span class="linenr">19:  </span>))
+</pre>
+
+
+<p>
+  Cと比較して，ずいぶん簡潔であることがわかる．
+</p>
+<p>
+  実行結果は，以下のようになる．
+</p><pre class="example">
+(imul 2 '(1 -1 0 2 -3))
+(2 -2 0 4 -6)
+
+(add '(1 2 3) '(1 -2 3 -4))
+(2 0 6 -4)
+
+(mul '(1 2 3) '(1 -2 3))
+(1 0 2 0 9)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 練習問題</h2>
+<div class="outline-text-2" id="text-5">
+
+<ol>
+<li>二つの多項式の差を求める関数 sub を作成せよ．
+</li>
+<li>多項式と整数bが与えられた時，
+     多項式が単項式 x-b で割り切れるかどうか調べる関数 divisible を作成せよ．
+</li>
+<li>多項式を微分した新しい多項式を求める関数 deriv を作成せよ．
+</li>
+</ol>
+
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-09-29 21:45:31 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

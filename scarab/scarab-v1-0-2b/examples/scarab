@@ -1,0 +1,5 @@
+#!/bin/sh
+DIR=`dirname $0`/..
+JARS=$DIR/lib/scarab-v1-0-2.jar
+[ -n "$JAVA_OPTS" ] || export JAVA_OPTS="-Xmx2000M -Xms512M -Xss64M -XX:-UseGCOverheadLimit"
+exec scala -cp .:classes:$JARS $*

@@ -1,0 +1,1393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Lispプログラミング入門</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Lispプログラミング入門"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-09-29 21:45:17 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="/include/mathjax/MathJax.js">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Lispプログラミング入門</h1>
+
+
+<script type="text/javascript" src="prolang.js"></script>
+<ul>
+<li><a href="lisp.html">Lispプログラミング入門</a>
+</li>
+<li><a href="lisp-cell.html">Lispのデータ構造</a>
+</li>
+<li><a href="lisp-sieve.html">Lispでエラトステネスの篩</a>
+</li>
+</ul>
+
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Lispの概要</a>
+<ul>
+<li><a href="#sec-1-1">1.1 参考リンク</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 Lispの特徴</a></li>
+<li><a href="#sec-3">3 記号</a></li>
+<li><a href="#sec-4">4 リスト</a>
+<ul>
+<li><a href="#sec-4-1">4.1 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 Lispを使ってみる</a>
+<ul>
+<li><a href="#sec-5-1">5.1 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 変数</a></li>
+<li><a href="#sec-7">7 リスト処理関数</a></li>
+<li><a href="#sec-8">8 基本リスト処理関数</a>
+<ul>
+<li><a href="#sec-8-1">8.1 先頭要素を求める関数 <code>car</code></a></li>
+<li><a href="#sec-8-2">8.2 残りのリストを求める関数 <code>cdr</code></a></li>
+<li><a href="#sec-8-3">8.3 先頭に要素を加えたリストを作る関数 <code>cons</code></a></li>
+<li><a href="#sec-8-4">8.4 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-9">9 関数定義</a>
+<ul>
+<li><a href="#sec-9-1">9.1 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-10">10 述語と条件</a>
+<ul>
+<li><a href="#sec-10-1">10.1 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-11">11 再帰的定義</a>
+<ul>
+<li><a href="#sec-11-1">11.1 練習問題</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Lispの概要</h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li>1957年頃に米国MITのJohn McCarthyらにより開発された
+</li>
+<li>LISt Processor (リスト処理言語)の省略で，
+    AIプログラム等の記述・開発に適している
+</li>
+<li>多数の方言が存在するが，標準版として1984年に
+    Guy L. Steele Jr. が中心となってCommon Lispを設計した
+</li>
+<li>Lisp言語の一種であるSchemeも広く用いられている
+</li>
+<li>Clojureという新しい言語も出ている
+</li>
+</ul>
+
+
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 参考リンク</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<ul>
+<li><a href="http://www.gnu.org/software/emacs/emacs-lisp-intro/emacs-lisp-intro.html">An Introduction to Programming in Emacs Lisp</a>
+</li>
+<li><a href="http://www.paulgraham.com/onlisp.html">On Lisp</a>
+</li>
+<li>初めての人のためのLISP
+    (<a href="http://www.amazon.co.jp/初めての人のためのLISP-増補改訂版-竹内-郁雄/dp/4798119415/ref=pd_sim_b_1">Amazon</a>, <a href="http://opac.lib.kobe-u.ac.jp/opac/books-query?mode=2&amp;code=20041838&amp;key=B129185725026223">OPAC</a>)
+</li>
+<li><a href="http://www.swiss.ai.mit.edu/projects/scheme/index.html">Scheme</a>
+<ul>
+<li><a href="http://www.scheme.com/books.html">The Scheme Programming Language</a>
+      (<a href="http://www.amazon.co.jp/Scheme-Programming-Language-4th/dp/026251298X/ref=sr_1_1?ie=UTF8&amp;qid=1291860841&amp;sr=8-1">Amazon</a>, <a href="http://opac.lib.kobe-u.ac.jp/opac/books-query?mode=2&amp;code=21027507&amp;key=B129185651123456">OPAC</a>)
+</li>
+<li>プログラミング言語SCHEME
+      (<a href="http://www.amazon.co.jp/プログラミング言語SCHEME-R-ケント-ディヴィグ/dp/4894712261/ref=pd_cp_fb_1">Amazon</a>) <br/>
+      The Scheme Programming Languageの日本語訳
+</li>
+<li><a href="http://mitpress.mit.edu/sicp/">Structure and Interpretation of Computer Programs</a> (SICP)
+      (<a href="http://www.amazon.co.jp/Structure-Interpretation-Computer-Electrical-Engineering/dp/0262510871/ref=sr_1_cc_1?ie=UTF8&amp;qid=1291861225&amp;sr=1-1-catcorr">Amazon</a>, <a href="http://opac.lib.kobe-u.ac.jp/opac/books-query?mode=2&amp;code=20455973&amp;key=B129185680224458">OPAC</a>) <br/>
+      大変有名な教科書
+</li>
+<li>計算機プログラムの構造と解釈
+      (<a href="http://www.amazon.co.jp/計算機プログラムの構造と解釈-ジェラルド・ジェイ-サスマン/dp/489471163X/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1291861193&amp;sr=1-1">Amazon</a>, <a href="http://opac.lib.kobe-u.ac.jp/opac/books-query?mode=2&amp;code=21343984&amp;key=B129185701725528">OPAC</a>) <br/>
+      SICPの日本語訳 (<a href="http://sicp.iijlab.net/">HTML版</a>)
+</li>
+<li><a href="http://karetta.jp/book-cover/gauche-hacks">Gaucheプログラミング(立読み版)</a> (at Karetta)
+</li>
+</ul>
+
+</li>
+<li><a href="http://clojure.org">Clojure</a> 
+<ul>
+<li>プログラミングClojure
+      (<a href="http://www.amazon.co.jp/プログラミングClojure-Stuart-Halloway/dp/4274067890/ref=sr_1_1?ie=UTF8&amp;s=books&amp;qid=1291861592&amp;sr=1-1">Amazon</a>, <a href="http://opac.lib.kobe-u.ac.jp/opac/books-query?mode=2&amp;code=21960034&amp;key=B129185708425696">OPAC</a>)
+</li>
+</ul>
+
+</li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/lect/ProLang/">プログラミング言語論</a>
+<ul>
+<li><a href="scala.html">Scalaプログラミング入門</a>
+</li>
+</ul>
+
+</li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/s4-machines/">神戸大学工学部システム工学科第4講座で開発された計算機</a>
+<ul>
+<li>神戸大学Lispマシン，Prologマシンなどを紹介
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Lispの特徴</h2>
+<div class="outline-text-2" id="text-2">
+
+<dl>
+<dt><b>記号処理言語</b> ， <b>リスト処理言語</b></dt><dd>
+<p>
+    データとして，記号(シンボル)を取り扱うことができる．
+    また，リストと呼ばれる可変長のデータの列を取り扱うことができる．
+</p></dd>
+<dt><b>関数型言語</b></dt><dd>
+<p>
+    Lispでは新たな関数を定義することによってプログラムを作り上げていく．
+    すなわち，Lispのプログラムは関数定義の集まりである．
+    LispやPrologは，FORTRANやBASICなどの手続き型言語とは異なり，
+    非手続き型言語と呼ばれる．
+</p></dd>
+<dt><b>対話的使用</b> ， <b>会話形使用</b></dt><dd>
+<p>
+    Lispシステムの使用形態は対話的である．
+    すなわち，ユーザはLispシステムを立ち上げたあと，
+    システムと会話するような形で命令を与え，
+    関数を定義したり実行したりできる．
+</p></dd>
+</dl>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 記号</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  Lisp, Prologなどの言語では，
+  <b>記号</b> (シンボル，symbol)をデータとして取り扱うことができる．
+  記号を取り扱える言語は <b>記号処理言語</b> と呼ばれることがある．
+</p>
+<p>
+  記号処理言語はデータとして数値だけしか取り扱えない言語に比較して，
+  より自然に問題を表現できる．
+</p>
+<p>
+  記号は英数字等を1文字以上続けた名前で表される．ただし，数値として
+  見なされるもの ( <code>123</code>, <code>+1</code> など)は省く．
+</p><pre class="example">
+X   coffee   B52   -   N-Tamura
+</pre>
+
+
+<p>
+  英字の大文字と小文字は区別しない．
+  いくつかのLispシステムでは漢字も使用できる．
+</p>
+<p>
+  記号および数値は <b>アトム</b> (atom)と呼ばれる．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> リスト</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  Lisp, PrologなどのAI用言語では，記号や数値の列を
+  データとして取り扱うことができる．
+</p>
+<p>
+  この列は <b>リスト</b> (list)と呼ばれる．
+  リストは，その <b>要素</b> (element)を空白で区切って並べたものを
+  カッコでくくって表す．たとえば
+</p><pre class="example">
+(jan 31 1957 thu)
+(pi 3.14)
+</pre>
+
+<p>  であり，一般的には
+</p>
+
+<div style="text-align: center">
+<p>(要素<sub>1</sub> 要素<sub>2</sub> &hellip; 要素<sub>n</sub>)
+</p>
+</div>
+
+<p>
+  と書く．
+</p>
+<ul>
+<li>リストの要素の個数 n は，そのリストの <b>長さ</b> (length)と呼ばれる．
+    前の例では，リストの長さはそれぞれ4と2である．
+</li>
+<li>要素<sub>i</sub> をリストの <b>第i要素</b> (i-th element)と呼ぶ．
+    たとえば，最初の例での第3要素は <code>1957</code> である．
+</li>
+<li>要素のないリスト(長さが0のリスト)は <b>空リスト</b> (empty list)と呼ばれる．
+    空リストは記号 <code>nil</code> で表すこともできる．
+<pre class="example">
+()
+nil
+</pre>
+
+</li>
+<li>リストの要素が，またリストであってもよい．
+<pre class="example">
+(coffee milk (orange juice))
+((a (b) (c (d))) (e () f))
+</pre>
+
+<p>    上の例でのリストの長さはそれぞれ3と2である．
+</p></li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-4-1">
+
+
+<div class="answer">
+<ol>
+<li>リスト <code>(a () b)</code> の長さはいくつか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       3
+</p></dd>
+</dl>
+
+</li>
+<li>リスト <code>((a b) c)</code> の第1番目の要素は何か．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       <code>(a b)</code>
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Lispを使ってみる</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>  ここでは，Emacs Lispを使って説明する．
+</p>
+<p>
+  Emacs上で実行するには，
+  Buffersメニューから <code>*scratch*</code> バッファを選択し，
+  入力の最後に <code>Ctrl-J</code> をタイプすれば良い．
+</p><pre class="example">
+(+ 1 2) [Ctrl-J]
+  3
+</pre>
+
+
+<p>
+  このように，ユーザがシステムと対話しながらシステムを利用することから，
+  このような使用形態は <b>対話的使用</b> と呼ばれる．
+</p>
+<p>
+  ユーザが入力する式は，一般的には
+</p>
+
+<div style="text-align: center">
+<p>(関数名 式<sub>1</sub> 式<sub>2</sub> &hellip; 式<sub>n</sub>)
+</p>
+</div>
+
+<p>
+  という <b>関数</b> (function)の形である．
+</p><ul>
+<li>式<sub>i</sub> は <b>引数</b> (argument) と呼ばれる．
+    引数が，また式であってもよい．
+    たとえば，関数 log sin 1 の値は次のようにして計算できる．
+<pre class="example">
+(log (sin 1))
+  -0.1726038
+</pre>
+
+</li>
+<li>リストを引数とする関数も使用できる．
+    リストを引数とする場合には，リストの前に
+    <b>クォート</b> (引用符，クォーテションマーク，quotation mark)をつける．
+</li>
+<li>たとえば，
+<pre class="example">
+(length '(coffee milk (orange juice)))
+  3
+(length '((a (b) (c (d))) (e () f)))
+  2
+</pre>
+
+<p>    ここで， <code>length</code> はリストの長さを求める関数である．
+</p></li>
+<li><code>+</code>, <code>*</code>, <code>log</code>, <code>length</code> などのように，
+    Lispシステムであらかじめ用意されている関数は
+    <b>組込関数</b> (built-in function)と呼ばれる．
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-5-1">
+
+
+<div class="answer">
+<ol>
+<li>与えられた2つのリストの長さの合計を求めるにはどうすればよいか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>たとえば以下のようにする．
+
+
+
+<pre class="example">(+ (length '(a b c)) (length '(d e)))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 変数</h2>
+<div class="outline-text-2" id="text-6">
+
+<p>  関数 <code>setq</code> を使うと，記号に値を代入できる．
+</p><pre class="example">
+(setq x (* 12 34))
+  408
+(+ x 56)
+  464
+(setq menu '(tea coffee milk))
+  (tea coffee milk)
+(length menu)
+  3
+(setq x (length menu))
+  3
+</pre>
+
+
+<p>  
+  一般的には
+</p>
+<div style="text-align: center">
+<p>(setq 変数 値)
+</p>
+</div>
+
+<p>
+  と書く．変数としては任意の記号，値としては任意の式が書ける．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> リスト処理関数</h2>
+<div class="outline-text-2" id="text-7">
+
+<p>  数多くあるリストを処理する組込関数のうち，いくつかを紹介する．
+</p><ul>
+<li><code>append</code> は2つのリストを連結したリストを求める関数である．
+    なお空リスト <code>()</code> はクォートを省いてもよい．
+<pre class="example">
+(append '(a b) '(c d))
+  (a b c d)
+(append '(a (b c)) '(d () e))
+  (a (b c) d () e)
+(append '(a b c) '())
+  (a b c)
+(append () '(a b c))
+  (a b c)
+</pre>
+
+</li>
+<li><code>reverse</code> はリストの要素を逆順に並べ変えたリストを求める関数である．
+<pre class="example">
+(reverse '(a b c d))
+  (d c b a)
+(reverse '(a (b c) d))
+  (d (b c) a)
+</pre>
+
+</li>
+<li><code>sort</code> はリストを一定の順序(昇順，降順，アルファベット順など)に
+    したがって並べ変えたリストを求める関数である．
+<pre class="example">
+(sort '(3 1 4 2) '&lt;)
+  (1 2 3 4)
+(sort '(3 1 4 2) '&gt;)
+  (4 3 2 1)
+(sort '(tamura banbara kumamoto) 'string&lt;)
+  (banbara kumamoto tamura)
+</pre>
+
+</li>
+</ul>
+
+
+<p>
+  これらの関数は，以下で述べるような
+  より基本的な関数の組合せで作られている．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> 基本リスト処理関数</h2>
+<div class="outline-text-2" id="text-8">
+
+<ul>
+<li>先頭要素を求める関数 <code>car</code>
+</li>
+<li>残りのリストを求める関数 <code>cdr</code>
+</li>
+<li>先頭に要素を加えたリストを作る関数 <code>cons</code>
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> 先頭要素を求める関数 <code>car</code></h3>
+<div class="outline-text-3" id="text-8-1">
+
+<p>  関数 <code>car</code> はリストの先頭の要素(第1要素)を求める．
+</p><pre class="example">
+(car '(a b c))
+  a
+(car '((a b) (c d)))
+  (a b)
+(setq menu '(tea coffee milk))
+  (tea coffee milk)
+(car menu)
+  tea
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8-2" class="outline-3">
+<h3 id="sec-8-2"><span class="section-number-3">8.2</span> 残りのリストを求める関数 <code>cdr</code></h3>
+<div class="outline-text-3" id="text-8-2">
+
+<p>  関数 <code>cdr</code> はリストの先頭の要素を除いた
+  残りのリスト(第2要素以降のリスト)を求める．
+</p><pre class="example">
+(cdr menu)
+  (coffee milk)
+(cdr (cdr menu))
+  (milk)
+(cdr (cdr (cdr menu)))
+  nil
+(car (cdr menu))
+  coffee
+</pre>
+
+
+<ul>
+<li><code>(car (cdr menu))</code> で <code>menu</code> の第2要素を求めることができる．
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8-3" class="outline-3">
+<h3 id="sec-8-3"><span class="section-number-3">8.3</span> 先頭に要素を加えたリストを作る関数 <code>cons</code></h3>
+<div class="outline-text-3" id="text-8-3">
+
+<p>  関数 <code>cons</code> は，
+  第1引数を第2引数のリストの前につけたリストを求める．
+</p><pre class="example">
+(cons '(a b) '(c d))
+  ((a b) c d)
+(cons 'cocoa menu)
+  (cocoa tea coffee milk)
+(cons 'cocoa (cdr menu))
+  (cocoa coffee milk)
+</pre>
+
+
+<ul>
+<li><code>(cons '(a b) '(c d))</code> の結果は <code>((a b) c d)</code> で，
+    <code>(append '(a b) '(c d))</code> の結果 <code>(a b c d)</code> とは異なることに注意する．
+</li>
+<li>第2引数がリストでない場合も <code>cons</code> を実行することは可能だが，
+    リストでないデータ構造が得られる．
+    詳しくは <a href="lisp-cell.html">Lispのデータ構造</a> を参照．
+</li>
+</ul>
+
+
+<p>
+  リストに対する基本的な操作は，
+  以上の <code>car</code>, <code>cdr</code>, <code>cons</code> の3つの関数で行える．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-8-4" class="outline-3">
+<h3 id="sec-8-4"><span class="section-number-3">8.4</span> 練習問題</h3>
+<div class="outline-text-3" id="text-8-4">
+
+
+<div class="answer">
+<ol>
+<li><code>menu</code> の3番目の要素を求めるにはどうすればよいか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="example">(car (cdr (cdr menu)))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li><code>menu</code> の第1要素を <code>juice</code> に変更した
+     リストを作るにはどうすればよいか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="example">(cons 'juice (cdr menu))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li><code>menu</code> の第1要素と第2要素の間に <code>juice</code> を挿入した
+     リストを作るにはどうすればよいか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="example">(cons (car menu) (cons 'juice (cdr menu)))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li><code>menu</code> の第2要素を取り除いたリストを作るにはどうすればよいか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="example">(cons (car menu) (cdr (cdr menu)))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li><code>menu</code> の第1要素と第2要素を交換したリストを作るにはどうすればよいか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="example">(cons (car (cdr menu)) (cons (car menu) (cdr (cdr menu))))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> 関数定義</h2>
+<div class="outline-text-2" id="text-9">
+
+<p>  Lispでは既存の関数を用いて，新たな関数を自分で定義することができる．
+</p>
+<p>
+  たとえば，引数として与えられた
+  リストの2番目の要素を求める関数 <code>nibanme</code> は，
+  関数 <code>defun</code> を使って次のようにして定義する．
+</p><pre class="example">
+(defun nibanme (x) (car (cdr x)))
+  nibanme
+(nibanme '(a b c))
+  b
+</pre>
+
+
+<p>
+  一般的には
+</p>
+<div style="text-align: center">
+<p>(defun 関数名 (仮引数<sub>1</sub> &hellip; 仮引数<sub>n</sub>) 関数本体)
+</p>
+</div>
+
+<p>
+  と書く．
+</p>
+<p>
+  このように定義した関数は，
+  Lispシステムにすでにある組込関数と同様に使用できる．
+</p>
+<p>
+  以下では，リストの2番目の要素を取り除いたリストを求める
+  関数 <code>del2</code> を定義し，それと関数 <code>nibanme</code> を用いて，
+  リストの1番目の要素と2番目の要素を交換したリストを求める関数
+  <code>ex12</code> を定義する．
+</p><pre class="example">
+(defun del2 (x) (cons (car x) (cdr (cdr x))))
+(defun ex12 (x) (cons (nibanme x) (del2 x)))
+(del2 '(a b c))
+  (a c)
+(ex12 '(a b c))
+  (b a c)
+</pre>
+
+
+<p>
+  実は，Lispでは以下のような組込関数があらかじめ用意されている．
+</p><pre class="example">
+(defun caar (x) (car (car x)))
+(defun cadr (x) (car (cdr x)))
+(defun cdar (x) (cdr (car x)))
+(defun cddr (x) (cdr (cdr x)))
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-9-1" class="outline-3">
+<h3 id="sec-9-1"><span class="section-number-3">9.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-9-1">
+
+
+<div class="answer">
+<ol>
+<li>リストの2番目の要素と3番目の要素を交換したリストを求める関数
+     <code>ex23</code> を定義せよ．<br/>
+     ヒント: <code>ex12</code> を利用することを考える．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="example">(defun ex23 (x) (cons (car x) (ex12 (cdr x))))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>リストを左へ1つ回転させたリストを求める関数 <code>rotate</code> を定義せよ．
+     たとえば <code>(rotate '(a b c d))</code> の結果は <code>(b c d a)</code> である．
+     与えられるリストの長さは1以上としてよい． <br/>
+     ヒント: <code>(a b c d)</code> から <code>(b c d a)</code> を得るには，
+     <code>(append '(b c d) '(a))</code> と考える．
+     <code>append</code> の第2引数はリストでなければならない．
+     <code>(cons 'a ())</code> とすれば長さ1のリスト <code>(a)</code> が得られることを用いる．
+     <code>(append '(b c d) '(a))</code> ではなく
+     <code>(cons '(b c d) '(a))</code> とすると，
+     結果が <code>((b c d) a)</code> となり <code>(b c d a)</code> にはならないことに注意する．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="example">(defun rotate (x) (append (cdr x) (cons (car x) ())))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> 述語と条件</h2>
+<div class="outline-text-2" id="text-10">
+
+<p>  Lispのある種の関数は条件判断を行うためのもので，
+  特に <b>述語</b> (predicate)と呼ばれる．
+  述語は判断の結果が真ならば <code>t</code> を，偽ならば <code>nil</code> を返す．
+</p>
+<ul>
+<li><code>null</code> は引数が空リストかどうか調べる述語である．
+<pre class="example">
+(null ())
+  t
+(null 'a)
+  nil
+(null nil)
+  t
+(null '(a))
+  nil
+</pre>
+
+</li>
+<li><code>=</code> は2つの引数が同一の数値であるかどうか調べる述語である．
+<pre class="example">
+(= 1 2)
+  nil
+(= 2 (+ 1 1))
+  t
+(= 'a 'b)
+  ERROR
+</pre>
+
+</li>
+<li><code>equal</code> は2つの引数が同一の記号やリストであるかどうか調べる述語である．
+    数値の場合も利用できる．
+<pre class="example">
+(equal 'a 'b)
+  nil
+(equal 'a (car '(a b)))
+  t
+(equal '(b) (cdr '(a b)))
+  t
+(equal 2 (+ 1 1))
+  t
+</pre>
+
+<p>    <code>(null x)</code> と <code>(equal x ())</code> は同じ意味である．
+</p></li>
+<li><code>/=</code> は2つの数値が等しくない時に真になる
+    <code>(/= x y)</code> と <code>(not (= x y))</code> は同じ意味である．
+</li>
+<li><code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code> は2つの数値の大小関係を調べる．
+    <code>string&lt;</code>, <code>string=</code> は
+    2つの記号の大小関係(アルファベット順)を調べる．
+<pre class="example">
+(&lt; 1 2)
+  t
+(string&lt; 'a 'b)
+  t
+</pre>
+
+</li>
+<li><code>atom</code> は引数がアトム(記号あるいは数値)かどうかを調べる．
+<pre class="example">
+(atom 1)
+  t
+(atom 'a)
+  t
+(atom '(a))
+  nil
+(atom ())
+  t
+</pre>
+
+</li>
+</ul>
+
+
+<p>
+  述語の判断結果によって，すなわち条件によって異なる値を返す関数を
+  作るには，関数 <code>if</code> を用いる．
+</p>
+<div style="text-align: center">
+<p>(if 条件式 式<sub>1</sub> 式<sub>2</sub>)
+</p>
+</div>
+
+<ul>
+<li>条件式の結果が <code>nil</code> 以外なら 式<sub>1</sub> の計算結果を，
+    <code>nil</code> の時は 式<sub>2</sub> の計算結果を値とする
+<pre class="example">
+(if (null 'a) 1 2)
+  2
+(setq x '(a b))
+  (a b)
+(if (&gt;= (length x) 2) (car (cdr x)) x)
+  b
+</pre>
+
+</li>
+<li><code>if</code> を使うと，2つの数値の大きい方を返す関数 <code>ookiihou</code> を定義できる．
+<pre class="example">
+(defun ookiihou (x y) (if (&gt; x y) x y))
+
+(ookiihou 3 7)
+  7
+</pre>
+
+<p>    組込関数 <code>max</code> を利用すると同じことが行える．
+</p>
+<p>
+    <code>and</code>, <code>or</code>, <code>not</code> で，複数の述語の結果を組合せる論理演算を行える．
+</p></li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-10-1" class="outline-3">
+<h3 id="sec-10-1"><span class="section-number-3">10.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-10-1">
+
+
+<div class="answer">
+<ol>
+<li>2つの数値を要素とする長さ2のリストを昇順に並べ変えたリストを
+     求める関数 <code>sort2</code> を定義せよ．
+     たとえば <code>(sort2 '(3 2))</code> の結果は <code>(2 3)</code> ，
+     <code>(sort2 '(2 3))</code> の結果は <code>(2 3)</code> である．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>複数の解答例を示す．
+
+
+
+<pre class="example">(defun sort2 (x)
+  (if (&lt; (car x) (cadr x))
+      x
+      (ex12 x)))
+(defun sort2 (x)
+  (if (&lt; (car x) (cadr x))
+      x
+      (cons (cadr x) (cons (car x) nil))))
+(defun sort2 (x)
+  (cons (min (car x) (cadr x))
+  (cons (max (car x) (cadr x))
+        nil)))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>与えられた西暦が <a href="http://ja.wikipedia.org/wiki/グレゴリオ暦">グレゴリオ暦</a> でうるう年になるかどうかを判定する関数
+     <code>leap_year</code> を定義せよ．
+     たとえば <code>(leap_year 2000)</code> の結果は <code>t</code> ，
+     <code>(leap_year 2100)</code> の結果は <code>nil</code> である．
+     なおyをxで割った余りは <code>(% y x)</code> で求められる．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>複数の解答例を示す．
+
+
+
+<pre class="example">(defun leap_year (y)
+  (if (= (% y 4) 0)
+      (if (= (% y 100) 0)
+          (if (= (% y 400) 0) t nil)
+          t)
+      nil))
+(defun leap_year (y)
+  (if (= (% y 400) 0)
+      t
+      (if (= (% y 100) 0)
+          nil
+          (if (= (% y 4) 0) t nil))))
+(defun leap_year (y)
+  (if (= (% y 400) 0)
+      t
+      (if (= (% y 100) 0)
+          nil
+          (= (% y 4) 0))))
+</pre>
+
+<p>
+         if ではなく and, or を利用して定義すればさらに簡潔になる．
+         その場合，以下のような真理値表を元に考えると良い．
+</p><table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">y%4=0</th><th scope="col" class="left">y%100=0</th><th scope="col" class="left">y%400=0</th><th scope="col" class="left">うるう年</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">nil</td><td class="left">nil</td><td class="left">nil</td><td class="left">nil</td></tr>
+<tr><td class="left">t</td><td class="left">nil</td><td class="left">nil</td><td class="left">t</td></tr>
+<tr><td class="left">t</td><td class="left">t</td><td class="left">nil</td><td class="left">nil</td></tr>
+<tr><td class="left">t</td><td class="left">t</td><td class="left">t</td><td class="left">t</td></tr>
+</tbody>
+</table>
+
+
+
+
+<pre class="example">(defun leap_year (y)
+  (or (and (= (% y 4) 0) (&gt; (% y 100) 0)) (= (% y 400) 0)))
+</pre>
+
+<p>
+         ある受講生は equal を使う方法を考えてくれた．その場合も簡潔に定義できる．素晴らしい!
+</p></dd>
+</dl>
+
+</li>
+<li><code>(and)</code> の結果は何になると思うか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="example">t
+</pre>
+
+<p>
+       and の単位元は t とするのが自然である．
+</p></dd>
+</dl>
+
+</li>
+<li><code>(or)</code> の結果は何になると思うか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+
+
+
+<pre class="example">nil
+</pre>
+
+<p>
+       or の単位元は nil とするのが自然である．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> 再帰的定義</h2>
+<div class="outline-text-2" id="text-11">
+
+<p>  数学では，定義の中に自分自身が現れることがある．
+  たとえば n の階乗は次のように定義される．
+  \begin{eqnarray*}
+  n! & = & \left\{ \begin{array}{ll}
+    1 & (n=0) \\
+    n\times (n-1)! & (n\geq1)
+  \end{array} \right.
+  \end{eqnarray*}
+
+  このように定義の中に自分自身が現れる定義を，
+  Lispでは <b>再帰的定義</b> (recursive definition)と呼ぶ．
+</p>
+<p>
+  たとえば，階乗を求める関数 <code>fact</code> は次のように定義できる．
+</p>
+
+
+<pre class="src src-lisp"><span class="linenr">1:  </span>(<span class="org-keyword">defun</span> <span class="org-function-name">fact</span> (n)
+<span class="linenr">2:  </span>  (<span class="org-keyword">if</span> (= n 0) 1 (* n (fact (- n 1)))))
+</pre>
+
+
+<pre class="example">
+(fact 10)
+  3628800
+</pre>
+
+
+<p>
+  リストの要素の合計を求める関数 <code>sum</code> は次のように定義できる．
+</p>
+
+
+<pre class="src src-lisp"><span class="linenr">1:  </span>(<span class="org-keyword">defun</span> <span class="org-function-name">sum</span> (l)
+<span class="linenr">2:  </span>  (<span class="org-keyword">if</span> (null l) 0 (+ (car l) (sum (cdr l)))))
+</pre>
+
+
+<pre class="example">
+(sum '(1 9 8 9))
+  27
+</pre>
+
+
+<p>
+  2つのリストを連結したリストを求める関数 <code>app</code> は次のように定義できる．
+</p>
+
+
+<pre class="src src-lisp"><span class="linenr">1:  </span>(<span class="org-keyword">defun</span> <span class="org-function-name">app</span> (x y)
+<span class="linenr">2:  </span>  (<span class="org-keyword">if</span> (null x)
+<span class="linenr">3:  </span>     y
+<span class="linenr">4:  </span>     (cons (car x) (app (cdr x) y))))
+</pre>
+
+
+<pre class="example">
+(app '(a b) '(c d))
+  (a b c d)
+</pre>
+
+
+<p>
+  実は，この関数は <code>append</code> と同じことを行う．
+</p>
+
+</div>
+
+<div id="outline-container-11-1" class="outline-3">
+<h3 id="sec-11-1"><span class="section-number-3">11.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-11-1">
+
+
+<div class="answer">
+<ol>
+<li>関数 <code>fact</code> を変更して，1から n の和 1+2+&hellip;+n を
+     求める関数 <code>sigma</code> を定義せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>解答例を示す．
+
+
+
+<pre class="example">(defun sigma (n)
+  (if (= n 0) 0 (+ n (sigma (- n 1)))))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>関数 <code>fact</code> を変更して，1から n の平方和 1<sup>2</sup>+2<sup>2</sup>+&hellip;+n<sup>2</sup> を
+     求める関数 <code>sigma2</code> を定義せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>解答例を示す．
+
+
+
+<pre class="example">(defun sigma2 (n)
+  (if (= n 0) 0 (+ (* n n) (sigma2 (- n 1)))))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>次の漸化式で定義されるフィボナッチ数を計算する関数 <code>fib</code> を定義せよ．
+     \begin{eqnarray*}
+     fib(n) & = & \left\{ \begin{array}{ll}
+     n & (n<2) \\
+     fib(n-1)+fib(n-2) & (n\geq 2)
+     \end{array} \right.
+     \end{eqnarray*}
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>解答例を示す．
+
+
+
+<pre class="example">(defun fib (n)
+  (if (&lt; n 2) n (+ (fib (- n 1)) (fib (- n 2)))))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>リストの全要素の積を求める関数 <code>prod</code> を定義せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>解答例を示す．
+
+
+
+<pre class="example">(defun prod (x)
+  (if (null x) 1 (* (car x) (prod (cdr x)))))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>リストの中で一番大きい要素を求める関数 <code>maxelem</code> を定義せよ． <br/>
+     ヒント：リストの長さが1の時は <code>car</code> が最大要素である．
+     長さが2以上の時は <code>cdr</code> の最大要素と <code>car</code> との大きい方が
+     最大要素である．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>解答例を示す．
+
+
+
+<pre class="example">(defun maxelem (x)
+  (if (null (cdr x))
+      (car x)
+      (max (car x) (maxelem (cdr x)))))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>リストを逆順にしたリストを求める関数 <code>rev</code> を定義せよ． <br/>
+     ヒント：空リストの逆順は空リストである．
+     空リストでないときは <code>cdr</code> の逆順と，
+     <code>car</code> だけからなる長さ1のリストとを <code>append</code> したものが全体の逆順である．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>解答例を示す．
+
+
+
+<pre class="example">(defun rev (x)
+  (if (null x)
+      ()      
+      (append (rev (cdr x)) (cons (car x) ()))))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>第2引数のリストの要素として第1引数と同じ記号が現れるかどうか調べる
+     述語 <code>mem</code> を定義せよ．
+     たとえば <code>(mem 'a '(b a c))</code> の結果は <code>t</code> ，
+     <code>(mem 'a '(b (a) c))</code> の結果は <code>nil</code> である． <br/>
+     ヒント：第2引数が空リストなら結果は <code>nil</code> である．
+     第2引数が空リストでないときは，
+     第2引数の <code>car</code> が第1引数と <code>equal</code> なら結果は <code>t</code> ，
+     <code>equal</code> でないなら第2引数の <code>cdr</code> について調べる．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>解答例を示す．
+
+
+
+<pre class="example">(defun mem (x y)
+  (if (null y)
+      nil
+      (if (equal x (car y))
+          t
+          (mem x (cdr y)))))
+(defun mem (x y)
+  (if (null y)
+      nil
+      (or (equal x (car y)) (mem x (cdr y)))
+) )
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li><a href="http://ja.wikipedia.org/wiki/ユークリッドの互除法">ユークリッドの互除法</a> を用いて，
+     与えられた2つの正整数の最大公約数を求める関数
+     <code>gcd</code> を定義せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>解答例を示す．
+
+
+
+<pre class="example">(defun gcd (m n)
+  (if (= n 0)
+      m
+      (gcd n (% m n))))
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-09-29 21:45:17 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

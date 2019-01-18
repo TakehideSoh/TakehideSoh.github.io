@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Scarab: Program Examples</title>
+<!-- 2015-12-14 月 07:36 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="[[http://kix.istc.kobe-u.ac.jp/~soh/][Takehide Soh]]Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Scarab: Program Examples</h1>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-6313627-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</div>
+
+<table class="menu" border="0" cellspacing="0" cellpadding="20" width="900px">
+<tr>
+<td class="menu" bgcolor="#3B5998"><a href="index.html">Home</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="examples.html">Examples</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="doc.html">Documents</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="advanced.html">Advanced Usage</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="tutorial.html">Tutorial</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="apps.html">Apps</a></td>
+</tr>
+</table>
+
+<div id="content">
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Latin Square</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+
+<span style="color: #a020f0;">var</span> <span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int </span>= 5
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n; j &lt;- 1 to n)  int('x(i,j),1,n) 
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n) {
+  add(alldiff((1 to n).map(j =&gt; 'x(i,j))))
+  add(alldiff((1 to n).map(j =&gt; 'x(j,i))))
+  add(alldiff((1 to n).map(j =&gt; 'x(j,(i+j-1)%n+1))))
+  add(alldiff((1 to n).map(j =&gt; 'x(j,(i+(j-1)*(n-1))%n+1))))}
+
+<span style="color: #a020f0;">if</span> (find)  println(solution)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="sec-1-0-1" name="sec-1-0-1"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
+<li><a id="sec-1-0-2" name="sec-1-0-2"></a>(Line 6) declare integer variables<br  /></li>
+<li><a id="sec-1-0-3" name="sec-1-0-3"></a>(Lines 8 to 11) add alldifferenct constraints for each row, column, and diagonal<br  /></li>
+<li><a id="sec-1-0-4" name="sec-1-0-4"></a>(Line 12) print found solution if it exists<br  /></li></ul>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Square Packing</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 15; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">s</span> =36 
+
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n)  { int('x(i),0,s-i) ; int('y(i),0,s-i) }
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n; j &lt;- i+1 to n) 
+  add(('x(i)+i &lt;='x(j)) || ('x(j)+j&lt;='x(i)) || ('y(i)+i&lt;='y(j)) || ('y(j)+j&lt;='y(i)))
+
+<span style="color: #a020f0;">if</span> (find) println(solution.intMap)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="sec-2-0-1" name="sec-2-0-1"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
+<li><a id="sec-2-0-2" name="sec-2-0-2"></a>(Line 7) declare integer variables<br  /></li>
+<li><a id="sec-2-0-3" name="sec-2-0-3"></a>(Lines 8 and 9) add non-overlaping constraints<br  /></li>
+<li><a id="sec-2-0-4" name="sec-2-0-4"></a>(Line 11) print found solution if it exists<br  /><div class="outline-text-4" id="text-2-0-4">
+</div>
+</li></ul>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Langford Pairing</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+#When \(2n\) numbers \(\{1, 1, 2, 2, \ldots, n, n\}\) are given, (see also <a href="http://www.csplib.org">http://www.csplib.org</a>)
+</p>
+</div>
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">Model 1</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 4
+
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to 2*n) int('x(i),1,n)
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n) 
+  add(Or(<span style="color: #a020f0;">for</span> (j &lt;- 1 to 2*n-i-1) <span style="color: #a020f0;">yield</span> And(('x(j) === 'x(j+i+1)), ('x(j) === i))))
+
+<span style="color: #a020f0;">if</span>(find) println(solution)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="sec-3-1-1" name="sec-3-1-1"></a>(Line 7) declare integer variables representing each of \(2n\) positions has which number.<br  /></li></ul>
+</div>
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2">Model 2 (with position variable)</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 4
+
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n) { 
+  int('l(i),1,2*n-i-1)
+  int('r(i),1,2*n) 
+}
+
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n)  add('l(i) === 'r(i)-i-1)
+add(alldiff((1 to n).map(i =&gt; 'l(i))))
+add(alldiff((1 to n).map(i =&gt; 'r(i))))
+
+<span style="color: #a020f0;">if</span>(find) println(solution)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="sec-3-2-1" name="sec-3-2-1"></a>(Lines 7 to 10) declare integer variables representing each pairs of \(n\) numbers are placed to which positions.<br  /></li></ul>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Graph Coloring</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">nodes</span> = Seq(1,2,3,4,5)
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">edges</span> = Seq((1,2),(1,5),(2,3),(2,4),(3,4),(4,5))
+<span style="color: #a020f0;">var</span> <span style="color: #a0522d;">maxColor</span> = 4;
+
+int('color,1,maxColor)
+<span style="color: #a020f0;">for</span> (i &lt;- nodes) int('n(i),1,maxColor)
+<span style="color: #a020f0;">for</span> (i &lt;- nodes) add('n(i) &lt;= 'color)
+<span style="color: #a020f0;">for</span> ((i,j) &lt;- edges)  add('n(i) !== 'n(j))
+
+<span style="color: #a020f0;">while</span> (find('color &lt;= maxColor)) {
+  println(solution)
+  maxColor -= 1
+}
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="sec-4-0-1" name="sec-4-0-1"></a>(Lines 5 to 7) declare graph structure.<br  /></li>
+<li><a id="sec-4-0-2" name="sec-4-0-2"></a>(Lines 9 and 10) declare integer variables representing available colors and each node of the given graph.<br  /></li>
+<li><a id="sec-4-0-3" name="sec-4-0-3"></a>(Lines 11 and 12) declare constraints that limit available colors and adjacent nodes have different color.<br  /></li>
+<li><a id="sec-4-0-4" name="sec-4-0-4"></a>(Lines 14 to 17) minimizing number of colors.<br  /></li></ul>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">Magic Square</h2>
+<div class="outline-text-2" id="text-5">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">xs</span> = <span style="color: #a020f0;">for</span> (i &lt;- 1 to 3; j &lt;- 1 to 3) <span style="color: #a020f0;">yield</span> csp.int('x(i,j), 1, 9)
+  add(alldiff(xs))
+
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to 3)
+  add(Sum((1 to 3).map(j =&gt; 'x(i,j))) === 15)
+<span style="color: #a020f0;">for</span> (j &lt;- 1 to 3)
+  add(Sum((1 to 3).map(i =&gt; 'x(i,j))) === 15)
+add(Sum((1 to 3).map(i =&gt; 'x(i,i))) === 15)
+add(Sum((1 to 3).map(i =&gt; 'x(i,4-i))) === 15)
+
+<span style="color: #a020f0;">if</span> (find) println(solution)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="sec-5-0-1" name="sec-5-0-1"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
+<li><a id="sec-5-0-2" name="sec-5-0-2"></a>(Line 5) declare integer variables and puts them to xs<br  /></li>
+<li><a id="sec-5-0-3" name="sec-5-0-3"></a>(Line 6) declare alldiff for the variables<br  /></li>
+<li><a id="sec-5-0-4" name="sec-5-0-4"></a>(Lines 8 and 11) add constraints such that the sum for each row and column become 15<br  /></li>
+<li><a id="sec-5-0-5" name="sec-5-0-5"></a>(Line 12 and 13) add constraints such that the sum for each main diagonal become 15<br  /></li>
+<li><a id="sec-5-0-6" name="sec-5-0-6"></a>(Line 15) print found solution if it exists<br  /><div class="outline-text-4" id="text-5-0-6">
+</div>
+</li></ul>
+</div>
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">Alphametic Problem <b>SAT + IS + FUN = TRUE</b></h2>
+<div class="outline-text-2" id="text-6">
+<p>
+\(S*100 + A*10 + T + I*10 + S + F*100 + U*10 + N = T*1000 + R*100 + U*10 + E\)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">base</span> = 10
+
+<span style="color: #a020f0;">for</span> (v &lt;- Seq('s,'i,'f,'t)) <span style="color: #a020f0;">yield</span> int(v,1,base-1)     <span style="color: #b22222;">// </span><span style="color: #b22222;">S, I, F and T are not zero</span>
+<span style="color: #a020f0;">for</span> (v &lt;- Seq('a,'u,'n,'r,'e)) <span style="color: #a020f0;">yield</span> int(v,0,base-1)  <span style="color: #b22222;">// </span><span style="color: #b22222;">others can be zero</span>
+<span style="color: #a020f0;">for</span> (v &lt;- Seq('c1,'c2,'c3)) <span style="color: #a020f0;">yield</span> int(v,0,2)          <span style="color: #b22222;">// </span><span style="color: #b22222;">carries</span>
+
+add('t + 's + 'n       === 'e + 'c1*base)
+add('a + 'i + 'u + 'c1 === 'u + 'c2*base)
+add('s +      'f + 'c2 === 'r + 'c3*base)
+add(               'c3 === 't)
+
+add(alldiff(Seq('s,'i,'f,'t,'a,'u,'n,'r,'e)))
+
+<span style="color: #a020f0;">if</span> (find)  println(solution.intMap)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="sec-6-0-1" name="sec-6-0-1"></a>(Lines 11 to 14) constraint model considering each digit and carry, which takes around 1 second;)<br  /></li></ul>
+</div>
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7">Open-shop Scheduling</h2>
+<div class="outline-text-2" id="text-7">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+
+use(<span style="color: #a020f0;">new</span> Sat4j(<span style="color: #8b2252;">"glucose"</span>))
+
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">pt</span> = Seq(
+  Seq(661,   6, 333),
+  Seq(168, 489, 343),
+  Seq(171, 505, 324))
+
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = pt.size
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">lb</span> = pt.map(_.sum).max
+<span style="color: #a020f0;">var</span> <span style="color: #a0522d;">ub</span> = (0 until n).map(k =&gt; (0 until n).map(i =&gt; pt(i)((i + k) % n)).max).sum
+
+int('makespan, lb, ub)
+
+<span style="color: #a020f0;">for</span> (i &lt;- 0 until n; j &lt;- 0 until n) {
+  int('s(i,j), 0, ub)
+  add('s(i,j) + pt(i)(j) &lt;= 'makespan)
+}
+<span style="color: #a020f0;">for</span> (i &lt;- 0 until n) {
+  <span style="color: #a020f0;">for</span> (j &lt;- 0 until n; l &lt;- j+1 until n)
+    add('s(i,j) + pt(i)(j) &lt;= 's(i,l) ||
+        's(i,l) + pt(i)(l) &lt;= 's(i,j))
+}
+<span style="color: #a020f0;">for</span> (j &lt;- 0 until n) {
+  <span style="color: #a020f0;">for</span> (i &lt;- 0 until n; k &lt;- i+1 until n)
+    add('s(i,j) + pt(i)(j) &lt;= 's(k,j) ||
+        's(k,j) + pt(k)(j) &lt;= 's(i,j))
+}
+
+<span style="color: #a020f0;">while</span> (find('makespan &lt;= ub)) {
+  println(solution)
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">end</span> = (<span style="color: #a020f0;">for</span>(i &lt;- 0 until n; j &lt;- 0 until n) 
+             <span style="color: #a020f0;">yield</span> solution.intMap('s(i,j))+pt(i)(j)).max
+  ub = end - 1
+  println(ub)
+}
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="sec-7-0-1" name="sec-7-0-1"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
+<li><a id="sec-7-0-2" name="sec-7-0-2"></a>(Lines 7 to 10) declare an instance<br  /></li>
+<li><a id="sec-7-0-3" name="sec-7-0-3"></a>(Lines 12 to 14) compute size, lower and upper bounds of the instance<br  /></li>
+<li><a id="sec-7-0-4" name="sec-7-0-4"></a>(Line 16) declares an integer variable representing current makespan<br  /></li>
+<li><a id="sec-7-0-5" name="sec-7-0-5"></a>(Lines 18 to 21) forces all operations are ended before makespan<br  /></li>
+<li><a id="sec-7-0-6" name="sec-7-0-6"></a>(Lines 22 to 26) forces for operations in the same job do not overlap each other<br  /></li>
+<li><a id="sec-7-0-7" name="sec-7-0-7"></a>(Lines 27 to 31) forces for operations sharing same resource do not overlap each other<br  /></li>
+<li><a id="sec-7-0-8" name="sec-7-0-8"></a>(Lines 33 to 38) coumputes optimum solution<br  /></li></ul>
+</div>
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8">Colored N Queen</h2>
+<div class="outline-text-2" id="text-8">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = args(0).toInt
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">c</span> = n
+
+use(<span style="color: #a020f0;">new</span> Sat4j(<span style="color: #8b2252;">"glucose"</span>))
+
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n; color &lt;- 1 to c)
+  int('q(i,color), 1, c)
+
+<span style="color: #a020f0;">for</span> (color &lt;- 1 to c) {
+  add(alldiff((1 to n).map(i =&gt; 'q(i,color))))
+  add(alldiff((1 to n).map(i =&gt; 'q(i,color)+i)))
+  add(alldiff((1 to n).map(i =&gt; 'q(i,color)-i)))
+}
+
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n)
+  add(alldiff((1 to c).map(color =&gt; 'q(i,color))))
+
+<span style="color: #a020f0;">if</span> (find) {
+  <span style="color: #a020f0;">for</span> (color &lt;- 1 to c) {
+    <span style="color: #a020f0;">for</span> (row &lt;- 1 to n) {
+      <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">seq</span>: <span style="color: #228b22;">Seq[Int]</span> = Seq.empty
+      <span style="color: #a020f0;">for</span> (column &lt;- 1 to n)
+  <span style="color: #a020f0;">if</span> (encoder.decode('q(row,color)) == column)
+    seq = seq :+ color
+  <span style="color: #a020f0;">else</span>
+    seq = seq :+ 0
+      println(seq.mkString(<span style="color: #8b2252;">" "</span>))
+    }
+    println(<span style="color: #8b2252;">"-----------------"</span>)
+  }
+}
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="sec-8-0-1" name="sec-8-0-1"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
+<li><a id="sec-8-0-2" name="sec-8-0-2"></a>(Lines 5 to 6) size is given from command line<br  /></li>
+<li><a id="sec-8-0-3" name="sec-8-0-3"></a>(Lines 8) declares the use of Sat4j of Glucose setting.<br  /></li>
+<li><a id="sec-8-0-4" name="sec-8-0-4"></a>(Lines 10 to 11) declares integer variables representing queens<br  /></li>
+<li><a id="sec-8-0-5" name="sec-8-0-5"></a>(Lines 13 to 17) representing N-Queen constraints for each color<br  /></li>
+<li><a id="sec-8-0-6" name="sec-8-0-6"></a>(Lines 19 to 20) forces that Queens of each color do no overlap<br  /></li>
+<li><a id="sec-8-0-7" name="sec-8-0-7"></a>(Lines 22 to 35) compute solutions and show the obtained placement<br  /></li></ul>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: <a href="http://kix.istc.kobe-u.ac.jp/~soh/">Takehide Soh</a></p>
+<p class="date">Created: 2015-12-14 月 07:36</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-10-15 月 17:03 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Scarab: SAT型制約プログラミングシステム</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="宋 剛秀 (SOH Takehide)" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-6313627-5');
+</script>
+<link rel="stylesheet" type="text/css" href="../../myhome.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Scarab: SAT型制約プログラミングシステム</h1>
+<blockquote>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-6313627-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</div>
+
+<table class="menu" border="0" cellspacing="0" cellpadding="20" width="900px">
+<tr>
+<td class="menu" bgcolor="#3B5998"><a href="../index.html"><font size="3">ホーム</font></a></td>
+<td class="menu" bgcolor="#3B5998"><a href="../examples.html"><font size="3">プログラム例</font></a></td>
+<td class="menu" bgcolor="#3B5998"><a href="../doc.html"><font size="3">ドキュメント</font></a></td>
+<td class="menu" bgcolor="#3B5998"><a href="../advanced.html"><font size="3">高度な使い方</font></a></td>
+<td class="menu" bgcolor="#3B5998"><a href="../tutorial.html"><font size="3">チュートリアル</font></a></td>
+<td class="menu" bgcolor="#3B5998"><a href="../apps.html"><font size="3">アプリケーション</font></a></td>
+</tr>
+</table>
+
+<div id="content">
+</blockquote>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">概要</h2>
+<div class="outline-text-2" id="text-orgheadline1">
+<p>
+このページではSAT型システムのためのツール (SAT型制約プログラミングシステム) 
+<b>Scarab</b> について説明します．Scarab の特長は以下になります:
+</p>
+
+<ul class="org-ul">
+<li><b>表現性</b> 制約記述のためのドメイン固有言語と汎用プログラミング言語で
+あるScalaの両方を用いて，与えられた問題を記述することが可能である．</li>
+
+<li><b>効率性</b> 対数符号化，最適化された順序符号化，組込みのBC/PB制約を用い
+て問題を符号化し，SATソルバーSat4jを使って解くという点で効率的である．</li>
+
+<li><b>拡張性</b> \scarab のソースコードは全体で1000行ほどであり，
+ユーザが \scarab 自身を拡張することが可能．</li>
+
+<li><b>可搬性</b> Sat4j と共に Java 仮想マシン上で動きます．</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2">使い方</h3>
+<div class="outline-text-3" id="text-orgheadline2">
+<ul class="org-ul">
+<li><a href="http://kix.istc.kobe-u.ac.jp/~soh/scarab/scarab185.jar">最新バージョン scarab185.jar (2016年2月19日現在) </a>をダウンロードし
+てください．</li>
+<li>アルファ版のソースファイルは <a href="https://github.com/TakehideSoh/Scarab">Github</a> から利用可能です．</li>
+</ul>
+
+<div class="figure">
+<p><img src="../latin5-diagonal.gif" alt="image" title="Action!" align="right" />
+</p>
+</div>
+<ul class="org-ul">
+<li>Scarab プログラムを書きます．例として，汎対角線ラテン方陣 <b>PLS(n)</b>
+    を解くことを考えます．
+<ul class="org-ul">
+<li>汎対角線ラテン方陣問題は \(n\) 個の数字を \(n \times n\) のマス目に
+記入する問題です．但し，以下の制約を満たす必要があります．
+<ul class="org-ul">
+<li>各行，各列，各汎対角線において，全ての数字がちょうど一回だけ表
+れる．</li>
+</ul></li>
+</ul></li>
+</ul>
+<br style="clear:both;" />
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._ ; <span style="color: #a020f0;">import</span> dsl._ 
+
+<span style="color: #a020f0;">var</span> <span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int </span>= 5
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n; j &lt;- 1 to n)  int('x(i,j),1,n) 
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n) {
+  add(alldiff((1 to n).map(j =&gt; 'x(i,j))))
+  add(alldiff((1 to n).map(j =&gt; 'x(j,i))))
+  add(alldiff((1 to n).map(j =&gt; 'x(j,(i+j-1)%n+1))))
+  add(alldiff((1 to n).map(j =&gt; 'x(j,(i+(j-1)*(n-1))%n+1))))}
+
+<span style="color: #a020f0;">if</span> (find)  println(solution.intMap)
+</pre>
+</div>
+<ul class="org-ul">
+<li>上記のプログラム <b>pls.sc</b> として保存してください．</li>
+<li><b>pls.sc</b> を実行するには以下のコマンドを実行するだけです!</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-sh">scala -cp scarab&lt;$<span style="color: #a0522d;">version</span>&gt;.jar pls.sc
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3">その他の情報</h3>
+<div class="outline-text-3" id="text-orgheadline3">
+<ul class="org-ul">
+<li>Scarab のプログラム例についてはこちらを御覧ください <a href="./../examples.html">"example" page</a>.</li>
+<li>Scarab のドキュメントについてはこちらを御覧ください <a href="./../doc.html">"documents" page</a>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4">ライセンス</h3>
+<div class="outline-text-3" id="text-orgheadline4">
+<ul class="org-ul">
+<li>このソフトウェアは <a href="http://opensource.org/licenses/bsd-license.php">BSD ライセンス</a> で配布されます．詳細は <a href="../LICENSE">LICENSE</a>
+    ファイルをご覧ください．</li>
+<li>scarab-&lt;version&gt;.jar は <a href="http://www.sat4j.org/">Sat4j</a> パッケージを含んでいます．</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5">リリースノート</h2>
+<div class="outline-text-2" id="text-orgheadline5">
+<ul class="org-ul">
+<li><a href="../index.html">英語ページ</a>を参照してください．</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6">論文</h2>
+<div class="outline-text-2" id="text-orgheadline6">
+<ul class="org-ul">
+<li>Scarab: A Rapid Prototyping Tool for SAT-based Constraint Programming Systems (Tool Paper)
+<ul class="org-ul">
+<li>Takehide Soh, Naoyuki Tamura, and Mutsunori Banbara</li>
+<li>In the Proceedings of the 16th International Conference on Theory and Applications of Satisfiability Testing (SAT 2013), LNCS 7962, pp. 429-436, 2013.</li>
+</ul></li>
+<li>System Architecture and Implementation of a Prototyping Tool for SAT-based Constraint Programming Systems
+<ul class="org-ul">
+<li>Takehide Soh, Naoyuki Tamura, Mutsunori Banbara, Daniel Le Berre, and Stéphanie Roussel</li>
+<li>In the Proceedings of Pragmatics of SAT 2013 (PoS-13), 14 pages, July 2013.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 宋 剛秀 (SOH Takehide)</p>
+<p class="date">Created: 2018-10-15 月 17:03</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>プログラミング言語論および演習 (演習前半) <br> <b>* ライフゲームの追加ヒント *</b></title>
+<!-- 2013-10-25 金 14:24 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">プログラミング言語論および演習 (演習前半) <br> <b>* ライフゲームの追加ヒント *</b></h1>
+<style type="text/css">
+#table1 th { font-weight:normal; text-align: left; background-color: #ffeeee; border: none}
+#table1 td { background-color: #ffeeee; border: none}
+
+#table2 th    { background-color: #3B5998; color: white; border-style:
+#solid; border-color: black; border-width: thin; border: none;}
+#table2 td    { background-color: #eeeeee; color: black; border-style: solid; border-color: black; border-width: thin; border: none}
+#table2 td+td { background-color: #efefff; color: black;}
+#table2 td    { text-align: center; background-color: #3B5998; color: white; width:120px}
+#table2 td+td { text-align: center; width:120px; color: black;}
+#table2 td+td+td { text-align: left; width:500px; color: black;}
+
+#table3 th { font-weight:normal; text-align: left;  border: none; background-color: #f1f1f1}
+#table3 td { border: none; background-color: #f1f1f1}
+</style>
+
+<p>
+<font size="+3" color="red">(注意)</font>プログラムは3行3列の行列だけでなく"任意の大きさの正方行列 (行と列の要素数が同じ)" に対応するように作ってください． 
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">show 関数</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>(入力) Seq[Seq[Int]]型の行列 matrix
+</li>
+<li>(出力) Unit. println によって行を一行ずつ表示する.
+</li>
+<li>(出力例)
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">a</span> = Seq(0, 1, 0)      
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">b</span> = Seq(1, 1, 0)      
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">c</span> = Seq(0, 1, 0)      
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">matrix</span> = Seq(a, b, c)                           
+scala&gt; show(matrix)              
+0 1 0
+1 1 0
+0 1 0
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><font size="+3" color="red">(追加ヒント)</font></h3>
+<div class="outline-text-3" id="text-1-1">
+</div><ul class="org-ul"><li>mkString を使ってみよう<br  /><div class="outline-text-4" id="text-1-1-1">
+<ul class="org-ul">
+<li>Scala ではmkStringを使うことでSeqやListなどから簡単にStringを生成することができる.
+</li>
+<li>1引数のmkStringではデリミタ (区切り文字) を定義できる．
+</li>
+<li>3引数のmkStringでは，開始文字列，デリミタ (区切り文字)，終了文字列を定義できる．
+</li>
+<li><font size="+1" color="red">mkString を使って Seq(0, 1, 0) を文字列にしてみよう．</font>
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">a</span> = Seq(0, 1, 0)
+scala&gt; a.mkString(<span style="color: #8b2252;">" "</span>)
+res0: String = 0 1 0
+</pre>
+</div>
+<ul class="org-ul">
+<li><font size="+1" color="red">mkStringの区切り文字を空白 (" ") にすることで Seq(0, 1, 0) の要素0, 1, 0を空白で区切った文字列"0 1 0"が返される．</font>
+</li>
+<li>文字列"0 1 0"を println で出力すると次のようになる.
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; println(a.mkString(<span style="color: #8b2252;">" "</span>))
+0 1 0
+</pre>
+</div>
+</div>
+</li>
+<li>Seq[Seq[Int]]型の matrix の要素 Seq[Int] を取り出してみよう<br  /><div class="outline-text-4" id="text-1-1-2">
+<ul class="org-ul">
+<li>for 文を使うことでSeq[Seq[Int]]型のmatrixからSeq[Int]型の要素を取り出すことができる
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">a</span> = Seq(0, 1, 0)      
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">b</span> = Seq(1, 1, 0)      
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">c</span> = Seq(0, 1, 0)      
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">matrix</span> = Seq(a, b, c)                           
+
+scala&gt; <span style="color: #a020f0;">for</span> (row &lt;- matrix) println(row)
+List(0, 1, 0)
+List(1, 1, 0)
+List(0, 1, 0)
+</pre>
+</div>
+<ul class="org-ul">
+<li>ここではmatrixの要素をrowという変数に格納している．ここでrowはSeq[Int]型の変数である．
+</li>
+<li>しかし，println(row)とすると，"List(0, 1, 0)" などと意図しない文字列がでてしまう．．．(printlnの中身には文字列が期待されるので，ここではScalaがrowを文字列と解釈 (toString) してprintlnに渡している).
+</li>
+<li><font size="+1" color="red">ここでrow.mkString(" ")をprintlnに入れればすれば期待した出力になるのではないだろうか??</font>
+</li>
+</ul>
+</div>
+</li></ul>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><font size="+1" color="red">最終的に show 関数は次の ??? を埋めたものになるはず</font></h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">show</span>(<span style="color: #a0522d;">matrix</span>: <span style="color: #228b22;">Seq[Seq[Int]]</span>): <span style="color: #228b22;">Unit </span>= {
+  <span style="color: #a020f0;">for</span> (row &lt;- matrix) {
+    println(???)
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">getNeighborsState 関数</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">仕様</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>(入力) セルの行番号 row: Int, セルの列番号 col: Int (実装によっては matrix: Seq[Seq[Int]] も)
+</li>
+<li>(出力) Seq[Int]. 与えられたセルの周囲のセルの状態 (並びは任意)
+</li>
+<li>但し，行列の外の状態は一律に <b>dead</b> すなわち 0 であるものとする
+</li>
+<li>(出力例)
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">a</span> = Seq(0, 1, 0)      
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">b</span> = Seq(1, 1, 0)      
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">c</span> = Seq(0, 1, 0)      
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">matrix</span> = Seq(a, b, c)                           
+scala&gt; getNeighborsState(0, 0, matrix)
+res0: Seq[Int] = Vector(0, 0, 0, 0, 1, 0, 1, 1)
+
+scala&gt; getNeighborsState(0, 1, matrix)
+res1: Seq[Int] = Vector(0, 0, 0, 0, 0, 1, 1, 0)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><font size="+3" color="red">(追加ヒント)</font></h3>
+<div class="outline-text-3" id="text-2-2">
+</div><ul class="org-ul"><li>matrix が与えられた時に周りのセルの行番号と列番号はどのように取得できるだろうか?<br  /><div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li>行番号row, 列番号col にあるセルの周囲のセルとは行番号がrow-1, row, row+1, 列番号がcol-1, col, col+1にあるものと考えることができる
+</li>
+<li>いまrowとcolが(1,1)であるとすると，次のfor文は自分も含めた9つのセルを出力する
+</li>
+<li>なお (x, y) は対 (Pair) と呼ばれる．Scala における対については <a href="http://bach.istc.kobe-u.ac.jp/lect/ProLang/org/scala-list.html">Scalaでリスト処理</a> の「対と組」に説明がある．
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">row</span> = 1
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">col</span> = 1
+scala&gt; <span style="color: #a020f0;">for</span> (x &lt;- -1 to 1; y &lt;- -1 to 1) println((row+x, col+y))
+(0,0)
+(0,1)
+(0,2)
+(1,0)
+(1,1)
+(1,2)
+(2,0)
+(2,1)
+(2,2)
+</pre>
+</div>
+<p>
+<div align="center">
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">(0, 0)</td>
+<td class="left">(0, 1)</td>
+<td class="left">(0, 2)</td>
+</tr>
+
+<tr>
+<td class="left">(1, 0)</td>
+<td class="left">(1, 1)</td>
+<td class="left">(1, 2)</td>
+</tr>
+
+<tr>
+<td class="left">(2, 0)</td>
+<td class="left">(2, 1)</td>
+<td class="left">(2, 2)</td>
+</tr>
+</tbody>
+</table>
+<p>
+</div>
+</p>
+<ul class="org-ul">
+<li>しかしこれでは自分を含んでしまう．．．
+</li>
+<li>Scalaではfor文の中にif文を入れることができるのでこれを利用しよう．
+</li>
+<li>次の???を埋めたfor文だとうまくいく. ???にはどのような条件が入るだろうか
+</li>
+<li>(参考) Scala ではAND条件は&amp;&amp;で，OR条件は||で表す．
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">for</span> (x &lt;- -1 to 1; y &lt;- -1 to 1 <span style="color: #a020f0;">if</span> ???) println((row+x, col+y))
+</pre>
+</div>
+</div>
+</li>
+<li>for から Seq を作る方法<br  /><div class="outline-text-4" id="text-2-2-2">
+<ul class="org-ul">
+<li>yieldを使えばforを使ってSeq (IndexedSeqはSeqの一種) を作ることができる
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">row</span> = 1
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">col</span> = 1
+scala&gt; <span style="color: #a020f0;">for</span> (x &lt;- -1 to 1; y &lt;- -1 to 1) <span style="color: #a020f0;">yield</span> (row+x, col+y)
+res3: scala.collection.immutable.IndexedSeq[(Int, Int)] = 
+Vector((0,0), (0,1), (0,2), (1,0), (1,1), (1,2), (2,0), (2,1), (2,2))
+</pre>
+</div>
+<ul class="org-ul">
+<li>これを利用してmatrixにおける行番号1, 列番号1の要素とその近傍を出力
+するプログラムは次のようになる．
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">a</span> = Seq(0, 1, 0)
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">b</span> = Seq(1, 1, 0)
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">c</span> = Seq(0, 1, 0)
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">matrix</span> = Seq(a, b, c)
+
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">row</span> = 1
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">col</span> = 1
+
+scala&gt; <span style="color: #a020f0;">for</span> (x &lt;- -1 to 1; y &lt;- -1 to 1) <span style="color: #a020f0;">yield</span> matrix(row+x)(col+y)
+res0: scala.collection.immutable.IndexedSeq[Int] = Vector(0, 1, 0, 1, 1, 0, 0, 1, 0)
+</pre>
+</div>
+<ul class="org-ul">
+<li>ここまでくれば <b>getNeighborsState</b> 関数の完成まであと一歩である．
+</li>
+</ul>
+</div>
+</li>
+<li>行列の外の値<br  /><div class="outline-text-4" id="text-2-2-3">
+<ul class="org-ul">
+<li>getNeighborsState関数を実装するには，上記に加えてもう1ひねり必要．
+</li>
+<li>特に周囲のセルが行列の外にある場合の処理を書く必要がある．．．
+</li>
+<li>二つの書き方がある
+<ul class="org-ul">
+<li>与えられた行番号・列番号が行列の <b>中</b> にある条件をif-else文に記述する方法
+</li>
+<li>与えられた行番号・列番号が行列の <b>外</b> にある条件をif-else文に記述する方法
+</li>
+</ul>
+</li>
+<li>if ((???) &amp;&amp; (???) &amp;&amp; (???) &amp;&amp; (???)) もしくは if ((???) || (???) || (???) || (???)) のように書けるのでは??
+</li>
+</ul>
+</div>
+</li></ul>
+</div>
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><font size="+1" color="red">最終的にgetNeighborsState関数の解答例の一つは次の ??? を埋めたものになる (他の書き方ももちろんある)</font></h3>
+<div class="outline-text-3" id="text-2-3">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">getNeighborsState</span>(<span style="color: #a0522d;">row</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">col</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">matrix</span>: <span style="color: #228b22;">Seq[Seq[Int]]</span>): <span style="color: #228b22;">Seq[Int]</span> = {
+  <span style="color: #a020f0;">for</span> (x &lt;- -1 to 1; y &lt;- -1 to 1 <span style="color: #a020f0;">if</span> (???)) <span style="color: #a020f0;">yield</span> <span style="color: #a020f0;">if</span> (???) ??? <span style="color: #a020f0;">else</span> ???
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><font size="+1" color="red"> match式を使うと次のように書ける (=&gt; の右側にif文を書く方法など他にもやり方はたくさんある) </font></h3>
+<div class="outline-text-3" id="text-2-4">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">getNeighborsState</span>(<span style="color: #a0522d;">row</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">col</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">matrix</span>: <span style="color: #228b22;">Seq[Seq[Int]]</span>): <span style="color: #228b22;">Seq[Int]</span> = {
+  <span style="color: #a020f0;">for</span> (x &lt;- -1 to 1; y &lt;- -1 to 1 <span style="color: #a020f0;">if</span> ???) <span style="color: #a020f0;">yield</span> (row+x, col+y) <span style="color: #a020f0;">match</span> {
+    <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">???,</span> <span style="color: #a0522d;">_</span>) <span style="color: #a0522d;">|</span> (<span style="color: #a0522d;">_</span>, <span style="color: #a0522d;">???</span>) =&gt; 0  <span style="color: #b22222;">// </span><span style="color: #b22222;">(&#34892;&#21015;&#22806;) ??? &#12395;&#12399;&#23450;&#25968;&#12364;&#20837;&#12427;</span>
+    <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">m</span>, <span style="color: #a0522d;">n</span>) <span style="color: #a020f0;">if</span> ??? =&gt; 0        <span style="color: #b22222;">// </span><span style="color: #b22222;">(&#34892;&#21015;&#22806;) ??? &#12395;&#12399;&#26465;&#20214;&#24335;&#12364;&#20837;&#12427;</span>
+    <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">m</span>, <span style="color: #a0522d;">n</span>) =&gt; ???             <span style="color: #b22222;">// </span><span style="color: #b22222;">(&#34892;&#21015;&#20869;) </span>
+  } 
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">getNextCellState 関数</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">仕様</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>(入力) 現在のセルの状態 current: Int, 周囲のセルの状態 neighbors: Seq[Int]
+</li>
+<li>(出力) Int. 次世代のセルの状態
+</li>
+<li>(出力例) 
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; getNextCellState(1, Seq(0, 0, 0, 0, 0, 1, 1, 0))
+res2: Int = 1
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><font size="+1" color="red">getNextCellState関数の解答例の一つは次の ??? を埋めたものになる (他の書き方ももちろんある)</font></h3>
+<div class="outline-text-3" id="text-3-2">
+<ul class="org-ul">
+<li>count 関数を使うと ??? の部分を埋めるのが楽.
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">getNextCellState</span>(<span style="color: #a0522d;">current</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">neighbors</span>: <span style="color: #228b22;">Seq[Int]</span>): <span style="color: #228b22;">Int </span>= {
+  <span style="color: #a020f0;">if</span> (current == 1)
+    <span style="color: #a020f0;">if</span> (???) 1 <span style="color: #a020f0;">else</span> 0
+  <span style="color: #a020f0;">else</span> 
+    <span style="color: #a020f0;">if</span> (???) 1 <span style="color: #a020f0;">else</span> 0
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">trans 関数</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">仕様</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li>(入力) 現在の行列 matrix: Seq[Seq[Int]]
+</li>
+<li>(出力) Seq[Seq[Int]] 次世代の行列
+</li>
+<li>(出力例) 
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">a</span> = Seq(0, 1, 0)      
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">b</span> = Seq(1, 1, 0)      
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">c</span> = Seq(0, 1, 0)      
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">matrix</span> = Seq(a, b, c)                           
+
+scala&gt; trans(matrix)
+res3: Seq[Seq[Int]] = Vector(Vector(1, 1, 0), Vector(1, 1, 1), Vector(1, 1, 0))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><font size="+3" color="red">(注意)</font>プログラムは3行3列の行列だけでなく"任意の大きさの正方行列 (行と列の要素数が同じ)" に対応するように作ってください．</h3>
+</div>
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><font size="+1" color="red">最終的にtrans関数は次の ??? を埋めたものになるはず</font></h3>
+<div class="outline-text-3" id="text-4-3">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">trans</span>(<span style="color: #a0522d;">matrix</span>: <span style="color: #228b22;">Seq[Seq[Int]]</span>): <span style="color: #228b22;">Seq[Seq[Int]]</span> = {
+  <span style="color: #a020f0;">for</span> (row &lt;- 0 until matrix.size) <span style="color: #a020f0;">yield</span> 
+    <span style="color: #a020f0;">for</span> (col &lt;- 0 until matrix.size) <span style="color: #a020f0;">yield</span> getNextCellState(???, ???)
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">テスト</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1">実装が終わったらいろいろな行列でテストしてみよう (以下は trans のテスト)</h3>
+<div class="outline-text-3" id="text-5-1">
+<ul class="org-ul">
+<li>テスト1 (行列の大きさが3の場合)
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">mat_size_3</span> = Seq(Seq(0, 0, 0), Seq(1, 1, 1), Seq(0, 0, 0))
+
+show(mat_size_3)                          <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; 0 0 0</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 1 1 1</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 0 0 0</span>
+
+show(trans(mat_size_3))                   <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; 0 1 0</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 0 1 0</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 0 1 0</span>
+
+show(trans(trans(mat_size_3)))            <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; 0 0 0</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 1 1 1</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 0 0 0</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>テスト2 (行列の大きさが5の場合)
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">mat_size_5</span>: <span style="color: #228b22;">Seq[Seq[Int]]</span> = (1 to 5).map { _ =&gt; (1 to 5).map { i =&gt; <span style="color: #a020f0;">if</span> (i % 2 == 0) 0 <span style="color: #a020f0;">else</span> 1 } }
+
+show(mat_size_5)                          <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; 1 0 1 0 1</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 1 0 1 0 1</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 1 0 1 0 1</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 1 0 1 0 1</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 1 0 1 0 1</span>
+
+show(trans(mat_size_5))                   <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; 0 0 0 0 0</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 1 0 1 0 1</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 1 0 1 0 1</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 1 0 1 0 1</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 0 0 0 0 0</span>
+
+show(trans(trans(mat_size_5)))            <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; 0 0 0 0 0</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 0 0 0 0 0</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 1 0 1 0 1</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 0 0 0 0 0</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 0 0 0 0 0</span>
+
+show(trans(trans(trans(mat_size_5))))     <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; 0 0 0 0 0</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 0 0 0 0 0</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 0 0 0 0 0</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 0 0 0 0 0</span>
+                                          <span style="color: #b22222;">//</span><span style="color: #b22222;">| 0 0 0 0 0</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Takehide Soh</p>
+<p class="date">Created: 2013-10-25 金 14:24</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 23.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.1)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

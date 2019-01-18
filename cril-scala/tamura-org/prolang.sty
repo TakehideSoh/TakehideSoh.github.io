@@ -1,0 +1,84 @@
+\AtBeginDvi{\special{pdf:tounicode EUC-UCS2}}
+\usepackage{comment}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[dvipdfmx]{graphicx,color}
+\usepackage[dvipdfmx,bookmarks=true,bookmarksnumbered=true,bookmarkstype=toc,
+  colorlinks,linkcolor=blue,urlcolor=blue]{hyperref}
+\renewcommand{\textlnot}{$\neg$}
+
+\topmargin -1in\advance\topmargin 15mm
+\oddsidemargin -1in\advance\oddsidemargin 20mm
+\evensidemargin \oddsidemargin
+\textheight 250mm
+\textwidth 170mm
+\headsep 5mm
+% \renewcommand{\arraystretch}{2.0}
+% \itemsep 0mm\parsep 0mm
+% \partopsep 0mm\topsep 0mm
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}
+\rhead{}
+\cfoot{\thepage}
+\thispagestyle{empty}
+
+\usepackage{proof}
+\newcommand{\Infer}[3]{\infer[{\rm #1}]{#2}{#3}}
+\newcommand{\AND}{&}
+\newenvironment{seqtable}%
+  {\tabcolsep1em\def\arraystretch{2}}%
+  {}
+\renewenvironment{quote}{%
+  \vskip0mm\begin{tabular}{|p{0.9\textwidth}|}\hline}{%
+  \\\hline\end{tabular}\vskip0mm}
+% \usepackage[dvipdfm,bookmarks=true,bookmarksnumbered=true,bookmarkstype=toc,
+%   colorlinks,linkcolor=blue,urlcolor=blue]{hyperref}
+% \usepackage[dvipdfm]{hyperref}
+% \usepackage{html}
+% \usepackage{latexsym}
+% \usepackage{amssymb}
+% \usepackage{alltt}
+% \usepackage{verbatimfiles}
+% \usepackage{fancyhdr}
+% \pagestyle{fancy}
+%
+\newcommand{\compress}{\itemsep0pt\parsep0pt}
+% \renewcommand{\labelenumi}{(\arabic{enumi})}
+\newcommand{\T}{\top}
+\newcommand{\F}{\bot}
+\newcommand{\TV}{\mbox{\sf T}}
+\newcommand{\FV}{\mbox{\sf F}}
+\newcommand{\imp}{\mathop{\Rightarrow}}
+\newcommand{\equ}{\mathop{\Leftrightarrow}}
+\newcommand{\Equ}{\mathrel{\sim}}
+\newcommand{\Lra}{\Longrightarrow}
+\newcommand{\Lla}{\Longleftarrow}
+\newcommand{\Llra}{\Longleftrightarrow}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\llra}{\longleftrightarrow}
+\newcommand{\Def}{\stackrel{\textrm{\scriptsize def}}{\Longleftrightarrow}}
+\newcommand{\EquSat}{\stackrel{\textrm{equi-sat}}{\Longleftrightarrow}}
+\newcommand{\TX}[1]{\textrm{\mbox{[}#1\mbox{]}}}
+\newcommand{\D}{\Delta}
+\newcommand{\G}{\Gamma}
+%
+\newtheorem{definition}[section]{Definition}
+\newtheorem{lemma}[section]{Lemma}
+\newtheorem{proposition}[section]{Proposition}
+\newtheorem{theorem}[section]{Theorem}
+\newtheorem{example}[section]{Example}
+\newcounter{exercise}
+\newenvironment{exercise}%
+  {\begin{list}{\refstepcounter{exercise}{\bf Exercise \thesection.\theexercise}\quad}%
+      {\compress}}%
+%      {\compress\advance\leftmargin 1em}}%
+  {\end{list}}
+\newenvironment{proof}{\begin{list}{}{}\item[\textbf{Proof}]}{\end{list}}
+\newenvironment{sequent}%
+  {\begin{displaymath}\arraycolsep1em\def\arraystretch{2}}%
+  {\end{displaymath}}

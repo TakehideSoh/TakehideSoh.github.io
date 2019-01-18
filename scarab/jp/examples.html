@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-10-15 月 17:04 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Scarab: Program Examples</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="[[http://kix.istc.kobe-u.ac.jp/~soh/][Takehide Soh]]Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-6313627-5');
+</script>
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Scarab: Program Examples</h1>
+<blockquote>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-6313627-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</div>
+
+<table class="menu" border="0" cellspacing="0" cellpadding="20" width="900px">
+<tr>
+<td class="menu" bgcolor="#3B5998"><a href="../index.html"><font size="3">ホーム</font></a></td>
+<td class="menu" bgcolor="#3B5998"><a href="../examples.html"><font size="3">プログラム例</font></a></td>
+<td class="menu" bgcolor="#3B5998"><a href="../doc.html"><font size="3">ドキュメント</font></a></td>
+<td class="menu" bgcolor="#3B5998"><a href="../advanced.html"><font size="3">高度な使い方</font></a></td>
+<td class="menu" bgcolor="#3B5998"><a href="../tutorial.html"><font size="3">チュートリアル</font></a></td>
+<td class="menu" bgcolor="#3B5998"><a href="../apps.html"><font size="3">アプリケーション</font></a></td>
+</tr>
+</table>
+
+<div id="content">
+</blockquote>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">Latin Square</h2>
+<div class="outline-text-2" id="text-orgheadline1">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span class="linenr"> 1: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.csp._
+<span class="linenr"> 2: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.solver._
+<span class="linenr"> 3: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.sapp._
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span><span style="color: #a020f0;">var</span> <span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int </span>= 5
+<span class="linenr"> 6: </span><span style="color: #a020f0;">for</span> (i &lt;- 1 to n; j &lt;- 1 to n)  int('x(i,j),1,n) 
+<span class="linenr"> 7: </span><span style="color: #a020f0;">for</span> (i &lt;- 1 to n) {
+<span class="linenr"> 8: </span>  add(alldiff((1 to n).map(j =&gt; 'x(i,j))))
+<span class="linenr"> 9: </span>  add(alldiff((1 to n).map(j =&gt; 'x(j,i))))
+<span class="linenr">10: </span>  add(alldiff((1 to n).map(j =&gt; 'x(j,(i+j-1)%n+1))))
+<span class="linenr">11: </span>  add(alldiff((1 to n).map(j =&gt; 'x(j,(i+(j-1)*(n-1))%n+1))))}
+<span class="linenr">12: </span>
+<span class="linenr">13: </span><span style="color: #a020f0;">if</span> (find)  println(solution)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="orgheadline2"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
+<li><a id="orgheadline3"></a>(Line 6) declare integer variables<br  /></li>
+<li><a id="orgheadline4"></a>(Lines 8 to 11) add alldifferenct constraints for each row, column, and diagonal<br  /></li>
+<li><a id="orgheadline5"></a>(Line 12) print found solution if it exists<br  /></li></ul>
+</div>
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6">Square Packing</h2>
+<div class="outline-text-2" id="text-orgheadline6">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span class="linenr"> 1: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.csp._
+<span class="linenr"> 2: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.solver._
+<span class="linenr"> 3: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.sapp._
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 15; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">s</span> =36 
+<span class="linenr"> 6: </span>
+<span class="linenr"> 7: </span><span style="color: #a020f0;">for</span> (i &lt;- 1 to n)  { int('x(i),0,s-i) ; int('y(i),0,s-i) }
+<span class="linenr"> 8: </span><span style="color: #a020f0;">for</span> (i &lt;- 1 to n; j &lt;- i+1 to n) 
+<span class="linenr"> 9: </span>  add(('x(i)+i &lt;='x(j)) || ('x(j)+j&lt;='x(i)) || ('y(i)+i&lt;='y(j)) || ('y(j)+j&lt;='y(i)))
+<span class="linenr">10: </span>
+<span class="linenr">11: </span><span style="color: #a020f0;">if</span> (find) println(solution.intMap)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="orgheadline7"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
+<li><a id="orgheadline8"></a>(Line 7) declare integer variables<br  /></li>
+<li><a id="orgheadline9"></a>(Lines 8 and 9) add non-overlaping constraints<br  /></li>
+<li><a id="orgheadline10"></a>(Line 11) print found solution if it exists<br  /></li></ul>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11">Langford Pairing</h2>
+<div class="outline-text-2" id="text-orgheadline11">
+<p>
+#When \(2n\) numbers \(\{1, 1, 2, 2, \ldots, n, n\}\) are given, (see also <a href="http://www.csplib.org/">http://www.csplib.org/</a>)
+</p>
+</div>
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12">Model 1</h3>
+<div class="outline-text-3" id="text-orgheadline12">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span class="linenr"> 1: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.csp._
+<span class="linenr"> 2: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.solver._
+<span class="linenr"> 3: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.sapp._
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 4
+<span class="linenr"> 6: </span>
+<span class="linenr"> 7: </span><span style="color: #a020f0;">for</span> (i &lt;- 1 to 2*n) int('x(i),1,n)
+<span class="linenr"> 8: </span><span style="color: #a020f0;">for</span> (i &lt;- 1 to n) 
+<span class="linenr"> 9: </span>  add(Or(<span style="color: #a020f0;">for</span> (j &lt;- 1 to 2*n-i-1) <span style="color: #a020f0;">yield</span> And(('x(j) === 'x(j+i+1)), ('x(j) === i))))
+<span class="linenr">10: </span>
+<span class="linenr">11: </span><span style="color: #a020f0;">if</span>(find) println(solution)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="orgheadline13"></a>(Line 7) declare integer variables representing each of \(2n\) positions has which number.<br  /></li></ul>
+</div>
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14">Model 2 (with position variable)</h3>
+<div class="outline-text-3" id="text-orgheadline14">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span class="linenr"> 1: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.csp._
+<span class="linenr"> 2: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.solver._
+<span class="linenr"> 3: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.sapp._
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 4
+<span class="linenr"> 6: </span>
+<span class="linenr"> 7: </span><span style="color: #a020f0;">for</span> (i &lt;- 1 to n) { 
+<span class="linenr"> 8: </span>  int('l(i),1,2*n-i-1)
+<span class="linenr"> 9: </span>  int('r(i),1,2*n) 
+<span class="linenr">10: </span>}
+<span class="linenr">11: </span>
+<span class="linenr">12: </span><span style="color: #a020f0;">for</span> (i &lt;- 1 to n)  add('l(i) === 'r(i)-i-1)
+<span class="linenr">13: </span>add(alldiff((1 to n).map(i =&gt; 'l(i))))
+<span class="linenr">14: </span>add(alldiff((1 to n).map(i =&gt; 'r(i))))
+<span class="linenr">15: </span>
+<span class="linenr">16: </span><span style="color: #a020f0;">if</span>(find) println(solution)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="orgheadline15"></a>(Lines 7 to 10) declare integer variables representing each pairs of \(n\) numbers are placed to which positions.<br  /></li></ul>
+</div>
+</div>
+<div id="outline-container-orgheadline16" class="outline-2">
+<h2 id="orgheadline16">Graph Coloring</h2>
+<div class="outline-text-2" id="text-orgheadline16">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span class="linenr"> 1: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.csp._
+<span class="linenr"> 2: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.solver._
+<span class="linenr"> 3: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.sapp._
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">nodes</span> = Seq(1,2,3,4,5)
+<span class="linenr"> 6: </span><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">edges</span> = Seq((1,2),(1,5),(2,3),(2,4),(3,4),(4,5))
+<span class="linenr"> 7: </span><span style="color: #a020f0;">var</span> <span style="color: #a0522d;">maxColor</span> = 4;
+<span class="linenr"> 8: </span>
+<span class="linenr"> 9: </span>int('color,1,maxColor)
+<span class="linenr">10: </span><span style="color: #a020f0;">for</span> (i &lt;- nodes) int('n(i),1,maxColor)
+<span class="linenr">11: </span><span style="color: #a020f0;">for</span> (i &lt;- nodes) add('n(i) &lt;= 'color)
+<span class="linenr">12: </span><span style="color: #a020f0;">for</span> ((i,j) &lt;- edges)  add('n(i) !== 'n(j))
+<span class="linenr">13: </span>
+<span class="linenr">14: </span><span style="color: #a020f0;">while</span> (find('color &lt;= maxColor)) {
+<span class="linenr">15: </span>  println(solution)
+<span class="linenr">16: </span>  maxColor -= 1
+<span class="linenr">17: </span>}
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="orgheadline17"></a>(Lines 5 to 7) declare graph structure.<br  /></li>
+<li><a id="orgheadline18"></a>(Lines 9 and 10) declare integer variables representing available colors and each node of the given graph.<br  /></li>
+<li><a id="orgheadline19"></a>(Lines 11 and 12) declare constraints that limit available colors and adjacent nodes have different color.<br  /></li>
+<li><a id="orgheadline20"></a>(Lines 14 to 17) minimizing number of colors.<br  /></li></ul>
+</div>
+<div id="outline-container-orgheadline21" class="outline-2">
+<h2 id="orgheadline21">Magic Square</h2>
+<div class="outline-text-2" id="text-orgheadline21">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span class="linenr"> 1: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.csp._
+<span class="linenr"> 2: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.solver._
+<span class="linenr"> 3: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.sapp._
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">xs</span> = <span style="color: #a020f0;">for</span> (i &lt;- 1 to 3; j &lt;- 1 to 3) <span style="color: #a020f0;">yield</span> csp.int('x(i,j), 1, 9)
+<span class="linenr"> 6: </span>  add(alldiff(xs))
+<span class="linenr"> 7: </span>
+<span class="linenr"> 8: </span><span style="color: #a020f0;">for</span> (i &lt;- 1 to 3)
+<span class="linenr"> 9: </span>  add(Sum((1 to 3).map(j =&gt; 'x(i,j))) === 15)
+<span class="linenr">10: </span><span style="color: #a020f0;">for</span> (j &lt;- 1 to 3)
+<span class="linenr">11: </span>  add(Sum((1 to 3).map(i =&gt; 'x(i,j))) === 15)
+<span class="linenr">12: </span>add(Sum((1 to 3).map(i =&gt; 'x(i,i))) === 15)
+<span class="linenr">13: </span>add(Sum((1 to 3).map(i =&gt; 'x(i,4-i))) === 15)
+<span class="linenr">14: </span>
+<span class="linenr">15: </span><span style="color: #a020f0;">if</span> (find) println(solution)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="orgheadline22"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
+<li><a id="orgheadline23"></a>(Line 5) declare integer variables and puts them to xs<br  /></li>
+<li><a id="orgheadline24"></a>(Line 6) declare alldiff for the variables<br  /></li>
+<li><a id="orgheadline25"></a>(Lines 8 and 11) add constraints such that the sum for each row and column become 15<br  /></li>
+<li><a id="orgheadline26"></a>(Line 12 and 13) add constraints such that the sum for each main diagonal become 15<br  /></li>
+<li><a id="orgheadline27"></a>(Line 15) print found solution if it exists<br  /></li></ul>
+</div>
+
+<div id="outline-container-orgheadline28" class="outline-2">
+<h2 id="orgheadline28">Alphametic Problem <b>SAT + IS + FUN = TRUE</b></h2>
+<div class="outline-text-2" id="text-orgheadline28">
+<p>
+\(S*100 + A*10 + T + I*10 + S + F*100 + U*10 + N = T*1000 + R*100 + U*10 + E\)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span class="linenr"> 1: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.csp._
+<span class="linenr"> 2: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.solver._
+<span class="linenr"> 3: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.sapp._
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">base</span> = 10
+<span class="linenr"> 6: </span>
+<span class="linenr"> 7: </span><span style="color: #a020f0;">for</span> (v &lt;- Seq('s,'i,'f,'t)) <span style="color: #a020f0;">yield</span> int(v,1,base-1)     <span style="color: #b22222;">// </span><span style="color: #b22222;">S, I, F and T are not zero</span>
+<span class="linenr"> 8: </span><span style="color: #a020f0;">for</span> (v &lt;- Seq('a,'u,'n,'r,'e)) <span style="color: #a020f0;">yield</span> int(v,0,base-1)  <span style="color: #b22222;">// </span><span style="color: #b22222;">others can be zero</span>
+<span class="linenr"> 9: </span><span style="color: #a020f0;">for</span> (v &lt;- Seq('c1,'c2,'c3)) <span style="color: #a020f0;">yield</span> int(v,0,2)          <span style="color: #b22222;">// </span><span style="color: #b22222;">carries</span>
+<span class="linenr">10: </span>
+<span class="linenr">11: </span>add('t + 's + 'n       === 'e + 'c1*base)
+<span class="linenr">12: </span>add('a + 'i + 'u + 'c1 === 'u + 'c2*base)
+<span class="linenr">13: </span>add('s +      'f + 'c2 === 'r + 'c3*base)
+<span class="linenr">14: </span>add(               'c3 === 't)
+<span class="linenr">15: </span>
+<span class="linenr">16: </span>add(alldiff(Seq('s,'i,'f,'t,'a,'u,'n,'r,'e)))
+<span class="linenr">17: </span>
+<span class="linenr">18: </span><span style="color: #a020f0;">if</span> (find)  println(solution.intMap)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="orgheadline29"></a>(Lines 11 to 14) constraint model considering each digit and carry, which takes around 1 second;)<br  /></li></ul>
+</div>
+<div id="outline-container-orgheadline30" class="outline-2">
+<h2 id="orgheadline30">Using ModelIterator of Sat4j</h2>
+<div class="outline-text-2" id="text-orgheadline30">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span class="linenr"> 1: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.csp._
+<span class="linenr"> 2: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.solver._
+<span class="linenr"> 3: </span>
+<span class="linenr"> 4: </span><span style="color: #a020f0;">object</span> <span style="color: #a0522d;">SimpleEnum</span> {
+<span class="linenr"> 5: </span>  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">main</span>(<span style="color: #a0522d;">args</span>: <span style="color: #228b22;">Array[String]</span>) = {
+<span class="linenr"> 6: </span>    <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">csp</span> = <span style="color: #a020f0;">new</span> CSP()
+<span class="linenr"> 7: </span>    <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">satSolver</span> = <span style="color: #a020f0;">new</span> Sat4j(<span style="color: #8b2252;">"iterator"</span>)
+<span class="linenr"> 8: </span>    <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">encoder</span> = <span style="color: #a020f0;">new</span> OrderEncoder(csp,satSolver)
+<span class="linenr"> 9: </span>    <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">solver</span> = <span style="color: #a020f0;">new</span> Solver(csp,satSolver,encoder)
+<span class="linenr">10: </span>
+<span class="linenr">11: </span>    csp.int('x,1,3)
+<span class="linenr">12: </span>    csp.int('y,1,3)
+<span class="linenr">13: </span>    csp.add('x === 'y)
+<span class="linenr">14: </span>
+<span class="linenr">15: </span>    <span style="color: #a020f0;">while</span> (solver.enumerate) {
+<span class="linenr">16: </span>      println(solver.solution)
+<span class="linenr">17: </span>    }
+<span class="linenr">18: </span>  }
+<span class="linenr">19: </span>}
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="orgheadline31"></a>(Line 7) define <b>Sat4j("iterator")</b> for ModelIterator<br  /></li>
+<li><a id="orgheadline32"></a>(Line 15) <b>solver.enumerate</b> enumerates models<br  /></li></ul>
+</div>
+<div id="outline-container-orgheadline33" class="outline-2">
+<h2 id="orgheadline33">Open-shop Scheduling</h2>
+<div class="outline-text-2" id="text-orgheadline33">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span class="linenr"> 1: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.csp._
+<span class="linenr"> 2: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.solver._
+<span class="linenr"> 3: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.sapp._
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>use(<span style="color: #a020f0;">new</span> Sat4j(<span style="color: #8b2252;">"glucose"</span>))
+<span class="linenr"> 6: </span>
+<span class="linenr"> 7: </span><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">pt</span> = Seq(
+<span class="linenr"> 8: </span>  Seq(661,   6, 333),
+<span class="linenr"> 9: </span>  Seq(168, 489, 343),
+<span class="linenr">10: </span>  Seq(171, 505, 324))
+<span class="linenr">11: </span>
+<span class="linenr">12: </span><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = pt.size
+<span class="linenr">13: </span><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">lb</span> = pt.map(_.sum).max
+<span class="linenr">14: </span><span style="color: #a020f0;">var</span> <span style="color: #a0522d;">ub</span> = (0 until n).map(k =&gt; (0 until n).map(i =&gt; pt(i)((i + k) % n)).max).sum
+<span class="linenr">15: </span>
+<span class="linenr">16: </span>int('makespan, lb, ub)
+<span class="linenr">17: </span>
+<span class="linenr">18: </span><span style="color: #a020f0;">for</span> (i &lt;- 0 until n; j &lt;- 0 until n) {
+<span class="linenr">19: </span>  int('s(i,j), 0, ub)
+<span class="linenr">20: </span>  add('s(i,j) + pt(i)(j) &lt;= 'makespan)
+<span class="linenr">21: </span>}
+<span class="linenr">22: </span><span style="color: #a020f0;">for</span> (i &lt;- 0 until n) {
+<span class="linenr">23: </span>  <span style="color: #a020f0;">for</span> (j &lt;- 0 until n; l &lt;- j+1 until n)
+<span class="linenr">24: </span>    add('s(i,j) + pt(i)(j) &lt;= 's(i,l) ||
+<span class="linenr">25: </span>        's(i,l) + pt(i)(l) &lt;= 's(i,j))
+<span class="linenr">26: </span>}
+<span class="linenr">27: </span><span style="color: #a020f0;">for</span> (j &lt;- 0 until n) {
+<span class="linenr">28: </span>  <span style="color: #a020f0;">for</span> (i &lt;- 0 until n; k &lt;- i+1 until n)
+<span class="linenr">29: </span>    add('s(i,j) + pt(i)(j) &lt;= 's(k,j) ||
+<span class="linenr">30: </span>        's(k,j) + pt(k)(j) &lt;= 's(i,j))
+<span class="linenr">31: </span>}
+<span class="linenr">32: </span>
+<span class="linenr">33: </span><span style="color: #a020f0;">while</span> (find('makespan &lt;= ub)) {
+<span class="linenr">34: </span>  println(solution)
+<span class="linenr">35: </span>  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">end</span> = (<span style="color: #a020f0;">for</span>(i &lt;- 0 until n; j &lt;- 0 until n) 
+<span class="linenr">36: </span>             <span style="color: #a020f0;">yield</span> solution.intMap('s(i,j))+pt(i)(j)).max
+<span class="linenr">37: </span>  ub = end - 1
+<span class="linenr">38: </span>  println(ub)
+<span class="linenr">39: </span>}
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="orgheadline34"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
+<li><a id="orgheadline35"></a>(Lines 7 to 10) declare an instance<br  /></li>
+<li><a id="orgheadline36"></a>(Lines 12 to 14) compute size, lower and upper bounds of the instance<br  /></li>
+<li><a id="orgheadline37"></a>(Line 16) declares an integer variable representing current makespan<br  /></li>
+<li><a id="orgheadline38"></a>(Lines 18 to 21) forces all operations are ended before makespan<br  /></li>
+<li><a id="orgheadline39"></a>(Lines 22 to 26) forces for operations in the same job do not overlap each other<br  /></li>
+<li><a id="orgheadline40"></a>(Lines 27 to 31) forces for operations sharing same resource do not overlap each other<br  /></li>
+<li><a id="orgheadline41"></a>(Lines 33 to 38) coumputes optimum solution<br  /></li></ul>
+</div>
+<div id="outline-container-orgheadline42" class="outline-2">
+<h2 id="orgheadline42">Colored N Queen</h2>
+<div class="outline-text-2" id="text-orgheadline42">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span class="linenr"> 1: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.csp._
+<span class="linenr"> 2: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.solver._
+<span class="linenr"> 3: </span><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.sapp._
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = args(0).toInt
+<span class="linenr"> 6: </span><span style="color: #a020f0;">val</span> <span style="color: #a0522d;">c</span> = n
+<span class="linenr"> 7: </span>
+<span class="linenr"> 8: </span>use(<span style="color: #a020f0;">new</span> Sat4j(<span style="color: #8b2252;">"glucose"</span>))
+<span class="linenr"> 9: </span>
+<span class="linenr">10: </span><span style="color: #a020f0;">for</span> (i &lt;- 1 to n; color &lt;- 1 to c)
+<span class="linenr">11: </span>  int('q(i,color), 1, c)
+<span class="linenr">12: </span>
+<span class="linenr">13: </span><span style="color: #a020f0;">for</span> (color &lt;- 1 to c) {
+<span class="linenr">14: </span>  add(alldiff((1 to n).map(i =&gt; 'q(i,color))))
+<span class="linenr">15: </span>  add(alldiff((1 to n).map(i =&gt; 'q(i,color)+i)))
+<span class="linenr">16: </span>  add(alldiff((1 to n).map(i =&gt; 'q(i,color)-i)))
+<span class="linenr">17: </span>}
+<span class="linenr">18: </span>
+<span class="linenr">19: </span><span style="color: #a020f0;">for</span> (i &lt;- 1 to n)
+<span class="linenr">20: </span>  add(alldiff((1 to c).map(color =&gt; 'q(i,color))))
+<span class="linenr">21: </span>
+<span class="linenr">22: </span><span style="color: #a020f0;">if</span> (find) {
+<span class="linenr">23: </span>  <span style="color: #a020f0;">for</span> (color &lt;- 1 to c) {
+<span class="linenr">24: </span>    <span style="color: #a020f0;">for</span> (row &lt;- 1 to n) {
+<span class="linenr">25: </span>      <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">seq</span>: <span style="color: #228b22;">Seq[Int]</span> = Seq.empty
+<span class="linenr">26: </span>      <span style="color: #a020f0;">for</span> (column &lt;- 1 to n)
+<span class="linenr">27: </span>  <span style="color: #a020f0;">if</span> (encoder.decode('q(row,color)) == column)
+<span class="linenr">28: </span>    seq = seq :+ color
+<span class="linenr">29: </span>  <span style="color: #a020f0;">else</span>
+<span class="linenr">30: </span>    seq = seq :+ 0
+<span class="linenr">31: </span>      println(seq.mkString(<span style="color: #8b2252;">" "</span>))
+<span class="linenr">32: </span>    }
+<span class="linenr">33: </span>    println(<span style="color: #8b2252;">"-----------------"</span>)
+<span class="linenr">34: </span>  }
+<span class="linenr">35: </span>}
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="orgheadline43"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
+<li><a id="orgheadline44"></a>(Lines 5 to 6) size is given from command line<br  /></li>
+<li><a id="orgheadline45"></a>(Lines 8) declares the use of Sat4j of Glucose setting.<br  /></li>
+<li><a id="orgheadline46"></a>(Lines 10 to 11) declares integer variables representing queens<br  /></li>
+<li><a id="orgheadline47"></a>(Lines 13 to 17) representing N-Queen constraints for each color<br  /></li>
+<li><a id="orgheadline48"></a>(Lines 19 to 20) forces that Queens of each color do no overlap<br  /></li>
+<li><a id="orgheadline49"></a>(Lines 22 to 35) compute solutions and show the obtained placement<br  /></li></ul>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: <a href="http://kix.istc.kobe-u.ac.jp/~soh/">Takehide Soh</a></p>
+<p class="date">Created: 2018-10-15 月 17:04</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+#+TITLE: 
+#+AUTHOR: Takehide Soh
+#+LANGUAGE: ja
+
+#+OPTIONS: ^:nil toc:nil H:1
+#+STYLE: <link rel="stylesheet" type="text/css" href="../portal.css" />
+
+#+BEGIN_HTML
+#+INCLUDE title.html
+#+END_HTML
+
+* Overview of Scarab
+#----------------------------------------------------------------------
+** Scarab is developed as a rapid prototyping tool for SAT-based systems.
+** Scarab is designed to help SAT researchers to be able to easily solve Constraint Satisfaction Problems (CSP), Constraint Optimization Problems (COP) and other richer problems with several features such as assumption, incremental solving, enumeration of solutions and commit/rollback of constraints etc. 
+** Scarab is also designed to be simple and changeable by keeping its entire code within only 600 lines.
+
+* Examples
+#----------------------------------------------------------------------
+  #+BEGIN_SRC scala
+import jp.kobe_u.scarab.csp._
+import jp.kobe_u.scarab.solver._
+
+object Test1 {
+  def test1 {
+    // Creating CSP, SatSolver, Encoder and SAT-based CSP Solver
+    val csp = new CSP()
+    val satSolver = new Sat4j()
+    val encoder = new OrderEncoder(csp,satSolver)
+    val solver = new Solver(csp,satSolver,encoder)
+
+    // Define CSP
+    csp.int('x, 0, 3)
+    csp.int('y, 0, 3)
+    csp.add('x !== 'y)
+
+    // Commit CSP
+    csp.commit
+
+    // Solve CSP
+    if (solver.find)
+      println("SAT: " + solver.solution)
+    else
+      println("UNSAT")
+
+    // Add Constraint
+    csp.add('x === 0)
+
+    // Solve CSP (by Keeping Learned Clauses)
+    if (solver.find)
+      println("SAT: " + solver.solution)
+    else
+      println("UNSAT")
+
+    // Rollback to Commit Point 
+    csp.rollback
+
+    // Add Constraint
+    csp.add('x === 1)
+
+    // Solve CSP
+    if (solver.find)
+      println("SAT: " + solver.solution)
+    else
+      println("UNSAT")
+  }
+
+  def main(args: Array[String]) {
+    test1
+  }
+}
+
+  #+END_SRC
+
+* Requirements and How to Install Scarab
+** Java JRE
+** [[http://www.sat4j.org][Sat4J]] Core
+** [[http://www.scala-lang.org/][Scala]] Version 2.9 or higher
+* Downloads
+** [[./scarab-v1-0-0.jar][Scarab -- Version 1.0.0]]
+* Documents
+** [[./docs/api/index.html][Scarab API]]
+* Licence
+This software is distributed under the [[http://opensource.org/licenses/bsd-license.php][BSD License]]. 
+* Links
+** [[http://bach.istc.kobe-u.ac.jp/copris/][Copris]]
+** [[http://bach.istc.kobe-u.ac.jp/csp2sat4j/][CSP2Sat4j]]
+

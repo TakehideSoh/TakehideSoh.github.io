@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Lispでエラトステネスの篩</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Lispでエラトステネスの篩"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-09-29 21:45:09 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Lispでエラトステネスの篩</h1>
+
+<ul>
+<li><a href="lisp.html">Lispプログラミング入門</a>
+</li>
+<li><a href="lisp-cell.html">Lispのデータ構造</a>
+</li>
+<li><a href="lisp-sieve.html">Lispでエラトステネスの篩</a>
+</li>
+</ul>
+
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 目標</a>
+<ul>
+<li><a href="#sec-1-1">1.1 参考リンク</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 range</a></li>
+<li><a href="#sec-3">3 filter</a></li>
+<li><a href="#sec-4">4 sieve</a></li>
+<li><a href="#sec-5">5 実行過程</a></li>
+<li><a href="#sec-6">6 Clojure</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 目標</h2>
+<div class="outline-text-2" id="text-1">
+
+<blockquote>
+
+<p>エラトステネスの篩のアルゴリズムを用いて
+素数のリストを求める．
+</p>
+</blockquote>
+
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 参考リンク</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<ul>
+<li><a href="http://ja.wikipedia.org/wiki/エラトステネスの篩">Wikipedia:エラトステネスの篩</a>
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> range</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  まず，2以上n以下の整数のリストを作成するために，
+  range関数を定義する．
+</p>
+
+
+
+<pre class="src src-lisp"><span class="linenr">1:  </span>(<span class="org-keyword">defun</span> <span class="org-function-name">range</span> (m n)
+<span class="linenr">2:  </span>  (<span class="org-keyword">if</span> (&gt; m n)
+<span class="linenr">3:  </span>    ()
+<span class="linenr">4:  </span>    (cons m (range (+ m 1) n))
+<span class="linenr">5:  </span>))
+</pre>
+
+
+<pre class="example">
+(range 2 10)
+  (2 3 4 5 6 7 8 9 10)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> filter</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  与えられた整数nで割り切れる数をリストxsから取り除く関数
+  filterを定義する．
+</p>
+
+
+
+<pre class="src src-lisp"><span class="linenr">1:  </span>(<span class="org-keyword">defun</span> <span class="org-function-name">filter</span> (n xs)
+<span class="linenr">2:  </span>  (<span class="org-keyword">if</span> (null xs)
+<span class="linenr">3:  </span>    ()
+<span class="linenr">4:  </span>    (<span class="org-keyword">if</span> (= (% (car xs) n) 0)
+<span class="linenr">5:  </span>      (filter n (cdr xs))
+<span class="linenr">6:  </span>      (cons (car xs) (filter n (cdr xs)))
+<span class="linenr">7:  </span>)))
+</pre>
+
+
+<pre class="example">
+(filter 2 (range 2 10))
+  (3 5 7 9)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> sieve</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  エラトステネスの篩を実装する．
+</p>
+
+
+
+<pre class="src src-lisp"><span class="linenr">1:  </span>(<span class="org-keyword">defun</span> <span class="org-function-name">sieve</span> (xs)
+<span class="linenr">2:  </span>  (<span class="org-keyword">if</span> (null xs)
+<span class="linenr">3:  </span>    ()
+<span class="linenr">4:  </span>    (cons (car xs) (sieve (filter (car xs) (cdr xs))))
+<span class="linenr">5:  </span>))
+</pre>
+
+
+<pre class="example">
+(sieve (range 2 20))
+  (2 3 5 7 11 13 17 19)
+
+(sieve (range 2 50))
+  (2 3 5 7 11 13 17 19 23 29 31 37 41 43 47)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 実行過程</h2>
+<div class="outline-text-2" id="text-5">
+
+
+<ol>
+<li><code>(sieve (range 2 100))</code>
+</li>
+<li><code>(sieve '(2 3 4 5 6 7 ... 100))</code>
+</li>
+<li><code>(cons 2 (sieve (filter 2 '(3 4 5 6 7 ... 100))))</code>
+</li>
+<li><code>(cons 2 (sieve '(3 5 7 9 ... 99)))</code>
+</li>
+<li><code>(cons 2 (cons 3 (sieve (filter 3 '(5 7 9 ... 99)))))</code>
+</li>
+<li><code>(cons 2 (cons 3 (sieve '(5 7 11 ... 97))))</code>
+</li>
+<li>&hellip;
+</li>
+<li><code>(cons 2 (cons 3 (cons 5 (cons 7 ... () ... ))))</code>
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Clojure</h2>
+<div class="outline-text-2" id="text-6">
+
+<p>  Lispによく似た言語であるClojureでのプログラムを紹介する．
+</p><ul>
+<li><a href="http://clojure.org">http://clojure.org</a>
+</li>
+<li><a href="http://java.ociweb.com/mark/clojure/article.html">Clojure - Functional Programming for the JVM</a>
+</li>
+</ul>
+
+
+<p>
+  Clojure には， <b>遅延評価</b> (lazy evaluation)のメカニズムが備わっており，
+  無限の長さのリストを取り扱うことが可能になる．
+  遅延評価は，必要が生じるまで計算を遅延させるというメカニズムである．
+</p>
+<p>
+  Clojureで遅延評価を用いたエラトステネスの篩のプログラムは，以下のようになる
+  (説明は省略)．
+</p>
+
+
+
+<pre class="src src-clojure"><span class="linenr">1:  </span>(defn sieve [xs]
+<span class="linenr">2:  </span>  (lazy-seq
+<span class="linenr">3:  </span>    (cons (first xs)
+<span class="linenr">4:  </span>          (sieve (filter #(not= (rem % (first xs)) 0) (rest xs)))
+<span class="linenr">5:  </span>)))
+<span class="linenr">6:  </span>
+<span class="linenr">7:  </span>(defn primes []
+<span class="linenr">8:  </span>  (sieve (iterate inc 2))
+<span class="linenr">9:  </span>)
+</pre>
+
+
+<p>
+  実行するには，まずClojureを起動してプログラムをロードする．
+</p><pre class="example">
+$ java -cp .:clojure.jar clojure.main
+user=&gt; (load-file "sieve.clj")
+</pre>
+
+
+<p>
+  以下は，最初の10個の素数を求めている．
+  (primes) は素数の無限リストなので，takeでリストの最初の部分を取り出している．
+</p><pre class="example">
+user=&gt; (take 10 (primes))
+  (2 3 5 7 11 13 17 19 23 29)
+</pre>
+
+
+<p>
+  以下は，2000以上となる最初の素数を求めている．
+</p><pre class="example">
+(first (filter #(&gt;= % 2000) (primes)))
+  2003
+</pre>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-09-29 21:45:09 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

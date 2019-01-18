@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-12-29 土 17:11 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-6313627-5');
+</script>
+<link rel="stylesheet" type="text/css" href="./myhome.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<table>
+<tbody>
+<tr>
+<td class="pic" rowspan="3" align="center"><img border="0" padding="0" width="160px" src="./soh2013.png"><br>@Helsinki
+</td>
+<td width="740px" align="center"><h1>SOH, Takehide<br>宋 剛秀</h1>
+<img width="150px" src="soh.png">
+</td>
+</tr>
+<tr>
+<td align="center" height="20px">English Page | <a href="./jp/index.html">Japanese Page</a></td>
+</tr>
+<!-- <tr> -->
+<!-- <td align="center" height="20px"> -->
+<!-- <a href="https://scholar.google.co.jp/citations?user=N10uw7YAAAAJ&hl=en">Google Scholar</a> |  -->
+<!-- <a href="https://dblp.org/pers/hd/s/Soh:Takehide">DBLP</a> | -->
+<!-- <a href="https://dl.acm.org/author_page.cfm?id=81324493968">ACM Degital Library</a> | -->
+<!-- <a href="https://researchmap.jp/soh/?lang=english">researchmap</a> -->
+<!-- </td> -->
+<!-- </tr> -->
+<tr>
+<td align="center" height="20px">
+<a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/">Tamura Lab</a> | 
+<a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/en/index.html">CSPSAT</a> |
+<a href="http://kix.istc.kobe-u.ac.jp/~soh/scarab/">Scarab</a>
+</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<table class="menu" border="0" cellspacing="0" cellpadding="20" width="1000px">
+<tr >
+<td class="menu" bgcolor="#3B5998"><a href="index.html">About me</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="publications.html">Publications</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="software.html">Software</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="links.html">Links</a></td>
+<td class="menu" bgcolor="#3B5998"><a></a></td>
+</tr>
+</table>
+<div id="content">
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Profile Pages</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li><a href="https://scholar.google.co.jp/citations?user=N10uw7YAAAAJ&amp;hl=en">Google Scholar</a></li>
+<li><a href="https://dblp.org/pers/hd/s/Soh:Takehide">DBLP</a></li>
+<li><a href="https://dl.acm.org/author_page.cfm?id=81324493968">ACM Digital Library</a></li>
+<li><a href="https://researchmap.jp/soh/?lang=english">researchmap</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline49" class="outline-2">
+<h2 id="orgheadline49"><span class="section-number-2">2</span> Journal Papers (with peer review)</h2>
+<div class="outline-text-2" id="text-2">
+</div><ol class="org-ol"><li><a id="orgheadline5"></a><span class="title">A SAT Encoding of Pseudo-Boolean Constraints via Boolean Cardinality Constraints</span><br  /><ul class="org-ul"><li><a id="orgheadline2"></a><span class="author">Yushi Minami, Takehide Soh, Mutsunori Banbara, Naoyuki Tamura.</span><br  /></li>
+<li><a id="orgheadline3"></a><span class="others">Computer Software, 35(3): 65-78, 2018.</span><br  /></li>
+<li><a id="orgheadline4"></a>(DOI) <a href="https://doi.org/10.11309/jssst.35.3_65">https://doi.org/10.11309/jssst.35.3_65</a><br  /></li></ul></li>
+
+<li><a id="orgheadline9"></a><span class="title">Proposal of SAT-Based Method to Detect Deadlock of Petri Nets</span><br  /><ul class="org-ul"><li><a id="orgheadline6"></a><span class="author">Tomoya Sunda, Takehide Soh, Mutsunori Banbara, Naoyuki Tamura, Katsumi Inoue.</span><br  /></li>
+<li><a id="orgheadline7"></a><span class="others">IPSJ Journal, 59(9), 17-A113.R1, 2018.</span><br  /></li>
+<li><a id="orgheadline8"></a>(URL) <a href="http://id.nii.ac.jp/1001/00191384/">http://id.nii.ac.jp/1001/00191384/</a><br  /></li></ul></li>
+
+<li><a id="orgheadline13"></a><span class="title">teaspoon: Solving the Curriculum-Based Course Timetabling Problems with Answer Set Programming</span><br  /><ul class="org-ul"><li><a id="orgheadline10"></a><span class="author">Mutsunori Banbara, Katsumi Inoue, Benjamin Kaufmann, Tenda Okimoto, Torsten Schaub, Takehide Soh, Naoyuki Tamura, Philipp Wanko.</span><br  /></li>
+<li><a id="orgheadline11"></a><span class="others">Annals of Operations Research, in print, 2018.</span><br  /></li>
+<li><a id="orgheadline12"></a>(DOI) <a href="https://doi.org/10.1007/s10479-018-2757-7">https://doi.org/10.1007/s10479-018-2757-7</a><br  /></li></ul></li>
+
+<li><a id="orgheadline17"></a><span class="title">Proposal and Evaluation of Hybrid Encoding of CSP to SAT Integrating Order and Log Encodings</span><br  /><ul class="org-ul"><li><a id="orgheadline14"></a><span class="author">Takehide Soh, Mutsunori Banbara, Naoyuki Tamura. </span><br  /></li>
+<li><a id="orgheadline15"></a><span class="others">International Journal on Artificial Intelligence Tools, 26(1):1-29 , World Scientific Publishing, 2017.</span><br  /></li>
+<li><a id="orgheadline16"></a>(DOI) <a href="https://doi.org/10.1142/S0218213017600053">https://doi.org/10.1142/S0218213017600053</a><br  /></li></ul></li>
+<li><a id="orgheadline22"></a><span class="title">Implementing Efficient All Solutions SAT Solvers</span><br  /><ul class="org-ul"><li><a id="orgheadline18"></a><span class="author">Takahisa Toda, Takehide Soh</span><br  /></li>
+<li><a id="orgheadline19"></a><span class="others">Journal of Experimental Algorithmics, 21(1): Article 1.12 (44 pages), ACM, 2016.</span><br  /></li>
+<li><a id="orgheadline20"></a>(DOI) <a href="https://doi.org/10.1145/2975585">https://doi.org/10.1145/2975585</a><br  /></li>
+<li><a id="orgheadline21"></a>(ACM DL) <a href="https://dl.acm.org/citation.cfm?id=2975585hh">https://dl.acm.org/citation.cfm?id=2975585hh</a><br  /></li></ul></li>
+
+<li><a id="orgheadline26"></a><span class="title">An Incremental SAT Solving Library and its Applications</span><br  /><ul class="org-ul"><li><a id="orgheadline23"></a><span class="author">Tatsuya Sako, Takehide Soh, Mutsunori Banbara, Naoyuki Tamura, Hidetomo Nabeshima, Katsumi Inoue. </span><br  /></li>
+<li><a id="orgheadline24"></a><span class="others">Computer Software, 33(4): 16-29, 2016.</span><br  /></li>
+<li><a id="orgheadline25"></a>(DOI) <a href="https://doi.org/10.11309/jssst.33.4_16">https://doi.org/10.11309/jssst.33.4_16</a><br  /></li></ul></li>
+
+<li><a id="orgheadline30"></a><span class="title">Constraint Modeling and SAT Encoding of the Packing Array Problem</span><br  /><ul class="org-ul"><li><a id="orgheadline27"></a><span class="author">Haruki Noritake, Mutsunori Banbara, Takehide Soh, Naoyuki Tamura, and Katsumi Inoue.</span><br  /></li>
+<li><a id="orgheadline28"></a><span class="others">Computer Software, 31(1): 116--130, 2014. </span><br  /></li>
+<li><a id="orgheadline29"></a>(DOI) <a href="https://doi.org/10.11309/jssst.31.1_116">https://doi.org/10.11309/jssst.31.1_116</a><br  /></li></ul></li>
+
+<li><a id="orgheadline34"></a><span class="title">Answer Set Programming as a Modeling Language for Course Timetabling</span><br  /><ul class="org-ul"><li><a id="orgheadline31"></a><span class="author">Mutsunori Banbara, Takehide Soh, Naoyuki Tamura, Katsumi Inoue and Torsten Schaub</span><br  /></li>
+<li><a id="orgheadline32"></a><span class="others">Theory and Practice of Logic Programming (TPLP), 13(4-5):783-798, Cambridge Journals, 2013.</span><br  /></li>
+<li><a id="orgheadline33"></a>(DOI) <a href="https://doi.org/10.1017/S1471068413000495">https://doi.org/10.1017/S1471068413000495</a><br  /></li></ul></li>
+<li><a id="orgheadline38"></a><span class="title">Enumerating Minimal Active Metabolic Pathways by Model Generation</span><br  /><ul class="org-ul"><li><a id="orgheadline35"></a><span class="author">Takehide Soh and Katsumi Inoue</span><br  /></li>
+<li><a id="orgheadline36"></a><span class="others">Transactions of the Japan Society for Artificial Intelligence, 27(3):204-212, 2012.</span><br  /></li>
+<li><a id="orgheadline37"></a>(DOI) <a href="https://doi.org/10.1527/tjsai.27.204">https://doi.org/10.1527/tjsai.27.204</a><br  /></li></ul></li>
+
+<li><a id="orgheadline43"></a><span class="title">A SAT-based Method for Solving the Two-dimensional Strip Packing Problem</span><br  /><ul class="org-ul"><li><a id="orgheadline39"></a><span class="author">Takehide Soh, Katsumi Inoue, Naoyuki Tamura, Mutsunori Banbara, Hidetomo Nabeshima</span><br  /></li>
+<li><a id="orgheadline40"></a><span class="others">Fundamenta Informaticae, 102(3--4): 467--487, IOS Press, 2010.</span><br  /></li>
+<li><a id="orgheadline41"></a>(DOI) <a href="https://doi.org/10.3233/FI-2010-314">https://doi.org/10.3233/FI-2010-314</a><br  /></li>
+<li><a id="orgheadline42"></a>(ACM DL) <a href="https://dl.acm.org/citation.cfm?id=1890516">https://dl.acm.org/citation.cfm?id=1890516</a><br  /></li></ul></li>
+
+<li><a id="orgheadline48"></a><span class="title">A Competitive and Cooperative Approach to Propositional Satisfiability</span><br  /><ul class="org-ul"><li><a id="orgheadline44"></a><span class="author">Katsumi Inoue, Takehide Soh, Seiji Ueda, Yoshito Sasaura, Mutsunori Banbara and Naoyuki Tamura</span><br  /></li>
+<li><a id="orgheadline45"></a><span class="others">Discrete Applied Mathematics, 154(16):2291-2306, Elsevier, 2006.</span><br  /></li>
+<li><a id="orgheadline46"></a>(DOI) <a href="https://doi.org/10.1016/j.dam.2006.04.015">https://doi.org/10.1016/j.dam.2006.04.015</a><br  /></li>
+<li><a id="orgheadline47"></a>(ACM DL) <a href="https://dl.acm.org/citation.cfm?id=1225862">https://dl.acm.org/citation.cfm?id=1225862</a><br  /></li></ul></li></ol>
+</div>
+
+<div id="outline-container-orgheadline104" class="outline-2">
+<h2 id="orgheadline104"><span class="section-number-2">3</span> Conference Proceedings (with peer review)</h2>
+<div class="outline-text-2" id="text-3">
+</div><ol class="org-ol"><li><a id="orgheadline53"></a><span class="title">Solving Multiobjective Discrete Optimization Problems with Propositional Minimal Model Generation</span><br  /><ul class="org-ul"><li><a id="orgheadline50"></a><span class="author">Takehide Soh, Mutsunori Banbara, Naoyuki Tamura, Daniel Le Berre</span><br  /></li>
+<li><a id="orgheadline51"></a><span class="others">Proceedings of the 23rd International Conference on Principles and Practice of Constraint Programming (CP 2017), 10416, 596--614, 2017.</span><br  /></li>
+<li><a id="orgheadline52"></a>(DOI) <a href="https://doi.org/10.1007/978-3-319-66158-2_38">https://doi.org/10.1007/978-3-319-66158-2_38</a><br  /></li></ul></li>
+
+<li><a id="orgheadline57"></a><span class="title">catnap: Generating Test Suites of Constrained Combinatorial Testing with Answer Set Programming</span><br  /><ul class="org-ul"><li><a id="orgheadline54"></a><span class="author">Mutsunori Banbara, Katsumi Inoue, Hiromasa Kaneyuki, Tenda Okimoto, Torsten Schaub, Takehide Soh, Naoyuki Tamura</span><br  /></li>
+<li><a id="orgheadline55"></a><span class="others">Proceedings of the 14th International Conference on Logic Programming and Nonmonotonic Reasoning (LPNMR 2017), LNAI, Vol.10377, pp.265--278, Springer</span><br  /></li>
+
+<li><a id="orgheadline56"></a>(DOI) <a href="https://doi.org/10.1007/978-3-319-61660-5_24">https://doi.org/10.1007/978-3-319-61660-5_24</a><br  /></li></ul></li>
+
+<li><a id="orgheadline61"></a><span class="title">teaspoon: Solving the Curriculum-Based Course Timetabling Problems with Answer Set Programming</span><br  /><ul class="org-ul"><li><a id="orgheadline58"></a><span class="author">Mutsunori Banbara, Katsumi Inoue, Benjamin Kaufmann, Torsten Schaub, Takehide Soh, Naoyuki Tamura, Philipp Wanko</span><br  /></li>
+<li><a id="orgheadline59"></a><span class="others">Proceedings of the 11th International Conference on the Practice and Theory of Automated Timetabling (PATAT 2016), pp.13-32, 2016.</span><br  /></li>
+<li><a id="orgheadline60"></a>(DOI) <a href="https://doi.org/10.1007/s10479-018-2757-7">https://doi.org/10.1007/s10479-018-2757-7</a><br  /></li></ul></li>
+
+<li><a id="orgheadline66"></a><span class="title">A Hybrid Encoding of CSP to SAT Integrating Order and Log Encodings</span><br  /><ul class="org-ul"><li><a id="orgheadline62"></a><span class="author">Takehide Soh, Mutsunori Banbara, Naoyuki Tamura</span><br  /></li>
+<li><a id="orgheadline63"></a><span class="others">Proceedings of the 27th IEEE International Conference on Tools with Artificial Intelligence (ICTAI 2015), pp.421--428, IEEE Computer Society, 2015. </span><br  /></li>
+<li><a id="orgheadline64"></a>(DOI) <a href="https://doi.org/10.1109/ICTAI.2015.70">https://doi.org/10.1109/ICTAI.2015.70</a><br  /></li>
+<li><a id="orgheadline65"></a>(ACM DL) <a href="https://dl.acm.org/citation.cfm?id=2922011">https://dl.acm.org/citation.cfm?id=2922011</a><br  /></li></ul></li>
+
+<li><a id="orgheadline72"></a><span class="title">aspartame: Solving Constraint Satisfaction Problems with Answer Set Programming.</span><br  /><ul class="org-ul"><li><a id="orgheadline67"></a><span class="author">Mutsunori Banbara, Martin Gebser, Katsumi Inoue, Max Ostrowski, Andrea Peano, Torsten Schaub, Takehide Soh, Naoyuki Tamura, and Matthias Weise. </span><br  /></li>
+<li><a id="orgheadline68"></a><span class="others">In: Francesco Calimeri, Giovambattista Ianni, and Miroslaw Truszczynski (eds.),</span><br  /></li>
+<li><a id="orgheadline69"></a><span class="others">Proceedings of the 13th International Conference on Logic Programming and Non-monotonic Reasoning (LPNMR 2015), </span><br  /></li>
+<li><a id="orgheadline70"></a><span class="others">Lecture Notes in Artificial Intelligence, Vol.9345, pp.112-126, Springer, 2015.</span><br  /></li>
+<li><a id="orgheadline71"></a>(DOI) <a href="https://doi.org/10.1007/978-3-319-23264-5_10">https://doi.org/10.1007/978-3-319-23264-5_10</a><br  /></li></ul></li>
+
+<li><a id="orgheadline78"></a><span class="title">Incremental SAT-based Method with Native Boolean Cardinality Handling for the Hamiltonian Cycle Problem.</span><br  /><ul class="org-ul"><li><a id="orgheadline73"></a><span class="author">Takehide Soh, Daniel Le Berre, Stéphanie Roussel, Mutsunori Banbara and Naoyuki Tamura.</span><br  /></li>
+<li><a id="orgheadline74"></a><span class="others">In: Eduardo Fermé and Joäo Leite (eds.), Proceedings of the 14th European Conference on Logics in Artificial Intelligence (JELIA 2014), </span><br  /></li>
+<li><a id="orgheadline75"></a><span class="others">Lecture Notes in Artificial Intelligence, Vol.8761, pp.684-693, Springer, 2014. </span><br  /></li>
+<li><a id="orgheadline76"></a>(DOI) <a href="https://doi.org/10.1007/978-3-319-11558-0_52">https://doi.org/10.1007/978-3-319-11558-0_52</a><br  /></li>
+<li><a id="orgheadline77"></a>(ACM DL) <a href="https://dl.acm.org/citation.cfm?id=2735008">https://dl.acm.org/citation.cfm?id=2735008</a><br  /></li></ul></li>
+<li><a id="orgheadline83"></a><span class="title">PBSugar: Compiling Pseudo-Boolean Constraints to SAT with Order Encoding.</span><br  /><ul class="org-ul"><li><a id="orgheadline79"></a><span class="author">Naoyuki Tamura, Mutsunori Banbara, and Takehide Soh. </span><br  /></li>
+<li><a id="orgheadline80"></a><span class="others">Proceedings of the 25th IEEE International Conference on Tools with Artificial Intelligence (ICTAI 2013), pp. 1020-1027, IEEE Computer Society, 2013. DOI 10.1109/ICTAI.2013.153</span><br  /></li>
+<li><a id="orgheadline81"></a>(DOI) <a href="https://doi.org/10.1109/ICTAI.2013.153">https://doi.org/10.1109/ICTAI.2013.153</a><br  /></li>
+<li><a id="orgheadline82"></a>(ACM DL) <a href="https://dl.acm.org/citation.cfm?id=2572806">https://dl.acm.org/citation.cfm?id=2572806</a><br  /></li></ul></li>
+
+<li><a id="orgheadline88"></a><span class="title">Scarab: A Rapid Prototyping Tool for SAT-based Constraint Programming Systems (Tool Paper)</span><br  /><ul class="org-ul"><li><a id="orgheadline84"></a><span class="author">Takehide Soh, Naoyuki Tamura, and Mutsunori Banbara</span><br  /></li>
+<li><a id="orgheadline85"></a><span class="others">In the Proceedings of the 16th International Conference on Theory and Applications of Satisfiability Testing (SAT 2013), LNCS 7962, pp. 429-436, 2013.</span><br  /></li>
+<li><a id="orgheadline86"></a>(DOI) <a href="https://doi.org/10.1007/978-3-642-39071-5_34">https://doi.org/10.1007/978-3-642-39071-5_34</a><br  /></li>
+<li><a id="orgheadline87"></a>(ACM DL) <a href="https://dl.acm.org/citation.cfm?id=2525760">https://dl.acm.org/citation.cfm?id=2525760</a><br  /></li></ul></li>
+
+<li><a id="orgheadline93"></a><span class="title">Analyzing Pathways using ASP-based Approaches</span><br  /><ul class="org-ul"><li><a id="orgheadline89"></a><span class="author">Oliver Ray, Takehide Soh, and Katsumi Inoue</span><br  /></li>
+<li><a id="orgheadline90"></a><span class="others">Proceedings of the 4th International Conference on Algebraic and Numeric Biology (ANB'10), LNCS, Vol. 6479, pp.167-183, Springer, 2012.</span><br  /></li>
+<li><a id="orgheadline91"></a>(DOI) <a href="https://doi.org/10.3233/AIC-2010-0465">https://doi.org/10.3233/AIC-2010-0465</a><br  /></li>
+<li><a id="orgheadline92"></a>(ACM DL) <a href="https://dl.acm.org/citation.cfm?id=2187435">https://dl.acm.org/citation.cfm?id=2187435</a><br  /></li></ul></li>
+
+<li><a id="orgheadline98"></a><span class="title">Identifying Necessary Reactions in Metabolic Pathways by Minimal Model Generation</span><br  /><ul class="org-ul"><li><a id="orgheadline94"></a><span class="author">Takehide Soh and Katsumi Inoue</span><br  /></li>
+<li><a id="orgheadline95"></a><span class="others">In the Proceedings of the 19th European Conference on Artificial Intelligence (ECAI 2010), pp.277-282, IOS Press, 2010.</span><br  /></li>
+<li><a id="orgheadline96"></a>(DOI) <a href="https://doi.org/10.3233/978-1-60750-606-5-277">https://doi.org/10.3233/978-1-60750-606-5-277</a><br  /></li>
+<li><a id="orgheadline97"></a>(ACM DL) <a href="https://dl.acm.org/citation.cfm?id=1861023">https://dl.acm.org/citation.cfm?id=1861023</a><br  /></li></ul></li>
+<li><a id="orgheadline103"></a><span class="title">Lemma Reusing for SAT based Planning and Scheduling</span><br  /><ul class="org-ul"><li><a id="orgheadline99"></a><span class="author">Hidetomo Nabeshima, Takehide Soh, Katsumi Inoue, and Koji Iwanuma</span><br  /></li>
+<li><a id="orgheadline100"></a><span class="others">In the proceedings of the International Conference on Automated Planning and Scheduling 2006 (ICAPS 2006), pages 103-112, AAAI Press, 2006.</span><br  /></li>
+<li><a id="orgheadline101"></a>(DOI) <a href="http://www.aaai.org/Library/ICAPS/2006/icaps06-011.php">http://www.aaai.org/Library/ICAPS/2006/icaps06-011.php</a><br  /></li>
+<li><a id="orgheadline102"></a>(ACM DL) <a href="https://dl.acm.org/citation.cfm?id=3037118">https://dl.acm.org/citation.cfm?id=3037118</a><br  /></li></ul></li></ol>
+</div>
+
+<div id="outline-container-orgheadline123" class="outline-2">
+<h2 id="orgheadline123"><span class="section-number-2">4</span> International Workshop Proceedings (with peer review)</h2>
+<div class="outline-text-2" id="text-4">
+</div><ol class="org-ol"><li><a id="orgheadline109"></a><span class="title">Aspartame: Solving Constraint Satisfaction Problems with Answer Set Programming</span><br  /><ul class="org-ul"><li><a id="orgheadline105"></a><span class="author">Mutsunori Banbara, Martin Gebser, Katsumi Inoue, Torsten Schaub, Takehide Soh, Naoyuki Tamura and Matthias Weise</span><br  /></li>
+<li><a id="orgheadline106"></a><span class="others">In the Proceedings of Workshop on Answer Set Programming and Other Computing Paradigms (ASPOCP), Istanbul, August 2013.</span><br  /></li>
+<li><a id="orgheadline107"></a>(URL) <a href="http://www.kr.tuwien.ac.at/events/aspocp2013/prog.html">http://www.kr.tuwien.ac.at/events/aspocp2013/prog.html</a><br  /></li>
+<li><a id="orgheadline108"></a>(arXiv) <a href="https://arxiv.org/abs/1312.6113">https://arxiv.org/abs/1312.6113</a><br  /></li></ul></li>
+
+<li><a id="orgheadline114"></a><span class="title">Finding Minimal Reaction Sets in Large Metabolic Pathways</span><br  /><ul class="org-ul"><li><a id="orgheadline110"></a><span class="author">Takehide Soh and Katsumi Inoue</span><br  /></li>
+<li><a id="orgheadline111"></a><span class="others">In the Proceedings of the Workshop on Constraint Based Methods for Bioinformatics (WCB 2010), pp.54-68, Edinburgh, 2010.</span><br  /></li>
+<li><a id="orgheadline112"></a>(URL) <a href="http://wcb10.dimi.uniud.it/">http://wcb10.dimi.uniud.it/</a><br  /></li>
+<li><a id="orgheadline113"></a>(DOI) <a href="https://doi.org/10.29007/xp2k">https://doi.org/10.29007/xp2k</a><br  /></li></ul></li>
+
+<li><a id="orgheadline119"></a><span class="title">A SAT-based Method for Solving the Two-dimensional Strip Packing Problem</span><br  /><ul class="org-ul"><li><a id="orgheadline115"></a><span class="author">Takehide Soh, Katsumi Inoue, Naoyuki Tamura, Mutsunori Banbara, Hidetomo Nabeshima</span><br  /></li>
+<li><a id="orgheadline116"></a><span class="others">Proceedings of The 15th RCRA workshop on Experimental Evaluation of Algorithms for Solving Problems with Combinatorial Explosion, No.16 (15 pages), CEUR Workshop Proceedings (CEUR-WS.org), Vol.451, 2008.</span><br  /></li>
+<li><a id="orgheadline117"></a>(URL of Workshop Proceeding) <a href="http://ceur-ws.org/Vol-451/">http://ceur-ws.org/Vol-451/</a><br  /></li>
+<li><a id="orgheadline118"></a>(URL of Paper) <a href="http://ceur-ws.org/Vol-451/paper16soh.pdf">http://ceur-ws.org/Vol-451/paper16soh.pdf</a><br  /></li></ul></li>
+
+<li><a id="orgheadline122"></a><span class="title">Experimental Results for Solving Job-shop Scheduling Problems with Multiple SAT Solvers</span><br  /><ul class="org-ul"><li><a id="orgheadline120"></a><span class="author">Takehide Soh, Katsumi Inoue, Mutsunori Banbara, and Naoyuki Tamura</span><br  /></li>
+<li><a id="orgheadline121"></a><span class="others">In the Proceedings of the 1st International Workshop on Distributed and Speculative Constraint Processing (held in conjunction with CP 2005), pages 25-38, Sitges Spain, October 1st 2005.</span><br  /><div class="outline-text-4" id="text-orgheadline121">
+<ul class="org-ul">
+<li>A description of this workshop can be found in the front matter of
+CP 2005 proceeding. 
+<ul class="org-ul">
+<li><a href="https://link.springer.com/content/pdf/bfm:978-3-540-32050-0/1.pdf">https://link.springer.com/content/pdf/bfm:978-3-540-32050-0/1.pdf</a></li>
+</ul></li>
+<li>(PDF)</li>
+</ul>
+</div></li></ul></li></ol>
+</div>
+
+<div id="outline-container-orgheadline140" class="outline-2">
+<h2 id="orgheadline140"><span class="section-number-2">5</span> Survey/Tutorial Papers</h2>
+<div class="outline-text-2" id="text-5">
+</div><ol class="org-ol"><li><a id="orgheadline127"></a><span class="title">Recent Advances in SAT Solvers and their Utilization Technologies</span><br  /><ul class="org-ul"><li><a id="orgheadline124"></a><span class="author">Takehide Soh, Mutsunori Banbara, Naoyuki Tamura, Hidetomo Nabeshima.</span><br  /></li>
+<li><a id="orgheadline125"></a><span class="others">Computer Software, 35(4):72--92, 2018.</span><br  /></li>
+<li><a id="orgheadline126"></a>(DOI) <a href="https://doi.org/10.11309/jssst.35.4_72">https://doi.org/10.11309/jssst.35.4_72</a><br  /></li></ul></li>
+
+<li><a id="orgheadline131"></a><span class="title">SAT-based Constraint Programming Systems and Related Technologies</span><br  /><ul class="org-ul"><li><a id="orgheadline128"></a><span class="author">Takehide Soh, Mutsunori Banbara, Naoyuki Tamura. </span><br  /></li>
+<li><a id="orgheadline129"></a><span class="others">Computer Software, 34(1):67-80, 2017.</span><br  /></li>
+<li><a id="orgheadline130"></a>(DOI) <a href="https://doi.org/10.11309/jssst.34.1_67">https://doi.org/10.11309/jssst.34.1_67</a><br  /></li></ul></li>
+
+<li><a id="orgheadline135"></a><span class="title">Satisfiability and Puzzles - How to Solve Problems with a SAT Solver</span><br  /><ul class="org-ul"><li><a id="orgheadline132"></a><span class="author">Naoyuki Tamura, Takehide Soh, Mutsunori Banbara</span><br  /></li>
+<li><a id="orgheadline133"></a><span class="others">IPSJ Magazine, 57(8): 710-715, 2016.</span><br  /></li>
+<li><a id="orgheadline134"></a>(URL) <a href="http://id.nii.ac.jp/1001/00169409/">http://id.nii.ac.jp/1001/00169409/</a><br  /></li></ul></li>
+
+<li><a id="orgheadline139"></a><span class="title">Principles of Modern SAT Solvers </span><br  /><ul class="org-ul"><li><a id="orgheadline136"></a><span class="author">Hidetomo Nabeshima and Takehide Soh</span><br  /></li>
+<li><a id="orgheadline137"></a><span class="others">Journal of the Japan Society for Artificial Intelligence, 25(1):68-76, 2010.</span><br  /></li>
+<li><a id="orgheadline138"></a>(URL) <a href="http://id.nii.ac.jp/1004/00007418/">http://id.nii.ac.jp/1004/00007418/</a><br  /></li></ul></li></ol>
+</div>
+
+<div id="outline-container-orgheadline146" class="outline-2">
+<h2 id="orgheadline146"><span class="section-number-2">6</span> System Description</h2>
+<div class="outline-text-2" id="text-6">
+</div><ol class="org-ol"><li><a id="orgheadline145"></a><span class="title">sCOP: SAT-based Constraint Programming System.</span><br  /><ul class="org-ul"><li><a id="orgheadline141"></a><span class="author">Takehide Soh,Daniel Le Berre, Mutsunori Banbara, Naoyuki Tamura</span><br  /></li>
+<li><a id="orgheadline142"></a><span class="others">Solver Descriptions of XCSP3 Competition 2018 (XCSP18).</span><br  /></li>
+<li><a id="orgheadline143"></a>(URL of XCSP3 Competitions) <a href="http://xcsp.org/competition">http://xcsp.org/competition</a><br  /></li>
+<li><a id="orgheadline144"></a>(URL of Solver Description) <a href="http://www.cril.univ-artois.fr/XCSP18/files/scop.pdf">http://www.cril.univ-artois.fr/XCSP18/files/scop.pdf</a><br  /></li></ul></li></ol>
+</div>
+
+<div id="outline-container-orgheadline289" class="outline-2">
+<h2 id="orgheadline289"><span class="section-number-2">7</span> Other Papers (without peer review)</h2>
+<div class="outline-text-2" id="text-7">
+</div><ol class="org-ol"><li><a id="orgheadline149"></a><span class="title">解集合プログラミングによるカリキュラムベース・コース時間割編成.</span><br  /><ul class="org-ul"><li><a id="orgheadline147"></a><span class="author">Mutsunori Banbara, Katsumi Inoue, ベンジャミン カウフマン, トルステン シャウブ, Takehide Soh, Naoyuki Tamura, フィリップ ワンコ</span><br  /></li>
+<li><a id="orgheadline148"></a><span class="others">第29回RAMPシンポジウム論文集, pp.73--88, 日本オペレーションズ・リサーチ学会 常設研究部会数理計画, 2017.</span><br  /></li></ul></li>
+
+<li><a id="orgheadline153"></a><span class="title">A SAT Encoding of Pseudo-Boolean Constraints via Boolean Cardinality Constraints</span><br  /><ul class="org-ul"><li><a id="orgheadline150"></a><span class="author">Yushi Minami, Takehide Soh, Mutsunori Banbara, Naoyuki Tamura.</span><br  /></li>
+<li><a id="orgheadline151"></a><span class="others">SIG-FPAI-B506</span><br  /></li>
+<li><a id="orgheadline152"></a>(URL) <a href="http://id.nii.ac.jp/1004/00008597/">http://id.nii.ac.jp/1004/00008597/</a><br  /></li></ul></li>
+
+<li><a id="orgheadline157"></a><span class="title">Proposal of SAT-based Method to Detect Deadlock of Petri nets</span><br  /><ul class="org-ul"><li><a id="orgheadline154"></a><span class="author">Tomoya Sunda, Takehide Soh, Mutsunori Banbara, Naoyuki Tamura</span><br  /></li>
+<li><a id="orgheadline155"></a><span class="others">The 31th Annual Conference of the Japanese Society for Artificial Intelligence (JSAI 2017)</span><br  /></li>
+<li><a id="orgheadline156"></a>(DOI) <a href="https://doi.org/10.11517/pjsai.JSAI2017.0_1M1OS02a2">https://doi.org/10.11517/pjsai.JSAI2017.0_1M1OS02a2</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline161"></a><span class="title">A Study of ASP Encoding of Constraint Satisfaction Problems</span><br  /><ul class="org-ul"><li><a id="orgheadline158"></a><span class="author">Naoki Hayama, Mutsunori Banbara, Takehide Soh, Naoyuki Tamura</span><br  /></li>
+<li><a id="orgheadline159"></a><span class="others">The 31th Annual Conference of the Japanese Society for Artificial Intelligence (JSAI 2017)</span><br  /></li>
+<li><a id="orgheadline160"></a>(DOI) <a href="https://doi.org/10.11517/pjsai.JSAI2017.0_1M1OS02a4">https://doi.org/10.11517/pjsai.JSAI2017.0_1M1OS02a4</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline165"></a><span class="title">How to use SAT solvers---How to encode problems to SAT---</span><br  /><ul class="org-ul"><li><a id="orgheadline162"></a><span class="author">Naoyuki Tamura, Takehide Soh, Mutsunori Banbara.</span><br  /></li>
+<li><a id="orgheadline163"></a><span class="others">Proceedings of the 58th Programming Symposium</span><br  /></li>
+<li><a id="orgheadline164"></a>(URL)  <a href="http://www.ipsj.or.jp/prosym/58/58program.html">http://www.ipsj.or.jp/prosym/58/58program.html</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline169"></a><span class="title">Diet-Sugar: SAT-based Constraint Solver Implementing Hybrid SAT Encoding</span><br  /><ul class="org-ul"><li><a id="orgheadline166"></a><span class="author">Takehide Soh, Mutsunori Banbara, Naoyuki Tamura.</span><br  /></li>
+<li><a id="orgheadline167"></a><span class="others">Proceedings of the 58th Programming Symposium</span><br  /></li>
+<li><a id="orgheadline168"></a>(URL)  <a href="http://www.ipsj.or.jp/prosym/58/58program.html">http://www.ipsj.or.jp/prosym/58/58program.html</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline173"></a><span class="title">Proposal of a SAT-based Method to Detect Deadlocks of Ordinary Petri Nets</span><br  /><ul class="org-ul"><li><a id="orgheadline170"></a><span class="author">Tomoya Sunda, Takehide Soh, Mutsunori Banbara, Naoyuki Tamura.</span><br  /></li>
+<li><a id="orgheadline171"></a><span class="others">The 33rd Conference of Japan Society for Software Science and Technology (JSSST 2016)</span><br  /></li>
+<li><a id="orgheadline172"></a>(URL) <a href="http://jssst.or.jp/files/user/taikai/2016/PPL/ppl9-2.pdf">http://jssst.or.jp/files/user/taikai/2016/PPL/ppl9-2.pdf</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline177"></a><span class="title">Solving Numberlink by a SAT-based Constraint Solver and its Evaluation</span><br  /><ul class="org-ul"><li><a id="orgheadline174"></a><span class="author">Tatsuya Sako, Masahiro Kawahara, Takehide Soh, Mutsunori Banbara, Naoyuki Tamura, Hidetomo Nabeshima.</span><br  /></li>
+<li><a id="orgheadline175"></a><span class="others">The 30th Annual Conference of the Japanese Society for Artificial Intelligence (JSAI 2016)</span><br  /></li>
+<li><a id="orgheadline176"></a>(DOI) <a href="https://doi.org/10.11517/pjsai.JSAI2016.0_1D4OS02a3">https://doi.org/10.11517/pjsai.JSAI2016.0_1D4OS02a3</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline181"></a><span class="title">Constraint Models for SAT-based Subgraph Search</span><br  /><ul class="org-ul"><li><a id="orgheadline178"></a><span class="author">Masahiro Kawahara, Takehide Soh, Mutsunori Banbara, Naoyuki Tamura.</span><br  /></li>
+<li><a id="orgheadline179"></a><span class="others">The 30th Annual Conference of the Japanese Society for Artificial Intelligence (JSAI 2016)</span><br  /></li>
+<li><a id="orgheadline180"></a>(DOI) <a href="https://doi.org/10.11517/pjsai.JSAI2016.0_1D4OS02a4">https://doi.org/10.11517/pjsai.JSAI2016.0_1D4OS02a4</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline185"></a><span class="title">Solving Optimal Software Component Configuration Problem in Cloud</span><br  /><ul class="org-ul"><li><a id="orgheadline182"></a><span class="author">Naoyuki Tamura, Katsumi Inoue, Hidetomo Nabeshima, Mutsunori Banbara, Takehide Soh.</span><br  /></li>
+<li><a id="orgheadline183"></a><span class="others">SIG-FPAI-B503</span><br  /></li>
+<li><a id="orgheadline184"></a>(URL) <a href="http://id.nii.ac.jp/1004/00000889/">http://id.nii.ac.jp/1004/00000889/</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline189"></a><span class="title">Estimating and Visualizing State Transitions of Transcription Factors from Perturbation Experiments</span><br  /><ul class="org-ul"><li><a id="orgheadline186"></a><span class="author">平沼祐人, 山本泰生, 守屋央朗, Takehide Soh, 岩沼宏治.</span><br  /></li>
+<li><a id="orgheadline187"></a><span class="others">第45回バイオ情報学研究発表会, 研究報告バイオ情報学 (BIO), 2016-BIO-45, Vol. 11, pp. 1--6, 2016.</span><br  /></li>
+<li><a id="orgheadline188"></a>(URL) <a href="http://id.nii.ac.jp/1001/00158055/">http://id.nii.ac.jp/1001/00158055/</a><br  /></li></ul></li>
+
+<li><a id="orgheadline193"></a><span class="title">Test Case Generation of Constrained Combinatorial Testing with Answer Set Programming</span><br  /><ul class="org-ul"><li><a id="orgheadline190"></a><span class="author">Hiromasa Kaneyuki, Mutsunori Banbara, Takehide Soh, Naoyuki Tamura, Katsumi Inoue, 沖本天太.</span><br  /></li>
+<li><a id="orgheadline191"></a><span class="others">第18回プログラミングおよびプログラミング言語ワークショップ (PPL 2016) 論文集, カテゴリC1, 2016.</span><br  /></li>
+<li><a id="orgheadline192"></a>(URL) <a href="http://logic.cs.tsukuba.ac.jp/ppl2016/program.html">http://logic.cs.tsukuba.ac.jp/ppl2016/program.html</a><br  /></li></ul></li>
+
+<li><a id="orgheadline197"></a><span class="title">SAT-based Constraint Programming Systems and its Applications</span><br  /><ul class="org-ul"><li><a id="orgheadline194"></a><span class="author">Takehide Soh.</span><br  /></li>
+<li><a id="orgheadline195"></a><span class="others">第57回プログラミング・シンポジウム, 第57回プログラミング・シンポジウム予稿集, 10ページ, 2016.</span><br  /></li>
+<li><a id="orgheadline196"></a>(URL) <a href="http://www.ipsj.or.jp/prosym/57/57program.html">http://www.ipsj.or.jp/prosym/57/57program.html</a><br  /></li></ul></li>
+
+<li><a id="orgheadline201"></a><span class="title">A Domain-Specific Language in Scala for the Analysis of Metabolic Pathways</span><br  /><ul class="org-ul"><li><a id="orgheadline198"></a><span class="author">Takehide Soh, Tomoya Baba.</span><br  /></li>
+<li><a id="orgheadline199"></a><span class="others">日本ソフトウェア科学会第32回大会講演論文集, ソフトウェア-1, 日本ソフトウェア科学会, 2015. </span><br  /></li>
+<li><a id="orgheadline200"></a>(URL) <a href="https://ci.nii.ac.jp/naid/40020656977">https://ci.nii.ac.jp/naid/40020656977</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline206"></a><span class="title">Implementation and Evaluation of an Efficient Subgraph Search Tool using SAT Solvers . </span><br  /><ul class="org-ul"><li><a id="orgheadline202"></a><span class="author">Masahiro Kawahara, Takehide Soh, Mutsunori Banbara, and Naoyuki Tamura. </span><br  /></li>
+<li><a id="orgheadline203"></a><span class="others">The 32st Conference of Japan Society for Software Science and Technology (JSSST 2015), PPL3-1, Japan Society for Software Science and Technology, 2015.</span><br  /></li>
+<li><a id="orgheadline204"></a>(URL) <a href="https://ci.nii.ac.jp/naid/40020657178">https://ci.nii.ac.jp/naid/40020657178</a><br  /></li>
+<li><a id="orgheadline205"></a>(URL) <a href="http://jssst.or.jp/files/user/taikai/2015/PPL/ppl3-1.pdf">http://jssst.or.jp/files/user/taikai/2015/PPL/ppl3-1.pdf</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline210"></a><span class="title">iSugar : A SAT-based Constraint Solver Utilizing Incremental SAT Method . </span><br  /><ul class="org-ul"><li><a id="orgheadline207"></a><span class="author">Tatsuya Sako, Takehide Soh, Mutsunori Banbara, Naoyuki Tamura, Hidetomo Nabeshima, and Katsumi Inoue. </span><br  /></li>
+<li><a id="orgheadline208"></a><span class="others">The 32st Conference of Japan Society for Software Science and Technology (JSSST 2015), PPL6-1, Japan Society for Software Science and Technology, 2015.</span><br  /></li>
+<li><a id="orgheadline209"></a>(URL) <a href="http://jssst.or.jp/files/user/taikai/2015/PPL/ppl6-1.pdf">http://jssst.or.jp/files/user/taikai/2015/PPL/ppl6-1.pdf</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline215"></a><span class="title">A Hybrid Encoding of CSP to SAT Integrating Order and Log Encodings . </span><br  /><ul class="org-ul"><li><a id="orgheadline211"></a><span class="author">Takehide Soh, Mutsunori Banbara, and Naoyuki Tamura. </span><br  /></li>
+<li><a id="orgheadline212"></a><span class="others">The 32st Conference of Japan Society for Software Science and Technology (JSSST 2015), PPL6-3, Japan Society for Software Science and Technology, 2015.</span><br  /></li>
+<li><a id="orgheadline213"></a>(URL) <a href="http://jssst.or.jp/files/user/taikai/2015/PPL/ppl6-3.pdf">http://jssst.or.jp/files/user/taikai/2015/PPL/ppl6-3.pdf</a><br  /></li>
+<li><a id="orgheadline214"></a>(URL) <a href="https://ci.nii.ac.jp/naid/40020657481">https://ci.nii.ac.jp/naid/40020657481</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline219"></a><span class="title">Applying Constraint Answer Set Programming to Combinatorial Test Case Generation Problems . </span><br  /><ul class="org-ul"><li><a id="orgheadline216"></a><span class="author">Hiromasa Kaneyuki, Mutsunori Banbara, Takehide Soh, Naoyuki Tamura and Katsumi Inoue. </span><br  /></li>
+<li><a id="orgheadline217"></a><span class="others">The 29th Annual Conference of the Japanese Society for Artificial Intelligence (JSAI 2015), 2H5-OS-03b-5, The Japanese Society for Artificial Intelligence, 2015. JSAI Annual Conference Award.</span><br  /></li>
+<li><a id="orgheadline218"></a>(DOI) <a href="https://doi.org/10.11517/pjsai.JSAI2015.0_2H5OS03b5">https://doi.org/10.11517/pjsai.JSAI2015.0_2H5OS03b5</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline223"></a><span class="title">Prototyping Tool for SAT-based Constraint Programming Systems in Scala . </span><br  /><ul class="org-ul"><li><a id="orgheadline220"></a><span class="author">Takehide Soh, Mutsunori Banbara and Naoyuki Tamura. Prototyping Tool for SAT-based. </span><br  /></li>
+<li><a id="orgheadline221"></a><span class="others">The 31st Conference of Japan Society for Software Science and Technology (JSSST 2014), SOFT1-1, Japan Society for Software Science and Technology, 2014.</span><br  /></li>
+<li><a id="orgheadline222"></a>(URL) <a href="http://jssst.or.jp/files/user/taikai/2014/soft/soft1-1.pdf">http://jssst.or.jp/files/user/taikai/2014/soft/soft1-1.pdf</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline228"></a><span class="title">Studies on a Design of Constraint Answer Set Programming Systems . </span><br  /><ul class="org-ul"><li><a id="orgheadline224"></a><span class="author">Takehide Soh, Haruki Noritake, Mutsunori Banbara, Naoyuki Tamura and Katsumi Inoue. </span><br  /></li>
+<li><a id="orgheadline225"></a><span class="others">The 31st Conference of Japan Society for Software Science and Technology (JSSST 2014), PPL2-3, Japan Society for Software Science and Technology, 2014.</span><br  /></li>
+<li><a id="orgheadline226"></a>(URL) <a href="https://ci.nii.ac.jp/naid/40020581916">https://ci.nii.ac.jp/naid/40020581916</a><br  /></li>
+<li><a id="orgheadline227"></a>(URL) <a href="http://jssst.or.jp/files/user/taikai/2014/PPL/PPL2-3.pdf">http://jssst.or.jp/files/user/taikai/2014/PPL/PPL2-3.pdf</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline233"></a><span class="title">Solving Numberlink by a SAT-based Constraint Solver . </span><br  /><ul class="org-ul"><li><a id="orgheadline229"></a><span class="author">Naoyuki Tamura, Takehide Soh, Mutsunori Banbara and Hidetomo Nabeshima. </span><br  /></li>
+<li><a id="orgheadline230"></a><span class="others">DA Symposium 2014, DA2014-7B-2, pp.215-220, IPSJ SIG-SLDM, Information Processing Society of Japan, 2014</span><br  /></li>
+<li><a id="orgheadline231"></a>(URL) <a href="https://ci.nii.ac.jp/naid/170000084795">https://ci.nii.ac.jp/naid/170000084795</a><br  /></li>
+<li><a id="orgheadline232"></a>(URL) <a href="http://id.nii.ac.jp/1001/00102757/">http://id.nii.ac.jp/1001/00102757/</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline237"></a><span class="title">Solving Post-Enrollment Course Timetabling using Cardinality Constraint and SAT Solvers . </span><br  /><ul class="org-ul"><li><a id="orgheadline234"></a><span class="author">Atsushi Sakoda, Takehide Soh, Mutsunori Banbara, and Naoyuki Tamura. </span><br  /></li>
+<li><a id="orgheadline235"></a><span class="others">The 28th Annual Conference of the Japanese Society for Artificial Intelligence (JSAI 2014), 1D5-OS-11b-7, The Japanese Society for Artificial Intelligence, 2014.</span><br  /></li>
+<li><a id="orgheadline236"></a>(DOI) <a href="https://doi.org/10.11517/pjsai.JSAI2014.0_1D5OS11b7">https://doi.org/10.11517/pjsai.JSAI2014.0_1D5OS11b7</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline241"></a><span class="title">SAT-based CP System Scarab and its Application to Hamiltonian Cycle Problem . </span><br  /><ul class="org-ul"><li><a id="orgheadline238"></a><span class="author">Takehide Soh, Daniel Le Berre, Stéphanie Roussel, Mutsunori Banbara, and Naoyuki Tamura. </span><br  /></li>
+<li><a id="orgheadline239"></a><span class="others">The 28th Annual Conference of the Japanese Society for Artificial Intelligence (JSAI 2014), 1D5-OS-11b-6in, The Japanese Society for Artificial Intelligence, 2014.</span><br  /></li>
+<li><a id="orgheadline240"></a>(DOI) <a href="https://doi.org/10.11517/pjsai.JSAI2014.0_1D5OS11b6i">https://doi.org/10.11517/pjsai.JSAI2014.0_1D5OS11b6i</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline245"></a><span class="title">Constraint Modeling and SAT Encoding of the Packing Array Problem . </span><br  /><ul class="org-ul"><li><a id="orgheadline242"></a><span class="author">Haruki Noritake, Mutsunori Banbara, Takehide Soh, Naoyuki Tamura, and Katsumi Inoue. </span><br  /></li>
+<li><a id="orgheadline243"></a><span class="others">The 30th Conference of Japan Society for Software Science and Technology (JSSST 2013), PPL1-1, Japan Society for Software Science and Technology, 2013.</span><br  /></li>
+<li><a id="orgheadline244"></a>(URL) <a href="https://jssst2013.wordpress.com/program-911/">https://jssst2013.wordpress.com/program-911/</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline249"></a><span class="title">Scarab: A Prototyping Tool for SAT-based Constraint Programming Systems in Scala . </span><br  /><ul class="org-ul"><li><a id="orgheadline246"></a><span class="author">Takehide Soh, Naoyuki Tamura, Mutsunori Banbara, Daniel Le Berre, and Stéphanie Roussel. </span><br  /></li>
+<li><a id="orgheadline247"></a><span class="others">The 30th Conference of Japan Society for Software Science and Technology (JSSST 2013), PPL2-5, Japan Society for Software Science and Technology, 2013.</span><br  /></li>
+<li><a id="orgheadline248"></a>(URL) <a href="http://jssst.or.jp/files/user/taikai/2013/ppl2/ppl2-5.pdf">http://jssst.or.jp/files/user/taikai/2013/ppl2/ppl2-5.pdf</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline253"></a><span class="title">Constraint Models of the Square Packing Problem and their SAT Encodings . </span><br  /><ul class="org-ul"><li><a id="orgheadline250"></a><span class="author">Atsushi Sakoda, Takehide Soh, Mutsunori Banbara, and Naoyuki Tamura. </span><br  /></li>
+<li><a id="orgheadline251"></a><span class="others">The 27th Annual Conference of the Japanese Society for Artificial Intelligence (JSAI 2013), 2E5-OS-09b-1, The Japanese Society for Artificial Intelligence, 2013.</span><br  /></li>
+<li><a id="orgheadline252"></a>(DOI) <a href="https://doi.org/10.11517/pjsai.JSAI2013.0_2E5OS09b1">https://doi.org/10.11517/pjsai.JSAI2013.0_2E5OS09b1</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline257"></a><span class="title">Constructing Packing Arrays by SAT Encoding.</span><br  /><ul class="org-ul"><li><a id="orgheadline254"></a><span class="author">Haruki Noritake, Mutsunori Banbara, Takehide Soh, Naoyuki Tamura, and Katsumi Inoue. </span><br  /></li>
+<li><a id="orgheadline255"></a><span class="others">The 15th JSSST Workshop on Programming and Programming Languages (PPL 2013), C1 category, Japan Society for Software Science and Technology, 2013.</span><br  /></li>
+<li><a id="orgheadline256"></a>(URL) <a href="http://www.pllab.riec.tohoku.ac.jp/ppl2013/timetable-without-abstract.html">http://www.pllab.riec.tohoku.ac.jp/ppl2013/timetable-without-abstract.html</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline261"></a><span class="title">Evaluation of the Prediction of Gene Knockout Effects by Minimal Pathway Enumeration</span><br  /><ul class="org-ul"><li><a id="orgheadline258"></a><span class="author">Takehide Soh, Katsumi Inoue, Tomoya Baba, Toyoyuki Takada, and Toshihiko Shiroishi</span><br  /></li>
+<li><a id="orgheadline259"></a><span class="others">International Journal On Advances in Life Sciences, 4(3-4):154-165, 2012.</span><br  /></li>
+<li><a id="orgheadline260"></a>(DOI) <a href="https://www.thinkmind.org/index.php?view=article&amp;articleid=lifsci_v4_n34_2012_8">https://www.thinkmind.org/index.php?view=article&amp;articleid=lifsci_v4_n34_2012_8</a><br  /></li></ul></li>
+
+<li><a id="orgheadline265"></a><span class="title">Predicting Gene Knockout Effects by Minimal Pathway Enumeration</span><br  /><ul class="org-ul"><li><a id="orgheadline262"></a><span class="author">Takehide Soh, Katsumi Inoue, Tomoya Baba, Toyoyuki Takada and Toshihiko Shiroishi</span><br  /></li>
+<li><a id="orgheadline263"></a><span class="others">The 4th International Conference on Bioinformatics, Biocomputational Systems and Biotechnologies (BIOTECHNO 2012), pp.11-19, 2012.</span><br  /></li>
+<li><a id="orgheadline264"></a>(DOI) <a href="https://www.thinkmind.org/index.php?view=article&amp;articleid=biotechno_2012_1_30_50068">https://www.thinkmind.org/index.php?view=article&amp;articleid=biotechno_2012_1_30_50068</a><br  /></li></ul></li>
+
+<li><a id="orgheadline269"></a><span class="title">Predicting Gene Knockout Effects on E. coli by Minimal Active Pathway Enumeration</span><br  /><ul class="org-ul"><li><a id="orgheadline266"></a><span class="author">Takehide Soh, Katsumi Inoue, Tomoya Baba, Toyoyuki Takada and Toshihiko Shiroishi</span><br  /></li>
+<li><a id="orgheadline267"></a><span class="others">IPSJ SIG Technical Report</em>, Vol.2012-ICS-165, No.7, pages 1-6, 2012.</span><br  /></li>
+<li><a id="orgheadline268"></a>(DOI) <a href="http://id.nii.ac.jp/1001/00079763/">http://id.nii.ac.jp/1001/00079763/</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline273"></a><span class="title">Finding Minimal Sub-pathways in Metabolic Pathways by Model Generation </span><br  /><ul class="org-ul"><li><a id="orgheadline270"></a><span class="author">Takehide Soh and Katsumi Inoue</span><br  /></li>
+<li><a id="orgheadline271"></a><span class="others">The 24th Annual Conference on Japanese Society of Artificial Intelligence (JSAI 2010), Nagasaki, Japan, 2010.</span><br  /></li>
+<li><a id="orgheadline272"></a>(DOI) <a href="https://doi.org/10.11517/pjsai.JSAI2010.0_1E13">https://doi.org/10.11517/pjsai.JSAI2010.0_1E13</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline277"></a><span class="title">Analyzing Pathways through a Translation into SAT Problems </span><br  /><ul class="org-ul"><li><a id="orgheadline274"></a><span class="author">Takehide Soh and Katsumi Inoue</span><br  /></li>
+<li><a id="orgheadline275"></a><span class="others">The 23th Annual Conference on Japanese Society of Artificial Intelligence (JSAI 2009), Takamatsu, Japan, 2009.</span><br  /></li>
+<li><a id="orgheadline276"></a>(DOI) <a href="https://doi.org/10.11517/pjsai.JSAI2009.0_2H33">https://doi.org/10.11517/pjsai.JSAI2009.0_2H33</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline280"></a><span class="title">Solving Shop Scheduling Problems by SAT Encoding </span><br  /><ul class="org-ul"><li><a id="orgheadline278"></a><span class="author">Naoyuki Tamura, Akiko Taga, Mutsunori Banbara, Takehide Soh, Hidetomo Nabeshima, and Katsumi Inoue.</span><br  /></li>
+<li><a id="orgheadline279"></a><span class="others">Proceedings of the Scheduling Symposium 2007, pp.97-102, The Sceduling Society of Japan, 2007.</span><br  /></li></ul></li>
+
+
+<li><a id="orgheadline284"></a><span class="title">Effective SAT Planning and SAT Scheduling by Lemma Reusing</span><br  /><ul class="org-ul"><li><a id="orgheadline281"></a><span class="author">Hidetomo Nabeshima, Takehide Soh, Katsumi Inoue, and Koji Iwanuma</span><br  /></li>
+<li><a id="orgheadline282"></a><span class="others">Technical Report of IEICE</em>, 106(38): 19-24, The Institute of Electronics, Information and Communication Engineers, 2006.</span><br  /></li>
+<li><a id="orgheadline283"></a>(URL) <a href="https://ci.nii.ac.jp/naid/110004744913">https://ci.nii.ac.jp/naid/110004744913</a><br  /></li></ul></li>
+
+
+<li><a id="orgheadline288"></a><span class="title">Solving Job Shop Scheduling Problems With Multiple SAT Solvers</span><br  /><ul class="org-ul"><li><a id="orgheadline285"></a><span class="author">Takehide Soh and Katsumi Inoue</span><br  /></li>
+<li><a id="orgheadline286"></a><span class="others">Technical Report of IEICE, 104(133): 19-24, The Institute of Electronics, Information and Communication Engineers, 2004.</span><br  /></li>
+<li><a id="orgheadline287"></a>(URL) <a href="https://ci.nii.ac.jp/naid/110003176997">https://ci.nii.ac.jp/naid/110003176997</a><br  /></li></ul></li></ol>
+</div>
+
+
+<div id="outline-container-orgheadline310" class="outline-2">
+<h2 id="orgheadline310"><span class="section-number-2">8</span> Other Report etc.</h2>
+<div class="outline-text-2" id="text-8">
+</div><ol class="org-ol"><li><a id="orgheadline292"></a><span class="title">OS-2 ``Theory, Implementation, and Applications of SAT Technology''</span><br  /><ul class="org-ul"><li><a id="orgheadline290"></a><span class="author">Daisuke Hatano, Takahisa Toda, Takehide Soh</span><br  /></li>
+<li><a id="orgheadline291"></a><span class="others">Journal of Japanese Society for Artificial Intelligence, 31(6):879, 2016</span><br  /></li></ul></li>
+<li><a id="orgheadline295"></a><span class="title">OS-3 ``Theory, Implementation, and Applications of SAT Technology''</span><br  /><ul class="org-ul"><li><a id="orgheadline293"></a><span class="author">Takahisa Toda, Daisuke Hatano, Takehide Soh</span><br  /></li>
+<li><a id="orgheadline294"></a><span class="others">Journal of Japanese Society for Artificial Intelligence, 30(6):773, 2015</span><br  /></li></ul></li>
+<li><a id="orgheadline298"></a><span class="title">OS-11 ``Theory, Implementation, and Applications of SAT Technology''</span><br  /><ul class="org-ul"><li><a id="orgheadline296"></a><span class="author">Takehide Soh, Hidetomo Nabeshima, Miyuki Koshimura</span><br  /></li>
+<li><a id="orgheadline297"></a><span class="others">Journal of Japanese Society for Artificial Intelligence, 29(6):641, 2014</span><br  /></li></ul></li>
+
+<li><a id="orgheadline301"></a><span class="title">OS-09 ``Theory, Implementation, and Applications of SAT Technology''</span><br  /><ul class="org-ul"><li><a id="orgheadline299"></a><span class="author">Miyuki Koshimura, Hidetomo Nabeshima, Takehide Soh</span><br  /></li>
+<li><a id="orgheadline300"></a><span class="others">Journal of Japanese Society for Artificial Intelligence, 28(6):942, 2013</span><br  /></li></ul></li>
+
+<li><a id="orgheadline305"></a><span class="title">Report of 2012 FLOPS International Symposium</span><br  /><ul class="org-ul"><li><a id="orgheadline302"></a><span class="author">Naoyuki Tamura, Mutsunori Banbara, Katsutoshi Hirayama, Takehide Soh</span><br  /></li>
+<li><a id="orgheadline303"></a><span class="others">Computer Software, 30(1):16-19, 2013</span><br  /></li>
+<li><a id="orgheadline304"></a>(DOI) <a href="https://doi.org/10.11309/jssst.30.1_16">https://doi.org/10.11309/jssst.30.1_16</a><br  /></li></ul></li>
+
+<li><a id="orgheadline309"></a><span class="title">My Bookmark: SAT Solver</span><br  /><ul class="org-ul"><li><a id="orgheadline306"></a><span class="author">Mutsunori Banbara, Takehide Soh, Naoyuki Tamura, Katsumi Inoue</span><br  /></li>
+<li><a id="orgheadline307"></a><span class="others">Journal of Japanese Society for Artificial Intelligence, 28(2):343-348, March 2013</span><br  /></li>
+<li><a id="orgheadline308"></a>(URL) <a href="https://www.ai-gakkai.or.jp/my-bookmark_vol28-no2/">https://www.ai-gakkai.or.jp/my-bookmark_vol28-no2/</a><br  /></li></ul></li></ol>
+</div>
+
+
+
+
+<div id="outline-container-orgheadline317" class="outline-2">
+<h2 id="orgheadline317"><span class="section-number-2">9</span> Oral and Poster Presentations</h2>
+<div class="outline-text-2" id="text-9">
+</div><ol class="org-ol"><li><a id="orgheadline313"></a><span class="title">PBSugar: Compiling Pseudo-Boolean Constraints to SAT with Order Encoding</span><br  /><ul class="org-ul"><li><a id="orgheadline311"></a><span class="author">Naoyuki Tamura, Mutsunori Banbara and Takehide Soh</span><br  /></li>
+<li><a id="orgheadline312"></a><span class="others">In the Proceedings of Pragmatics of SAT 2013 (PoS-13), 14 pages, July 2013.</span><br  /></li></ul></li>
+<li><a id="orgheadline316"></a><span class="title">System Architecture and Implementation of a Prototyping Tool for SAT-based Constraint Programming Systems</span><br  /><ul class="org-ul"><li><a id="orgheadline314"></a><span class="author">Takehide Soh, Naoyuki Tamura, Mutsunori Banbara, Daniel Le Berre, and Stéphanie Roussel</span><br  /></li>
+<li><a id="orgheadline315"></a><span class="others">In the Proceedings of Pragmatics of SAT 2013 (PoS-13), 14 pages, July 2013.</span><br  /></li></ul></li></ol>
+</div>
+
+
+<div id="outline-container-orgheadline322" class="outline-2">
+<h2 id="orgheadline322"><span class="section-number-2">10</span> Dissertation</h2>
+<div class="outline-text-2" id="text-10">
+</div><ol class="org-ol"><li><a id="orgheadline321"></a><span class="title">Studies on Applying Incremental SAT Solving to Optimization and Enumeration Problems</span><br  /><ul class="org-ul"><li><a id="orgheadline318"></a><span class="author">Takehide Soh</span><br  /></li>
+<li><a id="orgheadline319"></a><span class="others">School of Multidisciplinary Sciences, The Graduate University for Advanced Studies, Japan, 125 pages</span><br  /></li>
+<li><a id="orgheadline320"></a>(URL) <a href="http://id.nii.ac.jp/1013/00002566/">http://id.nii.ac.jp/1013/00002566/</a><br  /></li></ul></li></ol>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Takehide Soh</p>
+<p class="date">Created: 2018-12-29 土 17:11</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

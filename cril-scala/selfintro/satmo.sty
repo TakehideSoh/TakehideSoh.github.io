@@ -1,0 +1,136 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{alltt}
+\usepackage{comment}
+\usepackage{amssymb}
+\usepackage{amsmath}
+% \usepackage{amsthm}
+\usepackage{multirow}
+% \usepackage{ijcai17}
+\usepackage{times}
+\usepackage{bm}
+
+\newcommand{\weblink}[1]{\href{#1}{\beamergotobutton{web}}}
+
+% \usepackage[dvipdfmx]{graphicx,color}
+% \usepackage[dvipdfmx]{color}
+
+%\usepackage[dvipdfm,bookmarks=false,colorlinks,linkcolor=blue,urlcolor=blue]{hyperref}
+% \usepackage[dvipdfm,bookmarks=false,bookmarksnumbered=true,bookmarkstype=toc,colorlinks,linkcolor=blue,urlcolor=blue]{hyperref}
+% \usepackage[dvipdfm,bookmarks=true,bookmarksnumbered=true,bookmarkstype=toc,colorlinks,linkcolor=blu%e,urlcolor=blue]{hyperref}
+% \newcommand{\hypersetup}[1]{}
+
+%% ==== Definition, Theorem ====
+% \newtheorem{definition}{Definition}
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{collorary}{Collorary}
+% \theoremstyle{remark}
+% \theoremstyle{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newcommand{\vr}{\vrule}
+% \newcommand{\en}{\vrule depth 0.4pt \vrule height 0em width 0.5em depth 0.4pt}
+
+% \newcommand{\alert}[1]{\textcolor{red}{#1}}
+% \newcommand{\latex}[1]{#1}
+\newcommand{\mvec}[1]{\mbox{\boldmath $#1$}}
+% \newcommand{\BM}[1]{\mbox{\boldmath $#1$}}
+\newcommand{\BM}[1]{\alpha}
+\newcommand{\vex}{\mvec{x}}
+\newcommand{\nat}{\mathbb{Z}}
+\newcommand{\nyoro}{~}
+\newcommand{\FV}[2]{#1(#2)}
+\newcommand{\Const}{\bm{C}}
+%\newcommand{\Dom}{\mathit{Dom}}
+\newcommand{\Dom}{\mathit{D}}
+% \newcommand{\PO}[2]{p_{#1,#2}}
+\newcommand{\PO}[2]{p_{#1 \ge #2}}
+
+\newcommand{\moVar}{\overrightarrow{o}}
+\newcommand{\Ps}[1]{\Pss(#1)}
+\newcommand{\Pss}{\delta}
+\newcommand{\lb}{\textit{lb}}
+\newcommand{\ub}{\textit{ub}}
+\newcommand{\dd}{\mathop{..}}
+\newcommand{\CSP}[1]{\mbox{$\mbox{CSP}(#1)$}}
+%\newcommand{\MO}{\mathcal{M}}
+\newcommand{\MO}{\Omega}
+\newcommand{\FS}{\mathcal{X}}
+\newcommand{\NDS}{\mathcal{Y}}
+
+\newcommand{\Fin}{{\cal F}in}
+\newcommand{\Sum}[2]{\textstyle\sum_{i=#1}^{#2}a_i x_i}
+
+\newcommand{\PFS}{PF Size}
+
+\newcommand{\sname}{\texttt{sucre}}
+
+%% 矢印関係
+\newcommand{\lra}{\Longrightarrow}
+\newcommand{\lla}{\Longleftarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\Lrarw}{\Leftrightarrow}
+\newcommand{\Llrarw}{\Longleftrightarrow}
+
+%% % \newcommand{\wrt}{w.r.t.}
+%% \newcommand{\la}{\leftarrow}
+%% \newcommand{\Lra}{\Longrightarrow}
+%% \newcommand{\Lla}{\Longleftarrow}
+%% \newcommand{\Llra}{\Longleftrightarrow}
+%% \newcommand{\lra}{\longrightarrow}
+%% \newcommand{\dd}{\mathop{..}}
+%% \newcommand{\range}[2]{\{#1\dd#2\}}
+%% \newcommand{\imp}{\Rightarrow}
+%% \newcommand{\equ}{\Leftrightarrow}
+%% \newcommand{\Circ}{\mathop{\circ}}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \newcommand{\rel}{\mathrel{\#}}
+%% %\newcommand{\bm}[1]{\boldsymbol{#1}}
+%% \newcommand{\Neg}[1]{\overline{#1}}
+%% \newcommand{\Dom}{\mathit{Dom}}
+%% \newcommand{\Const}{\bm{C}}
+%% \newcommand{\Var}{\mathit{Var}}
+%% \newcommand{\Sum}[2]{\textstyle\sum_{i=#1}^{#2}a_i x_i}
+%% % \newcommand{\lit}[1]{#1}
+%% % \newcommand{\Dom}{\mbox{\it Dom}}
+%% % \newcommand{\Undef}{U}
+%% % \newcommand{\drvup}{\mathrel{\vdash_{\mathrm{UP}}}}
+%% % \newcommand{\CM}{\mathrm{CM}}
+%% % \newcommand{\SCM}{\mathrm{SCM}}
+%% % \newcommand{\DCM}{\mathrm{DCM}}
+%% % \newcommand{\cmbc}{\mathrm{CMBC}}
+%% % \newcommand{\cmpb}{\mathrm{CMPB}}
+%% \newcommand{\lb}{\textit{lb}}
+%% \newcommand{\ub}{\textit{ub}}
+%% % \newcommand{\Fin}{\mathcal{F}\!\textit{in}}
+%% % \newcommand{\rel}{\ge}
+%% \newcommand{\sat}{\textsc{sat}}
+%% \newcommand{\unsat}{\textsc{unsat}}
+%% \newcommand{\PD}[2]{p_{#1=#2}}
+%% \newcommand{\PO}[2]{p_{#1\ge #2}}
+%% \newcommand{\PU}[2]{p_{#1\##2}}
+%% \newcommand{\PL}[2]{p_{#1,#2}}
+%% % \newcommand{\Ax}[1]{A_{#1}}
+%% \newcommand{\Trans}{\tau}
+%% \newcommand{\Tr}[2]{\Trans_{#1}^{\textrm{#2}}}
+%% \newcommand{\TX}[3]{#1_{#2}^{\textrm{#3}}}
+%% % \newcommand{\TrV}[2]{V_{#1}^{\textrm{#2}}}
+%% % \newcommand{\TrA}[2]{A_{#1}^{\textrm{#2}}}
+%% \newcommand{\En}[3]{\left\|#1\right\|_{#2}^{\textrm{#3}}}
+%% %
+%% \newcommand{\TR}[1]{\Tr{#1}{\encoding}}
+%% \newcommand{\U}{\TX{U}{\argi}{\encoding}}
+%% \newcommand{\V}{\TX{V}{\argi}{\encoding}}
+%% \newcommand{\D}{\TX{D}{\argi}{\encoding}}
+%% \newcommand{\A}{\TX{\bm{A}}{\argi}{\encoding}}
+%% \newcommand{\T}{\TX{T}{\argi}{\encoding}}
+%% \newcommand{\E}[1]{\En{#1}{\argi}{\encoding}}
+%% % \newcommand{\TrS}[2]{\sigma_{#1}^{\textrm{#2}}}
+%% % \theoremstyle{definition}
+%% % \theoremstyle{plain}
+%% % \newtheorem{definition}{定義}
+%% % \newtheorem{example}{例}
+%% % \newtheorem{theorem}{定理}
+%% % \newtheorem{prop}{命題}
+%% \newcommand{\q}[1]{``#1''}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

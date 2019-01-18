@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Scarab: Advanced Solving Techniques</title>
+<!-- 2015-12-14 月 12:28 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="[[http://kix.istc.kobe-u.ac.jp/~soh/][Takehide Soh]]Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Scarab: Advanced Solving Techniques</h1>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-6313627-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</div>
+
+<table class="menu" border="0" cellspacing="0" cellpadding="20" width="900px">
+<tr>
+<td class="menu" bgcolor="#3B5998"><a href="index.html">Home</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="examples.html">Examples</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="doc.html">Documents</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="advanced.html">Advanced Usage</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="tutorial.html">Tutorial</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="apps.html">Apps</a></td>
+</tr>
+</table>
+
+<div id="content">
+<style type="text/css">
+#table1 th { background-color: lightyellow;
+     border-style: solid; border-color: black; border-width: thin; }
+#table1 td { background-color: #eeeeee;
+     border-style: solid; border-color: black; border-width: thin; }
+#table1 td+td { background-color: white; }
+#table1 td { text-align: left; }
+#table1 td+td { text-align: right; }
+</style>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Developers can Construct their own SAT-based Systems.</h2>
+<div class="outline-text-2" id="text-1">
+</div><ul class="org-ul"><li><a id="sec-1-1" name="sec-1-1"></a>Since Scarab is designed to be an useful workbench rather than a final product, constraint models and search strategies are intended to be modeled and/or customized to meet developers&rsquo; requirement.<br  /></li>
+<li><a id="sec-1-2" name="sec-1-2"></a>This page provides some examples of customizing <b>alldiff constraints</b> and <b>search strategies</b>.<br  /></li></ul>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Customizing Alldiff Constraint</h2>
+<div class="outline-text-2" id="text-2">
+</div><ul class="org-ul"><li><a id="sec-2-1" name="sec-2-1"></a>We consider the following 4 models of \(alldiff(x_{1}, x_{2}, \ldots, x_{n})\)<br  /></li>
+
+<li><a id="sec-2-2" name="sec-2-2"></a><b>Alldiff 1</b>: Original Alldiff.<br  /><div class="outline-text-3" id="text-2-2">
+<p>
+\( \bigwedge_{i < j} (x_{i} \ne x_{j}) \)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">alldiff</span>(<span style="color: #a0522d;">xs</span>: <span style="color: #228b22;">Seq[Var]</span>) = {
+  And(And(<span style="color: #a020f0;">for</span> (Seq(x, y) &lt;- xs.combinations(2)) <span style="color: #a020f0;">yield</span> x !== y))
+}
+</pre>
+</div>
+</div>
+</li>
+<li><a id="sec-2-3" name="sec-2-3"></a><b>Alldiff 2</b>: Alldiff with Permutaion Constraints<br  /><div class="outline-text-3" id="text-2-3">
+<br>
+<p>
+\(\bigwedge_{i < j} (x_{i} \ne x_{j}) \wedge \bigwedge_{i=lb}^{ub}\left(\bigvee_{j=1}^{n} (x_{j}=i)\right)\)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">alldiff</span>(<span style="color: #a0522d;">xs</span>: <span style="color: #228b22;">Seq[Var]</span>) = {
+  <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">lb</span> = <span style="color: #a020f0;">for</span> (x &lt;- xs) <span style="color: #a020f0;">yield</span> csp.dom(x).lb 
+  <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">ub</span> = <span style="color: #a020f0;">for</span> (x &lt;- xs) <span style="color: #a020f0;">yield</span> csp.dom(x).ub 
+  And(
+    And(<span style="color: #a020f0;">for</span> (Seq(x, y) &lt;- xs.combinations(2)) <span style="color: #a020f0;">yield</span> x !== y),
+    And(<span style="color: #a020f0;">for</span> (num &lt;- lb.min to ub.max) <span style="color: #a020f0;">yield</span> Or(<span style="color: #a020f0;">for</span> (x &lt;- xs) <span style="color: #a020f0;">yield</span> x === num))
+  )
+}
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="sec-2-4" name="sec-2-4"></a><b>Alldiff 3</b>: Alldiff with Pigeon Hole Constraints<br  /><div class="outline-text-3" id="text-2-4">
+<br>
+<p>
+\(\bigwedge_{i < j} (x_{i} \ne x_{j}) \wedge \neg\bigwedge_{i=1}^{n}(x_{i} < lb + n - 1) \wedge \neg\bigwedge_{i=1}^{n}(x_{i} > ub - n+ 1)\)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">alldiff</span>(<span style="color: #a0522d;">xs</span>: <span style="color: #228b22;">Seq[Var]</span>) = {
+  <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">lb</span> = <span style="color: #a020f0;">for</span> (x &lt;- xs) <span style="color: #a020f0;">yield</span> csp.dom(x).lb 
+  <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">ub</span> = <span style="color: #a020f0;">for</span> (x &lt;- xs) <span style="color: #a020f0;">yield</span> csp.dom(x).ub 
+  And(
+    And(<span style="color: #a020f0;">for</span> (Seq(x, y) &lt;- xs.combinations(2)) <span style="color: #a020f0;">yield</span> x !== y),
+    Or(<span style="color: #a020f0;">for</span> (x &lt;- xs) <span style="color: #a020f0;">yield</span> !(x &lt; lb.min+xs.size-1)),
+    Or(<span style="color: #a020f0;">for</span> (x &lt;- xs) <span style="color: #a020f0;">yield</span> !(x &gt; ub.max-xs.size+1))
+  )
+}
+</pre>
+</div>
+</div>
+</li>
+<li><a id="sec-2-5" name="sec-2-5"></a><b>Alldiff 4</b>: Alldiff with Permutation and Pigeon Hole Constraints<br  /><div class="outline-text-3" id="text-2-5">
+<br>
+<p>
+\(\bigwedge_{i < j} (x_{i} \ne x_{j}) \wedge \bigwedge_{i=lb}^{ub}\left(\bigvee_{j=1}^{n} (x_{j}=i)\right) \wedge \neg\bigwedge_{i=1}^{n}(x_{i} < lb + n - 1) \wedge \neg\bigwedge_{i=1}^{n}(x_{i} > ub - n+ 1)\)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">alldiff</span>(<span style="color: #a0522d;">xs</span>: <span style="color: #228b22;">Seq[Var]</span>) = {
+  <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">lb</span> = <span style="color: #a020f0;">for</span> (x &lt;- xs) <span style="color: #a020f0;">yield</span> csp.dom(x).lb 
+  <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">ub</span> = <span style="color: #a020f0;">for</span> (x &lt;- xs) <span style="color: #a020f0;">yield</span> csp.dom(x).ub 
+  And(
+    And(<span style="color: #a020f0;">for</span> (Seq(x, y) &lt;- xs.combinations(2)) <span style="color: #a020f0;">yield</span> x !== y),
+    And(<span style="color: #a020f0;">for</span> (num &lt;- lb.min to ub.max) <span style="color: #a020f0;">yield</span> Or(<span style="color: #a020f0;">for</span> (x &lt;- xs) <span style="color: #a020f0;">yield</span> x === num)),
+    Or(<span style="color: #a020f0;">for</span> (x &lt;- xs) <span style="color: #a020f0;">yield</span> !(x &lt; lb.min+xs.size-1)),
+    Or(<span style="color: #a020f0;">for</span> (x &lt;- xs) <span style="color: #a020f0;">yield</span> !(x &gt; ub.max-xs.size+1))
+  )
+}
+</pre>
+</div>
+</div>
+</li>
+<li><a id="sec-2-6" name="sec-2-6"></a><b>Experiments on Latin Square</b>: We compared the 4 models with the following Latin Square program. Results are available below.<br  /><div class="outline-text-3" id="text-2-6">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._ , dsl._
+
+<span style="color: #a020f0;">var</span> <span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int </span>= 5
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n; j &lt;- 1 to n)  int('x(i,j),1,n) 
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n) {
+  add(alldiff((1 to n).map(j =&gt; 'x(i,j))))
+  add(alldiff((1 to n).map(j =&gt; 'x(j,i))))
+  add(alldiff((1 to n).map(j =&gt; 'x(j,(i+j-1)%n+1))))
+  add(alldiff((1 to n).map(j =&gt; 'x(j,(i+(j-1)*(n-1))%n+1))))}
+
+<span style="color: #a020f0;">if</span> (find)  println(solution)
+</pre>
+</div>
+</div>
+</li></ul>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Experimental Results for Latin Square</h2>
+<div class="outline-text-2" id="text-3">
+</div><ul class="org-ul"><li><a id="sec-3-1" name="sec-3-1"></a>We compare the above 4 types of alldiff constraints written in Scarab.<br  /><div class="outline-text-3" id="text-3-1">
+<br>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 1:</span> Results for Latin Square of Sizes 7 to 16 (2.93GHz CPU, 3600 sec. T.O.)</caption>
+
+<colgroup>
+<col  class="left" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="left" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">&#xa0;</th>
+<th scope="col" class="right">7</th>
+<th scope="col" class="right">8</th>
+<th scope="col" class="right">9</th>
+<th scope="col" class="right">10</th>
+<th scope="col" class="right">11</th>
+<th scope="col" class="right">12</th>
+<th scope="col" class="left">13</th>
+<th scope="col" class="right">14</th>
+<th scope="col" class="right">15</th>
+<th scope="col" class="right">16</th>
+<th scope="col" class="right">#Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">Alldiff 1</td>
+<td class="right">0.210</td>
+<td class="right">T.O.</td>
+<td class="right">T.O.</td>
+<td class="right">T.O.</td>
+<td class="right">0.347</td>
+<td class="right">T.O.</td>
+<td class="left">T.O.</td>
+<td class="right">T.O.</td>
+<td class="right">T.O.</td>
+<td class="right">T.O.</td>
+<td class="right">2</td>
+</tr>
+
+<tr>
+<td class="left">Alldiff 2</td>
+<td class="right">0.232</td>
+<td class="right">0.245</td>
+<td class="right">0.230</td>
+<td class="right">0.391</td>
+<td class="right">0.317</td>
+<td class="right">1.150</td>
+<td class="left">T.O.</td>
+<td class="right">14.309</td>
+<td class="right">953.0</td>
+<td class="right">1303.0</td>
+<td class="right">9</td>
+</tr>
+
+<tr>
+<td class="left">Alldiff 3</td>
+<td class="right">0.265</td>
+<td class="right">0.306</td>
+<td class="right">0.219</td>
+<td class="right">0.332</td>
+<td class="right">0.252</td>
+<td class="right">0.885</td>
+<td class="left">T.O.</td>
+<td class="right">9.826</td>
+<td class="right">423.3</td>
+<td class="right">840.7</td>
+<td class="right">9</td>
+</tr>
+
+<tr>
+<td class="left">Alldiff 4</td>
+<td class="right">0.221</td>
+<td class="right">0.212</td>
+<td class="right">0.235</td>
+<td class="right">0.370</td>
+<td class="right">0.332</td>
+<td class="right">0.981</td>
+<td class="left">0.545</td>
+<td class="right">9.792</td>
+<td class="right">389.9</td>
+<td class="right">458.1</td>
+<td class="right"><b>10</b></td>
+</tr>
+</tbody>
+</table>
+
+<br>
+</div>
+</li>
+
+<li><a id="sec-3-2" name="sec-3-2"></a>The best performance is achieved by Alldiff (4), which has extra permutation and pigeon hole constraints.<br  /></li>
+<li><a id="sec-3-3" name="sec-3-3"></a>As is shown in <a href="./examples.html">here</a>, all alldiff constraints are implemented less than 10 lines.<br  /></li>
+<li><a id="sec-3-4" name="sec-3-4"></a><b>Implementing your ideas and trials are easy in Scarab!</b><br  /></li></ul>
+</div>
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Modeling Search Strategies</h2>
+<div class="outline-text-2" id="text-4">
+</div><ul class="org-ul"><li><a id="sec-4-1" name="sec-4-1"></a>In the following, we provide some examples of how to write search strategies.<br  /></li>
+<li><a id="sec-4-2" name="sec-4-2"></a>The first one is decremental search for Square Packing.<br  /><div class="outline-text-3" id="text-4-2">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._ , dsl._
+
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 15; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">s</span> =36 
+
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n)  { int('x(i),0,s-i) ; int('y(i),0,s-i) }
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n; j &lt;- i+1 to n) 
+  add(('x(i)+i&lt;='x(j)) || ('x(j)+j&lt;='x(i)) || ('y(i)+i&lt;='y(j)) || ('y(j)+j&lt;='y(i)))
+
+<span style="color: #a020f0;">if</span> (find) println(solution.intMap) 
+
+<span style="color: #a020f0;">var</span> <span style="color: #a0522d;">lb</span> = 15; <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">ub</span> = s; int('m, lb, ub)
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n)
+  add(('x(i)+i &lt;= 'm) &amp;&amp; ('y(i)+i &lt;= 'm)) 
+
+<span style="color: #a020f0;">while</span>(lb &lt;= ub &amp;&amp; find('m &lt;= ub)) {
+  add('m &lt;= ub); ub -= 1
+}
+
+<span style="color: #a020f0;">while</span>(find)  println(solution.intMap)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="sec-4-2-1" name="sec-4-2-1"></a>(Lines 13 to 15) add constraints for optimization<br  /></li>
+<li><a id="sec-4-2-2" name="sec-4-2-2"></a>(Lines 17 to 19) decremental search<br  /></li>
+<li><a id="sec-4-2-3" name="sec-4-2-3"></a>(Line 21) enumerate optimal solutions<br  /></li></ul>
+</li>
+
+<li><a id="sec-4-3" name="sec-4-3"></a>Incremental Search<br  /><div class="outline-text-3" id="text-4-3">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">var</span> <span style="color: #a0522d;">lb</span> = 15; <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">ub</span> = s; int('m, lb, ub)
+<span style="color: #a020f0;">for</span> (i &lt;- 1 to n)
+  add(('x(i)+i &lt;= 'm) &amp;&amp; ('y(i)+i &lt;= 'm)) 
+
+<span style="color: #a020f0;">while</span>(lb &lt; ub &amp;&amp; !find('m &lt;= lb)) {
+  add('m &gt; lb); lb += 1
+}
+
+<span style="color: #a020f0;">while</span>(find)  println(solution.intMap)
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="sec-4-3-1" name="sec-4-3-1"></a>(Lines 1 to 3) add constraints for optimization<br  /></li>
+<li><a id="sec-4-3-2" name="sec-4-3-2"></a>(Lines 5 to 7) decremental search<br  /></li>
+<li><a id="sec-4-3-3" name="sec-4-3-3"></a>(Line 9) enumerate optimal solutions<br  /></li></ul>
+</li>
+
+<li><a id="sec-4-4" name="sec-4-4"></a>Binary Search<br  /><div class="outline-text-3" id="text-4-4">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">var</span> <span style="color: #a0522d;">lb</span> = 5; <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">ub</span> = s
+commit
+<span style="color: #a020f0;">while</span>(lb &lt; ub) {
+  <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">size</span> = (lb + ub) / 2
+  <span style="color: #a020f0;">for</span> (i &lt;- 1 to n)
+    add(('x(i)+i&lt;=size)&amp;&amp;('y(i)+i&lt;=size))
+  <span style="color: #a020f0;">if</span> (find) {
+    ub = size; commit;
+  } <span style="color: #a020f0;">else</span> {
+    lb = size + 1; rollback;
+  }
+}
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="sec-4-4-1" name="sec-4-4-1"></a>(Lines 3 to 12) binary search<br  /></li></ul>
+</li></ul>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: <a href="http://kix.istc.kobe-u.ac.jp/~soh/">Takehide Soh</a></p>
+<p class="date">Created: 2015-12-14 月 12:28</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Project Eulerに挑戦: 問題5</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Project Eulerに挑戦: 問題5"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-09-29 21:44:25 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Project Eulerに挑戦: 問題5</h1>
+
+<ul>
+<li><a href="euler.html">Project Eulerに挑戦</a>
+</li>
+<li><a href="euler-001.html">問題1</a>
+</li>
+<li><a href="euler-002.html">問題2</a>
+</li>
+<li><a href="euler-003.html">問題3</a>
+</li>
+<li><a href="euler-004.html">問題4</a>
+</li>
+<li><a href="euler-005.html">問題5</a>
+</li>
+</ul>
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">問題5</a></li>
+<li><a href="#sec-2">Cで解く</a></li>
+<li><a href="#sec-3">Scalaで解く</a></li>
+<li><a href="#sec-4">手で解く</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">問題5</h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li><a href="http://projecteuler.net/index.php?section=problems&amp;id=5">問題5の問題文</a>
+</li>
+</ul>
+
+<blockquote>
+
+<p>1から20のすべてで割り切れる最小の整数を求めよ．
+</p>
+</blockquote>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Cで解く</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  1から20のLCM (最小公倍数)を求めれば良い．
+  aとbのLCMは，aとbのGCD (最大公約数)をgとすれば a*b/g で求められる．
+</p>
+<p>
+  aとbのGCDを求めるにはユークリッドの互除法(Euclidean algorithm)を用いる．
+  ユークリッドの互除法により，GCDは以下のように再帰的に定義できる．
+</p><ul>
+<li>GCD(a, 0) = a
+</li>
+<li>GCD(a, b) = GCD(b, a mod b)   (if b &gt; 0)
+</li>
+</ul>
+
+
+<p>
+  プログラムは以下のようになる(64ビット整数を用いている)．
+</p>
+
+
+
+<pre class="src src-c"><span class="linenr"> 1:  </span><span class="org-type">long</span> <span class="org-type">long</span> <span class="org-function-name">gcd</span>(<span class="org-type">long</span> <span class="org-type">long</span> <span class="org-variable-name">a</span>, <span class="org-type">long</span> <span class="org-type">long</span> <span class="org-variable-name">b</span>) {
+<span class="linenr"> 2:  </span>    <span class="org-keyword">if</span> (b == 0)
+<span class="linenr"> 3:  </span>        <span class="org-keyword">return</span> a;
+<span class="linenr"> 4:  </span>    <span class="org-keyword">return</span> gcd(b, a % b);
+<span class="linenr"> 5:  </span>}
+<span class="linenr"> 6:  </span>
+<span class="linenr"> 7:  </span><span class="org-type">long</span> <span class="org-type">long</span> <span class="org-function-name">lcm</span>(<span class="org-type">long</span> <span class="org-type">long</span> <span class="org-variable-name">a</span>, <span class="org-type">long</span> <span class="org-type">long</span> <span class="org-variable-name">b</span>) {
+<span class="linenr"> 8:  </span>    <span class="org-keyword">return</span> a * b / gcd(a, b);
+<span class="linenr"> 9:  </span>}
+<span class="linenr">10:  </span>
+<span class="linenr">11:  </span><span class="org-type">long</span> <span class="org-type">long</span> <span class="org-function-name">e005</span>() {
+<span class="linenr">12:  </span>    <span class="org-type">long</span> <span class="org-type">long</span> <span class="org-variable-name">i</span>;
+<span class="linenr">13:  </span>    <span class="org-type">long</span> <span class="org-type">long</span> <span class="org-variable-name">n</span> = 1;
+<span class="linenr">14:  </span>    <span class="org-keyword">for</span> (i = 1; i &lt;= 20; i++) {
+<span class="linenr">15:  </span>        n = lcm(n, i);
+<span class="linenr">16:  </span>    }
+<span class="linenr">17:  </span>    <span class="org-keyword">return</span> n;
+<span class="linenr">18:  </span>}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Scalaで解く</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  GCDおよびLCMを求める関数を定義する．
+</p>
+
+
+<pre class="src src-scala"><span class="linenr">1:  </span><span class="org-keyword">def</span> <span class="org-function-name">gcd</span>(<span class="org-variable-name">a</span>: <span class="org-type">Long</span>, <span class="org-variable-name">b</span>: <span class="org-type">Long</span>): <span class="org-type">Long </span>=
+<span class="linenr">2:  </span>  <span class="org-keyword">if</span> (b == 0) a <span class="org-keyword">else</span> gcd(b, a % b)
+<span class="linenr">3:  </span><span class="org-keyword">def</span> <span class="org-function-name">lcm</span>(<span class="org-variable-name">a</span>: <span class="org-type">Long</span>, <span class="org-variable-name">b</span>: <span class="org-type">Long</span>): <span class="org-type">Long </span>=
+<span class="linenr">4:  </span>  a * b / gcd(a, b)
+</pre>
+
+
+<p>
+  したがって回答は以下で求められる．
+</p><pre class="example">
+scala&gt; (1L to 20L).reduceLeft(lcm(_, _))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">手で解く</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  20以下で，各素数のベキ乗の最大値は以下のようになる．
+</p><table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="right" /><col class="right" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="right">素数</th><th scope="col" class="right">ベキ乗</th></tr>
+</thead>
+<tbody>
+<tr><td class="right">2</td><td class="right">2<sup>4</sup></td></tr>
+<tr><td class="right">3</td><td class="right">3<sup>2</sup></td></tr>
+<tr><td class="right">5</td><td class="right">5<sup>1</sup></td></tr>
+<tr><td class="right">7</td><td class="right">7<sup>1</sup></td></tr>
+<tr><td class="right">11</td><td class="right">11<sup>1</sup></td></tr>
+<tr><td class="right">13</td><td class="right">13<sup>1</sup></td></tr>
+<tr><td class="right">17</td><td class="right">17<sup>1</sup></td></tr>
+<tr><td class="right">19</td><td class="right">19<sup>1</sup></td></tr>
+</tbody>
+</table>
+
+
+<p>
+  それらの積 2<sup>4</sup>*3<sup>2</sup>*5*7*11*13*17*19 が回答である．
+</p></div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-09-29 21:44:25 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

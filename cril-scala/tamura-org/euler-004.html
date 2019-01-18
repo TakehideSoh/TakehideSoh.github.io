@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Project Eulerに挑戦: 問題4</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Project Eulerに挑戦: 問題4"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-09-29 21:44:18 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Project Eulerに挑戦: 問題4</h1>
+
+<ul>
+<li><a href="euler.html">Project Eulerに挑戦</a>
+</li>
+<li><a href="euler-001.html">問題1</a>
+</li>
+<li><a href="euler-002.html">問題2</a>
+</li>
+<li><a href="euler-003.html">問題3</a>
+</li>
+<li><a href="euler-004.html">問題4</a>
+</li>
+<li><a href="euler-005.html">問題5</a>
+</li>
+</ul>
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">問題4</a></li>
+<li><a href="#sec-2">Cで解く</a></li>
+<li><a href="#sec-3">Scalaで解く</a></li>
+<li><a href="#sec-4">手で解く</a></li>
+<li><a href="#sec-5">改善版</a></li>
+<li><a href="#sec-6">改善版 C</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">問題4</h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li><a href="http://projecteuler.net/index.php?section=problems&amp;id=4">問題4の問題文</a>
+</li>
+</ul>
+
+<blockquote>
+
+<p>3桁の2数の積で，回文になる最大のものを求めよ．
+</p>
+</blockquote>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Cで解く</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  回文になるかどうかは， sprintf で文字列に変換してから確かめる．
+</p>
+
+
+
+<pre class="src src-c"><span class="linenr"> 1:  </span><span class="org-type">int</span> <span class="org-function-name">palindrome</span>(<span class="org-type">int</span> <span class="org-variable-name">n</span>) {
+<span class="linenr"> 2:  </span>    <span class="org-type">int</span> <span class="org-variable-name">i</span>, <span class="org-variable-name">j</span>;
+<span class="linenr"> 3:  </span>    <span class="org-type">char</span> <span class="org-variable-name">s</span>[11];
+<span class="linenr"> 4:  </span>    sprintf(s, <span class="org-string">"%d"</span>, n);
+<span class="linenr"> 5:  </span>    <span class="org-keyword">for</span> (i = 0, j = strlen(s) - 1; i &lt;= j; i++, j--) {
+<span class="linenr"> 6:  </span>        <span class="org-keyword">if</span> (s[i] != s[j])
+<span class="linenr"> 7:  </span>            <span class="org-keyword">return</span> 0;
+<span class="linenr"> 8:  </span>    }
+<span class="linenr"> 9:  </span>    <span class="org-keyword">return</span> 1;
+<span class="linenr">10:  </span>}
+<span class="linenr">11:  </span>
+<span class="linenr">12:  </span><span class="org-type">int</span> <span class="org-function-name">e004</span>() {
+<span class="linenr">13:  </span>    <span class="org-type">int</span> <span class="org-variable-name">i</span>, <span class="org-variable-name">j</span>, <span class="org-variable-name">p</span>;
+<span class="linenr">14:  </span>    <span class="org-type">int</span> <span class="org-variable-name">m</span> = 0;
+<span class="linenr">15:  </span>    <span class="org-keyword">for</span> (i = 100; i &lt; 1000; i++) {
+<span class="linenr">16:  </span>        <span class="org-keyword">for</span> (j = i; j &lt; 1000; j++) {
+<span class="linenr">17:  </span>            p = i * j;
+<span class="linenr">18:  </span>            <span class="org-keyword">if</span> (palindrome(p))
+<span class="linenr">19:  </span>                m = p &gt; m ? p : m;
+<span class="linenr">20:  </span>        }
+<span class="linenr">21:  </span>    }
+<span class="linenr">22:  </span>    <span class="org-keyword">return</span> m;
+<span class="linenr">23:  </span>}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Scalaで解く</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  回文をチェックする関数を作成する．
+</p>
+
+
+<pre class="src src-scala"><span class="linenr">1:  </span><span class="org-keyword">def</span> <span class="org-function-name">palindrome</span>(<span class="org-variable-name">n</span>: <span class="org-type">Int</span>) = {
+<span class="linenr">2:  </span>  <span class="org-keyword">val</span> <span class="org-variable-name">s</span> = n.toString
+<span class="linenr">3:  </span>  s == s.reverse
+<span class="linenr">4:  </span>}
+</pre>
+
+
+<p>
+  palindromeの実行結果は以下のようになる．
+</p><pre class="example">
+scala&gt; palindrome(12321)
+res: Boolean = true
+</pre>
+
+
+<p>
+  したがって回答は以下で求められる．
+</p><pre class="example">
+scala&gt; val ps = for (i &lt;- 100 to 999; j &lt;- i to 999) yield i * j
+ps: ... = Vector(10000, 10100, ..., 998001)
+
+scala&gt; ps.filter(palindrome(_)).max
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">手で解く</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  6桁の回文は 10<sup>5</sup> a+10<sup>4</sup> b+10<sup>3</sup> c+10<sup>2</sup> c+10 b+a = 11(9091a+910b+100c) であり，
+  11の倍数になることはわかるが，
+  それ以上の分析を進めて手で解くのは難しそうだ．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">改善版</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>  最大の回文を求めれば良いので，ループの回数を減らすことを目指す．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6">改善版 C</h2>
+<div class="outline-text-2" id="text-6">
+
+<p>  j のループを降順に変更し，
+  最初に回文が発見された時点でループを抜けるように変更する．
+</p>
+
+
+
+<pre class="src src-c"><span class="linenr"> 1:  </span><span class="org-type">int</span> <span class="org-function-name">e004</span>() {
+<span class="linenr"> 2:  </span>    <span class="org-type">int</span> <span class="org-variable-name">i</span>, <span class="org-variable-name">j</span>, <span class="org-variable-name">p</span>;
+<span class="linenr"> 3:  </span>    <span class="org-type">int</span> <span class="org-variable-name">m</span> = 0;
+<span class="linenr"> 4:  </span>    <span class="org-keyword">for</span> (i = 100; i &lt; 1000; i++) {
+<span class="linenr"> 5:  </span>        <span class="org-keyword">for</span> (j = 999; j &gt;= i; j--) {
+<span class="linenr"> 6:  </span>            p = i * j;
+<span class="linenr"> 7:  </span>            <span class="org-keyword">if</span> (palindrome(p)) {
+<span class="linenr"> 8:  </span>                m = p &gt; m ? p : m;
+<span class="linenr"> 9:  </span>                <span class="org-keyword">break</span>;
+<span class="linenr">10:  </span>            }
+<span class="linenr">11:  </span>        }
+<span class="linenr">12:  </span>    }
+<span class="linenr">13:  </span>    <span class="org-keyword">return</span> m;
+<span class="linenr">14:  </span>}
+</pre>
+
+
+<p>
+  この変更で，ループの回数は 405450回から 293035回に減少する．
+</p>
+<p>
+  これまでの回文の最大値 m が求まっている場合，
+  j のループの最小値は m/i 以上になる．
+</p>
+<p>
+  そこでプログラムを以下のように変更する．
+  m の初期値も 1 に変更している．
+</p>
+
+
+<pre class="src src-c"><span class="linenr"> 1:  </span><span class="org-type">int</span> <span class="org-function-name">e004</span>() {
+<span class="linenr"> 2:  </span>    <span class="org-type">int</span> <span class="org-variable-name">i</span>, <span class="org-variable-name">j</span>, <span class="org-variable-name">p</span>;
+<span class="linenr"> 3:  </span>    <span class="org-type">int</span> <span class="org-variable-name">m</span> = 1;
+<span class="linenr"> 4:  </span>    <span class="org-keyword">for</span> (i = 100; i &lt; 1000; i++) {
+<span class="linenr"> 5:  </span>        <span class="org-type">int</span> <span class="org-variable-name">j0</span> = m / i;
+<span class="linenr"> 6:  </span>        <span class="org-keyword">for</span> (j = 999; j &gt;= i &amp;&amp; j &gt;= j0; j--) {
+<span class="linenr"> 7:  </span>            p = i * j;
+<span class="linenr"> 8:  </span>            <span class="org-keyword">if</span> (palindrome(p)) {
+<span class="linenr"> 9:  </span>                m = p &gt; m ? p : m;
+<span class="linenr">10:  </span>                <span class="org-keyword">break</span>;
+<span class="linenr">11:  </span>            }
+<span class="linenr">12:  </span>        }
+<span class="linenr">13:  </span>    }
+<span class="linenr">14:  </span>    <span class="org-keyword">return</span> m;
+<span class="linenr">15:  </span>}
+</pre>
+
+
+<p>
+  この変更で，ループの回数は 293035回から 49188回に減少する．
+  かなり効果があったようだ．
+</p>
+<p>
+  早目に大きな m を発見したほうが，上の効果がさらに大きくなることが期待される．
+  そこで i のループも降順に変更する．
+</p>
+
+
+
+<pre class="src src-c"><span class="linenr"> 1:  </span><span class="org-type">int</span> <span class="org-function-name">e004</span>() {
+<span class="linenr"> 2:  </span>    <span class="org-type">int</span> <span class="org-variable-name">i</span>, <span class="org-variable-name">j</span>, <span class="org-variable-name">p</span>;
+<span class="linenr"> 3:  </span>    <span class="org-type">int</span> <span class="org-variable-name">m</span> = 1;
+<span class="linenr"> 4:  </span>    <span class="org-keyword">for</span> (i = 999; i &gt;= 100; i--) {
+<span class="linenr"> 5:  </span>        <span class="org-type">int</span> <span class="org-variable-name">j0</span> = m / i;
+<span class="linenr"> 6:  </span>        <span class="org-keyword">for</span> (j = 999; j &gt;= i &amp;&amp; j &gt;= j0; j--) {
+<span class="linenr"> 7:  </span>            p = i * j;
+<span class="linenr"> 8:  </span>            <span class="org-keyword">if</span> (palindrome(p)) {
+<span class="linenr"> 9:  </span>                m = p &gt; m ? p : m;
+<span class="linenr">10:  </span>                <span class="org-keyword">break</span>;
+<span class="linenr">11:  </span>            }
+<span class="linenr">12:  </span>        }
+<span class="linenr">13:  </span>    }
+<span class="linenr">14:  </span>    <span class="org-keyword">return</span> m;
+<span class="linenr">15:  </span>}
+</pre>
+
+
+<p>
+  この変更で，ループの回数は 3241回に減少する．
+</p>
+<p>
+  さらに，i または j が 11の倍数である条件を追加する．
+</p>
+
+
+
+<pre class="src src-c"><span class="linenr"> 1:  </span><span class="org-type">int</span> <span class="org-function-name">e004</span>() {
+<span class="linenr"> 2:  </span>    <span class="org-type">int</span> <span class="org-variable-name">i</span>, <span class="org-variable-name">j</span>, <span class="org-variable-name">p</span>;
+<span class="linenr"> 3:  </span>    <span class="org-type">int</span> <span class="org-variable-name">m</span> = 1;
+<span class="linenr"> 4:  </span>    <span class="org-keyword">for</span> (i = 999; i &gt;= 100; i--) {
+<span class="linenr"> 5:  </span>        <span class="org-type">int</span> <span class="org-variable-name">j0</span> = m / i;
+<span class="linenr"> 6:  </span>        <span class="org-keyword">for</span> (j = 999; j &gt;= i &amp;&amp; j &gt;= j0; j--) {
+<span class="linenr"> 7:  </span>            <span class="org-keyword">if</span> (i % 11 != 0 &amp;&amp; j % 11 != 0)
+<span class="linenr"> 8:  </span>                <span class="org-keyword">continue</span>;
+<span class="linenr"> 9:  </span>            p = i * j;
+<span class="linenr">10:  </span>            <span class="org-keyword">if</span> (palindrome(p)) {
+<span class="linenr">11:  </span>                m = p &gt; m ? p : m;
+<span class="linenr">12:  </span>                <span class="org-keyword">break</span>;
+<span class="linenr">13:  </span>            }
+<span class="linenr">14:  </span>        }
+<span class="linenr">15:  </span>    }
+<span class="linenr">16:  </span>    <span class="org-keyword">return</span> m;
+<span class="linenr">17:  </span>}
+<span class="linenr">18:  </span>
+</pre>
+
+
+<p>
+  この変更で，ループの回数は 506回に減少する．
+  最初の 405450回に比較すると約800分の1である．
+</p>
+
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-09-29 21:44:18 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

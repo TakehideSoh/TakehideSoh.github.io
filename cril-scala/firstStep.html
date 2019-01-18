@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-03-06 火 12:44 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Introduction of Scala Programming Language <br> Overview and Hellow World!</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Introduction of Scala Programming Language <br> Overview and Hellow World!</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline2">1. Overview of Scala</a></li>
+<li><a href="#orgheadline8">2. Install Scala into Your Computer</a></li>
+<li><a href="#orgheadline12">3. Three Ways of Running Scala</a></li>
+<li><a href="#orgheadline13">4. Reference/Link</a></li>
+</ul>
+</div>
+</div>
+<style type="text/css">
+#table1 th { font-weight:normal; text-align: center; background-color: #eeeeee; color: black; border: none}
+#table1 td { background-color: #eeeeee; color: black; border: none}
+
+#table2 th    { background-color: #3B5998; color: white; border-style:
+#solid; border-color: black; border-width: thin; border: none;}
+#table2 td    { background-color: #eeeeee; color: black; border-style: solid; border-color: black; border-width: thin; border: none}
+#table2 td+td { background-color: #efefff; color: black;}
+#table2 td    { text-align: center; background-color: #3B5998; color: white; width:120px}
+#table2 td+td { text-align: center; width:120px; color: black;}
+#table2 td+td+td { text-align: left; width:500px; color: black;}
+
+#table3 th { font-weight:normal; text-align: left;  border: none; background-color: #f1f1f1}
+#table3 td { border: none; background-color: #f1f1f1}
+
+ws.pre.src {
+  background: #ffffee;
+  color: black;
+}
+</style>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">1</span> Overview of Scala</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li><font color="#3B5998"><b>Scala</b></font> is a statically typed programming language which realize
+both object-oriented and functional programming.
+<ul class="org-ul">
+<li>Scala is a pure object-oriented language in the sense that every value is an object.</li>
+<li>Scala is also a functional language in the sense that every function is a value.</li>
+</ul></li>
+
+<li>The creator of Scala is  <font color="#3B5998"><b>Martin Odersky</b></font> (EPFL; École Polytechnique
+Fédérale de Lausanne, Switzerland).
+<ul class="org-ul">
+<li>He designed Scala in 2001.</li>
+<li>On Feburuary 2018, the latest version of Scala is 2.12.</li>
+<li>He said that:
+<ul class="org-ul">
+<li>Scala was designed to show that a fusion of functional and
+object-oriented programming is possible and practical. That’s
+still its primary role. What has changed is that at the time it
+came out FP was regarded as an academic niche. So it was
+difficult to make the case that FP should be needed in a
+mainstream language.</li>
+</ul></li>
+</ul></li>
+
+<li>Who is using Scala?
+<ul class="org-ul">
+<li>Many well known companies use Scala:
+<ul class="org-ul">
+<li>LinkedIn</li>
+<li>Twitter</li>
+<li>Foursquare</li>
+<li>Netflix</li>
+<li>Tumblr</li>
+<li>The Guardian</li>
+<li>precog</li>
+<li>Sony</li>
+<li>AirBnB</li>
+<li>Klout</li>
+<li>Apple (added Sep., 2013)</li>
+</ul></li>
+<li>This information is collected by the following pages.
+<ul class="org-ul">
+<li><a href="http://www.scala-lang.org/old/node/1658">http://www.scala-lang.org/old/node/1658</a></li>
+<li><a href="https://alvinalexander.com/scala/whos-using-scala-akka-play-framework">https://alvinalexander.com/scala/whos-using-scala-akka-play-framework</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Link</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Official
+<ul class="org-ul">
+<li><a href="https://www.scala-lang.org/">https://www.scala-lang.org/</a></li>
+</ul></li>
+
+<li>MOOC (Massive Open Online Courses) by EPFL
+<ul class="org-ul">
+<li><a href="https://courseware.epfl.ch/">https://courseware.epfl.ch/</a></li>
+<li>Functional Programming Principles in Scala</li>
+<li>Functional Programming Design in Scala</li>
+<li>Big Data Analysis with Scala and Spark</li>
+</ul></li>
+
+<li>English
+<ul class="org-ul">
+<li><a href="http://www.artima.com/pins1ed/">Programming in Scala, First Edition</a> (by Martin Odersky, Lex Spoon, and Bill Venners)</li>
+<li><a href="http://twitter.github.com/effectivescala/index.html">Effective Scala</a> (by Marius Eriksen, translated by Yuta Okamoto and Satoshi Kobayashi)</li>
+<li><a href="http://twitter.github.com/scala_school/">Twitter's Scala School!</a></li>
+<li><a href="https://wiki.scala-lang.org/">Scala Wiki</a></li>
+</ul></li>
+
+<li>French
+<ul class="org-ul">
+<li><a href="http://www.scala-lang.org/docu/files/ScalaByExample-fr_FR.pdf">Scala par l'example</a></li>
+</ul></li>
+
+<li>Book
+<ul class="org-ul">
+<li>Programming in Scala: Updated for Scala 2.12 3rd Edition
+<ul class="org-ul">
+<li><a href="https://www.amazon.com/Programming-Scala-Updated-2-12/dp/0981531687/ref=sr_1_4?ie=UTF8&amp;qid=1520244215&amp;sr=8-4&amp;keywords=scala">Amazon.com</a></li>
+</ul></li>
+<li>Functional Programming in Scala
+<ul class="org-ul">
+<li><a href="https://www.amazon.com/Functional-Programming-Scala-Paul-Chiusano/dp/1617290653/ref=sr_1_6?ie=UTF8&amp;qid=1520244215&amp;sr=8-6&amp;keywords=scala">Amazon.com</a></li>
+</ul></li>
+</ul></li>
+
+<li>Exercise
+<ul class="org-ul">
+<li><a href="http://aperiodic.net/phil/scala/s-99/">S-99: Ninety-Nine Scala Problems</a></li>
+<li><a href="http://blog.tmorris.net/scala-exercises-for-beginners/">Scala exercises for beginners</a></li>
+</ul></li>
+
+<li>Others Materials
+<ul class="org-ul">
+<li><a href="https://www.lightbend.com/company/news/jaxenter-interview-with-scala-creator-martin-odersky-on-the-current-state-of-scala">Interview with Scala creator Martin Odersky — The current state of Sclaa</a></li>
+<li><a href="https://www.scala-lang.org/docu/files/ScalaOverview.pdf">Scala Overview</a></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">2</span> Install Scala into Your Computer</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>Even withtout installing, you can test some simple Scala program
+via your browser
+<ul class="org-ul">
+<li><a href="https://scastie.scala-lang.org/">scastie</a></li>
+<li><a href="https://scalafiddle.io/">scalafiddle</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">2.1</span> Requirement</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>Java 8 is neccessary to be installed.</li>
+<li>You can check the installation of Java 8 as follows (for Mac or Linux).</li>
+
+<li>open terminal</li>
+<li>type the followings and see the result</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ java -version
+
+java version <span style="color: #8b2252;">"1.8.0_121"</span>
+<span style="color: #0000ff;">Java</span>(TM) SE Runtime Environment (build 1.8.0_121-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.121-b13, mixed mode)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">2.2</span> Install Scala 2.12 (latest at March 2018) &#x2014; (for Mac or Linux)</h3>
+<div class="outline-text-3" id="text-2-2">
+</div><ol class="org-ol"><li><a id="orgheadline4"></a>Installation for bash<br  /><div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li><p>
+Type the followings (replace XXX to scala18). 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ cd ~
+$ mkdir XXX 
+$ cd XXX
+$ curl -O https://downloads.lightbend.com/scala/2.12.4/scala-2.12.4.tgz
+$ tar xvzf scala-2.12.4.tgz
+$ echo <span style="color: #8b2252;">'export PATH=~/XXX/scala-2.12.4/bin:$PATH'</span> &gt;&gt;~/.profile
+$ . ~/.profile
+</pre>
+</div></li>
+</ul>
+</div></li>
+
+<li><a id="orgheadline5"></a>(Reference) from Browser<br  /><div class="outline-text-4" id="text-2-2-2">
+<ol class="org-ol">
+<li>Open <a href="https://www.scala-lang.org/">https://www.scala-lang.org/</a> in your browser.</li>
+<li>Click ``Download&rsquo;&rsquo;.</li>
+<li>Scrool and find ``other ways to install Scala&rsquo;&rsquo;. 
+<ol class="org-ol">
+<li>Click ``Download the Scala binaries for xxx&rsquo;&rsquo; &#x2014; xxx will be
+your operation system.</li>
+<li>Scala-2.12.4.tgz will be downloaded.</li>
+</ol></li>
+<li><p>
+Make a directory used in this lecture.
+</p>
+<ul class="org-ul">
+<li>(Note) Wherever you like. But if you do not have any
+preference, please follow the instruction.</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ cd
+$ mkdir scala18
+$ cd scala18
+</pre>
+</div></li>
+<li><p>
+Move and un-archive ``Scala-2.12.4.tgz&rsquo;&rsquo; to your directory. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ mv &lt;path downloaded&gt;/Scala-2.12.4.tgz ./
+$ tar xvzf Scala-2.12.4.tgz
+$ ls
+</pre>
+</div>
+<ul class="org-ul">
+<li>Can you find your Scala directory? Then it is okay!</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ ls
+scala-2.12.4 scala-2.12.4.tar
+</pre>
+</div></li>
+<li><p>
+Set the PATH to Scala
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #483d8b;">echo</span> <span style="color: #8b2252;">'export PATH=~/scala-2.12.4/scala-2.12.4/bin:$PATH'</span> &gt;&gt;~/.profile
+</pre>
+</div></li>
+</ol>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">2.3</span> Verify if it is correctly working or not</h3>
+<div class="outline-text-3" id="text-2-3">
+<ul class="org-ul">
+<li><p>
+Type the followng.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ scala
+</pre>
+</div></li>
+<li><p>
+Then you will see the following. Then, it is okay.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121)<span style="color: #483d8b;">.</span>
+Type<span style="color: #a020f0;"> in</span> expressions for evaluation. Or try :help.
+
+scala&gt;
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">3</span> Three Ways of Running Scala</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">3.1</span> REPL (Read Eval Print Loop)</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>(Overview)
+<ul class="org-ul">
+<li>REPL is an interactive interface of Scala.</li>
+</ul></li>
+<li>(For what?)
+<ul class="org-ul">
+<li>simple program</li>
+</ul></li>
+<li><p>
+(Usage)
+</p>
+<ul class="org-ul">
+<li>Type ``scala&rsquo;&rsquo; in terminal. Then, REPL will start and can be
+used like the followings:</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">$ scala
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121).
+Type in expressions <span style="color: #a020f0;">for</span> evaluation. Or <span style="color: #a020f0;">try</span> :help.
+
+scala&gt; 1+2
+res0: Int = 3
+
+scala&gt; 3.toString
+res1: String = 3
+
+scala&gt; 3.toDouble
+res2: Double = 3.0
+
+scala&gt; :quit
+</pre>
+</div></li>
+<li><p>
+(Reference) display help of REPL
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">$ scala
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121).
+Type in expressions <span style="color: #a020f0;">for</span> evaluation. Or <span style="color: #a020f0;">try</span> :help.
+
+scala&gt; :help
+All commands can be abbreviated, e.g., :he instead of :help.
+:edit &lt;id&gt;|&lt;line&gt;        edit history
+:help [command]          print <span style="color: #a020f0;">this</span> summary or command-specific help
+:history [num]           show the history (optional num is commands to show)
+:h? &lt;string&gt;             search the history
+:imports [name name ...] show <span style="color: #a020f0;">import</span> history, identifying sources of names
+:implicits [-v]          show the implicits in scope
+:javap &lt;path|class&gt;      disassemble a file or <span style="color: #a020f0;">class</span> <span style="color: #228b22;">name</span>
+:line &lt;id&gt;|&lt;line&gt;        place line(s) at the end of history
+:load &lt;path&gt;             interpret lines in a file
+:paste [-raw] [path]     enter paste mode or paste a file
+:power                   enable power user mode
+:quit                    exit the interpreter
+:replay [options]        reset the repl and replay all previous commands
+:require &lt;path&gt;          add a jar to the classpath
+:reset [options]         reset the repl to its initial state, forgetting all session entries
+:save &lt;path&gt;             save replayable session to a file
+:sh &lt;command line&gt;       run a shell command (result is implicitly =&gt; List[String])
+:settings &lt;options&gt;      update compiler options, <span style="color: #a020f0;">if</span> possible; see reset
+:silent                  disable/enable automatic printing of results
+:<span style="color: #a020f0;">type</span> [-v] &lt;expr&gt;        display the <span style="color: #a020f0;">type</span> <span style="color: #228b22;">of</span> an expression without evaluating it
+:kind [-v] &lt;<span style="color: #a020f0;">type</span><span style="color: #228b22;">&gt;</span>        display the kind of a <span style="color: #a020f0;">type</span>. see also :help kind
+:warnings                show the suppressed warnings from the most recent line which had any
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">3.2</span> Run it like script without compilation</h3>
+<div class="outline-text-3" id="text-3-2">
+<ul class="org-ul">
+<li>(Overview)
+<ul class="org-ul">
+<li>scala provides script-like execution of its program without
+(explicit) compilation.</li>
+</ul></li>
+<li>(For what?)
+<ul class="org-ul">
+<li>simple program</li>
+</ul></li>
+<li>(Usage)
+<ul class="org-ul">
+<li>Write a simple program in a text file. Then, we can run it as
+follows.
+<ul class="org-ul">
+<li><p>
+For instance, write the following and save it as ``helloWorld.sc&rsquo;&rsquo;.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #b22222;">// </span><span style="color: #b22222;">(file) helloWorld.sc</span>
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">helloWorld</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">main</span>(<span style="color: #a0522d;">args</span>: <span style="color: #228b22;">Array[String]</span>) {
+    println(<span style="color: #8b2252;">"Hello World!"</span>)
+  }
+}
+</pre>
+</div></li>
+<li><p>
+Then, run it as follows.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ scala helloWorld.sc 
+Hello World!
+</pre>
+</div></li>
+<li>You will find a message ``Hello World!&rsquo;&rsquo; printed. Then, it is okay.</li>
+</ul></li>
+</ul></li>
+<li><p>
+(Reference) display help of scala command
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"> scala -help
+Usage: scala &lt;options&gt; [&lt;script|class|object|jar&gt; &lt;arguments&gt;]
+   or  scala -help
+
+All options to scalac (see scalac -help) are also allowed.
+
+The first argument to scala after the options designates what to run.
+
+If no argument is given, the Scala REPL, an interactive shell, is started.
+
+Otherwise, the Scala runner will <span style="color: #a020f0;">try</span> to run the named target, either as
+a compiled <span style="color: #a020f0;">class</span> <span style="color: #a020f0;">with</span> <span style="color: #228b22;">a</span> <span style="color: #228b22;">main</span> <span style="color: #228b22;">method</span>, <span style="color: #228b22;">a</span> jar file <span style="color: #a020f0;">with</span> <span style="color: #228b22;">a</span> <span style="color: #228b22;">Main-Class</span> <span style="color: #228b22;">manifest</span>
+header, or as a Scala source file to compile and run.
+
+The REPL accepts expressions to evaluate. Try `:help` to see more commands.
+
+The script runner will invoke the main method of a top-level <span style="color: #a020f0;">object</span> <span style="color: #a020f0;">if</span>
+it finds one; otherwise, the script code is run locally to a synthetic
+main method <span style="color: #a020f0;">with</span> <span style="color: #228b22;">arguments</span> <span style="color: #228b22;">available</span> <span style="color: #228b22;">in</span> <span style="color: #228b22;">a</span> <span style="color: #228b22;">variable</span> <span style="color: #228b22;">`args`</span>.
+
+Options to scala which reach the Java runtime:
+
+ -Dname=prop  passed directly to Java to set system properties
+ -J&lt;arg&gt;      -J is stripped and &lt;arg&gt; passed to Java as-is
+ -nobootcp    <span style="color: #a020f0;">do</span> not put the Scala jars on the boot classpath (slower)
+
+Other startup options:
+
+ -i &lt;file&gt;    preload &lt;file&gt; before starting the REPL
+ -I &lt;file&gt;    preload &lt;file&gt;, enforcing line-by-line interpretation
+ -e &lt;string&gt;  execute &lt;string&gt; as <span style="color: #a020f0;">if</span> entered in the REPL
+ -save        save the compiled script in a jar <span style="color: #a020f0;">for</span> future use
+ -nc          no compilation daemon: <span style="color: #a020f0;">do</span> not use the fsc offline compiler
+
+If the runner does not correctly guess how to run the target:
+
+ -howtorun    what to run &lt;script|object|jar|guess&gt; (default: guess)
+
+When running a script or using -e, an already running compilation daemon
+(fsc) is used, or a <span style="color: #a020f0;">new</span> one started on demand.  Use the -nc option to
+create a fresh compiler instead.
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">3.3</span> Compile and Run</h3>
+<div class="outline-text-3" id="text-3-3">
+<ul class="org-ul">
+<li>(Overview)
+<ul class="org-ul">
+<li>A standard way of running Scala program.</li>
+</ul></li>
+<li>(For what?)
+<ul class="org-ul">
+<li>simple to complex program</li>
+</ul></li>
+<li>(Usage)
+<ul class="org-ul">
+<li>Write a program in a text file. Then, we can run it as follows.
+<ol class="org-ol">
+<li><p>
+For instance, write the following and save it as ``helloWorld.scala&rsquo;&rsquo;.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #b22222;">// </span><span style="color: #b22222;">(file) helloWorld.scala</span>
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">helloWorld</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">main</span>(<span style="color: #a0522d;">args</span>: <span style="color: #228b22;">Array[String]</span>) {
+    println(<span style="color: #8b2252;">"Hello World!"</span>)
+  }
+}
+</pre>
+</div></li>
+<li><p>
+Then, compile it as follows.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ scalac helloWorld.scala
+</pre>
+</div>
+<ul class="org-ul">
+<li><p>
+It will create the following 2 files.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">helloWorld$.class
+helloWorld.class
+</pre>
+</div></li>
+</ul></li>
+<li><p>
+Then, run it as follows (by spefifying the name of the
+object containing the main method).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ scala helloWorld
+</pre>
+</div></li>
+<li>You will find a message ``Hello World!&rsquo;&rsquo; printed. Then, it is okay.</li>
+</ol></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13"><span class="section-number-2">4</span> Reference/Link</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li><a href="http://redmonk.com/sogrady/2017/06/08/language-rankings-6-17/">The RedMonk Programming Language Rankings: June 2017</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Takehide Soh</p>
+<p class="date">Created: 2018-03-06 火 12:44</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

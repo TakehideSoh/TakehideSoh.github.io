@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Project Eulerに挑戦: 問題2</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Project Eulerに挑戦: 問題2"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-09-29 21:44:06 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="/include/mathjax/MathJax.js">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Project Eulerに挑戦: 問題2</h1>
+
+<ul>
+<li><a href="euler.html">Project Eulerに挑戦</a>
+</li>
+<li><a href="euler-001.html">問題1</a>
+</li>
+<li><a href="euler-002.html">問題2</a>
+</li>
+<li><a href="euler-003.html">問題3</a>
+</li>
+<li><a href="euler-004.html">問題4</a>
+</li>
+<li><a href="euler-005.html">問題5</a>
+</li>
+</ul>
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">問題2</a></li>
+<li><a href="#sec-2">Cで解く</a></li>
+<li><a href="#sec-3">Scalaで解く</a></li>
+<li><a href="#sec-4">手で解く</a>
+<ul>
+<li><a href="#sec-4-1">母関数による <i>F<sub>n</sub></i> の計算</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">問題2</h2>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li><a href="http://projecteuler.net/index.php?section=problems&amp;id=2">問題2の問題文</a>
+</li>
+</ul>
+
+<blockquote>
+
+<p>4000000未満の偶数のフィボナッチ数の総和を求めよ．
+</p>
+</blockquote>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Cで解く</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  フィボナッチ数は，以下の漸化式を用いて再帰的に求めることもできるが，
+  再帰の回数が指数的になり効率が悪い．
+  \begin{eqnarray*}
+  F_1 & = & 1 \\
+  F_2 & = & 2 \\
+  F_n & = & F_{n-1} + F_{n-2} \qquad (n > 2)
+  \end{eqnarray*}
+
+  以下のようにすれば，より効率よくn番目のフィボナッチ数を求めることができる．
+</p>
+
+
+<pre class="src src-c"><span class="linenr"> 1:  </span><span class="org-type">int</span> <span class="org-function-name">fib</span>(<span class="org-type">int</span> <span class="org-variable-name">n</span>) {
+<span class="linenr"> 2:  </span>    <span class="org-type">int</span> <span class="org-variable-name">f0</span> = 1;
+<span class="linenr"> 3:  </span>    <span class="org-type">int</span> <span class="org-variable-name">f1</span> = 1;
+<span class="linenr"> 4:  </span>    <span class="org-type">int</span> <span class="org-variable-name">i</span>, <span class="org-variable-name">f</span>;
+<span class="linenr"> 5:  </span>    <span class="org-keyword">for</span> (i = 1; i &lt; n; i++) {
+<span class="linenr"> 6:  </span>        f = f0 + f1;
+<span class="linenr"> 7:  </span>        f0 = f1;
+<span class="linenr"> 8:  </span>        f1 = f;
+<span class="linenr"> 9:  </span>    }
+<span class="linenr">10:  </span>    <span class="org-keyword">return</span> f1;
+<span class="linenr">11:  </span>}
+</pre>
+
+
+<p>
+  したがって，以下のようにすれば回答が得られる．
+</p>
+
+
+<pre class="src src-c"><span class="linenr"> 1:  </span><span class="org-type">int</span> <span class="org-function-name">e002</span>() {
+<span class="linenr"> 2:  </span>    <span class="org-type">int</span> <span class="org-variable-name">s</span> = 0;
+<span class="linenr"> 3:  </span>    <span class="org-type">int</span> <span class="org-variable-name">i</span>;
+<span class="linenr"> 4:  </span>    <span class="org-keyword">for</span> (i = 1; ; i++) {
+<span class="linenr"> 5:  </span>        <span class="org-type">int</span> <span class="org-variable-name">f</span> = fib(i);
+<span class="linenr"> 6:  </span>        <span class="org-keyword">if</span> (f &gt; 4000000)
+<span class="linenr"> 7:  </span>            <span class="org-keyword">break</span>;
+<span class="linenr"> 8:  </span>        <span class="org-keyword">if</span> (f % 2 == 0)
+<span class="linenr"> 9:  </span>            s += f;
+<span class="linenr">10:  </span>    }
+<span class="linenr">11:  </span>    <span class="org-keyword">return</span> s;
+<span class="linenr">12:  </span>}
+</pre>
+
+
+<p>
+  このプログラムも，何度もフィボナッチ数を最初から求めているので，
+  まだ改善の余地がある．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Scalaで解く</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  まず，与えられた上限以下のフィボナッチ数のリストを求める関数を定義する．
+</p>
+
+
+<pre class="src src-scala"><span class="linenr">1:  </span><span class="org-keyword">def</span> <span class="org-function-name">fibList</span>(<span class="org-variable-name">f0</span>: <span class="org-type">Int</span>, <span class="org-variable-name">f1</span>: <span class="org-type">Int</span>, <span class="org-variable-name">lim</span>: <span class="org-type">Int</span>): <span class="org-type">List[Int]</span> = {
+<span class="linenr">2:  </span>  <span class="org-keyword">val</span> <span class="org-variable-name">f2</span> = f0 + f1
+<span class="linenr">3:  </span>  <span class="org-keyword">if</span> (f2 &gt; lim) Nil <span class="org-keyword">else</span> f2 :: fibList(f1, f2, lim)
+<span class="linenr">4:  </span>}
+<span class="linenr">5:  </span><span class="org-keyword">def</span> <span class="org-function-name">fibList</span>(<span class="org-variable-name">lim</span>: <span class="org-type">Int</span>): <span class="org-type">List[Int]</span> =
+<span class="linenr">6:  </span>  1 :: 2 :: fibList(1, 2, lim)
+</pre>
+
+
+<p>
+  fibListの実行結果は以下のようになる．
+</p><pre class="example">
+scala&gt; fibList(100)
+res: List[Int] = List(1, 2, 3, 5, 8, 13, 21, 34, 55, 89)
+</pre>
+
+
+<p>
+  filterで偶数のフィボナッチ数だけを取り出す．
+</p><pre class="example">
+scala&gt; fibList(100).filter(_ % 2 == 0)
+res: List[Int] = List(2, 8, 34)
+</pre>
+
+
+<p>
+  sumで合計を求める．
+</p><pre class="example">
+scala&gt; fibList(100).filter(_ % 2 == 0).sum
+res: Int = 44
+</pre>
+
+
+<p>
+  したがって回答は以下で求められる．
+</p><pre class="example">
+scala&gt; fibList(4000000).filter(_ % 2 == 0).sum
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">手で解く</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  &phi; を以下のように置く．
+  \begin{eqnarray*}
+  \phi & = & \frac{1+\sqrt{5}}{2}
+  \end{eqnarray*}
+  &phi; は黄金比 (Golden ratio)と呼ばれ，約 1.618 である．
+</p>
+<p>
+  &phi; は x<sup>2</sup> - x - 1 = 0 の解の一つであり，
+  他の解 \(\psi = \frac{1-\sqrt{5}}{2}\) は \(-\frac{1}{\phi}\) に一致している．
+  また &phi;<sup>2</sup>=&phi;+1 および &psi;<sup>2</sup>=&psi;+1 に注意する．
+</p>
+<p>
+  n番目のフィボナッチ数 <i>F<sub>n</sub></i> は以下の式で与えられる(後述)．
+  \begin{eqnarray*}
+  F_n & = &
+  \frac{1}{\sqrt{5}}(\phi^{n+1} - \psi^{n+1})
+  \end{eqnarray*}
+
+  <i>F<sub>n</sub></i> の値は近似的には \(\phi^{n+1} / \sqrt{5}\) で表され，
+  小数部を四捨五入すれば良いことが知られている．
+</p>
+<p>
+  これを4000000と比較して得られる式
+  \((\log 4000000\sqrt{5})/(\log \phi) - 1\) の値が 約32.263であることから，
+  <i>F<sub>32</sub></i> = 3524578 が
+  4000000未満の最大のフィボナッチ数であることがわかる．
+</p>
+<p>
+  次に，
+  偶数のフィボナッチ数は <i>F<sub>2</sub></i>, <i>F<sub>5</sub></i>, <i>F<sub>8</sub></i>, &hellip; のように
+  3番目毎に現れる点に注意する．
+  したがって以下の式で \(n=11\) とした場合，
+  4000000未満の偶数フィボナッチ数の総和となる．
+  \begin{eqnarray*}
+  \sum_{k=0}^{n-1} F_{3k+2}
+  & = &
+  \frac{1}{\sqrt{5}} \sum_{k=0}^{n-1} (\phi^{3(k+1)} - \psi^{3(k+1)})
+  \end{eqnarray*}
+
+  ここで \(\sum_{k=0}^{n-1} x^k = (x^n - 1)/(x - 1)\)
+  および &phi;<sup>3</sup>-1 = 2&phi; と &psi;<sup>3</sup>-1 = 2&psi; を用いると，
+  以下が得られる．
+  \begin{eqnarray*}
+  \sum_{k=0}^{n-1} \phi^{3(k+1)} & = &
+  \phi^3 (\phi^{3n} - 1)/(\phi^3 - 1) = \frac{1}{2}(\phi^{3n+2} - \phi^2) \\
+  \sum_{k=0}^{10} \psi^{3(k+1)} & = &
+  \psi^3 (\psi^{3n} - 1)/(\psi^3 - 1) = \frac{1}{2}(\psi^{3n+2} - \psi^2)
+  \end{eqnarray*}
+
+  これから，以下がわかる．
+  \begin{eqnarray*}
+  \sum_{k=0}^{n-1} F_{3k+2}
+  & = &
+  \frac{1}{2} (F_{3n+1} - F_1)
+  \end{eqnarray*}
+
+  したがって，求める回答の値は (<i>F<sub>34</sub></i> - 1)/2 を計算すれば良い．
+</p>
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1">母関数による <i>F<sub>n</sub></i> の計算</h3>
+<div class="outline-text-3" id="text-4-1">
+
+<p>  無限項の多項式 \(F(z)\) を以下のように定義する．
+  ただし \(F_0 = 1\) とする．
+  \begin{eqnarray*}
+  F(z)
+  & = &
+  \sum_{n=0}^{\infty} F_n z^n
+  \end{eqnarray*}
+
+  \(F(z)\) はフィボナッチ数列 <i>F<sub>n</sub></i> の母関数 (generating function)と呼ばれる．
+</p>
+<p>
+  \(F(z)-z F(z)-z^2 F(z)\) を考えると，
+  フィボナッチ数の定義より，以下が成り立つ．
+  \begin{eqnarray*}
+  F(z)-z F(z)-z^2 F(z) & = & F_0 + (F_1 - F_0)z + (F_2 - F_1 - F_0)z^2 + \cdots \\
+  (1-z-z^2)F(z) & = & 1 \\
+  F(z) & = & -\frac{1}{z^2+z-1}
+  \end{eqnarray*}
+
+  ここから以下のようにして -1/(z<sup>2</sup>+z-1) の
+  マクローリン展開 (Maclaurin series)を求める．
+</p>
+<p>
+  z<sup>2</sup>+z-1=0 の2解を
+  \(\alpha = (-1+\sqrt{5})/2\) と \(\beta = (-1-\sqrt{5})/2\) として，
+  -1/(z<sup>2</sup>+z-1) を部分分数分解すると以下の形で表せる．
+  \begin{eqnarray*}
+  -\frac{1}{z^2+z-1} & = & \frac{A}{z-\alpha} + \frac{B}{z-\beta}
+  \end{eqnarray*}
+
+  また，\(1/(z-a) = - \sum_{n=0}^{\infty} a^{-n-1} z^n\) および
+  1/&alpha; = &phi; と 1/&beta; = &psi; より
+  \begin{eqnarray*}
+  -\frac{1}{z^2+z-1} & = & \sum_{n=0}^{\infty} (-A\phi^{n+1}-B\psi^{n+1}) z^n
+  \end{eqnarray*}
+  となり， \(F_n = -A\phi^{n+1}-B\psi^{n+1}\) である．
+</p>
+<p>
+  ここで \(F_0 = F_1 = 1\) より，以下の式が得られる．
+  \begin{eqnarray*}
+  -A\phi-B\psi & = & 1 \\
+  -A\phi^2-B\psi^2 & = & 1
+  \end{eqnarray*}
+
+  これを解くと \(A = -1/\sqrt{5}\), \(B = 1/\sqrt{5}\) であり，
+  <i>F<sub>n</sub></i> の一般式として以下が得られる．
+  \begin{eqnarray*}
+  F_n & = & \frac{1}{\sqrt{5}} (\phi^{n+1} - \psi^{n+1})
+  \end{eqnarray*}
+
+
+
+
+
+
+
+</p></div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-09-29 21:44:06 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

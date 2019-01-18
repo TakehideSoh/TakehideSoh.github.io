@@ -1,0 +1,326 @@
+% Created 2018-02-25 日 11:50
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Takehide Soh}
+\date{\today}
+\title{Scala Lecture ** First Step  **}
+\begin{document}
+
+\maketitle
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+
+\section*{Overview of Scala}
+\label{sec:orgheadline2}
+\begin{itemize}
+\item Scala is a statically typed programming language which realize
+both object-oriented and functional programming.
+\begin{itemize}
+\item Scala is a pure object-oriented language in the sense that every value is an object.
+\item Scala is also a functional language in the sense that every function is a value.
+\end{itemize}
+
+\item The creator of Scala is Martin Odersky (École Polytechnique
+Fédérale de Lausanne (EPFL), Lausanne, Switzerland).
+\begin{itemize}
+\item He designed Scala in 2001.
+\item On Feburuary 2018, the latest version of Scala is 2.12.
+\item He said that:
+\begin{itemize}
+\item Scala was designed to show that a fusion of functional and
+object-oriented programming is possible and practical. That’s
+still its primary role. What has changed is that at the time it
+came out FP was regarded as an academic niche. So it was
+difficult to make the case that FP should be needed in a
+mainstream language.
+\end{itemize}
+\end{itemize}
+
+\item Who is using Scala?
+\begin{itemize}
+\item Many well known companies use Scala:
+\begin{itemize}
+\item LinkedIn
+\item Twitter
+\item Foursquare
+\item Netflix
+\item Tumblr
+\item The Guardian
+\item precog
+\item Sony
+\item AirBnB
+\item Klout
+\item Apple (added Sep., 2013)
+\end{itemize}
+\item This information is collected by the following pages.
+\begin{itemize}
+\item \url{http://www.scala-lang.org/old/node/1658}
+\item \url{https://alvinalexander.com/scala/whos-using-scala-akka-play-framework}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\subsection*{Link}
+\label{sec:orgheadline1}
+\begin{itemize}
+\item Official
+\begin{itemize}
+\item \url{https://www.scala-lang.org}
+\end{itemize}
+\item French
+\begin{itemize}
+\item \href{http://www.scala-lang.org/docu/files/ScalaByExample-fr_FR.pdf}{Scala par l'example}
+\end{itemize}
+\item English
+\begin{itemize}
+\item \href{http://www.artima.com/pins1ed/}{Programming in Scala, First Edition} (by Martin Odersky, Lex Spoon, and Bill Venners)
+\item \href{http://programming-scala.labs.oreilly.com/index.html}{Programming Scala} (by Dean Wampler and Alex Payne)
+\item \href{http://twitter.github.com/effectivescala/index-ja.html}{Effective Scala} (by Marius Eriksen, translated by Yuta Okamoto and Satoshi Kobayashi)
+\item \href{http://twitter.github.com/scala_school/}{Twitter's Scala School!}
+\item \href{https://wiki.scala-lang.org}{Scala Wiki}
+\end{itemize}
+\item News
+\begin{itemize}
+\item \href{https://www.lightbend.com/company/news/jaxenter-interview-with-scala-creator-martin-odersky-on-the-current-state-of-scala}{Interview with Scala creator Martin Odersky — The current state of Scaa}
+\begin{itemize}
+\item Documentation / Manuals / Translations に日本語のマニュアル等がある
+\end{itemize}
+\end{itemize}
+\item Book
+\begin{itemize}
+\item (TODO)
+\end{itemize}
+\item Exercise
+\begin{itemize}
+\item \href{http://aperiodic.net/phil/scala/s-99/}{S-99: Ninety-Nine Scala Problems}
+\item \href{http://blog.tmorris.net/scala-exercises-for-beginners/}{Scala exercises for beginners}
+\end{itemize}
+\end{itemize}
+
+\section*{Install Scala into Your Computer}
+\label{sec:orgheadline5}
+\begin{itemize}
+\item Even withtout installing, you can test some simple Scala program
+via your browser
+\begin{itemize}
+\item \href{https://scastie.scala-lang.org}{scastie}
+\item \href{https://scalafiddle.io}{scalafiddle}
+\end{itemize}
+\end{itemize}
+
+\subsection*{Requirement}
+\label{sec:orgheadline3}
+\begin{itemize}
+\item Java 8 is neccessary to be installed.
+\item You can check it as follows (for Mac or Linux).
+
+\item open terminal
+\item type the followings
+\end{itemize}
+\begin{verbatim}
+$ java -version
+
+java version "1.8.0_121"
+Java(TM) SE Runtime Environment (build 1.8.0_121-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.121-b13, mixed mode)
+\end{verbatim}
+
+\subsection*{Install Scala 2.12 (latest on Feburuary 2018)}
+\label{sec:orgheadline4}
+\begin{enumerate}
+\item Open \url{https://www.scala-lang.org} in your browser.
+\item Click ``Download''.
+\item Scrool and find ``other ways to install Scala''. 
+\begin{enumerate}
+\item Click ``Download the Scala binaries for xxx'' --- xxx will be
+your operation system.
+\item Scala-2.12.4.tgz will be downloaded.
+\end{enumerate}
+\item Make a directory used in this lecture.
+\begin{itemize}
+\item (Note) Wherever you like. But if you do not have any
+preference, please follow the instruction.
+\end{itemize}
+\begin{verbatim}
+$ cd
+$ mkdir scala18
+$ cd scala18
+\end{verbatim}
+\item Move and un-archive ``Scala-2.12.4.tgz'' to your directory. 
+\begin{verbatim}
+$ mv <path downloaded>/Scala-2.12.4.tgz ./
+$ tar xvzf Scala-2.12.4.tgz
+$ ls
+\end{verbatim}
+\begin{itemize}
+\item Can you find your Scala directory? Then it is okay!
+\end{itemize}
+\begin{verbatim}
+$ ls
+scala-2.12.4 scala-2.12.4.tar
+\end{verbatim}
+\item Set the PATH to Scala
+\begin{verbatim}
+echo 'export PATH=~/scala-2.12.4/scala-2.12.4/bin:$PATH' >>~/.profile
+\end{verbatim}
+
+\item Summary
+\begin{verbatim}
+$ cd ~
+$ mkdir XXX
+$ cd XXX
+$ curl -O https://downloads.lightbend.com/scala/2.12.4/scala-2.12.4.tgz
+$ tar xvzf scala-2.12.4.tgz
+$ echo 'export PATH=~/XXX/scala-2.12.4/bin:$PATH' >>~/.profile
+$ . ~/.profile
+\end{verbatim}
+\end{enumerate}
+
+\section*{Verify if it is correctly working or not.}
+\label{sec:orgheadline6}
+\begin{itemize}
+\item Type the followng.
+\begin{verbatim}
+$ scala
+\end{verbatim}
+\item Then you will see the following. Then, it is okay.
+\begin{verbatim}
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121).
+Type in expressions for evaluation. Or try :help.
+
+scala>
+\end{verbatim}
+\end{itemize}
+
+
+\section*{3 ways of running Scala}
+\label{sec:orgheadline10}
+\subsection*{REPL (Read Eval Print Loop)}
+\label{sec:orgheadline7}
+\begin{itemize}
+\item (Overview)
+\begin{itemize}
+\item REPL is an interactive interface of Scala.
+\end{itemize}
+\item (For what?)
+\begin{itemize}
+\item simple program
+\end{itemize}
+\item (Usage)
+\begin{itemize}
+\item Type ``scala'' in terminal. Then, REPL will start and can be
+used like the followings:
+\end{itemize}
+\begin{verbatim}
+$ scala
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121).
+Type in expressions for evaluation. Or try :help.
+
+scala> 1+2
+res0: Int = 3
+
+scala> 3.toString
+res1: String = 3
+
+scala> 3.toDouble
+res2: Double = 3.0
+
+scala> :quit
+\end{verbatim}
+\end{itemize}
+
+\subsection*{Run it like script}
+\label{sec:orgheadline8}
+\begin{itemize}
+\item (Overview)
+\begin{itemize}
+\item scala provides script-like execution of its program without
+(explicit) compilation.
+\end{itemize}
+\item (For what?)
+\begin{itemize}
+\item simple program
+\end{itemize}
+\item (Usage)
+\begin{itemize}
+\item Write a simple program in a text file. Then, we can run it as
+follows.
+\begin{itemize}
+\item For instance, write the following and save it as ``helloWorld.sc''.
+\begin{verbatim}
+// (file) helloWorld.sc
+object helloWorld {
+  def main(args: Array[String]) {
+    println("Hello World!")
+  }
+}
+\end{verbatim}
+\item Then, run it as follows.
+\begin{verbatim}
+$ scala helloWorld.sc 
+Hello World!
+\end{verbatim}
+\item You will find a message ``Hello World!'' printed. Then, it is okay.
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\subsection*{Compile and Run}
+\label{sec:orgheadline9}
+\begin{itemize}
+\item (Overview)
+\begin{itemize}
+\item A standard way of running Scala program.
+\end{itemize}
+\item (For what?)
+\begin{itemize}
+\item simple to complex program
+\end{itemize}
+\item (Usage)
+\begin{itemize}
+\item Write a program in a text file. Then, we can run it as follows.
+\begin{enumerate}
+\item For instance, write the following and save it as ``helloWorld.scala''.
+\begin{verbatim}
+// (file) helloWorld.sc
+object helloWorld {
+  def main(args: Array[String]) {
+    println("Hello World!")
+  }
+}
+\end{verbatim}
+\item Then, compile it as follows.
+\begin{verbatim}
+$ scalac helloWorld.scala
+\end{verbatim}
+\begin{itemize}
+\item It will create the following 2 files.
+\begin{verbatim}
+helloWorld$.class
+helloWorld.class
+\end{verbatim}
+\end{itemize}
+\item Then, run it as follows (by spefifying the name of the
+object containing the main method).
+\begin{verbatim}
+$ scala helloWorld
+\end{verbatim}
+\item You will find a message ``Hello World!'' printed. Then, it is okay.
+\end{enumerate}
+\end{itemize}
+\end{itemize}
+\end{document}

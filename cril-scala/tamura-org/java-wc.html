@@ -1,0 +1,1098 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Javaで語を数える</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Javaで語を数える"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-09-29 21:44:41 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Javaで語を数える</h1>
+
+<ul>
+<li><a href="java.html">Javaプログラミング入門</a>
+</li>
+<li><a href="java-wc.html">Javaで語を数える</a>
+</li>
+</ul>
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 目標</a></li>
+<li><a href="#sec-2">2 クラスライブラリ</a>
+<ul>
+<li><a href="#sec-2-1">2.1 コレクション</a></li>
+<li><a href="#sec-2-2">2.2 ファイル入出力</a></li>
+<li><a href="#sec-2-3">2.3 文字列処理</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 コレクション</a>
+<ul>
+<li><a href="#sec-3-1">3.1 ArrayListの利用方法</a>
+<ul>
+<li><a href="#sec-3-1-1">3.1.1 ArrayListのプログラム例</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-2">3.2 HashSetの利用方法</a>
+<ul>
+<li><a href="#sec-3-2-1">3.2.1 HashSetのプログラム例</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-3">3.3 HashMapの利用方法</a>
+<ul>
+<li><a href="#sec-3-3-1">3.3.1 HashMapのプログラム例</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 ファイル入力</a></li>
+<li><a href="#sec-5">5 文字列処理</a>
+<ul>
+<li><a href="#sec-5-1">5.1 大文字への変換</a></li>
+<li><a href="#sec-5-2">5.2 文字列の置換</a></li>
+<li><a href="#sec-5-3">5.3 文字列の分割</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 クラス設計</a>
+<ul>
+<li><a href="#sec-6-1">6.1 インターフェイスを決める</a></li>
+<li><a href="#sec-6-2">6.2 シナリオを考える</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7 クラス実装</a>
+<ul>
+<li><a href="#sec-7-1">7.1 実装に利用できるクラスを探す</a></li>
+<li><a href="#sec-7-2">7.2 実装方法の選択</a>
+<ul>
+<li><a href="#sec-7-2-1">7.2.1 is-aによる実装例</a></li>
+<li><a href="#sec-7-2-2">7.2.2 has-aによる実装例</a></li>
+<li><a href="#sec-7-2-3">7.2.3 is-aによる実装とhas-aによる実装の比較</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-8">8 単体テスト</a></li>
+<li><a href="#sec-9">9 プログラム作成</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 目標</h2>
+<div class="outline-text-2" id="text-1">
+
+<blockquote>
+
+<p>与えられたファイル中の単語の出現回数をカウントし，
+多いものから順に表示する．
+</p>
+</blockquote>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> クラスライブラリ</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  以下のクラスライブラリを利用する．
+</p>
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> <a href="http://java.sun.com/javase/ja/6/docs/ja/technotes/guides/collections/index.html">コレクション</a></h3>
+<div class="outline-text-3" id="text-2-1">
+
+<ul>
+<li><a href="https://docs.oracle.com/javase/jp/7/api/java/util/ArrayList.html">java.util.ArrayList</a> :
+     リスト構造を実現しているクラス
+</li>
+<li><a href="https://docs.oracle.com/javase/jp/7/api/java/util/HashSet.html">java.util.HashSet</a> :
+     ハッシュ表で集合を実現しているクラス
+</li>
+<li><a href="https://docs.oracle.com/javase/jp/7/api/java/util/HashMap.html">java.util.HashMap</a> :
+     ハッシュ表を実現しているクラス
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> ファイル入出力</h3>
+<div class="outline-text-3" id="text-2-2">
+
+<ul>
+<li><a href="https://docs.oracle.com/javase/jp/7/api/java/io/FileReader.html">java.io.FileReader</a> :
+     ファイルからの入力を実現するクラス
+</li>
+<li><a href="https://docs.oracle.com/javase/jp/7/api/java/io/BufferedReader.html">java.io.BufferedReader</a> :
+     入力をバッファリングするクラス
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 文字列処理</h3>
+<div class="outline-text-3" id="text-2-3">
+
+<p>   文字列のクラス <a href="https://docs.oracle.com/javase/jp/7/api/java/lang/String.html">java.lang.String</a> の以下のメソッドを利用する
+</p><ul>
+<li><a href="https://docs.oracle.com/javase/jp/7/api/java/lang/String.html#toUpperCase()">java.lang.String#toUpperCase</a> : 大文字へ変換するメソッド
+</li>
+<li><a href="https://docs.oracle.com/javase/jp/7/api/java/lang/String.html#replaceAll(java.lang.String, java.lang.String)">java.lang.String#replaceAll</a> : 正規表現での置換を行うメソッド
+</li>
+<li><a href="https://docs.oracle.com/javase/jp/7/api/java/lang/String.html#split(java.lang.String)">java.lang.String#split</a> : 正規表現で文字列を分割するメソッド
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> コレクション</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  まずArrayList等のコレクションクラスの利用方法を説明する．
+</p>
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> ArrayListの利用方法</h3>
+<div class="outline-text-3" id="text-3-1">
+
+<p>   <a href="https://docs.oracle.com/javase/jp/7/api/java/util/ArrayList.html">ArrayList</a> は <a href="https://docs.oracle.com/javase/jp/7/api/java/util/List.html">List</a> の一種であり，
+   リスト構造を実現している．
+</p>
+<p>
+   基本的な利用方法は以下の通り．
+</p>
+<ul>
+<li>Stringを要素とするリストを作成する．
+<pre class="example">
+ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();
+</pre>
+
+</li>
+<li>リストの最後に要素を追加する．
+<pre class="example">
+list.add("abc");
+</pre>
+
+</li>
+<li>リストの i 番目の要素を取り出す．
+<pre class="example">
+int i = 0;
+String s = list.get(i);
+</pre>
+
+</li>
+<li>リストの要素数を取得する．
+<pre class="example">
+int size = list.size();
+</pre>
+
+</li>
+<li>リストが空かどうかテストする．
+<pre class="example">
+if (list.isEmpty()) {
+  .....
+}
+</pre>
+
+</li>
+<li>リストの全要素を表示する．
+<pre class="example">
+for (String s : list) {
+  System.out.println(s);
+}
+</pre>
+
+<p>     以下のようにしても良い．
+</p><pre class="example">
+for (int i = 0; i &lt; list.size(); i++) {
+  System.out.println(list.get(i));
+}
+</pre>
+
+</li>
+<li>リストの要素をソートする．
+<pre class="example">
+Collections.sort(list);
+</pre>
+
+</li>
+<li>比較関数を指定してソートする．
+<pre class="example">
+Collections.sort(list, new Comparator&lt;String&gt;() {
+  public int compare(String s1, String s2) {
+    int c = -1 か 0 か 1 の値;
+    return c;
+  }
+});
+</pre>
+
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-3-1-1" class="outline-4">
+<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> ArrayListのプログラム例</h4>
+<div class="outline-text-4" id="text-3-1-1">
+
+
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-keyword">import</span> <span class="org-constant">java</span>.<span class="org-constant">util</span>.<span class="org-type">ArrayList</span>;
+<span class="linenr"> 2:  </span>
+<span class="linenr"> 3:  </span><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">ArrayListTest</span> {
+<span class="linenr"> 4:  </span>  <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span>(<span class="org-type">String</span>[] <span class="org-variable-name">args</span>) {
+<span class="linenr"> 5:  </span>    <span class="org-type">ArrayList</span>&lt;<span class="org-type">String</span>&gt; <span class="org-variable-name">list</span> = <span class="org-keyword">new</span> <span class="org-type">ArrayList</span>&lt;<span class="org-type">String</span>&gt;();
+<span class="linenr"> 6:  </span>    list.add(<span class="org-string">"abc"</span>);
+<span class="linenr"> 7:  </span>    list.add(<span class="org-string">"def"</span>);
+<span class="linenr"> 8:  </span>    list.add(<span class="org-string">"ghi"</span>);
+<span class="linenr"> 9:  </span>    <span class="org-type">String</span> <span class="org-variable-name">s</span> = list.get(0);
+<span class="linenr">10:  </span>    System.out.println(<span class="org-string">"first element is "</span> + s);
+<span class="linenr">11:  </span>    <span class="org-keyword">if</span> (list.isEmpty()) {
+<span class="linenr">12:  </span>      System.out.println(<span class="org-string">"list is empty"</span>);
+<span class="linenr">13:  </span>    }
+<span class="linenr">14:  </span>    <span class="org-type">int</span> <span class="org-variable-name">size</span> = list.size();
+<span class="linenr">15:  </span>    System.out.println(<span class="org-string">"list size is "</span> + size);
+<span class="linenr">16:  </span>  }
+<span class="linenr">17:  </span>}
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> HashSetの利用方法</h3>
+<div class="outline-text-3" id="text-3-2">
+
+<p>   <a href="https://docs.oracle.com/javase/jp/7/api/java/util/HashSet.html">HashSet</a> は <a href="https://docs.oracle.com/javase/jp/7/api/java/util/Set.html">Set</a> の一種であり，
+   集合を実現している．
+</p>
+<p>
+   基本的な利用方法は以下の通り．
+</p><ul>
+<li>Stringを要素とする集合を作成する．
+<pre class="example">
+HashSet&lt;String&gt; set = new HashSet&lt;String&gt;();
+</pre>
+
+</li>
+<li>集合に要素を追加する．
+<pre class="example">
+set.add("abc");
+</pre>
+
+</li>
+<li>集合に要素が含まれているかどうかテストする．
+<pre class="example">
+if (set.contains("abc")) {
+  .....
+}
+</pre>
+
+</li>
+<li>集合の要素数を取得する．
+<pre class="example">
+int size = set.size();
+</pre>
+
+</li>
+<li>集合が空かどうかテストする．
+<pre class="example">
+if (set.isEmpty()) {
+  .....
+}
+</pre>
+
+</li>
+<li>集合からリストに変換する．
+<pre class="example">
+list = new ArrayList&lt;String&gt;(set);
+</pre>
+
+</li>
+<li>リストから集合に変換する．
+<pre class="example">
+set = new HashSet&lt;String&gt;(list);
+</pre>
+
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> HashSetのプログラム例</h4>
+<div class="outline-text-4" id="text-3-2-1">
+
+
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-keyword">import</span> <span class="org-constant">java</span>.<span class="org-constant">util</span>.<span class="org-type">HashSet</span>;
+<span class="linenr"> 2:  </span>
+<span class="linenr"> 3:  </span><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">HashSetTest</span> {
+<span class="linenr"> 4:  </span>  <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span>(<span class="org-type">String</span>[] <span class="org-variable-name">args</span>) {
+<span class="linenr"> 5:  </span>    <span class="org-type">HashSet</span>&lt;<span class="org-type">String</span>&gt; <span class="org-variable-name">set</span> = <span class="org-keyword">new</span> <span class="org-type">HashSet</span>&lt;<span class="org-type">String</span>&gt;();
+<span class="linenr"> 6:  </span>    set.add(<span class="org-string">"abc"</span>);
+<span class="linenr"> 7:  </span>    set.add(<span class="org-string">"def"</span>);
+<span class="linenr"> 8:  </span>    set.add(<span class="org-string">"abc"</span>);
+<span class="linenr"> 9:  </span>    <span class="org-keyword">if</span> (set.contains(<span class="org-string">"abc"</span>)) {
+<span class="linenr">10:  </span>      System.out.println(<span class="org-string">"set containts abc"</span>);
+<span class="linenr">11:  </span>    }
+<span class="linenr">12:  </span>    <span class="org-keyword">if</span> (set.isEmpty()) {
+<span class="linenr">13:  </span>      System.out.println(<span class="org-string">"set is empty"</span>);
+<span class="linenr">14:  </span>    }
+<span class="linenr">15:  </span>    <span class="org-type">int</span> <span class="org-variable-name">size</span> = set.size();
+<span class="linenr">16:  </span>    System.out.println(<span class="org-string">"set size is "</span> + size);
+<span class="linenr">17:  </span>  }
+<span class="linenr">18:  </span>}
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> HashMapの利用方法</h3>
+<div class="outline-text-3" id="text-3-3">
+
+<p>   <a href="https://docs.oracle.com/javase/jp/7/api/java/util/HashMap.html">HashMap</a> は <a href="https://docs.oracle.com/javase/jp/7/api/java/util/Map.html">Map</a> の一種であり，
+   ハッシュ表を実現している．
+</p>
+<p>
+   基本的な利用方法は以下の通り．
+</p>
+<ul>
+<li>StringをキーとしIntegerを値とするハッシュ表を作成する．
+<pre class="example">
+HashMap&lt;String,Integer&gt; map = new HashMap&lt;String,Integer&gt;();
+</pre>
+
+</li>
+<li>ハッシュ表にデータを登録する．
+<pre class="example">
+map.put("abc", 123);
+</pre>
+
+</li>
+<li>ハッシュ表にキーが含まれているかどうかテストする．
+<pre class="example">
+if (map.containsKey("abc")) {
+  .....
+}
+</pre>
+
+</li>
+<li>ハッシュ表の値を取得する．
+<pre class="example">
+int x = map.get("abc");
+</pre>
+
+</li>
+<li>ハッシュ表の要素数を取得する．
+<pre class="example">
+int size = map.size();
+</pre>
+
+</li>
+<li>ハッシュ表のキーの集合を取得する．
+<pre class="example">
+Set&lt;String&gt; set = map.keySet();
+</pre>
+
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-3-3-1" class="outline-4">
+<h4 id="sec-3-3-1"><span class="section-number-4">3.3.1</span> HashMapのプログラム例</h4>
+<div class="outline-text-4" id="text-3-3-1">
+
+
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-keyword">import</span> <span class="org-constant">java</span>.<span class="org-constant">util</span>.<span class="org-type">HashMap</span>;
+<span class="linenr"> 2:  </span>
+<span class="linenr"> 3:  </span><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">HashMapTest</span> {
+<span class="linenr"> 4:  </span>  <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span>(<span class="org-type">String</span>[] <span class="org-variable-name">args</span>) {
+<span class="linenr"> 5:  </span>    <span class="org-type">HashMap</span>&lt;<span class="org-type">String</span>,<span class="org-type">Integer</span>&gt; <span class="org-variable-name">map</span> = <span class="org-keyword">new</span> <span class="org-type">HashMap</span>&lt;<span class="org-type">String</span>,<span class="org-type">Integer</span>&gt;();
+<span class="linenr"> 6:  </span>    map.put(<span class="org-string">"abc"</span>, 1);
+<span class="linenr"> 7:  </span>    map.put(<span class="org-string">"def"</span>, 1);
+<span class="linenr"> 8:  </span>    <span class="org-keyword">if</span> (map.containsKey(<span class="org-string">"abc"</span>)) {
+<span class="linenr"> 9:  </span>      <span class="org-type">int</span> <span class="org-variable-name">x</span> = map.get(<span class="org-string">"abc"</span>);
+<span class="linenr">10:  </span>      System.out.println(<span class="org-string">"map contains "</span> + x + <span class="org-string">" for abc"</span>);
+<span class="linenr">11:  </span>    }
+<span class="linenr">12:  </span>    <span class="org-keyword">if</span> (map.isEmpty()) {
+<span class="linenr">13:  </span>      System.out.println(<span class="org-string">"map is empty"</span>);
+<span class="linenr">14:  </span>    }
+<span class="linenr">15:  </span>    <span class="org-type">int</span> <span class="org-variable-name">size</span> = map.size();
+<span class="linenr">16:  </span>    System.out.println(<span class="org-string">"map size is "</span> + size);
+<span class="linenr">17:  </span>  }
+<span class="linenr">18:  </span>}
+</pre>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> ファイル入力</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  ファイル入力には，
+  以下のように <a href="https://docs.oracle.com/javase/jp/7/api/java/io/FileReader.html">FileReader</a> と <a href="https://docs.oracle.com/javase/jp/7/api/java/io/BufferedReader.html">BufferedReader</a> を利用する．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-type">String</span> <span class="org-variable-name">fileName</span> = &#12501;&#12449;&#12452;&#12523;&#21517;;
+<span class="linenr"> 2:  </span><span class="org-keyword">try</span> {
+<span class="linenr"> 3:  </span>  <span class="org-type">BufferedReader</span> <span class="org-variable-name">in</span> = <span class="org-keyword">new</span> <span class="org-type">BufferedReader</span>(<span class="org-keyword">new</span> <span class="org-type">FileReader</span>(fileName));
+<span class="linenr"> 4:  </span>  <span class="org-keyword">while</span> (<span class="org-constant">true</span>) {
+<span class="linenr"> 5:  </span>    <span class="org-type">String</span> <span class="org-variable-name">line</span> = in.readLine();
+<span class="linenr"> 6:  </span>    <span class="org-keyword">if</span> (line == <span class="org-constant">null</span>) {
+<span class="linenr"> 7:  </span>      <span class="org-keyword">break</span>;
+<span class="linenr"> 8:  </span>    }
+<span class="linenr"> 9:  </span>    <span class="org-type">line</span> <span class="org-variable-name">&#12398;&#20966;&#29702;</span>;
+<span class="linenr">10:  </span>  }
+<span class="linenr">11:  </span>  in.close();
+<span class="linenr">12:  </span>} <span class="org-keyword">catch</span> (<span class="org-type">FileNotFoundException</span> <span class="org-variable-name">e</span>) {
+<span class="linenr">13:  </span>  e.printStackTrace(); <span class="org-comment-delimiter">// </span><span class="org-comment">&#12501;&#12449;&#12452;&#12523;&#12364;&#23384;&#22312;&#12375;&#12394;&#12363;&#12387;&#12383;&#12392;&#12356;&#12358;&#20363;&#22806;</span>
+<span class="linenr">14:  </span>} <span class="org-keyword">catch</span> (<span class="org-type">IOException</span> <span class="org-variable-name">e</span>) {
+<span class="linenr">15:  </span>  e.printStackTrace(); <span class="org-comment-delimiter">// </span><span class="org-comment">&#20837;&#20986;&#21147;&#12456;&#12521;&#12540;&#12398;&#20363;&#22806;</span>
+<span class="linenr">16:  </span>}
+</pre>
+
+
+<ul>
+<li>FileReader は文字ファイルを読み込むためのクラスである．
+</li>
+<li>BufferedReader は文字入力をバッファリングするクラスである．
+</li>
+<li>バッファリングすることで，一行単位での入力 ( <code>readLine()</code> )が可能になる．
+</li>
+<li><code>readLine()</code> は一行を読み込む．
+    入力が終わった場合は <code>null</code> が返る．
+</li>
+<li><code>close()</code> は入力バッファ(および入力ファイル)を閉じる．
+</li>
+<li>try-catch は，例外処理のための構文である．
+</li>
+<li>tryブロック中の実行中に， <code>FileNotFoundException</code> が生じると，
+    tryブロックの実行を中断し，該当するcatchブロックが実行される．
+</li>
+<li>tryブロック中の実行中に， <code>IOException</code> が生じると，
+    tryブロックの実行を中断し，該当するcatchブロックが実行される．
+</li>
+<li><code>e.printStackTrace()</code> は，実行トレースを出力する．    
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 文字列処理</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>  文字列のクラス <a href="https://docs.oracle.com/javase/jp/7/api/java/lang/String.html">String</a> には文字列処理のための様々なメソッドが用意されている．
+</p>
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 大文字への変換</h3>
+<div class="outline-text-3" id="text-5-1">
+
+<p>   大文字への変換には <code>toUpperCase()</code> メソッドを利用する．
+</p><pre class="example">
+line = line.toUpperCase();
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 文字列の置換</h3>
+<div class="outline-text-3" id="text-5-2">
+
+<p>   指定された <a href="https://docs.oracle.com/javase/jp/7/api/java/util/regex/Pattern.html#sum">正規表現</a> にマッチする部分文字列を探索し，
+   それらを指定された文字列に置換するには <code>replaceAll</code> メソッドを利用する．
+</p><ul>
+<li>文字 <code>a</code>, <code>b</code> のいずれかにマッチする部分文字列を <code>x</code> に置換する．
+<pre class="example">
+s = "abracadabra";
+t = s.replaceAll("[ab]", "x");
+</pre>
+
+<p>     t は "<code>xxrxcxdxxrx</code>" になる．
+</p></li>
+<li>英大文字にマッチする部分文字列を <code>x</code> に置換する．
+<pre class="example">
+s = "Kobe University";
+t = s.replaceAll("[A-Z]", "x");
+</pre>
+
+<p>     t は "<code>xobe xniversity</code>" になる．
+</p></li>
+<li>英大文字にマッチしない部分文字列を <code>x</code> に置換する．
+<pre class="example">
+s = "Kobe University";
+t = s.replaceAll("[^A-Z]", "x");
+</pre>
+
+<p>     t は "KxxxxUxxxxxxxxx" になる．
+</p></li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> 文字列の分割</h3>
+<div class="outline-text-3" id="text-5-3">
+
+<p>   指定された <a href="https://docs.oracle.com/javase/jp/7/api/java/util/regex/Pattern.html#sum">正規表現</a> にマッチする部分で文字列を分割するには
+   <code>split</code> メソッドを利用する．
+</p>
+<p>
+   たとえば，以下のようなプログラムでは，
+   文字列sは文字 <code>a</code> にマッチする部分で分割される．
+</p><pre class="example">
+s = "abracadabra";
+String p[] = s.split("a");
+</pre>
+
+
+<p>
+   分割された結果は配列であり，以下のようになる．
+</p><table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<tbody>
+<tr><td class="left"><code>p[0]</code></td><td class="left"><code>=</code></td><td class="left">""</td></tr>
+<tr><td class="left"><code>p[1]</code></td><td class="left"><code>=</code></td><td class="left">"br"</td></tr>
+<tr><td class="left"><code>p[2]</code></td><td class="left"><code>=</code></td><td class="left">"c"</td></tr>
+<tr><td class="left"><code>p[3]</code></td><td class="left"><code>=</code></td><td class="left">"d"</td></tr>
+<tr><td class="left"><code>p[4]</code></td><td class="left"><code>=</code></td><td class="left">"br"</td></tr>
+</tbody>
+</table>
+
+
+<p>   
+   空白文字が一文字以上連続している場所で分割するには
+   以下のように書く．
+</p><pre class="example">
+s = "Kobe University    Japan";
+String p[] = s.split("\\s+");
+</pre>
+
+
+<p>
+   空白文字の正規表現は <code>\s</code> だが，
+   ダブルクォーテーション中にバックスラッシュを記述する場合，
+   <code>\\</code> と書かないといけないため <code>\\s</code> となる点に注意する．
+   また <code>+</code> は一文字以上連続することを表す正規表現での記法である．
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> クラス設計</h2>
+<div class="outline-text-2" id="text-6">
+
+
+<p>
+  与えられた問題を解くには，
+  以下のようなクラスCountTableがあれば便利だろう．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr">1:  </span><span class="org-comment-delimiter">// </span><span class="org-comment">&#25991;&#23383;&#21015;&#12398;&#22238;&#25968;&#12434;&#25968;&#12360;&#12427;&#34920;&#12434;&#20316;&#25104;</span>
+<span class="linenr">2:  </span><span class="org-type">CountTable</span> <span class="org-variable-name">table</span> = <span class="org-keyword">new</span> <span class="org-type">CountTable</span>();
+<span class="linenr">3:  </span><span class="org-comment-delimiter">// </span><span class="org-comment">&#25991;&#23383;&#21015;&#12434;&#30331;&#37682;&#12375;&#65292;&#22238;&#25968;&#12434;&#25968;&#12360;&#12427;</span>
+<span class="linenr">4:  </span>table.add(<span class="org-string">"abc"</span>);
+<span class="linenr">5:  </span>table.add(<span class="org-string">"def"</span>);
+<span class="linenr">6:  </span>table.add(<span class="org-string">"abc"</span>);
+<span class="linenr">7:  </span><span class="org-comment-delimiter">// </span><span class="org-comment">&#25991;&#23383;&#21015;&#12398;&#22238;&#25968;&#12434;&#21462;&#24471;</span>
+<span class="linenr">8:  </span><span class="org-type">int</span> <span class="org-variable-name">count</span> = table.get(<span class="org-string">"abc"</span>);  <span class="org-comment-delimiter">// </span><span class="org-comment">2&#12364;&#36820;&#12427;</span>
+</pre>
+
+
+<ul>
+<li>このようなクラスは，標準のJavaでは用意されていないので，
+    自分で作ることにする．
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> インターフェイスを決める</h3>
+<div class="outline-text-3" id="text-6-1">
+
+<p>   どのようなメソッドを提供するかを設計する．
+</p><ul>
+<li><code>new CountTable()</code> <br/>
+     新しいカウンタ表を作成する．
+</li>
+<li><code>void add(String s)</code> <br/>
+     文字列 <code>s</code> をカウンタ表に登録する．
+     同じ文字列が登録された回数を覚える．
+</li>
+<li><code>int get(String s)</code> <br/>
+     カウンタ表に文字列 <code>s</code> が登録された回数を返す．
+     一度も登録されていない場合は，0を返す．
+</li>
+<li><code>List&lt;String&gt; getKeysByCount()</code> <br/>
+     カウンタ表に登録されている文字列を，
+     登録回数の降順でソートしたリストを返す．
+</li>
+<li><code>int size()</code> <br/>
+     カウンタ表に登録されている文字列の個数を返す．
+</li>
+<li><code>boolean isEmpty()</code> <br/>
+     カウンタ表が空なら真を返す．
+</li>
+<li><code>void clear()</code> <br/>
+     カウンタ表を空にする．
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> シナリオを考える</h3>
+<div class="outline-text-3" id="text-6-2">
+
+<p>   使い方のシナリオを考える(テストにも有効)．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr">1:  </span><span class="org-type">CountTable</span> <span class="org-variable-name">table</span> = <span class="org-keyword">new</span> <span class="org-type">CountTable</span>();
+<span class="linenr">2:  </span>table.add(<span class="org-string">"abc"</span>);
+<span class="linenr">3:  </span>table.add(<span class="org-string">"def"</span>);
+<span class="linenr">4:  </span>table.add(<span class="org-string">"abc"</span>);
+<span class="linenr">5:  </span><span class="org-type">List</span>&lt;<span class="org-type">String</span>&gt; <span class="org-variable-name">list</span> = table.getKeysByCount();
+<span class="linenr">6:  </span><span class="org-keyword">for</span> (<span class="org-type">String</span> <span class="org-variable-name">s</span> : list) {
+<span class="linenr">7:  </span>  <span class="org-type">int</span> <span class="org-variable-name">count</span> = table.get(s);
+<span class="linenr">8:  </span>  System.out.println(count + <span class="org-string">" "</span> + s);
+<span class="linenr">9:  </span>}
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> クラス実装</h2>
+<div class="outline-text-2" id="text-7">
+
+
+</div>
+
+<div id="outline-container-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> 実装に利用できるクラスを探す</h3>
+<div class="outline-text-3" id="text-7-1">
+
+<p>   CountTableクラスを実装には，
+   HashMapクラスを利用するのがよさそうだ．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-comment-delimiter">// </span><span class="org-comment">String&#12434;&#12461;&#12540;&#12392;&#12375;Integer&#12434;&#20516;&#12392;&#12377;&#12427;&#12495;&#12483;&#12471;&#12517;&#34920;&#12434;&#20316;&#25104;</span>
+<span class="linenr"> 2:  </span><span class="org-type">HashMap</span>&lt;<span class="org-type">String</span>,<span class="org-type">Integer</span>&gt; <span class="org-variable-name">map</span> = <span class="org-keyword">new</span> <span class="org-type">HashMap</span>&lt;<span class="org-type">String</span>,<span class="org-type">Integer</span>&gt;();
+<span class="linenr"> 3:  </span><span class="org-comment-delimiter">// </span><span class="org-comment">&#12495;&#12483;&#12471;&#12517;&#34920;&#12395;&#12487;&#12540;&#12479;&#12434;&#30331;&#37682;</span>
+<span class="linenr"> 4:  </span>map.put(<span class="org-string">"abc"</span>, 123);
+<span class="linenr"> 5:  </span><span class="org-comment-delimiter">// </span><span class="org-comment">&#12495;&#12483;&#12471;&#12517;&#34920;&#12395;&#12461;&#12540;&#12364;&#21547;&#12414;&#12428;&#12390;&#12356;&#12427;&#12363;&#12393;&#12358;&#12363;&#12398;&#12486;&#12473;&#12488;</span>
+<span class="linenr"> 6:  </span><span class="org-keyword">if</span> (map.containsKey(<span class="org-string">"abc"</span>)) {
+<span class="linenr"> 7:  </span>  .....
+<span class="linenr"> 8:  </span>}
+<span class="linenr"> 9:  </span><span class="org-comment-delimiter">// </span><span class="org-comment">&#12495;&#12483;&#12471;&#12517;&#34920;&#12398;&#20516;&#12434;&#21462;&#24471;</span>
+<span class="linenr">10:  </span><span class="org-type">int</span> <span class="org-variable-name">x</span> = map.get(<span class="org-string">"abc"</span>);
+<span class="linenr">11:  </span><span class="org-comment-delimiter">// </span><span class="org-comment">&#12495;&#12483;&#12471;&#12517;&#34920;&#12398;&#12461;&#12540;&#12398;&#38598;&#21512;&#12434;&#21462;&#24471;&#12375;&#65292;&#12522;&#12473;&#12488;&#12395;&#22793;&#25563;</span>
+<span class="linenr">12:  </span><span class="org-type">Set</span>&lt;<span class="org-type">String</span>&gt; <span class="org-variable-name">set</span> = map.keySet();
+<span class="linenr">13:  </span><span class="org-type">List</span>&lt;<span class="org-type">String</span>&gt; <span class="org-variable-name">list</span> = <span class="org-keyword">new</span> <span class="org-type">ArrayList</span>&lt;<span class="org-type">String</span>&gt;(set);
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7-2" class="outline-3">
+<h3 id="sec-7-2"><span class="section-number-3">7.2</span> 実装方法の選択</h3>
+<div class="outline-text-3" id="text-7-2">
+
+<p>   他クラスのオブジェクトを利用するクラスを実装するには，
+   以下の二種類の方法がある．
+</p>
+<ul>
+<li><b>is-aによる実装</b>
+<ul>
+<li>他クラスの拡張クラスとして実装する．
+</li>
+<li><code>HashMap&lt;String,Integer&gt;</code> クラスの拡張クラスとして
+       CountTableクラスを実装する．
+</li>
+</ul>
+
+</li>
+<li><b>has-aによる実装</b>
+<ul>
+<li>他クラスのオブジェクトをメンバ(インスタンス変数)として実装する．
+</li>
+<li><code>HashMap&lt;String,Integer&gt;</code> クラスのオブジェクトを，
+       CountTableクラスのメンバ(インスタンス変数)として実装する．
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-7-2-1" class="outline-4">
+<h4 id="sec-7-2-1"><span class="section-number-4">7.2.1</span> is-aによる実装例</h4>
+<div class="outline-text-4" id="text-7-2-1">
+
+
+<p>
+  以下に is-aによる実装例 <a href="prog/WordCount/CountTable1.java">CountTable1.java</a> の一部を示す．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">CountTable1</span> <span class="org-keyword">extends</span> <span class="org-type">HashMap</span>&lt;<span class="org-type">String</span>,<span class="org-type">Integer</span>&gt; {
+<span class="linenr"> 2:  </span>
+<span class="linenr"> 3:  </span>  <span class="org-keyword">public</span> <span class="org-type">int</span> <span class="org-function-name">get</span>(<span class="org-type">String</span> <span class="org-variable-name">s</span>) {
+<span class="linenr"> 4:  </span>    <span class="org-type">int</span> <span class="org-variable-name">count</span> = 0;
+<span class="linenr"> 5:  </span>    <span class="org-keyword">if</span> (containsKey(s)) {
+<span class="linenr"> 6:  </span>      count = <span class="org-keyword">super</span>.get(s);
+<span class="linenr"> 7:  </span>    }
+<span class="linenr"> 8:  </span>    <span class="org-keyword">return</span> count;
+<span class="linenr"> 9:  </span>  }
+<span class="linenr">10:  </span>
+<span class="linenr">11:  </span>  <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">add</span>(<span class="org-type">String</span> <span class="org-variable-name">s</span>) {
+<span class="linenr">12:  </span>    <span class="org-type">int</span> <span class="org-variable-name">count</span> = get(s);
+<span class="linenr">13:  </span>    put(s, count + 1);
+<span class="linenr">14:  </span>  }
+<span class="linenr">15:  </span>
+<span class="linenr">16:  </span>  <span class="org-keyword">public</span> <span class="org-type">List</span>&lt;<span class="org-type">String</span>&gt; <span class="org-function-name">getKeysByCount</span>() {
+<span class="linenr">17:  </span>    .....
+<span class="linenr">18:  </span>  }
+<span class="linenr">19:  </span>}
+</pre>
+
+
+<ul>
+<li><code>size()</code>, <code>isEmpty()</code>, <code>clear()</code> は
+    HashMapから継承されるので，実装は不要．
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7-2-2" class="outline-4">
+<h4 id="sec-7-2-2"><span class="section-number-4">7.2.2</span> has-aによる実装例</h4>
+<div class="outline-text-4" id="text-7-2-2">
+
+
+<p>
+  以下に has-aによる実装例 <a href="prog/WordCount/CountTable2.java">CountTable2.java</a> の一部を示す．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">CountTable2</span> {
+<span class="linenr"> 2:  </span>  <span class="org-type">HashMap</span>&lt;<span class="org-type">String</span>,<span class="org-type">Integer</span>&gt; <span class="org-variable-name">map</span> = <span class="org-keyword">new</span> <span class="org-type">HashMap</span>&lt;<span class="org-type">String</span>,<span class="org-type">Integer</span>&gt;();
+<span class="linenr"> 3:  </span>
+<span class="linenr"> 4:  </span>  <span class="org-keyword">public</span> <span class="org-type">int</span> <span class="org-function-name">get</span>(<span class="org-type">String</span> <span class="org-variable-name">s</span>) {
+<span class="linenr"> 5:  </span>    <span class="org-type">int</span> <span class="org-variable-name">count</span> = 0;
+<span class="linenr"> 6:  </span>    <span class="org-keyword">if</span> (map.containsKey(s)) {
+<span class="linenr"> 7:  </span>      count = map.get(s);
+<span class="linenr"> 8:  </span>    }
+<span class="linenr"> 9:  </span>    <span class="org-keyword">return</span> count;
+<span class="linenr">10:  </span>  }
+<span class="linenr">11:  </span>
+<span class="linenr">12:  </span>  <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">add</span>(<span class="org-type">String</span> <span class="org-variable-name">s</span>) { ..... }
+<span class="linenr">13:  </span>
+<span class="linenr">14:  </span>  <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">clear</span>() { ..... }
+<span class="linenr">15:  </span>
+<span class="linenr">16:  </span>  <span class="org-keyword">public</span> <span class="org-type">int</span> <span class="org-function-name">size</span>() { ..... }
+<span class="linenr">17:  </span>
+<span class="linenr">18:  </span>  <span class="org-keyword">public</span> <span class="org-type">boolean</span> <span class="org-function-name">isEmpty</span>() { ..... }
+<span class="linenr">19:  </span>
+<span class="linenr">20:  </span>  <span class="org-keyword">public</span> <span class="org-type">List</span>&lt;<span class="org-type">String</span>&gt; <span class="org-function-name">getKeysByCount</span>() { ..... }
+<span class="linenr">21:  </span>}
+</pre>
+
+
+<ul>
+<li>すべてを実装する必要がある．
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7-2-3" class="outline-4">
+<h4 id="sec-7-2-3"><span class="section-number-4">7.2.3</span> is-aによる実装とhas-aによる実装の比較</h4>
+<div class="outline-text-4" id="text-7-2-3">
+
+
+<ul>
+<li>is-aによる実装
+<ul>
+<li>親クラスのメソッドを継承できるので，実装が楽．
+</li>
+<li>親クラスのメソッドを隠そうとすると，面倒．
+</li>
+<li>親クラスのメソッドを利用されていると，
+      実装方法を変更したくなっても対応が困難．
+</li>
+</ul>
+
+</li>
+<li>has-aによる実装
+<ul>
+<li>親クラスのメソッドを継承できないので，実装が面倒．
+</li>
+<li>公開するメソッドを限定できるので，
+      モジュールとしての独立性が高まり，
+      実装方法を変更したくなった場合の対応が容易．
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+<p>
+  将来の変更を想像して，実装方法を決める．
+</p></div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> 単体テスト</h2>
+<div class="outline-text-2" id="text-8">
+
+<p>  シナリオにしたがってテストしてみる．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr">1:  </span><span class="org-type">CountTable1</span> <span class="org-variable-name">table</span> = <span class="org-keyword">new</span> <span class="org-type">CountTable1</span>();
+<span class="linenr">2:  </span>table.add(<span class="org-string">"abc"</span>);
+<span class="linenr">3:  </span>table.add(<span class="org-string">"def"</span>);
+<span class="linenr">4:  </span>table.add(<span class="org-string">"abc"</span>);
+<span class="linenr">5:  </span><span class="org-type">List</span>&lt;<span class="org-type">String</span>&gt; <span class="org-variable-name">list</span> = table.getKeysByCount();
+<span class="linenr">6:  </span><span class="org-keyword">for</span> (<span class="org-type">String</span> <span class="org-variable-name">s</span> : list) {
+<span class="linenr">7:  </span>  <span class="org-type">int</span> <span class="org-variable-name">count</span> = table.get(s);
+<span class="linenr">8:  </span>  System.out.println(count + <span class="org-string">" "</span> + s);
+<span class="linenr">9:  </span>}
+</pre>
+
+
+<p>
+  以下が出力されればOK．
+</p><pre class="example">
+2 abc
+1 def
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> プログラム作成</h2>
+<div class="outline-text-2" id="text-9">
+
+
+<p>
+  最終的なプログラムは以下のようになる
+  ( <a href="prog/WordCount/WordCount.java">WordCount.java</a> )．
+</p>
+
+
+
+<pre class="src src-java"><span class="linenr"> 1:  </span><span class="org-keyword">import</span> <span class="org-constant">java</span>.<span class="org-constant">io</span>.<span class="org-type">BufferedReader</span>;
+<span class="linenr"> 2:  </span><span class="org-keyword">import</span> <span class="org-constant">java</span>.<span class="org-constant">io</span>.<span class="org-type">FileReader</span>;
+<span class="linenr"> 3:  </span><span class="org-keyword">import</span> <span class="org-constant">java</span>.<span class="org-constant">io</span>.<span class="org-type">FileNotFoundException</span>;
+<span class="linenr"> 4:  </span><span class="org-keyword">import</span> <span class="org-constant">java</span>.<span class="org-constant">io</span>.<span class="org-type">IOException</span>;
+<span class="linenr"> 5:  </span>
+<span class="linenr"> 6:  </span><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">WordCount</span> {
+<span class="linenr"> 7:  </span>  <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span>(<span class="org-type">String</span>[] <span class="org-variable-name">args</span>) {
+<span class="linenr"> 8:  </span>    <span class="org-type">String</span> <span class="org-variable-name">fileName</span> = <span class="org-string">"hamlet.txt"</span>;
+<span class="linenr"> 9:  </span>    <span class="org-keyword">if</span> (args.length &gt; 0) fileName = args[0];
+<span class="linenr">10:  </span>    <span class="org-keyword">try</span> {
+<span class="linenr">11:  </span>      <span class="org-type">CountTable1</span> <span class="org-variable-name">table</span> = <span class="org-keyword">new</span> <span class="org-type">CountTable1</span>();
+<span class="linenr">12:  </span>      <span class="org-type">BufferedReader</span> <span class="org-variable-name">in</span> = <span class="org-keyword">new</span> <span class="org-type">BufferedReader</span>(<span class="org-keyword">new</span> <span class="org-type">FileReader</span>(fileName));
+<span class="linenr">13:  </span>      <span class="org-keyword">while</span> (<span class="org-constant">true</span>) {
+<span class="linenr">14:  </span>        <span class="org-type">String</span> <span class="org-variable-name">line</span> = in.readLine();
+<span class="linenr">15:  </span>        <span class="org-keyword">if</span> (line == <span class="org-constant">null</span>) {
+<span class="linenr">16:  </span>          <span class="org-keyword">break</span>;
+<span class="linenr">17:  </span>        }
+<span class="linenr">18:  </span>        line = line.toUpperCase();
+<span class="linenr">19:  </span>        line = line.replaceAll(<span class="org-string">"[^A-Z]"</span>, <span class="org-string">" "</span>);
+<span class="linenr">20:  </span>        <span class="org-keyword">for</span> (<span class="org-type">String</span> <span class="org-variable-name">s</span> : line.split(<span class="org-string">"\\s+"</span>)) {
+<span class="linenr">21:  </span>          <span class="org-keyword">if</span> (<span class="org-negation-char">!</span> s.equals(<span class="org-string">""</span>)) {
+<span class="linenr">22:  </span>            table.add(s);
+<span class="linenr">23:  </span>          }
+<span class="linenr">24:  </span>        }
+<span class="linenr">25:  </span>      }
+<span class="linenr">26:  </span>      in.close();
+<span class="linenr">27:  </span>      <span class="org-keyword">for</span> (<span class="org-type">String</span> <span class="org-variable-name">s</span> : table.getKeysByCount()) {
+<span class="linenr">28:  </span>        <span class="org-type">int</span> <span class="org-variable-name">count</span> = table.get(s);
+<span class="linenr">29:  </span>        System.out.println(count + <span class="org-string">"\t"</span> + s);
+<span class="linenr">30:  </span>      }
+<span class="linenr">31:  </span>    } <span class="org-keyword">catch</span> (<span class="org-type">FileNotFoundException</span> <span class="org-variable-name">e</span>) {
+<span class="linenr">32:  </span>      e.printStackTrace();
+<span class="linenr">33:  </span>    } <span class="org-keyword">catch</span> (<span class="org-type">IOException</span> <span class="org-variable-name">e</span>) {
+<span class="linenr">34:  </span>      e.printStackTrace();
+<span class="linenr">35:  </span>    }
+<span class="linenr">36:  </span>  }
+<span class="linenr">37:  </span>}
+</pre>
+
+
+<p>
+  コンパイルして，以下のように実行する．
+</p><pre class="example">
+$ java WordCount 入力ファイル名
+</pre>
+
+
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-09-29 21:44:41 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

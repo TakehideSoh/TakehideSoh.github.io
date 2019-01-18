@@ -1,0 +1,13 @@
+  - [[file:scala.org][Top]]
+  - [[file:scala-list.org][Scalaでリスト処理]]
+  - [[file:scala-recursive.org][Scalaで再帰プログラミング]]
+  - [[http://bach.istc.kobe-u.ac.jp/lect/tfpl/][言語工学のページに戻る]]
+  - [[file:../index.org][プログラミング言語論のページに戻る]]
+
+# Scalaでパズル
+#   数独
+# グラフ処理
+#   digraph, graph, connected, adjacent
+#   tree, GCP
+# リスト処理: 連分数
+# DSL

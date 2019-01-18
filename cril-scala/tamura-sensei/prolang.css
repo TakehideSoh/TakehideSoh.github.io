@@ -1,0 +1,50 @@
+/*
+h2
+{
+  font-size: large;
+  border-bottom: none;
+  background-color: #eeeeee;
+  padding: 0.5em;
+}
+
+h3
+{
+  border-bottom: 2px solid #cccccc;
+}
+*/
+
+div.outline-2 dl, div.outline-text-2 dl
+{
+  background: #eeffee;
+  margin: 1em;
+  padding: 0.5em;
+  -moz-border-radius: .5em; /* gecko */
+  -webkit-border-radius: .5em; /* webkit */
+  border-radius: .5em; /* w3 */
+}
+
+div.outline-2 dt, div.outline-text-2 dt
+{
+  color: darkblue;
+  font-weight: bold;
+  margin: 0em;
+  padding: 0em;
+}
+
+div.outline-2 dd, div.outline-text-2 dd
+{
+  margin: 0em;
+  padding: 0em 0em 0em 0.5em;
+}
+
+del { color: #888888; }
+
+div.answer dd {
+  display: none;
+}
+
+div.answer dl {
+  background: white;
+  margin: 0.5em;
+  padding: 0em;
+}

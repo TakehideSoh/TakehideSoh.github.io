@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Scalaで素数ものさしを探す</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Scalaで素数ものさしを探す"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2018-02-23 23:11:01 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="/include/mathjax/MathJax.js">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Scalaで素数ものさしを探す</h1>
+
+
+<script type="text/javascript" src="prolang.js"></script>
+<ul>
+<li><a href="scala.html">Top</a>
+</li>
+<li><a href="scala-list.html">Scalaでリスト処理</a>
+</li>
+<li><a href="scala-recursive.html">Scalaで再帰プログラミング</a>
+</li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/lect/tfpl/">言語工学のページに戻る</a>
+</li>
+<li><a href="../index.html">プログラミング言語論のページに戻る</a>
+</li>
+</ul>
+
+
+
+
+
+
+<div class="clear"></div>
+<ul>
+<li><a href="scala-complex.html">Scalaで複素数計算</a>
+</li>
+<li><a href="scala-primeruler.html">Scalaで素数ものさしを探す</a>
+</li>
+<li><a href="scala-sieve.html">Scalaでエラトステネスの篩</a>
+</li>
+<li><a href="scala-parser.html">Scalaで言語処理</a>
+</li>
+</ul>
+
+
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 概要</a>
+<ul>
+<li><a href="#sec-1-1">1.1 注意</a></li>
+<li><a href="#sec-1-2">1.2 参考リンク</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 考察</a></li>
+<li><a href="#sec-3">3 素数</a>
+<ul>
+<li><a href="#sec-3-1">3.1 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 素数ものさしの判定</a>
+<ul>
+<li><a href="#sec-4-1">4.1 練習問題</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 概要</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>  京大生協で，目盛が素数だけの「素数ものさし」が売っているそうだ．
+</p>
+
+
+
+<pre class="example">+-----------------------------------+
+|                                   |
+|   | |   |   |       |   |       | |
++---+-+---+---+-------+---+-------+-+
+    2 3   5   7      11  13      17
+</pre>
+
+
+<p>
+  この定規は，1cmから18cmまでのすべてを測ることができる(もちろん 1cm単位で)．
+  たとえば 12cm は 17cmと 5cmの間で測れる．
+  他にこのような定規があるだろうか?
+  Scalaでプログラムを書いて調べてみよう．
+</p>
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 注意</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<p>  本Webページの作成には <a href="http://orgmode.org/">Emacs org-mode</a> を用い，
+  数式等の表示は <a href="http://www.mathjax.org">MathJax</a> を用いています．
+  IEでは正しく表示されないことがあるため，
+  Firefox, Safari等のWebブラウザでJavaScriptを有効にしてお使いください．
+  また <a href="http://orgmode.org/worg/code/org-info-js/">org-info.js</a> を利用しており，
+  「m」キーをタイプするとinfoモードでの表示になります．
+  利用できるショートカットは「?」で表示されます．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 参考リンク</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<ul>
+<li><a href="https://www.facebook.com/fuben.eki">不便益システム研究所</a>
+</li>
+<li><a href="http://www.kyoto-np.co.jp/education/article/20130329000097">京都新聞の記事</a>
+</li>
+<li><a href="http://www.luschny.de/math/rulers/PrimeRulers.html">Prime Number Rulers</a>
+</li>
+</ul>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 考察</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  \(p_i\) を \(i\) 番目の素数とする．
+  すなわち \(p_1=2\), \(p_2=3\), \(p_3=5\), &hellip; である．
+</p>
+<p>
+  \(n\) 番目の素数までを目盛とした全長 \(L\) cmのものさしを考える．
+  \(L-1\) cm を測るためには 1cm あるいは \(L-1\) cm のどちらかに目盛がなければならない．
+  1cm の箇所には目盛がないので， \(L-1\) cm の箇所に目盛がある必要がある．
+  すなわち \(L = p_n + 1\) である必要がある．
+  したがって，以下を問題とする．
+</p>
+<blockquote>
+
+<p>正整数 \(n\) が与えられた時， \(p_1\), &hellip;, \(p_n\) を目盛とする全長 \(p_n + 1\) cmのものさしが，
+1cm から \(p_n + 1\) cm までのすべてを測れるかどうかを調べるプログラムを作成する．
+</p>
+</blockquote>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 素数</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  <a href="scala-list.html">Scalaでリスト処理</a> で学んだように，素数かどうかは以下の関数での判定できる．
+</p><pre class="example">
+scala&gt; def isPrime(p: Int) = (2 to math.sqrt(p).toInt).forall(p % _ != 0)
+</pre>
+
+
+<p>
+  この isPrime を用いて，p より大きい最初の素数を返す関数 nextPrime(p) を定義する．
+</p><pre class="example">
+scala&gt; def nextPrime(p: Int): Int = if (isPrime(p+1)) p+1 else nextPrime(p+1)
+scala&gt; nextPrime(2)
+res: Int = 3
+</pre>
+
+
+<p>
+  この nextPrime を用いて，n 番目までの素数のリストを返す関数 primes(n) を定義する．
+  作成は練習問題とする．
+</p>
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+<div class="answer">
+<ol>
+<li>n 番目までの素数のリストを返す関数 primes(n) を定義せよ．n は 1以上とする．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<pre class="example">
+scala&gt; def primes(n: Int): Seq[Int] =
+     |   if (n == 1) Seq(2) else { val ps = primes(n-1); ps :+ nextPrime(ps.last) }
+scala&gt; primes(10)
+res: Seq[Int] = List(2, 3, 5, 7, 11, 13, 17, 19, 23, 29)
+</pre>
+
+
+<p>
+       以下のようにも書ける．
+</p><pre class="example">
+scala&gt; def primes(n: Int, p: Int = 2): Seq[Int] =
+     |   if (n == 1) Seq(p) else p +: primes(n-1, nextPrime(p))
+scala&gt; primes(10)
+res: Seq[Int] = List(2, 3, 5, 7, 11, 13, 17, 19, 23, 29)
+</pre>
+
+
+<p>
+       さらに以下のようにすれば末尾再帰になる．
+</p><pre class="example">
+scala&gt; def primes(n: Int, ps: Seq[Int] = Seq(2)): Seq[Int] =
+     |   if (n == 1) ps.reverse else primes(n-1, nextPrime(ps.head) +: ps)
+scala&gt; primes(10)
+res: Seq[Int] = List(2, 3, 5, 7, 11, 13, 17, 19, 23, 29)
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 素数ものさしの判定</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  n 個の素数目盛を持つものさしは，両端を含めて 0 および \(p_n + 1\) も目盛と考えると都合が良い．
+  これらの目盛を返す関数 ruler を定義する．
+</p><pre class="example">
+scala&gt; def ruler(n: Int) = { val ps = primes(n); 0 +: ps :+ (ps.last+1) }
+scala&gt; ruler(7)
+res: Seq[Int] = List(0, 2, 3, 5, 7, 11, 13, 17, 18)
+</pre>
+
+
+<p>
+  2つの目盛の任意の組合せは，combinations メソッドで生成できる．
+</p><pre class="example">
+scala&gt; ruler(7).combinations(2).toList
+res: List[Seq[Int]] = List(List(0, 2), List(0, 3), ..., List(17, 18))
+</pre>
+
+
+<p>
+  したがって，測れる長さの集合は以下のようにして求めることができる．
+</p><pre class="example">
+scala&gt; ruler(7).combinations(2).map(x =&gt; x(1)-x(0)).toSet
+res: Set[Int] = Set(5, 10, 14, 1, ..., 15)
+</pre>
+
+
+<p>
+  この集合が 1 から 18 から成る集合と一致すれば良い．
+</p><pre class="example">
+scala&gt; ruler(7).combinations(2).map(x =&gt; x(1)-x(0)).toSet == (1 to 18).toSet
+res: Boolean = true
+</pre>
+
+
+<p>
+  そこで，与えられた目盛のリストですべての長さが測れるかどうかを調べる
+  関数 isComplete を定義する．
+</p><pre class="example">
+scala&gt; def isComplete(ruler: Seq[Int]) =
+     |   ruler.combinations(2).map(x =&gt; x(1)-x(0)).toSet == (1 to ruler.last).toSet
+scala&gt; isComplete(ruler(7))
+res: Boolean = true
+scala&gt; ruler(8)
+res: Seq[Int] = List(0, 2, 3, 5, 7, 11, 13, 17, 19, 20)
+scala&gt; isComplete(ruler(8))
+res: Boolean = true
+scala&gt; ruler(13)
+res: Seq[Int] = List(0, 2, 3, 5, 7, 11, ..., 41, 42)
+scala&gt; isComplete(ruler(13))
+res: Boolean = false
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-4-1">
+
+
+<div class="answer">
+<ol>
+<li>他にどのような素数ものさしが存在するか?
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<pre class="example">
+scala&gt; (1 to 30).filter(n =&gt; isComplete(ruler(n)))
+res: IndexedSeq[Int] = Vector(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 18)
+scala&gt; (1 to 30).filter(n =&gt; isComplete(ruler(n))).map(n =&gt; ruler(n).last)
+res: IndexedSeq[Int] = Vector(3, 4, 6, 8, 12, 14, 18, 20, 24, 30, 32, 38, 44, 62)
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>ruler(7) で，それぞれの長さを測る方法は何通りあるか?
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<pre class="example">
+scala&gt; val xs = ruler(7).combinations(2).map(x =&gt; x(1)-x(0)).toList
+xs: List[Int] = List(2, 3, 5, ..., 5, 1)
+scala&gt; (1 to 18).map(x =&gt; xs.count(_ == x))
+res: IndexedSeq[Int] = Vector(2, 4, 2, 3, ..., 1)
+</pre>
+
+
+<p>
+       以下の方法もある．
+</p><pre class="example">
+scala&gt; xs.groupBy(x =&gt; x).map(kv =&gt; kv._1 -&gt; kv._2.size)
+res: Map[Int,Int] = Map(5 -&gt; 3, 10 -&gt; 2, 14 -&gt; 1, 1 -&gt; 2, ..., 15 -&gt; 2)
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>62cm より長い素数ものさしは存在するか?
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       存在しない．証明は <a href="pnr.pdf">pnr.pdf</a> 参照．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2018-02-23 23:11:01 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

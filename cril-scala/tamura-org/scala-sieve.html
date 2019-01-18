@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Scalaでエラトステネスの篩</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Scalaでエラトステネスの篩"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2018-02-23 23:11:22 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Scalaでエラトステネスの篩</h1>
+
+
+<script type="text/javascript" src="prolang.js"></script>
+<ul>
+<li><a href="scala.html">Top</a>
+</li>
+<li><a href="scala-list.html">Scalaでリスト処理</a>
+</li>
+<li><a href="scala-recursive.html">Scalaで再帰プログラミング</a>
+</li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/lect/tfpl/">言語工学のページに戻る</a>
+</li>
+<li><a href="../index.html">プログラミング言語論のページに戻る</a>
+</li>
+</ul>
+
+
+
+
+
+
+<div class="clear"></div>
+<ul>
+<li><a href="scala-complex.html">Scalaで複素数計算</a>
+</li>
+<li><a href="scala-primeruler.html">Scalaで素数ものさしを探す</a>
+</li>
+<li><a href="scala-sieve.html">Scalaでエラトステネスの篩</a>
+</li>
+<li><a href="scala-parser.html">Scalaで言語処理</a>
+</li>
+</ul>
+
+
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 概要</a>
+<ul>
+<li><a href="#sec-1-1">1.1 注意</a></li>
+<li><a href="#sec-1-2">1.2 参考リンク</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 Range</a></li>
+<li><a href="#sec-3">3 filter</a></li>
+<li><a href="#sec-4">4 sieve</a></li>
+<li><a href="#sec-5">5 遅延評価</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 概要</h2>
+<div class="outline-text-2" id="text-1">
+
+<blockquote>
+
+<p>Scalaで，エラトステネスの篩(ふるい)のアルゴリズムを用いて
+素数のリストを求める．
+</p>
+</blockquote>
+
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 注意</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<p>  本Webページの作成には <a href="http://orgmode.org/">Emacs org-mode</a> を用い，
+  数式等の表示は <a href="http://www.mathjax.org">MathJax</a> を用いています．
+  IEでは正しく表示されないことがあるため，
+  Firefox, Safari等のWebブラウザでJavaScriptを有効にしてお使いください．
+  また <a href="http://orgmode.org/worg/code/org-info-js/">org-info.js</a> を利用しており，
+  「m」キーをタイプするとinfoモードでの表示になります．
+  利用できるショートカットは「?」で表示されます．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 参考リンク</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<ul>
+<li><a href="http://ja.wikipedia.org/wiki/エラトステネスの篩">Wikipedia:エラトステネスの篩</a>
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Range</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>  まず，2以上n未満の整数のリストはRangeで生成できる (2 until n でも良い)．
+</p><pre class="example">
+scala&gt; Range(2, 10).toList
+res: List[Int] = List(2, 3, 4, 5, 6, 7, 8, 9)
+scala&gt; (2 until 10).toList
+res: List[Int] = List(2, 3, 4, 5, 6, 7, 8, 9)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> filter</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>  与えられた整数で割り切れる数をリストから取り除くにはfilterを用いる．
+</p><pre class="example">
+scala&gt; Range(2, 10).toList.filter(_ % 2 != 0)
+res: List[Int] = List(3, 5, 7, 9)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> sieve</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>  エラトステネスの篩を実装する．
+</p>
+
+
+
+<pre class="src src-scala"><span class="linenr"> 1:  </span><span class="org-keyword">object</span> <span class="org-variable-name">Sieve</span> {
+<span class="linenr"> 2:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">sieve</span>(<span class="org-variable-name">xs</span>: <span class="org-type">List[Int]</span>): <span class="org-type">List[Int]</span> =
+<span class="linenr"> 3:  </span>    <span class="org-keyword">if</span> (xs.isEmpty)
+<span class="linenr"> 4:  </span>      Nil
+<span class="linenr"> 5:  </span>    <span class="org-keyword">else</span>
+<span class="linenr"> 6:  </span>      xs.head :: sieve(xs.tail.filter(_ % xs.head != 0))
+<span class="linenr"> 7:  </span>
+<span class="linenr"> 8:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">primes</span>(<span class="org-variable-name">n</span>: <span class="org-type">Int</span>) = sieve(Range(2, n).toList)
+<span class="linenr"> 9:  </span>
+<span class="linenr">10:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">main</span>(<span class="org-variable-name">args</span>: <span class="org-type">Array[String]</span>) {
+<span class="linenr">11:  </span>    primes(100).foreach { println }
+<span class="linenr">12:  </span>  }
+<span class="linenr">13:  </span>}
+</pre>
+
+
+<p>
+  コンパイルして実行する．
+</p><pre class="example">
+$ scalac Sieve.scala
+$ scala Sieve
+2
+3
+5
+...
+97
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 遅延評価</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>  Range(m, n)は，m以上n未満の整数のリストを生成するが，
+  あらかじめ上限nを定めないといけない．
+</p>
+<p>
+  <b>遅延評価</b> (lazy evaluation)のメカニズムを用いると，
+  無限の長さのリストを取り扱うことが可能になる．
+  遅延評価は，必要が生じるまで計算を遅延させるというメカニズムである．
+</p>
+<p>
+  Scalaで遅延評価を行うには，Listの代わりにStreamを用いる．
+</p>
+<p>
+  以下の関数fromは，n以上の整数の無限Streamを生成する．
+</p><pre class="example">
+def from(n: Int): Stream[Int] = Stream.cons(n, from(n + 1))  
+</pre>
+
+
+<p>
+  以下のようにすると2以上の整数の最初の5個を印刷できる．
+</p><pre class="example">
+scala&gt; from(2).take(5).print
+2, 3, 4, 5, 6, empty
+</pre>
+
+
+<p>
+  以下は，2以上の整数で偶数を除いた最初の5個を印刷している．
+</p><pre class="example">
+scala&gt; from(2).filter(_ % 2 != 0).take(5).print
+3, 5, 7, 9, 11, empty
+</pre>
+
+
+<p>
+  遅延評価版のプログラムLazySieveは以下のようになる．
+</p>
+
+
+
+<pre class="src src-scala"><span class="linenr"> 1:  </span><span class="org-keyword">object</span> <span class="org-variable-name">LazySieve</span> {
+<span class="linenr"> 2:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">from</span>(<span class="org-variable-name">n</span>: <span class="org-type">Int</span>): <span class="org-type">Stream[Int]</span> =
+<span class="linenr"> 3:  </span>    Stream.cons(n, from(n + 1))  
+<span class="linenr"> 4:  </span>
+<span class="linenr"> 5:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">sieve</span>(<span class="org-variable-name">xs</span>: <span class="org-type">Stream[Int]</span>): <span class="org-type">Stream[Int]</span> =
+<span class="linenr"> 6:  </span>    Stream.cons(xs.head, sieve(xs.tail.filter(_ % xs.head != 0)))
+<span class="linenr"> 7:  </span>
+<span class="linenr"> 8:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">primes</span> = sieve(from(2))
+<span class="linenr"> 9:  </span>
+<span class="linenr">10:  </span>  <span class="org-keyword">def</span> <span class="org-function-name">main</span>(<span class="org-variable-name">args</span>: <span class="org-type">Array[String]</span>) {
+<span class="linenr">11:  </span>    primes.take(10).foreach { println }
+<span class="linenr">12:  </span>  }
+<span class="linenr">13:  </span>}
+</pre>
+
+
+<p>
+  以下が実行結果である．
+  最初の10個の素数を印刷している．
+</p><pre class="example">
+$ scalac LazySieve.scala
+$ scala LazySieve
+2
+3
+...
+29
+</pre>
+
+
+<p>
+  また，REPLからは，以下のように実行できる．
+</p><pre class="example">
+scala&gt; LazySieve.primes.take(5).print
+2, 3, 5, 7, 11, empty
+
+scala&gt; LazySieve.primes(0)    // 1番目の素数
+res: Int = 2
+
+scala&gt; LazySieve.primes(304)  // 305番目の素数
+res: Int = 2011
+
+scala&gt; LazySieve.primes.filter(_ &gt;= 2000).head  // 2000以上の最初の素数
+res: Int = 2003
+
+scala&gt; LazySieve.primes.takeWhile(_ &lt;= 2000).size // 2000以下の素数の個数
+res: Int = 303
+</pre>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2018-02-23 23:11:22 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

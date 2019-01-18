@@ -1,0 +1,1398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-03-20 火 13:06 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Introduction of Scala Programming Language <br> Recursive Data Structure and Calculation</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
+<script type="text/javascript" src="support.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Introduction of Scala Programming Language <br> Recursive Data Structure and Calculation</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline3">1. What is &ldquo;Ticket Problem&rdquo;?</a></li>
+<li><a href="#orgheadline6">2. Approach to solve Ticket Problem using Computer.</a></li>
+<li><a href="#orgheadline9">3. Data Structure of the Binary Tree</a></li>
+<li><a href="#orgheadline22">4. Calculate the value of a given binary tree</a></li>
+<li><a href="#orgheadline24">5. Enumerate all binary tree from 3 digits sequence</a></li>
+<li><a href="#orgheadline27">6. Play with genTrees3 method.</a></li>
+<li><a href="#orgheadline43">7. Subject</a></li>
+<li><a href="#orgheadline52">8. Challenge Subject</a></li>
+</ul>
+</div>
+</div>
+<style type="text/css">
+#table1 th { font-weight:normal; text-align: center; background-color: #eeeeee; color: black; border: none}
+#table1 td { background-color: #eeeeee; color: black; border: none}
+
+#table2 th    { background-color: #3B5998; color: white; border-style:
+#solid; border-color: black; border-width: thin; border: none;}
+#table2 td    { background-color: #eeeeee; color: black; border-style: solid; border-color: black; border-width: thin; border: none}
+#table2 td+td { background-color: #efefff; color: black;}
+#table2 td    { text-align: center; background-color: #3B5998; color: white; width:120px}
+#table2 td+td { text-align: center; width:120px; color: black;}
+#table2 td+td+td { text-align: left; width:500px; color: black;}
+
+#table3 th { font-weight:normal; text-align: left;  border: none; background-color: #f1f1f1}
+#table3 td { border: none; background-color: #f1f1f1}
+
+ws.pre.src {
+  background: #ffffee;
+  color: black;
+}
+div.answer dd {
+  display: none;
+}
+
+div.answer dl {
+  background: white;
+  margin: 0.5em;
+  padding: 0em;
+}
+
+div#content {
+    width:600px;
+    padding:50px;
+    padding-top:5px;
+    padding-bottom:20px;
+    background-color:#ffffff;
+}
+
+div#postamble {
+    width:600px;
+    padding:10px 50px 50px 50px;
+    font-size:0.7em;
+    background-color:#3B5998;
+}
+</style>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">1</span> What is &ldquo;Ticket Problem&rdquo;?</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Overview</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>In Japan, 4 digit numbers have been printed in a train ticket.</li>
+</ul>
+<p>
+ <div align="center"><img src="./figs/ticket.png"></div>
+</p>
+<ul class="org-ul">
+<li>Using any of the following basic arithmetic operations and brackets, can
+we make a mathematical expression which equals to 10?
+<ul class="org-ul">
+<li>addition \(+\),</li>
+<li>subtraction \(-\),</li>
+<li>multiplication \(\times\),</li>
+<li>division \(\div\)</li>
+</ul></li>
+<li>If we can, how many such expressions exist?</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Ticket Problem (General Case)</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+We define  <font color="#3B5998"><b>Ticket Problem</b></font> as follows.
+</p>
+<ul class="org-ul">
+<li>(Input)
+<ol class="org-ol">
+<li><font color="#3B5998"><b>4 digits sequence</b></font> &#x2013; which corresponds to digits
+printed in a ticket (&ldquo;8115&rdquo; in the above example).
+<ul class="org-ul">
+<li>Note that its ordering is <b>fixed</b>.</li>
+</ul></li>
+<li><font color="#3B5998"><b>target integer</b></font> &#x2013; the number should be the result (10 in the
+above example).</li>
+</ol></li>
+<li>(Output)
+<ul class="org-ul">
+<li>a mathematical expression which equals to the target integer.
+<ul class="org-ul">
+<li>Note that we must have 3 arithmetic operations. For instance,
+an expression like 81-15 is not permitted.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+In the following, for simplicity, we denote the Ticket Problem as a
+pair like (&ldquo;8115&rdquo;, 10) if the context is clear. 
+</p>
+
+<ul class="org-ul">
+<li>We can consider a variant of this problem which is permitted to
+change the ordering of the input sequence.</li>
+<li>We distinguish this variant and call it as  <font color="#3B5998"><b>Variable Ordering Ticket Problem</b></font>.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">2</span> Approach to solve Ticket Problem using Computer.</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">2.1</span> Let&rsquo;s consider binary tree for Ticket Problem.</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+How we solve this Ticket Problem? <br>
+Hand writing one by one? 
+</p>
+<ul class="org-ul">
+<li>\(((8 + 1) - 1) - 5\) which results in \(3\). Not good!</li>
+<li>(8 + 1) - (1 - 5) which results in \(13\). Not good!</li>
+<li>&#x2026; iteration and iteration &#x2026;</li>
+</ul>
+
+<p>
+Looks hard! <br>
+Let&rsquo;s use a computer. <br>
+To use a computer, we need a data structure that represents our
+problem. <br>
+</p>
+
+<p>
+Then, how we can represent a mathematical expression structured with
+brackets? <br>
+</p>
+
+<p>
+Here, let&rsquo;s use  <font color="#3B5998"><b>Binary Tree</b></font>. 
+ <div align="center"><img src="./figs/ex2.png" width=" 80%"></div>
+</p>
+
+<p>
+It looks that it is good to represent our structured expression. In
+summary, if we can implement the following two procedure, by checking
+the values of binary trees, we can find a solution of Ticket Problem. 
+</p>
+<ul class="org-ul">
+<li><font color="#3B5998"><b>Enumerate all possible binary trees from the input of Ticket Problem</b></font></li>
+<li><font color="#3B5998"><b>Calculate the value of a given binary tree</b></font></li>
+</ul>
+<p>
+Indeed, by this way, we can find an answer of the first problem (&ldquo;8115&rdquo;,10).
+</p>
+
+<p>
+We will see some technical terms of binary tree for the ticket problem. 
+The binary tree for the ticket problem has 
+</p>
+<ul class="org-ul">
+<li>a digit as a leaf node</li>
+<li>an arithmetic operator as a inner node.</li>
+</ul>
+<p>
+The solution (8 / (1 - (1 / 5))) of the example (&ldquo;8115&rdquo;,10) can be
+represented as follows. 
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left"> <div align="center"><img src="./figs/ticket8115annotate1.png" width=" 95%"></div></td>
+<td class="org-left"> <div align="center"><img src="./figs/ticket8115annotate2.png" width=" 95%"></div></td>
+</tr>
+</tbody>
+</table>
+<ul class="org-ul">
+<li><b>Inner Node</b> must have 2 children.
+<ul class="org-ul">
+<li>Each those children is called <b>left</b> and <b>right</b> respectively.</li>
+</ul></li>
+<li><b>Leaf Node</b> must not have any children.</li>
+<li><b>Root Node</b> is the node that has no parent.</li>
+<li><font color="#3B5998"><b>A binary tree can contain another binary tree</b></font></li>
+</ul>
+
+<p>
+So far, we see that arithmetic expressions structured by brackets can
+be represented by binary trees. <br>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">2.2</span> Ticket Problem Solver Program</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+The program using binary tree needs the following elements. 
+</p>
+<ol class="org-ol">
+<li>data structure of the binary tree</li>
+<li>enumeration method of binary trees when 4 digit sequence and
+operator is given.</li>
+<li>calculation method of a given binary tree</li>
+</ol>
+
+<p>
+With those elements, we can find a solution by evaluating binary trees enumerated.
+</p>
+
+<p>
+ <font color="#3B5998"><b>Next, let's see how to implement it on Scala. </b></font>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9"><span class="section-number-2">3</span> Data Structure of the Binary Tree</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">3.1</span> Reminder of Class and Object</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>Class and Object in Object-oriented languages should be studied in
+some class (of Java?), so here we remind its basic notion.</li>
+<li>In object oriented programming, we combine a small piece of
+objects to construct a new object which has new functionality and
+realize a integrated software in last.</li>
+<li>However, it is inefficient to define similar object separately.</li>
+<li>In Scala, we define a template of object  <font color="#a020f0">class</font>, and
+use it to make an object. 
+<ul class="org-ul">
+<li>Common templates can be integrated and organized to
+ <font color="#a020f0">abstracted class</font>.</li>
+<li>In the following, we use  <font color="#a020f0">case class</font> which is one kind
+of classes which already implements several basic functions in
+default.</li>
+</ul></li>
+<li>An instance created from a template (class) becomes individual
+objects.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">3.2</span> Binary tree construction in Scala</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+We represent binary trees by using 3 classes. 
+</p>
+<ul class="org-ul">
+<li>abstract class  <font color="#228b22">Tree</font></li>
+<li>class  <font color="#228b22">Leaf</font></li>
+<li>class  <font color="#228b22">Node</font></li>
+</ul>
+<p>
+Abstract class  <font color="#228b22">Tree</font> is inherited by  <font color="#228b22">Leaf</font> and
+ <font color="#228b22">Node</font>. <br>
+</p>
+
+<p>
+This is implemented by the following Scala program (<a href="prog/ticket/Ticket0.scala">Ticket0.scala</a>). 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">abstract</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Tree</span>
+<span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>(<span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int</span>) <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">Tree</span>
+<span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Node</span>(<span style="color: #a0522d;">op</span>: <span style="color: #228b22;">String</span>, <span style="color: #a0522d;">left</span>: <span style="color: #228b22;">Tree</span>, <span style="color: #a0522d;">right</span>: <span style="color: #228b22;">Tree</span>) <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">Tree</span>
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><font color="#a020f0">abstract class</font>  <font color="#228b22">Tree</font>
+<ul class="org-ul">
+<li>This abstract class has common functions and properties in binary
+tree. Since this is abstract, it cannot create object.</li>
+</ul></li>
+<li><font color="#a020f0">case class</font>  <font color="#228b22">Leaf</font>
+<ul class="org-ul">
+<li>This class represent a binary tree whose root node is a leaf node.</li>
+<li><font color="#228b22">Int</font> type  <font color="#a0522d">n</font>. represents the integer in this
+leaf node.</li>
+</ul></li>
+<li><font color="#a020f0">case class</font>  <font color="#228b22">Node</font>
+<ul class="org-ul">
+<li>This class represent a binary tree whose root node is a inner
+node.</li>
+<li><font color="#228b22">String</font> type  <font color="#a0522d">op</font>. represents an operator in
+this inner node.</li>
+<li><font color="#228b22">Tree</font> type  <font color="#a0522d">left</font>. represents left binary tree.</li>
+<li><font color="#228b22">Tree</font> type  <font color="#a0522d">right</font>. represents right binary tree.</li>
+</ul></li>
+
+<li>The following figure shows the relation of the above classes.</li>
+</ul>
+<p>
+ <div align="center"><img src="./figs/ticket-tree-class.png" width=" 90%"></div>
+</p>
+
+<p>
+Let&rsquo;s make an object representing a solution of (&ldquo;8115&rdquo;,10) (output 
+of Scala REPL) using <a href="prog/ticket/Ticket0.scala">Ticket0.scala</a>. <br> 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">$ ls Ticket0.scala 
+Ticket0.scala
+
+$ scala 
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121).
+Type in expressions <span style="color: #a020f0;">for</span> evaluation. Or <span style="color: #a020f0;">try</span> :help.
+
+scala&gt; :load Ticket0.scala
+Loading Ticket0.scala...
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Tree</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Node</span>
+
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">subTree0</span> = Leaf(1)
+subTree0: Leaf = Leaf(1)
+
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">subTree1</span> = Node(<span style="color: #8b2252;">"/"</span>, subTree0, Leaf(5))
+subTree1: Node = Node(/,Leaf(1),Leaf(5))
+
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">subTree2</span> = Node(<span style="color: #8b2252;">"-"</span>, Leaf(1), subTree1)
+subTree2: Node = Node(-,Leaf(1),Node(/,Leaf(1),Leaf(5)))
+
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">subTree3</span> = Node(<span style="color: #8b2252;">"/"</span>, Leaf(8), subTree2)
+subTree3: Node = Node(/,Leaf(8),Node(-,Leaf(1),Node(/,Leaf(1),Leaf(5))))
+</pre>
+</div>
+
+<p>
+Here, we put the defined objects to values  <font color="#a0522d">subTree0</font>,
+ <font color="#a0522d">subTree1</font>,  <font color="#a0522d">subTree2</font>,  <font color="#a0522d">subTree3</font>. <br>
+Those values represent object and called object values. (TODO)
+ <div align="center"><img src="./figs/ticket-tree-object.png" width=" 90%"></div>
+</p>
+
+<p>
+The entire part of binary tree is as follows. 
+ <div align="center"><img src="./figs/ticket8115-object.png" width=" 90%"></div>
+</p>
+
+<p>
+Of course, we can directly create the entire part without defining sub
+trees. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; Node(<span style="color: #8b2252;">"/"</span>, Leaf(8), Node(<span style="color: #8b2252;">"-"</span>, Leaf(1), Node(<span style="color: #8b2252;">"/"</span>, Leaf(1), Leaf(5))))
+res0: Node = Node(/,Leaf(8),Node(-,Leaf(1),Node(/,Leaf(1),Leaf(5))))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-2">
+<h2 id="orgheadline22"><span class="section-number-2">4</span> Calculate the value of a given binary tree</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li>So far, we can represent binary tree on Scala.</li>
+<li>Next, we add a function that calculates the value of a given binary tree.</li>
+<li>Specifically, we add a method  <font color="#0000ff">value</font> that returns Double type.
+<ul class="org-ul">
+<li>By adding method to class, we can use that method from the created object.</li>
+</ul></li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">4.1</span>  <font color="#0000ff">value</font> method ( <font color="#228b22">Tree</font> class)</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li>Since a method  <font color="#0000ff">value</font> is a common method for both inner
+nodes and leaf nodes, we add the signature (description) of this
+method to  <font color="#a020f0">abstract class</font> <font color="#228b22">Tree</font>.</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">abstract</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Tree</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">value</span>: <span style="color: #228b22;">Double</span>
+}
+</pre>
+</div>
+<ul class="org-ul">
+<li>Here, we define a method  <font color="#0000ff">value</font> which returns Double
+type without arguments. However, its specific procedure is
+missing. 
+<ul class="org-ul">
+<li>(Note) In abstract class, we can write the method without its
+implementation, that is, we can only write its signature (input
+/ output).</li>
+<li>(Note) If there is a method missing implementation in abstract
+class  <font color="#228b22">Tree</font>, then classes  <font color="#228b22">Leaf</font> and
+ <font color="#228b22">Node</font> inheriting this abstract class must provides
+implementation.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">4.2</span>  <font color="#0000ff">value</font> method ( <font color="#228b22">Leaf</font> class)</h3>
+<div class="outline-text-3" id="text-4-2">
+<ul class="org-ul">
+<li>Implement the method  <font color="#0000ff">value</font> in the class  <font color="#228b22">Leaf</font>.</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>(<span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int</span>) <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">Tree</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">value</span> = n.toDouble
+}
+</pre>
+</div>
+<ul class="org-ul">
+<li>It is easy to implement the method  <font color="#0000ff">value</font> in the
+class  <font color="#228b22">Leaf</font>. Only we need to do is translate a member
+\(n\) (type Int) to type Double．</li>
+<li>Describe implementation after \(=\).</li>
+<li>Note that in this code we omit braces (we can omit it if the
+implementation is one line). If the implementation of the method is
+more than one line we need to put braces as follows.</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>(<span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int</span>) <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">Tree</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">value</span> = {
+    n.toDouble
+  }
+}
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>If we define method, we can call is as follows.</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">subTree0</span> = Leaf(4)                    
+subTree0: Leaf = Leaf(4)
+
+scala&gt; subTree0.value
+res0: Double = 4.0
+
+scala&gt; Leaf(4).value
+res1: Double = 4.0
+</pre>
+</div>
+<ul class="org-ul">
+<li>The upper example is that we call value method after creating a
+value subTree0. The lower example is that we directly call the
+method value.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">4.3</span>  <font color="#0000ff">value</font> method ( <font color="#228b22">Node</font> class)</h3>
+<div class="outline-text-3" id="text-4-3">
+<ul class="org-ul">
+<li>Implementing the method  <font color="#0000ff">value</font> in the class
+ <font color="#228b22">Node</font>.</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Node</span>(<span style="color: #a0522d;">op</span>: <span style="color: #228b22;">String</span>, <span style="color: #a0522d;">left</span>: <span style="color: #228b22;">Tree</span>, <span style="color: #a0522d;">right</span>: <span style="color: #228b22;">Tree</span>) <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">Tree</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">value</span> = op <span style="color: #a020f0;">match</span> {
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"+"</span> =&gt; left.value + right.value
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> =&gt; ???
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> =&gt; ???
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"/"</span> =&gt; ???
+  }
+}
+</pre>
+</div>
+<ul class="org-ul">
+<li><p>
+In  <font color="#228b22">Node</font> class, we need to realize the
+calculation of label ( <font color="#228b22">String</font> type)  <font color="#a0522d">op</font>. And
+implement it in  <font color="#0000ff">value</font> method. 
+</p>
+
+<p>
+In the above example, we use match formula to classify the
+procedure of operator, and, describe each calculation in the right
+hand side of =&gt;．
+</p></li>
+<li><font color="#a0522d">left</font> and  <font color="#a0522d">right</font> are  <font color="#228b22">Tree</font> type,
+that is,  <font color="#228b22">Leaf</font> type or  <font color="#228b22">Node</font> type. 
+<ul class="org-ul">
+<li>If  <font color="#a0522d">left</font> is  <font color="#228b22">Leaf</font> type, then
+ <font color="#228b22">Leaf</font> class&rsquo;s  <font color="#0000ff">value</font> method is called.</li>
+<li>If  <font color="#a0522d">left</font> is  <font color="#228b22">Node</font> type, then
+ <font color="#228b22">Node</font> class&rsquo;s  <font color="#0000ff">value</font> method is
+called. And this method is recursively called.</li>
+
+<li>Similarly  <font color="#a0522d">right</font>.</li>
+</ul></li>
+<li>For instance, (1 + (1 + 5)) is calculated as follows.</li>
+</ul>
+<p>
+ <div align="center"><img src="./figs/ticket8115-recursive.png" width=" 90%"></div>
+</p>
+
+<ul class="org-ul">
+<li>Exercise: 
+<ul class="org-ul">
+<li>Implement other 3 operation (&ldquo;-&rdquo;, &ldquo;*&rdquo;, &ldquo;/&rdquo;) by filling out above ???.</li>
+<li>We can check its result as follows:</li>
+</ul></li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">$ ls Ticket1.scala 
+Ticket1.scala
+$ scala
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121).
+Type in expressions <span style="color: #a020f0;">for</span> evaluation. Or <span style="color: #a020f0;">try</span> :help.
+
+scala&gt; :load Ticket1.scala
+Loading Ticket1.scala...
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Tree</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Node</span>
+
+scala&gt; Node(<span style="color: #8b2252;">"/"</span>, Leaf(8), Node(<span style="color: #8b2252;">"-"</span>, Leaf(1), Node(<span style="color: #8b2252;">"/"</span>, Leaf(1), Leaf(5)))).value
+res0: Double = 10.0
+
+scala&gt; Node(<span style="color: #8b2252;">"-"</span>, Node(<span style="color: #8b2252;">"*"</span>, Leaf(7), Leaf(5)), Node(<span style="color: #8b2252;">"*"</span>, Leaf(5), Leaf(5))).value
+res1: Double = 10.0
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">4.4</span>  <font color="#0000ff">valueEquals</font> method</h3>
+<div class="outline-text-3" id="text-4-4">
+</div><ol class="org-ol"><li><a id="orgheadline13"></a>To ignore the calculation error, let&rsquo;s implement a method  <font color="#0000ff">valueEquals</font> in  <font color="#228b22">Tree</font>.<br  /><div class="outline-text-4" id="text-4-4-1">
+<ul class="org-ul">
+<li>Since this method is the same for both  <font color="#228b22">Leaf</font> class and
+ <font color="#228b22">Node</font> class, we implement it in  <font color="#228b22">Tree</font> class.</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">abstract</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Tree</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">value</span>: <span style="color: #228b22;">Double</span>
+<span style="color: #228b22;">  </span><span style="color: #a020f0;">def</span> valueEquals(x: Double): Boolean = math.abs(x - value) &lt; 1e-5
+}
+</pre>
+</div>
+</div></li>
+<li><a id="orgheadline14"></a>Two values of expressions (1 / 3) * (7 / 2) and (7 / 6) + 1 - 1 are not the same (false) when we use ==.<br  /></li>
+<li><a id="orgheadline15"></a>To ignore this calculation error, use the method  <font color="#0000ff">valueEquals</font>．<br  /><div class="outline-text-4" id="text-4-4-3">
+<p>
+The program <a href="prog/ticket/Ticket2.scala">Ticket2.scala</a> with valueEquals works as follows. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">$ ls Ticket2.scala 
+Ticket2.scala
+$ scala
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121).
+Type in expressions <span style="color: #a020f0;">for</span> evaluation. Or <span style="color: #a020f0;">try</span> :help.
+
+scala&gt; :load Ticket2.scala
+Loading Ticket2.scala...
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Tree</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Node</span>
+
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">c1</span> = Node(<span style="color: #8b2252;">"*"</span>, Node(<span style="color: #8b2252;">"/"</span>, Leaf(1), Leaf(3)), Node(<span style="color: #8b2252;">"/"</span>, Leaf(7), Leaf(2)))
+c1: Node = Node(*,Node(/,Leaf(1),Leaf(3)),Node(/,Leaf(7),Leaf(2)))
+
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">c2</span> = Node(<span style="color: #8b2252;">"-"</span>, Node(<span style="color: #8b2252;">"+"</span>, Node(<span style="color: #8b2252;">"/"</span>, Leaf(7), Leaf(6)), Leaf(1)), Leaf(1))
+c2: Node = Node(-,Node(+,Node(/,Leaf(7),Leaf(6)),Leaf(1)),Leaf(1))
+
+scala&gt; c1.value == c2.value 
+res0: Boolean = <span style="color: #008b8b;">false</span>
+
+scala&gt; c1.valueEquals(c2.value)
+res1: Boolean = <span style="color: #008b8b;">true</span>
+</pre>
+</div>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21"><span class="section-number-3">4.5</span>  <font color="#0000ff">toString</font> method</h3>
+<div class="outline-text-3" id="text-4-5">
+</div><ol class="org-ol"><li><a id="orgheadline17"></a>Currently, the output of  <font color="#228b22">Tree</font> type is not so intuitive.<br  /></li>
+<li><a id="orgheadline18"></a>By overriding toString method, it becomes more clear.<br  /><div class="outline-text-4" id="text-4-5-2">
+<ul class="org-ul">
+<li>(Note) In case class, toString method is already implicitly
+implemented, so we need to override it．</li>
+</ul>
+</div></li>
+<li><a id="orgheadline19"></a>Leaf Class<br  /><div class="outline-text-4" id="text-4-5-3">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>(<span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int</span>) <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">Tree</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">value</span>: <span style="color: #228b22;">Double </span>= n.toDouble
+  <span style="color: #a020f0;">override</span> <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">toString</span> = n.toString
+}
+</pre>
+</div>
+</div></li>
+
+<li><a id="orgheadline20"></a>Node Class<br  /><div class="outline-text-4" id="text-4-5-4">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Node</span>(<span style="color: #a0522d;">op</span>: <span style="color: #228b22;">String</span>, <span style="color: #a0522d;">left</span>: <span style="color: #228b22;">Tree</span>, <span style="color: #a0522d;">right</span>: <span style="color: #228b22;">Tree</span>) <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">Tree</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">value</span> = ...
+  <span style="color: #a020f0;">override</span> <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">toString</span> = 
+    <span style="color: #8b2252;">"("</span> + left.toString + <span style="color: #8b2252;">" "</span> + op + <span style="color: #8b2252;">" "</span> + right.toString + <span style="color: #8b2252;">")"</span>
+}
+</pre>
+</div>
+
+<p>
+We should obtain the following result with the program <a href="prog/ticket/Ticket3.scala">Ticket3.scala</a>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scala">$ ls Ticket3.scala 
+Ticket3.scala
+$ scala
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121).
+Type in expressions <span style="color: #a020f0;">for</span> evaluation. Or <span style="color: #a020f0;">try</span> :help.
+
+scala&gt; :load Ticket
+Ticket.scala   Ticket0.scala   Ticket1.scala   Ticket2.scala   Ticket3.scala
+
+scala&gt; :load Ticket3.scala
+Loading Ticket3.scala...
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Tree</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Node</span>
+
+scala&gt; Node(<span style="color: #8b2252;">"/"</span>, Leaf(8), Node(<span style="color: #8b2252;">"-"</span>, Leaf(1), Node(<span style="color: #8b2252;">"/"</span>, Leaf(1), Leaf(5))))
+res0: Node = (8 / (1 - (1 / 5)))
+</pre>
+</div>
+</div></li></ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-2">
+<h2 id="orgheadline24"><span class="section-number-2">5</span> Enumerate all binary tree from 3 digits sequence</h2>
+<div class="outline-text-2" id="text-5">
+<ul class="org-ul">
+<li>By the implementation so far, we can represent the binary trees
+and evaluate those binary trees.</li>
+<li>The remaining task is the enumeration of binary trees from a given
+digit sequence and operators.</li>
+<li>Before considering 4 digit sequence, let&rsquo;s consider easier case, 3
+digit sequence.</li>
+</ul>
+</div>
+<div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23"><span class="section-number-3">5.1</span> Implementation of genTrees2, genTrees3 method.</h3>
+<div class="outline-text-3" id="text-5-1">
+<ul class="org-ul">
+<li>Note that, in the following, the program is assumed to be written
+in braces of  <font color="#a020f0">object</font>  <font color="#228b22">TestTree</font> in  <font color="#3B5998"><b>TestTree.scala</b></font> file.</li>
+<li>The basement program is <a href="prog/ticket/Ticket4.scala">Ticket4.scala</a></li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">abstract</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Tree</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">value</span>: <span style="color: #228b22;">Double</span>
+<span style="color: #228b22;">  </span><span style="color: #a020f0;">def</span> valueEquals(x: Double): Boolean = math.abs(x - value) &lt; 1e-5
+}
+
+<span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>(<span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int</span>) <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">Tree</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">value</span>: <span style="color: #228b22;">Double </span>= n.toDouble
+  <span style="color: #a020f0;">override</span> <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">toString</span> = n.toString
+}
+
+<span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Node</span>(<span style="color: #a0522d;">op</span>: <span style="color: #228b22;">String</span>, <span style="color: #a0522d;">left</span>: <span style="color: #228b22;">Tree</span>, <span style="color: #a0522d;">right</span>: <span style="color: #228b22;">Tree</span>) <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">Tree</span> {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">value</span> = op <span style="color: #a020f0;">match</span> {
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"+"</span> =&gt; left.value + right.value
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"-"</span> =&gt; left.value - right.value
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"*"</span> =&gt; left.value * right.value
+    <span style="color: #a020f0;">case</span> <span style="color: #8b2252;">"/"</span> =&gt; left.value / right.value
+  }
+  <span style="color: #a020f0;">override</span> <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">toString</span> = 
+    <span style="color: #8b2252;">"("</span> + left.toString + <span style="color: #8b2252;">" "</span> + op + <span style="color: #8b2252;">" "</span> + right.toString + <span style="color: #8b2252;">")"</span>
+}
+
+<span style="color: #a020f0;">object</span> <span style="color: #a0522d;">Ticket</span> {
+
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ops</span> = Seq(<span style="color: #8b2252;">"+"</span>, <span style="color: #8b2252;">"-"</span>, <span style="color: #8b2252;">"*"</span>, <span style="color: #8b2252;">"/"</span>)
+
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">genTrees2</span>(<span style="color: #a0522d;">x1</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">x2</span>: <span style="color: #228b22;">Int</span>): <span style="color: #228b22;">Seq[Tree]</span> = ???
+
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">genTrees3</span>(<span style="color: #a0522d;">x1</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">x2</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">x3</span>: <span style="color: #228b22;">Int</span>) = ???
+
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">genTrees4</span>(<span style="color: #a0522d;">x1</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">x2</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">x3</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">x4</span>: <span style="color: #228b22;">Int</span>) = ???
+
+}
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>At first, let&rsquo;s consider a method enumerating all binary tree for a
+given 2 digits.</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">genTrees2</span>(<span style="color: #a0522d;">x1</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">x2</span>: <span style="color: #228b22;">Int</span>): <span style="color: #228b22;">Seq[Tree]</span> = {
+  <span style="color: #a020f0;">for</span> {
+    op &lt;- ops
+  } <span style="color: #a020f0;">yield</span> Node(op, Leaf(x1), Leaf(x2))
+}
+</pre>
+</div>
+<ul class="org-ul">
+<li>It is easy. We can implement it as the above.</li>
+<li>We an test it as follows:</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">$ ls Ticket4.scala 
+Ticket4.scala
+$ scala
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121).
+Type in expressions <span style="color: #a020f0;">for</span> evaluation. Or <span style="color: #a020f0;">try</span> :help.
+
+scala&gt; :load Ticket4.scala
+Loading Ticket4.scala...
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Tree</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Node</span>
+defined <span style="color: #a020f0;">object</span> <span style="color: #a0522d;">Ticket</span>
+
+scala&gt; <span style="color: #a020f0;">import</span> Ticket._
+<span style="color: #a020f0;">import</span> Ticket._
+
+scala&gt; <span style="color: #a020f0;">for</span> (tree &lt;- genTrees2(1,2)) println(tree)
+(1 + 2)
+(1 - 2)
+(1 * 2)
+(1 / 2)
+
+scala&gt; genTrees2(1,2).foreach(i =&gt; println(i))
+(1 + 2)
+(1 - 2)
+(1 * 2)
+(1 / 2)
+
+scala&gt; genTrees2(1,2).foreach(println) 
+(1 + 2)
+(1 - 2)
+(1 * 2)
+(1 / 2)
+
+scala&gt; genTrees2(1,2).foreach(println(_)) 
+(1 + 2)
+(1 - 2)
+(1 * 2)
+(1 / 2)
+</pre>
+</div>
+<ul class="org-ul">
+<li>We can see that all binary trees of 1+2, 1-2, 1*2, 1/2 are
+enumerated.</li>
+<li>Next, let&rsquo;s consider the enumeration method for a given 3 digits sequence.</li>
+<li>When a digit sequence  x1, x2, x3 is given, possible brace
+structures are either
+<ul class="org-ul">
+<li>(x1 op x2) op x3 or</li>
+<li>x1 op (x2 op x3)</li>
+</ul></li>
+<li>Then,  the remaining task is to combine both results (trees1 ++
+trees2) and return it.</li>
+<li>The implementaion is as follows:</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">genTrees3</span>(<span style="color: #a0522d;">x1</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">x2</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">x3</span>: <span style="color: #228b22;">Int</span>) = {
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">trees1</span> = <span style="color: #a020f0;">for</span> {
+    op &lt;- ops
+    tree &lt;- genTrees2(x1, x2)
+  } <span style="color: #a020f0;">yield</span> Node(op, tree, Leaf(x3.toInt))
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">trees2</span> = <span style="color: #a020f0;">for</span> {
+    op &lt;- ops
+    tree &lt;- genTrees2(x2, x3)
+  } <span style="color: #a020f0;">yield</span> Node(op, Leaf(x1.toInt), tree)
+  trees1 ++ trees2
+}
+</pre>
+</div>
+<ul class="org-ul">
+<li>We can test it as follows.</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">$ ls Ticket4.scala 
+Ticket4.scala
+$ scala
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121).
+Type in expressions <span style="color: #a020f0;">for</span> evaluation. Or <span style="color: #a020f0;">try</span> :help.
+
+scala&gt; :load Ticket4.scala
+Loading Ticket4.scala...
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Tree</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Node</span>
+defined <span style="color: #a020f0;">object</span> <span style="color: #a0522d;">Ticket</span>
+
+scala&gt; <span style="color: #a020f0;">import</span> Ticket._
+<span style="color: #a020f0;">import</span> Ticket._
+
+scala&gt; <span style="color: #a020f0;">for</span> (tree &lt;- genTrees3(1,2,3)) println(tree.value + <span style="color: #8b2252;">" "</span> + tree)
+6.0 ((1 + 2) + 3)
+2.0 ((1 - 2) + 3)
+5.0 ((1 * 2) + 3)
+3.5 ((1 / 2) + 3)
+0.0 ((1 + 2) - 3)
+-4.0 ((1 - 2) - 3)
+-1.0 ((1 * 2) - 3)
+-2.5 ((1 / 2) - 3)
+9.0 ((1 + 2) * 3)
+-3.0 ((1 - 2) * 3)
+6.0 ((1 * 2) * 3)
+1.5 ((1 / 2) * 3)
+1.0 ((1 + 2) / 3)
+-0.3333333333333333 ((1 - 2) / 3)
+0.6666666666666666 ((1 * 2) / 3)
+0.16666666666666666 ((1 / 2) / 3)
+6.0 ((1 + 2) + 3)
+2.0 ((1 - 2) + 3)
+5.0 ((1 * 2) + 3)
+3.5 ((1 / 2) + 3)
+0.0 ((1 + 2) - 3)
+-4.0 ((1 - 2) - 3)
+-1.0 ((1 * 2) - 3)
+-2.5 ((1 / 2) - 3)
+9.0 ((1 + 2) * 3)
+-3.0 ((1 - 2) * 3)
+6.0 ((1 * 2) * 3)
+1.5 ((1 / 2) * 3)
+1.0 ((1 + 2) / 3)
+-0.3333333333333333 ((1 - 2) / 3)
+0.6666666666666666 ((1 * 2) / 3)
+0.16666666666666666 ((1 / 2) / 3)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline27" class="outline-2">
+<h2 id="orgheadline27"><span class="section-number-2">6</span> Play with genTrees3 method.</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgheadline25" class="outline-3">
+<h3 id="orgheadline25"><span class="section-number-3">6.1</span> Let&rsquo;s consider &ldquo;mini&rdquo; ticket problem whose input is 3 digits sequence (enumerating all solutions).</h3>
+<div class="outline-text-3" id="text-6-1">
+<ul class="org-ul">
+<li>For instance, what can be solutions for (&ldquo;123&rdquo;,6)?</li>
+<li>We can find all solutions as follows. 
+<ul class="org-ul">
+<li>Note that the argument of valueEquals is Double type.</li>
+</ul></li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">$ ls Ticket4.scala 
+Ticket4.scala
+$ scala
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121).
+Type in expressions <span style="color: #a020f0;">for</span> evaluation. Or <span style="color: #a020f0;">try</span> :help.
+
+scala&gt; :load Ticket4.scala
+Loading Ticket4.scala...
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Tree</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Node</span>
+defined <span style="color: #a020f0;">object</span> <span style="color: #a0522d;">Ticket</span>
+
+scala&gt; <span style="color: #a020f0;">import</span> Ticket._
+<span style="color: #a020f0;">import</span> Ticket._
+
+scala&gt; <span style="color: #a020f0;">for</span> (tree &lt;- genTrees3(1,2,3) <span style="color: #a020f0;">if</span> tree.valueEquals(6.0)) println(tree)
+((1 + 2) + 3)
+((1 * 2) * 3)
+((1 + 2) + 3)
+((1 * 2) * 3)
+
+scala&gt; genTrees3(1,2,3).filter(_.valueEquals(6.0)).foreach(i =&gt; println(i))
+((1 + 2) + 3)
+((1 * 2) * 3)
+((1 + 2) + 3)
+((1 * 2) * 3)
+</pre>
+</div>
+<ul class="org-ul">
+<li>revisit an introduction of <a href="List.html">List</a> if necessary.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">6.2</span> How about a variable ordering variants?</h3>
+<div class="outline-text-3" id="text-6-2">
+<ul class="org-ul">
+<li>At first, how do we obtain all permutation of a given 3 digits?</li>
+<li>Using permutations is the easiest way.</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (i &lt;- Seq(1,2,3).permutations) println(i)
+List(1, 2, 3)
+List(1, 3, 2)
+List(2, 1, 3)
+List(2, 3, 1)
+List(3, 1, 2)
+List(3, 2, 1)
+
+scala&gt; Seq(1,2,3).permutations.toList.foreach(println)
+List(1, 2, 3)
+List(1, 3, 2)
+List(2, 1, 3)
+List(2, 3, 1)
+List(3, 1, 2)
+List(3, 2, 1)
+</pre>
+</div>
+<ul class="org-ul">
+<li>By using this permutations method, a solver program for 3 digits
+sequence and variable ordering is as follows.</li>
+<li>Here, we put an intermediate result to the value ``a&rsquo;&rsquo; since it is a
+bit longer if we put it in one line.</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">$ ls Ticket4.scala 
+Ticket4.scala
+$ scala
+Welcome to Scala 2.12.4 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_121).
+Type in expressions <span style="color: #a020f0;">for</span> evaluation. Or <span style="color: #a020f0;">try</span> :help.
+
+scala&gt; :load Ticket4.scala
+Loading Ticket4.scala...
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Tree</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Leaf</span>
+defined <span style="color: #a020f0;">class</span> <span style="color: #228b22;">Node</span>
+defined <span style="color: #a020f0;">object</span> <span style="color: #a0522d;">Ticket</span>
+
+scala&gt; <span style="color: #a020f0;">import</span> Ticket._
+<span style="color: #a020f0;">import</span> Ticket._
+
+
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">a</span> = (<span style="color: #a020f0;">for</span> (xs &lt;- Seq(1,2,3).permutations; 
+                     tree &lt;- genTrees3(xs(0), xs(1), xs(2))
+                    ) <span style="color: #a020f0;">yield</span> tree).toList
+a: List[Node] = List(((1 + 2) + 3), ((1 - 2) + 3), ((1 * 2) + 3), ((1 / 2) + 3), ((1 + 2) - 3), ((1 - 2) - 3), ((1 * 2) - 3), ((1 / 2) - 3), ((1 + 2) * 3), ((1 - 2) * 3), ((1 * 2) * 3), ((1 / 2) * 3), ((1 + 2) / 3), ((1 - 2) / 3), ((1 * 2) / 3), ((1 / 2) / 3), ((1 + 2) + 3), ((1 - 2) + 3), ((1 * 2) + 3), ((1 / 2) + 3), ((1 + 2) - 3), ((1 - 2) - 3), ((1 * 2) - 3), ((1 / 2) - 3), ((1 + 2) * 3), ((1 - 2) * 3), ((1 * 2) * 3), ((1 / 2) * 3), ((1 + 2) / 3), ((1 - 2) / 3), ((1 * 2) / 3), ((1 / 2) / 3), ((1 + 3) + 2), ((1 - 3) + 2), ((1 * 3) + 2), ((1 / 3) + 2), ((1 + 3) - 2), ((1 - 3) - 2), ((1 * 3) - 2), ((1 / 3) - 2), ((1 + 3) * 2), ((1 - 3) * 2), ((1 * 3) * 2), ((1 / 3) * 2), ((1 + 3) / 2), ((1 - 3) / 2), ((1 * 3) / 2), ((1 / 3) / 2), ((1 + 3) + 2), ((1 - 3) + 2), ...
+
+scala&gt; <span style="color: #a020f0;">for</span> (i &lt;- a; <span style="color: #a020f0;">if</span> i.valueEquals(6.0)) println(i)
+((1 + 2) + 3)
+((1 * 2) * 3)
+((1 + 2) + 3)
+((1 * 2) * 3)
+((1 + 3) + 2)
+((1 * 3) * 2)
+((1 + 3) + 2)
+((1 * 3) * 2)
+((2 + 1) + 3)
+((2 * 1) * 3)
+((2 / 1) * 3)
+((2 + 1) + 3)
+((2 * 1) * 3)
+((2 / 1) * 3)
+((2 + 3) + 1)
+((2 * 3) * 1)
+((2 * 3) / 1)
+((2 + 3) + 1)
+((2 * 3) * 1)
+((2 * 3) / 1)
+((3 + 1) + 2)
+((3 * 1) * 2)
+((3 / 1) * 2)
+((3 + 1) + 2)
+((3 * 1) * 2)
+((3 / 1) * 2)
+((3 + 2) + 1)
+((3 * 2) * 1)
+((3 * 2) / 1)
+((3 + 2) + 1)
+((3 * 2) * 1)
+((3 * 2) / 1)
+</pre>
+</div>
+<ul class="org-ul">
+<li>Another way of defining ``a&rsquo;&rsquo; using for comprehension is as follows.</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #b22222;">// </span><span style="color: #b22222;">definition of ``a'' using for comprehension</span>
+scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">a</span> = (<span style="color: #a020f0;">for</span> {
+     |  xs &lt;- Seq(1,2,3).permutations
+     |  tree &lt;- genTrees3(xs(0), xs(1), xs(2))
+     | } <span style="color: #a020f0;">yield</span> tree).toList
+a: List[Node] = List(((1 + 2) + 3), ((1 - 2) + 3), ((1 * 2) + 3), ((1 / 2) + 3), ((1 + 2) - 3), ((1 - 2) - 3), ((1 * 2) - 3), ((1 / 2) - 3), ((1 + 2) * 3), ((1 - 2) * 3), ((1 * 2) * 3), ((1 / 2) * 3), ((1 + 2) / 3), ((1 - 2) / 3), ((1 * 2) / 3), ((1 / 2) / 3), ((1 + 2) + 3), ((1 - 2) + 3), ((1 * 2) + 3), ((1 / 2) + 3), ((1 + 2) - 3), ((1 - 2) - 3), ((1 * 2) - 3), ((1 / 2) - 3), ((1 + 2) * 3), ((1 - 2) * 3), ((1 * 2) * 3), ((1 / 2) * 3), ((1 + 2) / 3), ((1 - 2) / 3), ((1 * 2) / 3), ((1 / 2) / 3), ((1 + 3) + 2), ((1 - 3) + 2), ((1 * 3) + 2), ((1 / 3) + 2), ((1 + 3) - 2), ((1 - 3) - 2), ((1 * 3) - 2), ((1 / 3) - 2), ((1 + 3) * 2), ((1 - 3) * 2), ((1 * 3) * 2), ((1 / 3) * 2), ((1 + 3) / 2), ((1 - 3) / 2), ((1 * 3) / 2), ((1 / 3) / 2), ((1 + 3) + 2), ((1 - 3) + 2), ...
+</pre>
+</div>
+<ul class="org-ul">
+<li>Next, similar to (fixed ordered) standard 3 digits ticket problem, 
+<ul class="org-ul">
+<li>proceed with  <font color="#0000ff">for</font> and  <font color="#0000ff">if</font>. Or, proceed
+it with  <font color="#0000ff">filter</font> and  <font color="#0000ff">foreach</font>.</li>
+</ul></li>
+<li>It may contain many results, so get the number of result by ``count&rsquo;&rsquo; (there is 32 of them).</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">b</span> = (<span style="color: #a020f0;">for</span> (xs &lt;- Seq(1,2,3).permutations; tree &lt;- genTrees3(xs(0), xs(1), xs(2))) <span style="color: #a020f0;">yield</span> tree).toList
+b: List[Node] = List(((1 + 2) + 3), ((1 - 2) + 3), ((1 * 2) + 3), ((1 / 2) + 3), ((1 + 2) - 3), ((1 - 2) - 3), ((1 * 2) - 3), ((1 / 2) - 3), ((1 + 2) * 3), ((1 - 2) * 3), ((1 * 2) * 3), ((1 / 2) * 3), ((1 + 2) / 3), ((1 - 2) / 3), ((1 * 2) / 3), ((1 / 2) / 3), ((1 + 2) + 3), ((1 - 2) + 3), ((1 * 2) + 3), ((1 / 2) + 3), ((1 + 2) - 3), ((1 - 2) - 3), ((1 * 2) - 3), ((1 / 2) - 3), ((1 + 2) * 3), ((1 - 2) * 3), ((1 * 2) * 3), ((1 / 2) * 3), ((1 + 2) / 3), ((1 - 2) / 3), ((1 * 2) / 3), ((1 / 2) / 3), ((1 + 3) + 2), ((1 - 3) + 2), ((1 * 3) + 2), ((1 / 3) + 2), ((1 + 3) - 2), ((1 - 3) - 2), ((1 * 3) - 2), ((1 / 3) - 2), ((1 + 3) * 2), ((1 - 3) * 2), ((1 * 3) * 2), ((1 / 3) * 2), ((1 + 3) / 2), ((1 - 3) / 2), ((1 * 3) / 2), ((1 / 3) / 2), ((1 + 3) + 2), ((1 - 3) + 2), ...
+
+scala&gt; (<span style="color: #a020f0;">for</span> (i &lt;- b <span style="color: #a020f0;">if</span> i.valueEquals(6.0)) <span style="color: #a020f0;">yield</span> i).size
+res0: Int = 32
+
+scala&gt; b.filter(_.valueEquals(6.0)).size
+res1: Int = 32
+</pre>
+</div>
+<ul class="org-ul">
+<li>We can define ``b&rsquo;&rsquo; using for comprehension as follows</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">b</span> = (<span style="color: #a020f0;">for</span> {
+     |   xs &lt;- Seq(1,2,3).permutations
+     |   tree &lt;- genTrees3(xs(0), xs(1), xs(2))
+     |   } <span style="color: #a020f0;">yield</span> tree).toList
+b: List[Node] = List(((1 + 2) + 3), ((1 - 2) + 3), ((1 * 2) + 3), ((1 / 2) + 3), ((1 + 2) - 3), ((1 - 2) - 3), ((1 * 2) - 3), ((1 / 2) - 3), ((1 + 2) * 3), ((1 - 2) * 3), ((1 * 2) * 3), ((1 / 2) * 3), ((1 + 2) / 3), ((1 - 2) / 3), ((1 * 2) / 3), ((1 / 2) / 3), ((1 + 2) + 3), ((1 - 2) + 3), ((1 * 2) + 3), ((1 / 2) + 3), ((1 + 2) - 3), ((1 - 2) - 3), ((1 * 2) - 3), ((1 / 2) - 3), ((1 + 2) * 3), ((1 - 2) * 3), ((1 * 2) * 3), ((1 / 2) * 3), ((1 + 2) / 3), ((1 - 2) / 3), ((1 * 2) / 3), ((1 / 2) / 3), ((1 + 3) + 2), ((1 - 3) + 2), ((1 * 3) + 2), ((1 / 3) + 2), ((1 + 3) - 2), ((1 - 3) - 2), ((1 * 3) - 2), ((1 / 3) - 2), ((1 + 3) * 2), ((1 - 3) * 2), ((1 * 3) * 2), ((1 / 3) * 2), ((1 + 3) / 2), ((1 - 3) / 2), ((1 * 3) / 2), ((1 / 3) / 2), ((1 + 3) + 2), ((1 - 3) + 2), ...
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline43" class="outline-2">
+<h2 id="orgheadline43"><span class="section-number-2">7</span> Subject</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-orgheadline32" class="outline-3">
+<h3 id="orgheadline32"><span class="section-number-3">7.1</span> genTrees4 method</h3>
+<div class="outline-text-3" id="text-7-1">
+</div><ol class="org-ol"><li><a id="orgheadline28"></a> <font color="#3B5998"><b>Input</b></font> 4 digits x1, x2, x3, x4 (Int type)<br  /></li>
+<li><a id="orgheadline29"></a> <font color="#3B5998"><b>Output</b></font> sequence of all Tree which are obtained from the given 4 digits (fixed ordering). Seq[Tree] Type.<br  /></li>
+<li><a id="orgheadline30"></a> <font color="#3B5998"><b>Implementation</b></font> use genTrees2 and genTrees3.<br  /></li>
+
+<li><a id="orgheadline31"></a>(Verify) It is okay (not comprehensive though) if you can get the following result.<br  /><div class="outline-text-4" id="text-7-1-4">
+<div class="org-src-container">
+
+<pre class="src src-scala">genTrees4(8,1,1,5).size                          <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res8: Int = 320</span>
+</pre>
+</div>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgheadline37" class="outline-3">
+<h3 id="orgheadline37"><span class="section-number-3">7.2</span> findSolutions method &#x2014; The program which enumerates all solutions of the ticket problem.</h3>
+<div class="outline-text-3" id="text-7-2">
+</div><ol class="org-ol"><li><a id="orgheadline33"></a> <font color="#3B5998"><b>Input</b></font> xs: Seq[Int] type, (length is fixed to 4). a: Int type. (that is, input of ticket problem)<br  /></li>
+<li><a id="orgheadline34"></a> <font color="#3B5998"><b>Output</b></font> sequence of all Tree whose value is equal to ``a&rsquo;&rsquo; obtained from the given 4 digits sequence. Seq[Tree] type.<br  /></li>
+<li><a id="orgheadline35"></a> <font color="#3B5998"><b>Implementation</b></font> call genTrees4<br  /><div class="outline-text-4" id="text-7-2-3">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">findSolutions</span>(<span style="color: #a0522d;">xs</span>: <span style="color: #228b22;">Seq[Int]</span>, <span style="color: #a0522d;">a</span>: <span style="color: #228b22;">Int</span>): <span style="color: #228b22;">Seq[Tree]</span> = {
+  ???
+}
+</pre>
+</div>
+<ul class="org-ul">
+<li>it is easy to use filter and valueEquals. Please refer ``Play with genTrees3&rsquo;&rsquo;.</li>
+</ul>
+</div></li>
+<li><a id="orgheadline36"></a>(Verify) It is okay if you get the following output.<br  /><div class="outline-text-4" id="text-7-2-4">
+<div class="org-src-container">
+
+<pre class="src src-scala">findSolutions(Seq(8,1,1,5), 10)   <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res4: Seq[Tree] = List((8 / (1 - (1 / 5))))</span>
+findSolutions(Seq(7,5,5,5), 10)   <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res5: Seq[Tree] = List(((7 * 5) - (5 * 5)))</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>If you get a wrong result, your implementation of genTrees4 may
+be wrong. Please re-check it.</li>
+</ul>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgheadline42" class="outline-3">
+<h3 id="orgheadline42"><span class="section-number-3">7.3</span> Implementing findAll method &#x2014; enumerating all solution of variable order ticket problem.</h3>
+<div class="outline-text-3" id="text-7-3">
+</div><ol class="org-ol"><li><a id="orgheadline38"></a>(input) 4 digit sequence ``xs&rsquo;&rsquo;: Seq[Int] type. Target value a.<br  /></li>
+<li><a id="orgheadline39"></a>(output) sequence of all Tree whose value is equal to ``a&rsquo;&rsquo; obtained from the given 4 digits (ordering can be varied). Seq[Tree] type.<br  /></li>
+<li><a id="orgheadline40"></a>(Condition of Implementation) genTrees4 を呼び出す<br  /></li>
+
+<li><a id="orgheadline41"></a>(verify) It is okay if you get the following output.<br  /><div class="outline-text-4" id="text-7-3-4">
+<div class="org-src-container">
+
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (i &lt;- findAll(Seq(8,1,1,5),21)) println(i)
+((8 * (1 + 1)) + 5)
+(((1 + 1) * 8) + 5)
+(5 + (8 * (1 + 1)))
+(5 + ((1 + 1) * 8))
+
+scala&gt; findAll(Seq(8,1,1,5),21).foreach(println) 
+((8 * (1 + 1)) + 5)
+(((1 + 1) * 8) + 5)
+(5 + (8 * (1 + 1)))
+(5 + ((1 + 1) * 8))
+</pre>
+</div>
+</div></li></ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline52" class="outline-2">
+<h2 id="orgheadline52"><span class="section-number-2">8</span> Challenge Subject</h2>
+<div class="outline-text-2" id="text-8">
+</div><div id="outline-container-orgheadline48" class="outline-3">
+<h3 id="orgheadline48"><span class="section-number-3">8.1</span> genTrees method</h3>
+<div class="outline-text-3" id="text-8-1">
+</div><ol class="org-ol"><li><a id="orgheadline44"></a>(Input) Integer Sequence (variable ordering, any length)．Seq[Int] type.<br  /></li>
+<li><a id="orgheadline45"></a>(Output) sequence of all Trees obtained from the given integer sequence. Seq[Tree] type.<br  /></li>
+<li><a id="orgheadline46"></a>(Condition of implementation) use recursive programming. That is, genTrees will call genTrees.<br  /><div class="outline-text-4" id="text-8-1-3">
+<div class="answer">
+<dl class="org-dl">
+<dt> <a onclick="toggleAnswer(this.parentNode.parentNode)"><font color="red">(hint)</font></a></dt><dd><div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">genTrees</span>(<span style="color: #a0522d;">xs</span>: <span style="color: #228b22;">Seq[Int]</span>): <span style="color: #228b22;">Seq[Tree]</span> = {
+   ???
+}
+</pre>
+</div></dd>
+</dl>
+</div>
+</div></li>
+
+<li><a id="orgheadline47"></a> <font size="+3">(Verification)</font> It is okay if you can get the following output.<br  /><div class="outline-text-4" id="text-8-1-4">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #b22222;">/**</span>
+<span style="color: #b22222;"> * Scala Worksheet (week05.sc)</span>
+<span style="color: #b22222;"> */</span>
+
+ genTrees(Seq(1,2,3)).size                        <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res6: Int = 32</span>
+ genTrees(Seq(1,2,3,4)).size                      <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res7: Int = 320</span>
+ genTrees(Seq(1,2,3,4,5)).size                    <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; res8: Int = 3584</span>
+ genTrees(Seq(1,2,3,4,5)).filter(_.valueEquals(10.0)).foreach(println)
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">&gt; (1 + (2 + ((3 * 4) - 5)))</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| (1 + ((2 + (3 * 4)) - 5))</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| (1 + ((2 * (3 + 4)) - 5))</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| ((1 + 2) + ((3 * 4) - 5))</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| (((1 + 2) / 3) + (4 + 5))</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| ((((1 + 2) / 3) + 4) + 5)</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| ((1 - ((2 - 3) * 4)) + 5)</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| ((((1 + 2) * 3) - 4) + 5)</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| (1 - (((2 - 3) * 4) - 5))</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| (1 - ((2 - 3) * (4 + 5)))</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| (((1 + 2) * 3) - (4 - 5))</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| ((1 + (2 + (3 * 4))) - 5)</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| ((1 + (2 * (3 + 4))) - 5)</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| (((1 + 2) + (3 * 4)) - 5)</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| (1 * (((2 * 3) - 4) * 5))</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| ((1 + (2 + (3 - 4))) * 5)</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| ((1 + ((2 + 3) - 4)) * 5)</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| (((1 + 2) + (3 - 4)) * 5)</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| (((1 + (2 + 3)) - 4) * 5)</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| ((((1 + 2) + 3) - 4) * 5)</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| (((1 * (2 * 3)) - 4) * 5)</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| ((((1 * 2) * 3) - 4) * 5)</span>
+                                                  <span style="color: #b22222;">//</span><span style="color: #b22222;">| ((1 * ((2 * 3) - 4)) * 5)</span>
+</pre>
+</div>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgheadline51" class="outline-3">
+<h3 id="orgheadline51"><span class="section-number-3">8.2</span> genDifficult method &#x2014; ticket problem (having unique solution) generator</h3>
+<div class="outline-text-3" id="text-8-2">
+</div><ol class="org-ol"><li><a id="orgheadline49"></a>(Input) none.<br  /></li>
+<li><a id="orgheadline50"></a>(Output) all ticket problem (fixed ordering, 4 digits) each of which only has unique solution. Seq[(Seq[Int], Int)] type.<br  /></li></ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Takehide Soh</p>
+<p class="date">Created: 2018-03-20 火 13:06</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

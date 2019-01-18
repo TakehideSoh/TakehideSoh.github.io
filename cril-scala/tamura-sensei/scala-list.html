@@ -1,0 +1,2710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<!-- 2018-02-26 月 15:10 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Scalaでリスト処理</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="田村直之" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+
+<script type="text/javascript" src="/include/org-info.js">
+/**
+ *
+ * @source: /include/org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in /include/org-info.js.
+ *
+ * Copyright (C) 2012-2013 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in /include/org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Scalaでリスト処理</h1>
+<div id="table-of-contents">
+<h2>&#30446;&#27425;</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline2">1. 概要</a>
+<ul>
+<li><a href="#orgheadline1">1.1. 注意</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline8">2. リスト (List)</a>
+<ul>
+<li><a href="#orgheadline3">2.1. Range</a></li>
+<li><a href="#orgheadline4">2.2. リストの基本的なメソッド</a></li>
+<li><a href="#orgheadline5">2.3. 練習問題</a></li>
+<li><a href="#orgheadline6">2.4. 階乗の計算</a></li>
+<li><a href="#orgheadline7">2.5. 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline12">3. 関数定義</a>
+<ul>
+<li><a href="#orgheadline9">3.1. 練習問題</a></li>
+<li><a href="#orgheadline10">3.2. 総称メソッド</a></li>
+<li><a href="#orgheadline11">3.3. 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline20">4. リストと関数</a>
+<ul>
+<li><a href="#orgheadline13">4.1. mapとfilterなど</a></li>
+<li><a href="#orgheadline14">4.2. 練習問題</a></li>
+<li><a href="#orgheadline15">4.3. 練習問題</a></li>
+<li><a href="#orgheadline16">4.4. reduceとfold</a></li>
+<li><a href="#orgheadline17">4.5. 練習問題</a></li>
+<li><a href="#orgheadline18">4.6. foreachとfor</a></li>
+<li><a href="#orgheadline19">4.7. 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline21">5. 列 (Seq)</a></li>
+<li><a href="#orgheadline23">6. 集合 (Set)</a>
+<ul>
+<li><a href="#orgheadline22">6.1. 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline24">7. マップ (Map)</a></li>
+<li><a href="#orgheadline28">8. リストのリスト</a>
+<ul>
+<li><a href="#orgheadline25">8.1. 練習問題</a></li>
+<li><a href="#orgheadline26">8.2. flatMap</a></li>
+<li><a href="#orgheadline27">8.3. 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline30">9. 対と組 (Pair and Tuple)</a>
+<ul>
+<li><a href="#orgheadline29">9.1. 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline32">10. オプション型 (Option)</a>
+<ul>
+<li><a href="#orgheadline31">10.1. 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline34">11. イテレータ (Iterator)</a>
+<ul>
+<li><a href="#orgheadline33">11.1. 練習問題</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<script type="text/javascript" src="prolang.js"></script>
+<ul class="org-ul">
+<li><a href="scala.html">Top</a></li>
+<li><a href="scala-list.html">Scalaでリスト処理</a></li>
+<li><a href="scala-recursive.html">Scalaで再帰プログラミング</a></li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/lect/tfpl/">言語工学のページに戻る</a></li>
+<li><a href="../index.html">プログラミング言語論のページに戻る</a></li>
+</ul>
+
+<div class="clear"></div>
+<ul class="org-ul">
+<li><a href="scala-complex.html">Scalaで複素数計算</a></li>
+<li><a href="scala-primeruler.html">Scalaで素数ものさしを探す</a></li>
+<li><a href="scala-sieve.html">Scalaでエラトステネスの篩</a></li>
+<li><a href="scala-parser.html">Scalaで言語処理</a></li>
+</ul>
+
+<div class="clear"></div>
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">1</span> 概要</h2>
+<div class="outline-text-2" id="text-1">
+<blockquote>
+<p>
+Scalaにはリストを始め，コレクションと呼ばれるさまざまなデータ構造が用意されている．
+ここでは，それらの基本的な使い方について学ぶ．
+</p>
+</blockquote>
+</div>
+<div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> 注意</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+本Webページの作成には <a href="http://orgmode.org/">Emacs org-mode</a> を用い，
+数式等の表示は <a href="http://www.mathjax.org/">MathJax</a> を用いています．
+IEでは正しく表示されないことがあるため，
+Firefox, Safari等のWebブラウザでJavaScriptを有効にしてお使いください．
+また <a href="http://orgmode.org/worg/code/org-info-js/">org-info.js</a> を利用しており，
+「m」キーをタイプするとinfoモードでの表示になります．
+利用できるショートカットは「?」で表示されます．
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">2</span> リスト (List)</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Scalaのリスト (<a href="http://www.scala-lang.org/api/current/scala/collection/immutable/List.html">scala.collection.immutable.List</a>) について説明する．
+</p>
+
+<p>
+Scalaでは，リストは List(x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub>) のように表記する．
+</p>
+<pre class="example">
+scala&gt; List(3, 1, 4)
+res: List[Int] = List(3, 1, 4)
+</pre>
+<p>
+実際には <code>res</code> ではなく <code>res0</code> のように番号の付いた名前が表示される．
+この名前は，結果を利用する場合などに使用できる．
+</p>
+
+<p>
+リストは x<sub>1</sub> :: x<sub>2</sub> :: &#x2026; :: x<sub>n</sub> :: Nil のようにも表記できる．
+</p>
+<pre class="example">
+scala&gt; 3 :: 1 :: 4 :: Nil
+res: List[Int] = List(3, 1, 4)
+</pre>
+
+<p>
+これらはScalaの型推論により
+List[Int] (整数のリスト)とデータ型が推論されていることがわかる．
+</p>
+
+<pre class="example">
+scala&gt; List("a", "b", "c")
+res: List[String] = List(a, b, c)
+</pre>
+<p>
+こちらは，List[String] (文字列のリスト) と推論されている．
+</p>
+
+<p>
+では，複数のデータ型が混在したリストはどのようになるだろうか．
+</p>
+<pre class="example">
+scala&gt; List(3, 1, 4, 3.14)
+res: List[Double] = List(3.0, 1.0, 4.0, 3.14)
+
+scala&gt; List("scala", 2.8)
+res: List[Any] = List(scala, 2.8)
+</pre>
+
+<p>
+IntとDoubleが混在したリストは，IntがDoubleに昇格されて，
+List[Double] (Doubleのリスト)になっている．
+</p>
+
+<p>
+StringとIntが混在したリストは List[Any] になっている．
+Anyはすべてのクラスの親クラスである(ルートクラス)．
+</p>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">2.1</span> Range</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Range(m, n)は，m以上n未満の整数の列を作成する (m until n でも良い)．
+リストに変換するにはtoListを用いる．
+</p>
+<pre class="example">
+scala&gt; Range(2, 8).toList
+res: List[Int] = List(2, 3, 4, 5, 6, 7)
+scala&gt; (2 until 8).toList
+res: List[Int] = List(2, 3, 4, 5, 6, 7)
+</pre>
+
+<p>
+m to nを用いれば，m以上n以下の整数の列を生成できる．
+</p>
+<pre class="example">
+scala&gt; (2 to 8).toList
+res: List[Int] = List(2, 3, 4, 5, 6, 7, 8)
+</pre>
+
+<p>
+m to n by kを用いれば，m以上n以下でk毎の整数の列を生成できる．
+</p>
+<pre class="example">
+scala&gt; (2 to 8 by 3).toList
+res: List[Int] = List(2, 5, 8)
+</pre>
+
+<p>
+実は，toListでリストに変換にしなくてもリストと同様に処理を行えるのだが，
+ここでは話を簡単にするためtoListでリストに変換している．
+なお，以下では必要がなければtoListを用いないことにする．
+</p>
+
+<p>
+リストのコンパニオンオブジェクト (<a href="http://www.scala-lang.org/api/current/index.htm#scala.collection.immutable.List$">scala.collection.immutable.List$</a>) を用いて，
+以下のようにしても良い．
+</p>
+<pre class="example">
+scala&gt; List.range(2, 8)
+res: List[Int] = List(2, 3, 4, 5, 6, 7)
+scala&gt; List.range(2, 8, 2)
+res: List[Int] = List(2, 4, 6)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">2.2</span> リストの基本的なメソッド</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+リストには様々なメソッドが用意されている
+(<a href="http://www.scala-lang.org/api/current/scala/collection/immutable/List.html">scala.collection.immutable.List</a> を参照)．
+</p>
+
+<p>
+ここでは，基本的なメソッドを紹介する．
+</p>
+
+<p>
+まず，リストを変数listに代入しておく．
+var は新しい変数の定義を表し，list が変数名である．
+</p>
+<pre class="example">
+scala&gt; var list = List(2, 7, 1, 8)
+list: List[Int] = List(2, 7, 1, 8)
+</pre>
+
+<p>
+なお，再代入をしない変数の場合は val を用いる．
+ここでは，どちらを用いても良い．
+</p>
+<pre class="example">
+scala&gt; val list = List(2, 7, 1, 8)
+list: List[Int] = List(2, 7, 1, 8)
+</pre>
+
+<ul class="org-ul">
+<li><p>
+headはリストの先頭要素を求める (Lispのcar)．
+</p>
+<pre class="example">
+scala&gt; list.head
+res: Int = 2
+</pre></li>
+<li><p>
+tailはリストの先頭要素を取り除いたリストを求める (Lispのcdr)．
+</p>
+<pre class="example">
+scala&gt; list.tail
+res: List[Int] = List(7, 1, 8)
+
+scala&gt; list.tail.tail.tail.head
+res: Int = 8
+
+scala&gt; list.tail.tail.tail.tail
+res: List[Int] = List()
+</pre></li>
+<li><p>
+<code>::</code> はリストの先頭に要素を付け加えたリストを求める (Lispのcons)．
+</p>
+<pre class="example">
+scala&gt; 3 :: list
+res: List[Int] = List(3, 2, 7, 1, 8)
+</pre>
+<p>
+<code>+:</code> でも良い．
+</p>
+<pre class="example">
+scala&gt; 3 +: list
+res: List[Int] = List(3, 2, 7, 1, 8)
+</pre>
+<p>
+特に後述のSeqについては <code>+:</code> のほうを用いる．
+</p></li>
+<li><p>
+lengthはリストの長さを求める (Lispのlength)．
+</p>
+<pre class="example">
+scala&gt; list.length
+res: Int = 4
+</pre>
+<p>
+sizeでも良い．
+</p>
+<pre class="example">
+scala&gt; list.size
+res: Int = 4
+</pre></li>
+<li><p>
+isEmptyは空リストかどうかを調べる (Lispのnull)．
+</p>
+<pre class="example">
+scala&gt; list.isEmpty
+res: Boolean = false
+</pre></li>
+<li><p>
+<code>==</code> はリストを比較する (Lispのequal)．
+</p>
+<pre class="example">
+scala&gt; list == List(2, 7, 1, 8)
+res: Boolean = true
+</pre></li>
+<li><p>
+lastはリストの最後の要素を求める．
+</p>
+<pre class="example">
+scala&gt; list.last
+res: Int = 8
+</pre></li>
+<li><p>
+initはリストの最後の要素を除いた残りのリストを求める．
+</p>
+<pre class="example">
+scala&gt; list.init
+res: List[Int] = List(2, 7, 1)
+</pre></li>
+<li><p>
+<code>:+</code> はリストの最後に要素を付け加えたリストを求める．
+</p>
+<pre class="example">
+scala&gt; list :+ 3
+res: List[Int] = List(2, 7, 1, 8, 3)
+</pre></li>
+<li><p>
+apply(n)はn番目の要素を求める．
+</p>
+<pre class="example">
+scala&gt; list.apply(3)
+res: Int = 8
+</pre>
+<p>
+単にlist(i)でも良い．
+</p>
+<pre class="example">
+scala&gt; list(3)
+res: Int = 8
+</pre></li>
+<li><p>
+take(n)は最初のn個の要素からなるリストを求める．
+</p>
+<pre class="example">
+scala&gt; list.take(2)
+res: List[Int] = List(2, 7)
+</pre></li>
+<li><p>
+takeRight(n)は最後のn個の要素からなるリストを求める．
+</p>
+<pre class="example">
+scala&gt; list.takeRight(3)
+res: List[Int] = List(7, 1, 8)
+</pre></li>
+<li><p>
+drop(n)は最初のn個の要素を除いたリストを求める．
+</p>
+<pre class="example">
+scala&gt; list.drop(2)
+res: List[Int] = List(1, 8)
+</pre></li>
+<li><p>
+dropRight(n)は最後のn個の要素を除いたリストを求める．
+</p>
+<pre class="example">
+scala&gt; list.dropRight(3)
+res: List[Int] = List(2)
+</pre></li>
+<li><p>
+contains(x)はxが要素に含まれているかどうかを調べる．
+</p>
+<pre class="example">
+scala&gt; list.contains(1)
+res: Boolean = true
+
+scala&gt; list.contains(3)
+res: Boolean = false
+</pre></li>
+<li><p>
+<code>:::</code> はリストを連結する (Lispのappend)．
+</p>
+<pre class="example">
+scala&gt; list ::: list
+res: List[Int] = List(2, 7, 1, 8, 2, 7, 1, 8)
+</pre>
+<p>
+<code>++</code> でも良い．
+特に後述のSeqについては <code>++</code> のほうを用いる．
+</p></li>
+<li><p>
+reverseは逆順のリストを求める (Lispのreverse)．
+</p>
+<pre class="example">
+scala&gt; list.reverse
+res: List[Int] = List(8, 1, 7, 2)
+</pre></li>
+<li><p>
+sortedは昇順にソートしたリストを求める．
+</p>
+<pre class="example">
+scala&gt; list.sorted
+res: List[Int] = List(1, 2, 7, 8)
+</pre>
+<p>
+降順にするには以下のようにする．
+</p>
+<pre class="example">
+scala&gt; list.sorted(Ordering[Int].reverse)
+res: List[Int] = List(8, 7, 2, 1)
+</pre></li>
+<li><p>
+sumは全要素の和を求める．
+</p>
+<pre class="example">
+scala&gt; list.sum
+res: Int = 18
+</pre></li>
+<li><p>
+productは全要素の積を求める．
+</p>
+<pre class="example">
+scala&gt; list.product
+res: Int = 112
+</pre></li>
+<li><p>
+maxは全要素の最大値を求める．
+</p>
+<pre class="example">
+scala&gt; list.max
+res: Int = 8
+</pre></li>
+<li><p>
+minは全要素の最小値を求める．
+</p>
+<pre class="example">
+scala&gt; list.min
+res: Int = 1
+</pre></li>
+<li><p>
+リストのコンパニオンオブジェクト List に定義されている fill メソッドを用いると，
+同一要素を連続したリストを作成できる．
+</p>
+<pre class="example">
+scala&gt; List.fill(5)(1)
+res: List[Int] = List(1, 1, 1, 1, 1)
+</pre></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">2.3</span> 練習問題</h3>
+<div class="outline-text-3" id="text-2-3">
+<div class="answer">
+<ol class="org-ol">
+<li>1から7までの整数の総和，1から63までの整数の総和はいくつか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (1 to 7).sum
+res: Int = 28
+scala&gt; (1 to 63).sum
+res: Int = 2016
+</pre>
+<p>
+平成28年は西暦2016年である．
+どちらも1からある数までの整数の総和(三角数)になっているのは面白い．
+さらに，7も63も \(2^n-1\) の形の数になっている!
+</p>
+<ul class="org-ul">
+<li><a href="https://ja.wikipedia.org/wiki/%E4%B8%89%E8%A7%92%E6%95%B0">https://ja.wikipedia.org/wiki/%E4%B8%89%E8%A7%92%E6%95%B0</a></li>
+</ul></dd>
+</dl></li>
+<li>リストlistの最後の要素はlist.lastで求めることができるが，
+list(list.size - 1)やlist.takeRight(1).headなどでも求めることができる．
+他にはどのような方法があるか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; list.takeRight(1)(0)
+res: Int = 8
+scala&gt; list.reverse.head
+res: Int = 8
+scala&gt; list.reverse(0)
+res: Int = 8
+scala&gt; list.drop(list.size - 1).head
+res: Int = 8
+scala&gt; list.drop(list.size - 1)(0)
+res: Int = 8
+</pre></dd>
+</dl></li>
+<li>整数のリストlistの全要素の平均値を求めるにはどうすれば良いか
+(ヒント: toDouble メソッドで整数を実数に変換する必要がある)．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; list.sum.toDouble / list.size
+res: Double = 4.5
+</pre></dd>
+</dl></li>
+<li>1から19までの奇数の総和を求めるにはどうすれば良いか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (1 to 19 by 2).sum
+res: Int = 100
+</pre>
+<p>
+1 から \(2n-1\) までの奇数の総和は \(n^2\) になる．
+</p></dd>
+</dl></li>
+<li>リストlistのi番目からj番目の前までの要素を取り出したリストを求めるにはどうすれば良いか．
+なお先頭は0番目とする．i=1, j=3 の場合を考えよ．listがList(2,7,1,8)の場合はList(7,1)となる．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; list.drop(1).take(3-1)
+res: List[Int] = List(7, 1)
+</pre>
+<p>
+上では説明していないが slice を用いれば同様のことができる．
+</p>
+<pre class="example">
+scala&gt; list.slice(1, 3)
+res: List[Int] = List(7, 1)
+</pre></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">2.4</span> 階乗の計算</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+これまで説明したメソッドを用いると，nの階乗の値を求めることができる．
+nの階乗は1からnの値の積だから，10の階乗は以下のようにして計算できる．
+</p>
+<pre class="example">
+scala&gt; (1 to 10).product
+res: Int = 3628800
+</pre>
+
+<p>
+では20の階乗はどうなるだろうか．
+</p>
+<pre class="example">
+scala&gt; (1 to 20).product
+res: Int = -2102132736
+</pre>
+
+<p>
+これは，20の階乗の値が 2<sup>31</sup> 以上で，Intの範囲を超えたためである．
+そこで 1L のように記述してLongで計算する．
+</p>
+<pre class="example">
+scala&gt; (1L to 20).product
+res: Long = 2432902008176640000
+</pre>
+
+<p>
+しかし30の階乗にすると，Longの範囲も超えてしまう．
+</p>
+<pre class="example">
+scala&gt; (1L to 30).product
+res: Long = -8764578968847253504
+</pre>
+
+<p>
+BigIntを用いれば，大丈夫!
+</p>
+<pre class="example">
+scala&gt; (BigInt(1) to 30).product
+res: BigInt = 265252859812191058636308480000000
+</pre>
+
+<p>
+100の階乗や1000の階乗でもへっちゃらだ．
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">2.5</span> 練習問題</h3>
+<div class="outline-text-3" id="text-2-5">
+<div class="answer">
+<ol class="org-ol">
+<li>0の階乗にあたる <code>(1 to 0).product</code> の値は何になるだろうか．
+また，なぜそのような値になるか考えてみよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (1 to 0).product
+res: Int = 1
+</pre>
+<p>
+0個の要素の積は乗算の単位元である 1 になるのが自然である．
+</p></dd>
+</dl></li>
+<li>\(n\) 個から \(r\) 個取り出す順列の個数 \({}_n\mbox{P}_r\) を求めるにはどうすれば良いか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><p>
+       以下は \({}_{100}\mbox{P}_{20}\) を求めている．
+</p>
+<pre class="example">
+scala&gt; val n = 100
+scala&gt; val r = 20
+scala&gt; (BigInt(n-r+1) to n).product
+res: BigInt = 1303995018204712451095685346159820800000
+</pre></dd>
+</dl></li>
+<li>\(n\) 個から \(r\) 個取り出す組合せの個数 \({}_n\mbox{C}_r\) を求めるにはどうすれば良いか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><p>
+       以下は \({}_{100}\mbox{C}_{20}\) を求めている．
+</p>
+<pre class="example">
+scala&gt; val n = 100
+scala&gt; val r = 20
+scala&gt; (BigInt(n-r+1) to n).product / (BigInt(1) to r).product
+res: BigInt = 535983370403809682970
+</pre></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">3</span> 関数定義</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Scalaで関数 (function)を定義する．
+</p>
+<pre class="example">
+scala&gt; def inc(x: Int): Int = x + 1
+inc: (x: Int)Int
+</pre>
+
+<p>
+「inc」が関数名，「x: Int」が引数名とそのデータ型，
+ その右の「Int」が返り値のデータ型，
+ 「=」の右の「x + 1」が関数定義本体である．
+</p>
+
+<p>
+C言語での以下のような定義に対応する．
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #228b22;">int</span> <span style="color: #0000ff;">inc</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>) {
+  <span style="color: #a020f0;">return</span> x + 1;
+}
+</pre>
+</div>
+
+<p>
+以下のように入力すれば，REPL中で実行できる．
+</p>
+<pre class="example">
+scala&gt; inc(123)
+res: Int = 124
+</pre>
+
+<p>
+関数の返り値のデータ型Intは，型推論で決定できるので記述を省略できる．
+</p>
+<pre class="example">
+scala&gt; def inc(x: Int) = x + 1
+inc: (x: Int)Int
+</pre>
+
+<p>
+if式を用いると，2つの整数の大きいほうを求める関数を定義できる．
+</p>
+<pre class="example">
+scala&gt; def larger(x: Int, y: Int) = if (x &gt; y) x else y
+inc: larger: (x: Int,y: Int)Int
+</pre>
+
+<p>
+次に，整数のリストの全要素の平均値を求める関数averageを定義してみる．
+</p>
+<pre class="example">
+scala&gt; def average(list: List[Int]) = list.sum / list.size
+average: (list: List[Int])Int
+</pre>
+
+<p>
+実行すると以下のような結果になってしまい，Doubleの平均値が得られない．
+</p>
+<pre class="example">
+scala&gt; average(List(1,2))
+res: Int = 1
+</pre>
+
+<p>
+toDouble メソッドでDoubleに変換すれば良い．
+返り値の型もDoubleと推論されている．
+</p>
+<pre class="example">
+scala&gt; def average(list: List[Int]) = list.sum.toDouble / list.size
+average: (list: List[Int])Double
+
+average(List(1,2))
+res: Double = 1.5
+</pre>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">3.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="answer">
+<ol class="org-ol">
+<li>\(n\) 個から \(r\) 個取り出す順列の個数 \({}_n\mbox{P}_r\) を求める関数 permutation(n, r) を定義せよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; def permutation(n: Int, r:Int) = (BigInt(n-r+1) to n).product
+scala&gt; permutation(100, 20)
+res: BigInt = 1303995018204712451095685346159820800000
+</pre></dd>
+</dl></li>
+<li>空でない整数リストをひとつ左に回転させたリストを求める関数rotateLeftを定義せよ．
+rotateLeft(List(1,2,3))の結果はList(2,3,1)である．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; def rotateLeft(list: List[Int]) = list.tail :+ list.head
+scala&gt; rotateLeft(List(1,2,3))
+res: List[Int] = List(2, 3, 1)
+</pre></dd>
+</dl></li>
+<li>空でない整数リストをひとつ右に回転させたリストを求める関数rotateRightを定義せよ．
+rotateRight(List(1,2,3))の結果はList(3,1,2)である．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; def rotateRight(list: List[Int]) = list.last +: list.init
+scala&gt; rotateRight(List(1,2,3))
+res: List[Int] = List(3, 1, 2)
+</pre></dd>
+</dl></li>
+<li>整数リストが回文かどうか調べる関数palindromeを定義せよ．
+palindrome(List(1,2,1))やpalindrome(List(1,2,2,1))は真である．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; def palindrome(list: List[Int]) = list == list.reverse
+scala&gt; palindrome(List(1,2,1))
+res: Boolean = true
+</pre></dd>
+</dl></li>
+<li>与えられた整数リストのi番目からj番目の前までの要素を取り出したリストを求める関数sliceを定義せよ．
+先頭を0番目とする．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; def slice(list: List[Int], i: Int, j: Int) = list.take(j).drop(i)
+scala&gt; slice(list, 1, 3)
+res: List[Int] = List(7, 1)
+</pre></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">3.2</span> 総称メソッド</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+上の練習問題中の rotateLeft, rotateRight, palindrome などを，
+整数リストだけでなく任意のデータ型のリストに対して動作するように定義したい．
+</p>
+
+<p>
+このような場合，Scalaではメソッド (関数)を <b>総称メソッド</b> (generic method)として定義する．
+総称メソッドの定義では，以下のようにメソッド名の後ろに型パラメータを指定する．
+</p>
+<pre class="example">
+scala&gt; def rotateLeft[A](list: List[A]) = list.tail :+ list.head
+</pre>
+
+<p>
+ここで A が型パラメータでありリストの要素のデータ型を表している．
+型パラメータ A を用いると，引数 list のデータ型は List[A] となる．
+</p>
+
+<p>
+このように定義すれば，整数のリストだけでなく任意のデータ型のリストに対して動作するようになる．
+</p>
+<pre class="example">
+scala&gt; rotateLeft[Int](List(1, 2, 3))
+res: List[Int] = List(2, 3, 1)
+
+scala&gt; rotateLeft[String](List("a", "b", "c"))
+res: List[String] = List(b, c, a)
+</pre>
+
+<p>
+型パラメータを指定している部分は Scala 処理系が型推論してくれるので，省略できる．
+</p>
+<pre class="example">
+scala&gt; rotateLeft(List(1, 2, 3))
+res: List[Int] = List(2, 3, 1)
+
+scala&gt; rotateLeft(List("a", "b", "c"))
+res: List[String] = List(b, c, a)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">3.3</span> 練習問題</h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="answer">
+<ol class="org-ol">
+<li>rotateRightを総称メソッドとして定義し，実行せよ．</li>
+<li>関数palindromeを総称メソッドとして定義し，実行せよ．</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline20" class="outline-2">
+<h2 id="orgheadline20"><span class="section-number-2">4</span> リストと関数</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">4.1</span> mapとfilterなど</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Scalaでは，
+リストの要素に関数 (function)を適用した新しいリストを求めることなどが簡単に行える．
+</p>
+
+<p>
+リストの各要素に関数を適用するにはmapを用いる．
+</p>
+<pre class="example">
+scala&gt; list.map(inc)
+res: List[Int] = List(3, 8, 2, 9)
+</pre>
+
+<p>
+Scalaでは，いちいち定義しなくても，関数を利用することができる
+( <b>匿名関数</b>, anonymous function)．
+</p>
+<pre class="example">
+scala&gt; list.map(x =&gt; x + 1)
+res: List[Int] = List(3, 8, 2, 9)
+</pre>
+
+<p>
+ここで「x =&gt; x + 1」が匿名関数の定義で，最初の「x」が引数名，「x + 1」の部分が関数本体である．
+</p>
+
+<p>
+さらに，下線 <code>_</code> を用いると引数名を省略して記述できる．
+</p>
+<pre class="example">
+scala&gt; list.map(_ + 1)
+res: List[Int] = List(3, 8, 2, 9)
+</pre>
+
+<p>
+Scalaのリストには，このように関数を引数とする様々なメソッドが用意されている．
+</p>
+
+<ul class="org-ul">
+<li><p>
+map(f)は，リスト x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub> に対して
+リスト f(x<sub>1</sub>), f(x<sub>2</sub>), &#x2026;, f(x<sub>n</sub>) を求める．
+</p>
+<pre class="example">
+scala&gt; list.map(_ &gt; 2)
+res: List[Boolean] = List(false, true, false, true)
+</pre></li>
+<li><p>
+filter(f)は，リスト x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub> に対して
+f(x<sub>i</sub>) が真になる要素からなるリストを求める．
+</p>
+<pre class="example">
+scala&gt; list.filter(_ &gt; 2)
+res: List[Int] = List(7, 8)
+
+scala&gt; (2 until 8).filter(_ % 2 != 0)
+res: IndexedSeq[Int] = Vector(3, 5, 7)
+</pre></li>
+<li><p>
+count(f)は，リスト x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub> に対して
+f(x<sub>i</sub>) が真になる要素の個数を求める．
+</p>
+<pre class="example">
+scala&gt; list.count(_ &gt; 2)
+res: Int = 2
+</pre>
+<p>
+7と8の二つの要素があるので，2が返る．
+</p></li>
+<li><p>
+forall(f)は，リスト x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub> に対して
+すべての f(x<sub>i</sub>) が真になる時だけ真を返す．
+</p>
+<pre class="example">
+scala&gt; list.forall(_ &gt; 2)
+res: Boolean = false
+
+scala&gt; list.forall(_ &gt; 0)
+res: Boolean = true
+</pre></li>
+<li><p>
+exists(f)は，リスト x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub> に対して
+ある f(x<sub>i</sub>) が真になる時だけ真を返す．
+</p>
+<pre class="example">
+scala&gt; list.exists(_ &gt; 2)
+res: Boolean = true
+
+scala&gt; list.exists(_ &gt; 8)
+res: Boolean = false
+</pre></li>
+<li><p>
+indexWhere(f)は，リスト x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub> に対して
+f(x<sub>i</sub>) が真になる最初の i を返す(存在しない時は -1 を返す)．
+</p>
+<pre class="example">
+scala&gt; list.indexWhere(_ &gt; 2)
+res: Int = 1
+
+scala&gt; list.indexWhere(_ &gt; 8)
+res: Int = -1
+</pre></li>
+<li><p>
+sortWith(f)は，比較関数 f を用いてソートしたリストを求める．
+</p>
+<pre class="example">
+scala&gt; list.sortWith((a,b) =&gt; a &gt; b)
+res: List[Int] = List(8, 7, 2, 1)
+
+scala&gt; list.sortWith(_ &gt; _)
+res: List[Int] = List(8, 7, 2, 1)
+</pre></li>
+<li><p>
+sortBy(f)は，関数 f で変換した結果の昇順でソートしたリストを求める．
+</p>
+<pre class="example">
+scala&gt; list.sortBy(a =&gt; -a)
+res: List[Int] = List(8, 7, 2, 1)
+
+scala&gt; list.sortWith(-_)
+res: List[Int] = List(8, 7, 2, 1)
+</pre></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">4.2</span> 練習問題</h3>
+<div class="outline-text-3" id="text-4-2">
+<div class="answer">
+<p>
+以下を行う方法を答えよ．
+</p>
+<ol class="org-ol">
+<li>整数のリストの各要素を二乗したリストを求める．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; list.map(x =&gt; x*x)
+res: List[Int] = List(4, 49, 1, 64)
+</pre>
+<p>
+<code>list.map(_*_)</code> とは記述できない．
+<code>_*_</code> と記述した場合，2引数の関数と解釈される．
+</p></dd>
+</dl></li>
+<li>整数のリストの各要素の二乗の合計を求める．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; list.map(x =&gt; x*x).sum
+</pre></dd>
+</dl></li>
+<li>整数のリストの各要素の二乗の平均値を求める．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; list.map(x =&gt; x*x).sum.toDouble / list.size
+res: Double = 29.5
+</pre></dd>
+</dl></li>
+<li>文字列のリスト中の各要素の文字列長の最大値を求める．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; List("ab", "ra", "ca", "dab", "ra").map(_.size).max
+res: Int = 3
+</pre></dd>
+</dl></li>
+<li>整数のリスト中の偶数だけを取り出したリストを求める．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; list.filter(_ % 2 == 0)
+res: List[Int] = List(2, 8)
+</pre></dd>
+</dl></li>
+<li>整数のリスト中の偶数の最大値を求める．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; list.filter(_ % 2 == 0).max
+res: Int = 8
+</pre></dd>
+</dl></li>
+<li>整数のリスト中に偶数が含まれているかどうか調べる．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; list.exists(_ % 2 == 0)
+res: Boolean = true
+</pre></dd>
+</dl></li>
+<li>整数のリストの全要素が奇数になっているかどうか調べる．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; list.forall(_ % 2 != 0)
+res: Boolean = false
+</pre></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">4.3</span> 練習問題</h3>
+<div class="outline-text-3" id="text-4-3">
+<div class="answer">
+<ol class="org-ol">
+<li>142857 を 1 倍から 7 倍までした結果のリストを求めよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (1 to 7).map(142857 * _)
+res: IndexedSeq[Int] = Vector(142857, 285714, 428571, 571428, 714285, 857142, 999999)
+</pre></dd>
+</dl></li>
+<li>1から100までの整数のうち，3の倍数でなく，また5の倍数でもない数のリストを求めよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (1 to 100).filter(n =&gt; n % 3 != 0 &amp;&amp; n % 5 != 0)
+res: IndexedSeq[Int] = Vector(1, 2, 4, 7, 8, 11, ..., 97, 98)
+scala&gt; (1 to 100).filter(_ % 3 != 0).filter(_ % 5 != 0)
+res: IndexedSeq[Int] = Vector(1, 2, 4, 7, 8, 11, ..., 97, 98)
+</pre></dd>
+</dl></li>
+<li>0, 101, 11011, 1110111, 111101111, 11111011111 のように，中央に0があり，
+左右に同じ個数の1が並んでいる数を2進単眼数(<a href="http://oeis.org/A138148">http://oeis.org/A138148</a>)という．
+最初の10個の2進単眼数の文字列から成るリストを求めよ．
+ヒント: ~"1"*n~ で，1をn回繰り返した文字列が得られる．
+また <code>+</code> は文字列の連結を求める．
+たとえば ~"1"*2+"0"+"1"*2~ の結果は ~"11011"~ である．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (0 until 10).map(n =&gt; "1"*n + "0" + "1"*n)
+res: IndexedSeq[String] = Vector(0, 101, 11011, 1110111, 111101111, ..., 1111111110111111111)
+</pre></dd>
+</dl></li>
+<li><code>Integer.parseInt(s, 2)</code> を用いると，2進数表現である文字列sから，整数値に変換できる．
+最初の10個の2進単眼数の整数値から成るリストを求めよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (0 until 10).map(n =&gt; "1"*n + "0" + "1"*n).map(Integer.parseInt(_, 2))
+res: IndexedSeq[Int] = Vector(0, 5, 27, 119, 495, 2015, 8127, 32639, 130815, 523775)
+</pre>
+<p>
+平成27年は西暦2015年で，どちらも2進単眼数である．
+</p></dd>
+</dl></li>
+<li><code>x.toBinaryString</code> を用いると，整数xの2進数表現の文字列を求めることができる．
+1800以上2100以下の自然数のうち，2進数表現が回文になっている値のリストを求めよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; def palindrome(s: String) = s == s.reverse
+scala&gt; (1800 to 2100).filter(x =&gt; palindrome(x.toBinaryString))
+res: IndexedSeq[Int] = Vector(1831, 1879, 1911, 1935, 1967, 2015, 2047, 2049)
+</pre></dd>
+</dl></li>
+<li>与えられた2以上の整数 \(n\) が素数の時に真を返す関数isPrimeを定義せよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><p>
+       \(n\) が 2以上 \(n\) 未満のどの数でも割り切れなければ \(n\) は素数なので，
+以下のように定義できる．
+</p>
+<pre class="example">
+scala&gt; def isPrime(n: Int) = (2 until n).forall(n % _ != 0)
+</pre>
+<p>
+また，割る数は \(\sqrt{n}\) までで良いことに注意すれば以下のようになり，より効率的になる．
+</p>
+<pre class="example">
+scala&gt; def isPrime(n: Int) = (2 to math.sqrt(n).toInt).forall(n % _ != 0)
+</pre></dd>
+</dl></li>
+<li>10000以下の素数の個数を求めよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (2 to 10000).count(isPrime)
+res: Int = 1229
+</pre></dd>
+</dl></li>
+<li>\(k\) が 1 から 10 の各整数値について \(10000k\) 以下の素数の個数を求めよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (1 to 10).map(k =&gt; (2 to 10000*k).count(isPrime))
+res: IndexedSeq[Int] = Vector(1229, 2262, 3245, 4203, 5133, 6057, 6935, 7837, 8713, 9592)
+</pre>
+<p>
+\(n\) 以下の素数の個数を求める関数 <code>pi</code> を定義しても良い．
+</p>
+<pre class="example">
+scala&gt; def pi(n: Int) = (2 to n).count(isPrime)
+scala&gt; (1 to 10).map(k =&gt; pi(10000*k))
+</pre>
+<p>
+素数定理によれば <code>pi(n)</code> は \(n/\ln n\) で近似できる．
+</p></dd>
+</dl></li>
+<li>2以上10000以下の自然数のうち，2進数表現が回文になっている素数のリストを求めよ．
+また10進数表現が回文になっている素数のリストを求めよ．
+2進数表現も10進数表現も回文になっている素数はあるか.
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (2 to 10000).filter(x =&gt; palindrome(x.toBinaryString)).filter(isPrime)
+res: IndexedSeq[Int] = Vector(3, 5, 7, 17, ..., 1831, 1879, 4889, ..., 8191)
+scala&gt; (2 to 10000).filter(x =&gt; palindrome(x.toBinaryString) &amp;&amp; isPrime(x))
+res: IndexedSeq[Int] = Vector(3, 5, 7, 17, ..., 1831, 1879, 4889, ..., 8191)
+scala&gt; (2 to 10000).filter(x =&gt; palindrome(x.toString) &amp;&amp; isPrime(x))
+res: IndexedSeq[Int] = Vector(2, 3, 5, 7, 11, 101, ..., 797, 919, 929)
+scala&gt; (2 to 10000).filter(x =&gt; palindrome(x.toString) &amp;&amp; palindrome(x.toBinaryString) &amp;&amp; isPrime(x))
+IndexedSeq[Int] = Vector(3, 5, 7, 313)
+</pre></dd>
+</dl></li>
+<li>\(n=100\) の時， \(\sum_{i=1}^n 1/i\) を計算せよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (1 to 100).map(1.0 / _).sum
+res: Double = 5.187377517639621
+</pre>
+<p>
+\(\sum_{i=1}^n 1/i\) から \(\ln n\) を引いた値は，
+\(n \rightarrow \infty\) でおよそおよそ 0.57721 の値に収束する
+(オイラー定数)．
+</p>
+<pre class="example">
+scala&gt; (1 to 100).map(1.0 / _).sum - math.log(100)
+res: Double = 0.5822073316515288
+scala&gt; (1 to 1000).map(1.0 / _).sum - math.log(1000)
+res: Double = 0.5777155815682065
+scala&gt; (1 to 10000).map(1.0 / _).sum - math.log(10000)
+res: Double = 0.5772656640681646
+</pre>
+<p>
+ただし，より精度の高い計算をするためには，計算誤差を小さくするため，
+小さい値の項から先に和を求めるなどの工夫が必要になる．
+</p></dd>
+</dl></li>
+<li><code>if (i % 2 == 0) x else y</code> と記述すると，
+i が偶数の時 x の値を取り，奇数の時 y の値を取る．
+これを用いて \(a_i = \frac{(-1)^i}{2i+1}\) を一般項とする数列
+\(a_0\), \(a_1\), &#x2026; の最初の100項からなるリストを求めよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (0 to 99).map(i =&gt; if (i % 2 == 0) 1.0/(2*i+1) else -1.0/(2*i+1))
+res: IndexedSeq[Double] = Vector(1.0, -0.3333333333333333, 0.2, ...)
+</pre>
+<p>
+この数列は 1, -1/3, 1/5, -1/7, 1/9, &#x2026; である．
+</p></dd>
+</dl></li>
+<li>上のリストの総和の4倍を求めよ．
+項数を増やすとどのような値に近づくと思うか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (0 to 99).map(i =&gt; if (i % 2 == 0) 1.0/(2*i+1) else -1.0/(2*i+1)).sum * 4
+res: Double = 3.1315929035585537
+</pre>
+<p>
+項数を増やすと非常に遅いが \(\pi\) に収束する．
+</p>
+<pre class="example">
+scala&gt; (0 to 999).map(i =&gt; if (i % 2 == 0) 1.0/(2*i+1) else -1.0/(2*i+1)).sum * 4
+res: Double = 3.140592653839794
+scala&gt; (0 to 9999).map(i =&gt; if (i % 2 == 0) 1.0/(2*i+1) else -1.0/(2*i+1)).sum * 4
+res: Double = 3.1414926535900345
+scala&gt; (0 to 99999).map(i =&gt; if (i % 2 == 0) 1.0/(2*i+1) else -1.0/(2*i+1)).sum * 4
+res: Double = 3.1415826535897198
+</pre>
+<p>
+ただし，より精度の高い計算をするためには，計算誤差を小さくするため，
+小さい値の項から先に和を求めるなどの工夫が必要になる．
+たとえば，以下のようにすればより誤差が小さい．
+</p>
+<pre class="example">
+scala&gt; (99999 to 0 by -1).map(i =&gt; if (i % 2 == 0) 1.0/(2*i+1) else -1.0/(2*i+1)).sum * 4
+res: Double = 3.1415826535897935
+</pre></dd>
+</dl></li>
+<li>\(\sum_{i=0}^n 1/i!\) は \(n \rightarrow \infty\) で \(e\) に収束する．
+\(n=20\) の場合の値を求めよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (20 to 0 by -1).map(n =&gt; (1 to n).map(1.0 / _).product).sum
+res: Double = 2.718281828459045
+scala&gt; (20 to 0 by -1).map(n =&gt; (1 to n).map(1.0 / _).product).sum - math.E
+res: Double = 0.0
+</pre></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">4.4</span> reduceとfold</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+整数のリストlistについて，list.sum は要素の合計を求める．
+すなわちlistが x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub> の時，
+x<sub>1</sub>+x<sub>2</sub>+&#x2026;+x<sub>n</sub> を求めている．
+</p>
+
+<p>
+Scalaには，これを一般化したメソッドとしてreduceLeft, reduceRight, reduceが
+用意されている．
+</p>
+
+<ul class="org-ul">
+<li><p>
+reduceLeft(f)は，リスト x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub> に対して
+f(f(&#x2026;f(f(x<sub>1</sub>, x<sub>2</sub>), x<sub>3</sub>), &#x2026;), x<sub>n</sub>) を求める．
+たとえば n=4 の場合は，f(f(f(x<sub>1</sub>, x<sub>2</sub>), x<sub>3</sub>), x<sub>4</sub>) である．
+</p>
+<pre class="example">
+scala&gt; list.reduceLeft((a,b) =&gt; a + b)
+res: Int = 18
+
+scala&gt; list.reduceLeft(_ + _)
+res: Int = 18
+
+scala&gt; list.reduceLeft((a,b) =&gt; 10*a + b)
+res: Int = 2718
+
+scala&gt; list.reduceLeft(10*_ + _)
+res: Int = 2718
+</pre>
+<p>
+リストの長さ n=1 の場合は， x<sub>1</sub> がそのまま返り値となる．
+</p>
+<pre class="example">
+scala&gt; List(12).reduceLeft((a,b) =&gt; a + b)
+res: Int = 12
+</pre></li>
+<li><p>
+reduceRight(f)は，リスト x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub> に対して
+f(x<sub>1</sub>, f(x<sub>2</sub>, &#x2026; f(x<sub>n-1</sub>, x<sub>n</sub>)&#x2026;)) を求める．
+たとえば n=4 の場合は，f(x<sub>1</sub>, f(x<sub>2</sub>, f(x<sub>3</sub>, x<sub>4</sub>))) である．
+</p>
+<pre class="example">
+scala&gt; list.reduceRight((a,b) =&gt; a + b)
+res: Int = 18
+
+scala&gt; list.reduceRight(_ + _)
+res: Int = 18
+
+scala&gt; list.reduceRight((a,b) =&gt; a + 10*b)
+res: Int = 8172
+
+scala&gt; list.reduceRight(_ + 10*_)
+res: Int = 8172
+</pre></li>
+</ul>
+
+<p>
+reduceLeft, reduceRight, reduceとよく似た関数として
+foldLeft, foldRight, foldがある．
+</p>
+<ul class="org-ul">
+<li><p>
+foldLeft(e)(f)は，リスト x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub> に対して
+f(f(&#x2026;f(f(f(e, x<sub>1</sub>), x<sub>2</sub>), x<sub>3</sub>), &#x2026;), x<sub>n</sub>) を求める．
+たとえば n=4 の場合は，f(f(f(f(e, x<sub>1</sub>), x<sub>2</sub>), x<sub>3</sub>), x<sub>4</sub>) である．
+</p>
+<pre class="example">
+scala&gt; list.foldLeft(0)(_ + _)
+res: Int = 18
+
+list.foldLeft(0)(10*_ + _)
+res: Int = 2718
+</pre></li>
+<li><p>
+foldRight(e)(f)は，リスト x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub> に対して
+f(x<sub>1</sub>, f(x<sub>2</sub>, &#x2026; f(x<sub>n-1</sub>, f(x<sub>n</sub>, e))&#x2026;)) を求める．
+たとえば n=4 の場合は，f(x<sub>1</sub>, f(x<sub>2</sub>, f(x<sub>3</sub>, f(x<sub>4</sub>, e)))) である．
+</p>
+<pre class="example">
+scala&gt; list.foldRight(0)(_ + _)
+res: Int = 18
+
+scala&gt; list.foldRight(0)(_ + 10*_)
+res: Int = 8172
+</pre></li>
+</ul>
+
+<p>
+reduceLeft(f) と reduceRight(f) は，関数 f が結合的な場合は同一結果になる．
+すなわち f(x,f(y,z)) = f(f(x,y),z) が成り立つ場合である．
+foldLeft(e)(f) と foldRight(e)(f) も，
+関数 f が結合的で e が演算 f の単位元の場合，同一結果になる．
+</p>
+
+<p>
+このような時には，reduce(f) あるいは fold(e)(f) を用いておくのが良い．
+並列コレクションに対しては，並列に計算が行われ，効率が良くなる可能性がある．
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">4.5</span> 練習問題</h3>
+<div class="outline-text-3" id="text-4-5">
+<div class="answer">
+<ol class="org-ol">
+<li>リスト x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub> に対して x<sub>1</sub> - x<sub>2</sub> - &#x2026; - x<sub>n</sub> を求めるにはどうすれば良いか．
+たとえば <code>List(3,1,4)</code> に対しては 3-1-4 すなわち -2 を求めたい．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; List(3,1,4).reduceLeft(_ - _)
+res: Int = -2
+</pre>
+<p>
+reduceRightだと 3-(1-4) すなわち 6 になってしまう．
+</p>
+<pre class="example">
+scala&gt; List(3,1,4).reduceRight(_ - _)
+res: Int = 6
+</pre></dd>
+</dl></li>
+<li>0と1を要素とするリストで2進数を表しているとする．
+整数値を求めるにはどうすれば良いか．
+たとえば <code>List(1,1,0,1)</code> から，13を求めるにはどうすれば良いか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; List(1,1,0,1).reduceLeft(2*_ + _)
+res: Int = 13
+</pre>
+<p>
+<code>List(1,1,0,1).reduceRight(_ + 2*_)</code> とすると，逆順になっている2進表現から値を求めることができる．
+</p>
+<pre class="example">
+scala&gt; List(1,1,0,1).reduceRight(_ + 2*_)
+res: Int = 11
+</pre></dd>
+</dl></li>
+<li><code>x ^ y</code> は x と y のビット毎のXOR (exclusive or; 排他的論理和; \(x\oplus y\))を返す．
+0から7までのXOR，すなわち <code>0 ^ 1 ^ 2 ^ ... ^ 7</code> はいくつになるか．
+また，0から15までのXOR，0から31までのXORはそれぞれどうなるか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (0 to 7).reduce(_ ^ _)
+res: Int = 0
+scala&gt; (0 to 15).reduce(_ ^ _)
+res: Int = 0
+scala&gt; (0 to 31).reduce(_ ^ _)
+res: Int = 0
+</pre>
+<p>
+XORは結合的(すなわち \((x \oplus (y \oplus z)) = ((x \oplus y) \oplus z)\))なので，
+reduceLeftでもreduceRightのどちらでも良い．
+0 から 2<sup>n</sup>-1 までのXORは，すべての桁で1が偶数回現れるから，結果は0になる．
+</p></dd>
+</dl></li>
+<li><code>List(2,7,1,8).reduceLeft((a,b) =&gt; 100*a + b)</code> の結果はどうなるか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; List(2,7,1,8).reduceLeft((a,b) =&gt; 100*a + b)
+res: Int = 2070108
+</pre></dd>
+</dl></li>
+<li><code>List(2,7,1,8).reduceRight((a,b) =&gt; a + 100*b)</code> の結果はどうなるか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; List(2,7,1,8).reduceRight((a,b) =&gt; a + 100*b)
+res: Int = 8010702
+</pre></dd>
+</dl></li>
+<li><code>List("a","b","c").reduceLeft(_ + "," + _)</code> の結果はどうなるか．
+また <code>List("a","b","c").reduceRight(_ + "," + _)</code> の結果はどうなるか．
+なお <code>+</code> は文字列の連結を求める．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; List("a","b","c").reduceLeft(_ + "," + _)
+res: String = a,b,c
+scala&gt; List("a","b","c").reduceRight(_ + "," + _)
+res: String = a,b,c
+</pre></dd>
+</dl></li>
+<li><code>List("a","b","c").foldLeft("e")("(" + _ + "," + _ + ")")</code> の結果はどうなるか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; List("a","b","c").foldLeft("e")("(" + _ + "," + _ + ")")
+res: String = (((e,a),b),c)
+</pre></dd>
+</dl></li>
+<li><code>List("a","b","c").foldRight("e")("(" + _ + "," + _ + ")")</code> の結果はどうなるか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; List("a","b","c").foldRight("e")("(" + _ + "," + _ + ")")
+res: String = (a,(b,(c,e)))
+</pre></dd>
+</dl></li>
+<li><code>List("a","b","c","d").reduceRight("(" + _ + "+1/" + _ + ")")</code> の結果はどうなるか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; List("a","b","c","d").reduceRight("(" + _ + "+1/" + _ + ")")
+res: String = (a+1/(b+1/(c+1/d)))
+</pre></dd>
+</dl></li>
+<li>以下のように，分母のさらに分数が含まれている分数を連分数 (<a href="https://ja.wikipedia.org/wiki/%E9%80%A3%E5%88%86%E6%95%B0">https://ja.wikipedia.org/wiki/%E9%80%A3%E5%88%86%E6%95%B0</a>)
+といい，分子が常に1の連分数を正則連分数という．
+\[ a_0 + \cfrac{1}{a_1 + \cfrac{1}{a_2 + \cfrac{1}{a_3}}} \]
+整数のリスト a<sub>0</sub>, a<sub>1</sub>, a<sub>2</sub>, &#x2026;, a<sub>n</sub> で，正則連分数を表すことにする．
+正則連分数を表すリストから，その実数値を求める関数cfracを定義せよ．
+ヒント: 与えられた整数リストに対し，まず map(<sub>.toDouble</sub>) で実数のリストに変換しておく．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; def cfrac(a: List[Int]) = a.map(_.toDouble).reduceRight(_ + 1.0/_)
+</pre>
+<p>
+正則連分数 1,1,1,&#x2026; は黄金数 &phi; = 1.618&#x2026; に収束する．
+</p>
+<pre class="example">
+scala&gt; cfrac(List(1,1,1,1,1))
+res: Double = 1.6
+scala&gt; cfrac((1 to 20).map(_ =&gt; 1).toList)
+res: Double = 1.6180339985218035
+</pre>
+<p>
+正則連分数 2,2,2,&#x2026; は \(1+\sqrt{2}\) = 2.414&#x2026; に収束する．
+</p>
+<pre class="example">
+scala&gt; cfrac((1 to 20).map(_ =&gt; 2).toList)
+res: Double = 2.4142135623730963
+</pre></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">4.6</span> foreachとfor</h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+foreachで，リストの要素への繰り返し処理を行える．
+</p>
+<pre class="example">
+scala&gt; list.foreach { println }
+2
+7
+1
+8
+
+scala&gt; (1 to 4).foreach { println }
+1
+2
+3
+4
+</pre>
+
+<p>
+forを用いても同様の処理を行える．
+</p>
+<pre class="example">
+scala&gt; for (x &lt;- list) { println(x) }
+2
+7
+1
+8
+
+scala&gt; for (x &lt;- 1 to 4) { println(x) }
+1
+2
+3
+4
+</pre>
+
+<p>
+forでは，yieldを用いてmapと同様の処理が可能である．
+</p>
+<pre class="example">
+scala&gt; for (x &lt;- list) yield x+1
+res: List[Int] = List(3, 8, 2, 9)
+</pre>
+
+<p>
+複数の変数でループを回すこともできる．
+</p>
+<pre class="example">
+scala&gt; for (i &lt;- list; j &lt;- list) yield 10*i+j
+res: List[Int] = List(22, 27, 21, 28, 72, 77, 71, 78, 12, 17, 11, 18, 82, 87, 81, 88)
+scala&gt; for (i &lt;- 1 to 3; j &lt;- 1 to 3) yield 10*i+j
+res: IndexedSeq[Int] = Vector(11, 12, 13, 21, 22, 23, 31, 32, 33)
+</pre>
+
+<p>
+条件を if で記述することもできる．
+</p>
+<pre class="example">
+scala&gt; for (i &lt;- 1 to 3; j &lt;- 1 to 3 if i != j) yield 10*i+j
+res: IndexedSeq[Int] = Vector(12, 13, 21, 23, 31, 32)
+</pre>
+</div>
+</div>
+<div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">4.7</span> 練習問題</h3>
+<div class="outline-text-3" id="text-4-7">
+<div class="answer">
+<ol class="org-ol">
+<li>forを用いて 1! から 10! までを要素とするリスト(あるいはVector)を求めよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; for (n &lt;- 1 to 10) yield (1 to n).product
+res: IndexedSeq[Int] = Vector(1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800)
+</pre></dd>
+</dl></li>
+<li>文字 a,b,c のそれぞれを1文字から3文字まで繰り返した文字列から成るリストを求めよ．
+すなわち "a", "aa", "aaa", "b", "bb", "bbb", "c", "cc", "ccc" を求める．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; for (s &lt;- List("a","b","c"); n &lt;- 1 to 3) yield s * n
+res: List[String] = List(a, aa, aaa, b, bb, bbb, c, cc, ccc)
+</pre></dd>
+</dl></li>
+<li>3桁の整数で，各桁の数の和が10に等しいものを求めよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; for (i &lt;- 1 to 9; j &lt;- 0 to 9; k &lt;- 0 to 9; if i+j+k==10) yield 100*i+10*j+k
+res: IndexedSeq[Int] = Vector(109, 118, 127, 136, 145, ..., 811, 820, 901, 910)
+</pre></dd>
+</dl></li>
+<li>1から10の整数nについて10nと10n+1を要素とするリスト
+10, 11, 20, 21, &#x2026;, 100, 101 を求めたい．どうすれば良いか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; for (n &lt;- 1 to 10; x &lt;- List(10*n, 10*n+1)) yield x
+res: IndexedSeq[Int] = Vector(10, 11, 20, 21, 30, 31, ..., 100, 101)
+</pre></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline21" class="outline-2">
+<h2 id="orgheadline21"><span class="section-number-2">5</span> 列 (Seq)</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+列 (<a href="http://www.scala-lang.org/api/current/scala/collection/immutable/Seq.html">scala.collection.immutable.Seq</a>) はリストの上位クラスであり，
+Seq 用に定義したメソッドは List にも利用できる．
+</p>
+
+<pre class="example">
+scala&gt; val seq = Seq(2, 7, 1, 8)
+seq: Seq[Int] = List(2, 7, 1, 8)
+
+scala&gt; def s(seq: Seq[Int]) = seq.size
+s: (seq: Seq[Int])Int
+scala&gt; s(seq)
+res: Int = 4
+scala&gt; s(list)
+res: Int = 4
+</pre>
+
+<p>
+したがって，特別な必要がない限り List ではなく Seq を用いるほうが良いだろう．
+ただ <code>::</code>, <code>:::</code> などのメソッドは利用できない．
+代わりに <code>+:</code>, <code>++</code> を用いる．
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline23" class="outline-2">
+<h2 id="orgheadline23"><span class="section-number-2">6</span> 集合 (Set)</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Scalaでは，集合 (<a href="http://www.scala-lang.org/api/current/scala/collection/immutable/Set.html">scala.collection.immutable.Set</a>) もリストと同様に利用できる．
+</p>
+<pre class="example">
+scala&gt; val set = Set(2, 7, 1, 8, 2, 8)
+set: scala.collection.immutable.Set[Int] = Set(2, 7, 1, 8)
+</pre>
+
+<p>
+なお，以下では出力中の「scala.collection.immutable.」の部分は省略する．
+</p>
+
+<p>
+集合もリストと同様に様々なメソッドが用意されているが，
+集合特有のものとしては以下がある．
+</p>
+<ul class="org-ul">
+<li><p>
+intersect(s)は共通集合を求める(<code>&amp;</code> を用いても良い)．
+</p>
+<pre class="example">
+set.intersect(Set(3,1,4))
+res: Set[Int] = Set(1)
+</pre></li>
+<li><p>
+union(s)は和集合を求める(<code>|</code> を用いても良い)．
+</p>
+<pre class="example">
+set.union(Set(3,1,4))
+res: Set[Int] = Set(8, 4, 1, 2, 7, 3)
+</pre></li>
+<li><p>
+diff(s)は差集合を求める(<code>&amp;~</code> を用いても良い)．
+</p>
+<pre class="example">
+set.diff(Set(3,1,4))
+res: Set[Int] = Set(2, 7, 8)
+</pre></li>
+<li><p>
+subsetOf(s)は部分集合かどうかを調べる．
+</p>
+<pre class="example">
+scala&gt; set.subsetOf(Set(3,1,4))
+res: Boolean = false
+
+scala&gt; set.subsetOf(set)
+res: Boolean = true
+</pre></li>
+</ul>
+
+<p>
+リストへの変換はtoListを用いる．列ならばtoSeqを用いる．
+</p>
+<pre class="example">
+scala&gt; set.toList
+res: List[Int] = List(2, 7, 1, 8)
+scala&gt; set.toSeq
+res: Seq[Int] = ArrayBuffer(2, 7, 1, 8)
+</pre>
+
+<p>
+逆にリストからの変換はtoSetを用いる．
+</p>
+<pre class="example">
+scala&gt; list.toSet
+res: Set[Int] = Set(2, 7, 1, 8)
+scala&gt; seq.toSet
+res: Set[Int] = Set(2, 7, 1, 8)
+</pre>
+</div>
+<div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22"><span class="section-number-3">6.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-6-1">
+<div class="answer">
+<ol class="org-ol">
+<li>1 から 100 の整数から成る集合を変数 <code>set1</code> に代入せよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; val set1 = (1 to 100).toSet
+set1: Set[Int] = Set(69, ...)
+</pre></dd>
+</dl></li>
+<li><code>set1</code> の各要素の二乗を4で割った余りから成る集合を求めよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; set1.map(x =&gt; x*x % 4)
+res: Set[Int] = Set(1, 0)
+scala&gt; for (x &lt;- set1) yield x*x % 4
+res: Set[Int] = Set(1, 0)
+</pre></dd>
+</dl></li>
+<li>変数 <code>evens</code> に100以下の偶数の集合を代入せよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; val evens = (2 to 100 by 2).toSet
+evens: Set[Int] = Set(88, 10, 56, ..., 100)
+</pre></dd>
+</dl></li>
+<li>変数 <code>primes</code> に100以下の素数の集合を代入せよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; def isPrime(n: Int) = (2 to math.sqrt(n).toInt).forall(n % _ != 0)
+scala&gt; val primes = (2 to 100).filter(isPrime).toSet
+primes: Set[Int] = Set(5, 37, 29, ..., 83)
+</pre></dd>
+</dl></li>
+<li>100以下の2つの素数の和で表せる数の集合を変数 <code>primes2</code> に代入せよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; val primes2 = for (p1 &lt;- primes; p2 &lt;- primes) yield p1+p2
+primes2: Set[Int] = Set(69, 138, 88, ..., 100)
+</pre></dd>
+</dl></li>
+<li>100以下の偶数で，2つの素数の和で表せない数の集合を求めよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; evens diff primes
+res: Set[Int] = Set(2)
+</pre>
+<p>
+4以上の任意の偶数は，2つの素数の和で表せると予想されている
+(<a href="https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%BC%E3%83%AB%E3%83%89%E3%83%90%E3%83%83%E3%83%8F%E3%81%AE%E4%BA%88%E6%83%B3">https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%BC%E3%83%AB%E3%83%89%E3%83%90%E3%83%83%E3%83%8F%E3%81%AE%E4%BA%88%E6%83%B3</a>)．
+</p></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-2">
+<h2 id="orgheadline24"><span class="section-number-2">7</span> マップ (Map)</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+マップ (<a href="http://www.scala-lang.org/api/current/scala/collection/immutable/Map.html">scala.collection.immutable.Map</a>) は以下のように記述する．
+</p>
+<pre class="example">
+scala&gt; var map = Map("hamlet"-&gt;118, "ophelia"-&gt;31)
+res: Map[String,Int] = Map(hamlet -&gt; 118, ophelia -&gt; 31)
+</pre>
+
+<p>
+「 <code>-&gt;</code> 」の左辺がキー (key)で，右辺が値 (value)である．
+カッコでくくって対 (後述のPair)を用いても良い．
+</p>
+<pre class="example">
+scala&gt; Map(("hamlet", 118), ("ophelia", 31))
+res: Map[String,Int] = Map(hamlet -&gt; 118, ophelia -&gt; 31)
+</pre>
+
+<p>
+「 <code>+</code> 」により値を登録した新しいマップを求められる．
+</p>
+<pre class="example">
+scala&gt; map + ("horatio"-&gt;48)
+res: Map[String,Int] = Map(hamlet -&gt; 118, ophelia -&gt; 31, horatio -&gt; 48)
+</pre>
+
+<p>
+しかし，元のマップは変化していない(immutable)ので，
+登録したマップを利用するには，変数に代入する必要がある．
+</p>
+<pre class="example">
+scala&gt; map = map + ("horatio"-&gt;48)
+map: Map[String,Int] = Map(hamlet -&gt; 118, ophelia -&gt; 31, horatio -&gt; 48)
+</pre>
+
+<p>
+「 <code>+=</code> 」を用いても良い．
+</p>
+<pre class="example">
+scala&gt; map += ("horatio"-&gt;48)
+</pre>
+
+<p>
+以下にマップの主なメソッドを示す．
+</p>
+<ul class="org-ul">
+<li><p>
+値が含まれているかどうかは，containsで調べる．
+</p>
+<pre class="example">
+scala&gt; map.contains("hamlet")
+res: Boolean = true
+
+scala&gt; map.contains("king")
+res: Boolean = false
+</pre></li>
+<li><p>
+値を取り出すにはapplyあるいは Map名そのものを用いる．
+</p>
+<pre class="example">
+scala&gt; map.apply("hamlet")
+res: Int = 118
+
+scala&gt; map("hamlet")
+res: Int = 118
+</pre>
+<p>
+キーが登録されていない場合には，エラーとなる．
+</p>
+<pre class="example">
+scala&gt; map("king")
+java.util.NoSuchElementException: key not found: king
+</pre></li>
+<li><p>
+getOrElseを用いると登録されていない場合の値を指定できる．
+</p>
+<pre class="example">
+scala&gt; map.getOrElse("hamlet", 0)
+res: Int = 118
+
+scala&gt; map.getOrElse("king", 0)
+res: Int = 0
+</pre></li>
+<li><p>
+keysでキーの集合を求めることができる．
+</p>
+<pre class="example">
+scala&gt; map.keys
+res: Iterable[String] = Set(hamlet, ophelia, horatio)
+</pre></li>
+<li><p>
+キーの個数は，sizeで求めることができる．
+</p>
+<pre class="example">
+scala&gt; map.size
+res: Int = 3
+</pre>
+<p>
+もちちん keys.size でも良い．
+</p>
+<pre class="example">
+scala&gt; map.keys.size
+res: Int = 3
+</pre></li>
+<li><p>
+キーに対するフィルターはfilterKeysを用いる．
+以下は，キー7文字以上のものだけを求めている．
+</p>
+<pre class="example">
+scala&gt; map.filterKeys(_.length &gt;= 7)
+res: Map[String,Int] = Map(ophelia -&gt; 31, horatio -&gt; 48)
+</pre></li>
+<li><p>
+マップに直接filterを適用する場合は，
+キーと値の対(後述のPair)を引数とする関数を与える．
+以下は，値が40以上のものだけを求めている．
+なお，「 <code>kv._2</code> 」は対kvの2番目の要素(すなわち値)を取り出している．
+</p>
+<pre class="example">
+scala&gt; map.filter(kv =&gt; kv._2 &gt;= 40)
+res: Map[String,Int] = Map(hamlet -&gt; 118, horatio -&gt; 48)
+</pre>
+<p>
+あるいは case のパターンマッチを用いた無名関数を利用しても良い．
+ここで case のまわりは ( ) ではなく { } でくくられていることに注意．
+</p>
+<pre class="example">
+scala&gt; map.filter{ case (w,c) =&gt; c &gt;= 40 }
+res: Map[String,Int] = Map(hamlet -&gt; 118, horatio -&gt; 48)
+</pre></li>
+<li><p>
+for でも同様の処理ができる．
+</p>
+<pre class="example">
+scala&gt; for (kv &lt;- map; if kv._2 &gt;= 40) yield kv
+res: Map[String,Int] = Map(hamlet -&gt; 118, horatio -&gt; 48)
+scala&gt; for ((w,c) &lt;- map; if c &gt;= 40) yield (w,c)
+res: Map[String,Int] = Map(hamlet -&gt; 118, horatio -&gt; 48)
+</pre></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline28" class="outline-2">
+<h2 id="orgheadline28"><span class="section-number-2">8</span> リストのリスト</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+以下のようにリストのリストが与えられているとする．
+</p>
+<pre class="example">
+scala&gt; val lists = List(List(3,1,4), List(2,7,1,8,2,8), List(0,5,7,7))
+</pre>
+
+<p>
+要素である各リストの長さは，以下のようにして求められる．
+</p>
+<pre class="example">
+scala&gt; lists.map(_.size)
+res: List[Int] = List(3, 6, 4)
+
+scala&gt; for (list &lt;- lists) yield list.size
+res: List[Int] = List(3, 6, 4)
+</pre>
+</div>
+
+<div id="outline-container-orgheadline25" class="outline-3">
+<h3 id="orgheadline25"><span class="section-number-3">8.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-8-1">
+<div class="answer">
+<ol class="org-ol">
+<li>要素リストの長さの最大値を求めるにはどうすれば良いか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; lists.map(_.size).max
+res: Int = 6
+scala&gt; (for (list &lt;- lists) yield list.size).max
+res: Int = 6
+</pre></dd>
+</dl></li>
+<li>要素である全整数の合計(55になる)を求めるにはどうすれば良いか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; lists.map(_.sum).sum
+res: Int = 55
+scala&gt; (for (list &lt;- lists) yield list.sum).sum
+res: Int = 55
+</pre></dd>
+</dl></li>
+<li>reduceLeftを用いて，要素リストを連結したリストを求めるにはどうすれば良いか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; lists.reduceLeft(_ ++ _)
+res: List[Int] = List(3, 1, 4, 2, 7, 1, 8, 2, 8, 0, 5, 7, 7)
+</pre>
+<p>
+for を用いることもできる．
+</p>
+<pre class="example">
+scala&gt; for (list &lt;- lists; x &lt;- list) yield x
+res: List[Int] = List(3, 1, 4, 2, 7, 1, 8, 2, 8, 0, 5, 7, 7)
+</pre></dd>
+</dl></li>
+<li>foldLeftを用いて，要素リストを逆順にして連結したリストを求めるにはどうすれば良いか．
+ヒント: 空リストは <code>List[Int]()</code> で表す．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; lists.foldLeft(List[Int]())(_ ++ _.reverse)
+res: List[Int] = List(4, 1, 3, 8, 2, 8, 1, 7, 2, 7, 7, 5, 0)
+</pre>
+<p>
+for を用いることもできる．
+</p>
+<pre class="example">
+scala&gt; for (list &lt;- lists; x &lt;- list.reverse) yield x
+res: List[Int] = List(4, 1, 3, 8, 2, 8, 1, 7, 2, 7, 7, 5, 0)
+</pre></dd>
+</dl></li>
+<li>各要素リストを集合に変換したリストを求めるにはどうすれば良いか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; lists.map(_.toSet)
+res: List[Set[Int]] = List(Set(3, 1, 4), Set(2, 7, 1, 8), Set(0, 5, 7))
+scala&gt; for (list &lt;- lists) yield list.toSet
+res: List[Set[Int]] = List(Set(3, 1, 4), Set(2, 7, 1, 8), Set(0, 5, 7))
+</pre></dd>
+</dl></li>
+<li>要素として現れる整数の集合を求めるにはどうすれば良いか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; lists.map(_.toSet).reduceLeft(_ ++ _)
+res: Set[Int] = Set(0, 5, 1, 2, 7, 3, 8, 4)
+</pre></dd>
+</dl></li>
+<li>行列をリストのリストで表す．
+変数 matrix が List(List(3,1,4,1), List(2,7,1,8), List(0,5,7,7)) である時，
+転置行列を求めるにはどうすれば良いか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; val matrix = List(List(3,1,4,1), List(2,7,1,8), List(0,5,7,7))
+scala&gt; (0 until matrix(0).size).map(j =&gt; (0 until matrix.size).map(i =&gt; matrix(i)(j)))
+res: IndexedSeq[List[Int]] = Vector(List(3, 2, 0), List(1, 7, 5), List(4, 1, 7), List(1, 8, 7))
+scala&gt; for (j &lt;- 0 until matrix(0).size) yield for (i &lt;- 0 until matrix.size) yield matrix(i)(j)
+res: IndexedSeq[IndexedSeq[Int]] = Vector(Vector(3, 2, 0), Vector(1, 7, 5), Vector(4, 1, 7), Vector(1, 8, 7))
+scala&gt; (0 until matrix(0).size).map(j =&gt; matrix.map(r =&gt; r(j)))
+res: IndexedSeq[List[Int]] = Vector(List(3, 2, 0), List(1, 7, 5), List(4, 1, 7), List(1, 8, 7))
+scala&gt; for (j &lt;- 0 until matrix(0).size) yield for (r &lt;- matrix) yield r(j)
+res: IndexedSeq[IndexedSeq[Int]] = Vector(Vector(3, 2, 0), Vector(1, 7, 5), Vector(4, 1, 7), Vector(1, 8, 7))
+</pre>
+<p>
+transpose メソッドでも同様の結果になる．
+</p>
+<pre class="example">
+scala&gt; matrix.transpose
+res: List[List[Int]] = List(List(3, 2, 0), List(1, 7, 5), List(4, 1, 7), List(1, 8, 7))
+</pre></dd>
+</dl></li>
+<li>行列をリストのリストで表す．
+i行j列からm行n列を取り出した部分行列を求めるにはどうすれば良いか．
+変数 matrix が List(List(3,1,4,1), List(2,7,1,8), List(0,5,7,7)) である時，
+1行2列から2行2列を取り出した部分行列はList(List(1, 8), List(7, 7))である．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; matrix.slice(1, 3).map(col =&gt; col.slice(2, 4))
+res: List[List[Int]] = List(List(1, 8), List(7, 7))
+scala&gt; for (i &lt;- 1 until 1+2) yield for (j &lt;- 2 until 2+2) yield matrix(i)(j)
+res: List[List[Int]] = List(List(1, 8), List(7, 7))
+</pre></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">8.2</span> flatMap</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+整数リストのリスト中から奇数だけを取り出して並べたリストを作成しよう．
+つまり上のlistsの場合， <code>List(3,1,7,1,5,7,7)</code> が求めたいリストである．
+</p>
+
+<p>
+各要素リストについて下のようにfilterを実行すれば，
+奇数リストのリストが得られる．
+</p>
+<pre class="example">
+scala&gt; lists.map(_.filter(_ % 2 != 0))
+res: List[List[Int]] = List(List(3, 1), List(7, 1), List(5, 7, 7))
+</pre>
+
+<p>
+reduceLeft を用いて，要素リストを連結すれば答えが求まる．
+</p>
+<pre class="example">
+scala&gt; lists.map(_.filter(_ % 2 != 0)).reduceLeft(_ ++ _)
+res: List[Int] = List(3, 1, 7, 1, 5, 7, 7)
+</pre>
+
+<p>
+flatMapメソッドを用いれば，mapと連結を一括して行うことができる．
+すなわち flatMap(f)は，リスト x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>n</sub> に対して
+f(x<sub>1</sub>), f(x<sub>2</sub>), &#x2026;, f(x<sub>n</sub>) を連結したリスト，すなわち
+f(x<sub>1</sub>) <del>+ f(x<sub>2</sub>) +</del> &#x2026; ++ f(x<sub>n</sub>) を求める．
+mapしたリストを中間的に作成する必要がないため，
+flatMapを用いるほうがmapと連結を用いるよりも効率が良くなる．
+</p>
+
+<pre class="example">
+scala&gt; lists.flatMap(_.filter(_ % 2 != 0))
+res: List[Int] = List(3, 1, 7, 1, 5, 7, 7)
+</pre>
+
+<p>
+関数 f として恒等関数 x =&gt; x を用いれば，単純なリストの連結になる．
+flatten メソッドも同じことを行う．
+</p>
+<pre class="example">
+scala&gt; lists.flatMap(x =&gt; x)
+res: List[Int] = List(3, 1, 4, 2, 7, 1, 8, 2, 8, 0, 5, 7, 7)
+
+scala&gt; lists.flatten
+res: List[Int] = List(3, 1, 4, 2, 7, 1, 8, 2, 8, 0, 5, 7, 7)
+</pre>
+
+<p>
+整数 i と j がそれぞれ 1 から 3 まで変化する時，
+10*i+j を要素とするリストも flatMap を用いれば，以下のように求めることができる
+(Vectorが求まっているが toList でリストに変換できる)．
+</p>
+<pre class="example">
+scala&gt; (1 to 3).flatMap(i =&gt; (1 to 3).map(j =&gt; 10*i+j))
+res: IndexedSeq[Int] = Vector(11, 12, 13, 21, 22, 23, 31, 32, 33)
+</pre>
+
+<p>
+これは for を用いて以下のようにも記述できる．
+実は，これは内部的に flatMap に変換されて実行されている．
+</p>
+<pre class="example">
+scala&gt; for (i &lt;- 1 to 3; j &lt;- 1 to 3) yield 10*i+j
+res: IndexedSeq[Int] = Vector(11, 12, 13, 21, 22, 23, 31, 32, 33)
+</pre>
+</div>
+</div>
+<div id="outline-container-orgheadline27" class="outline-3">
+<h3 id="orgheadline27"><span class="section-number-3">8.3</span> 練習問題</h3>
+<div class="outline-text-3" id="text-8-3">
+<div class="answer">
+<ol class="org-ol">
+<li>listsの各要素リストの先頭2要素を取り出したリストを求めるにはどうすれば良いか．
+上の例の場合 List(3,1,2,7,0,5) が求める答えである．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; lists.flatMap(_.take(2))
+res: List[Int] = List(3, 1, 2, 7, 0, 5)
+scala&gt; for (list &lt;- lists; x &lt;- list.take(2)) yield x
+res: List[Int] = List(3, 1, 2, 7, 0, 5)
+</pre></dd>
+</dl></li>
+<li>整数 i, j, k がそれぞれ 1 から 3 まで変化する時，
+100*i+10*j+k を要素とするリスト(あるいはVector)を求めるにはどうすれば良いか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; (1 to 3).flatMap(i =&gt; (1 to 3).flatMap(j =&gt; (1 to 3).map(k =&gt; 100*i+10*j+k)))
+res: IndexedSeq[Int] = Vector(111, 112, 113, 121, ..., 333)
+scala&gt; for (i &lt;- 1 to 3; j &lt;- 1 to 3; k &lt;- 1 to 3) yield 100*i+10*j+k
+res: IndexedSeq[Int] = Vector(111, 112, 113, 121, ..., 333)
+</pre></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline30" class="outline-2">
+<h2 id="orgheadline30"><span class="section-number-2">9</span> 対と組 (Pair and Tuple)</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+List や Seq は長さが任意のデータ列である．
+組 (Tuple)は長さが固定のデータ列である．
+各要素のデータ型は異なっても良い．
+長さ n のTupleは (a<sub>1,a</sub><sub>2,&#x2026;,a</sub><sub>n</sub>) のように記述する．
+</p>
+
+<p>
+長さが2の組は，対 (<a href="http://www.scala-lang.org/api/current/scala/Tuple2.html">Tuple2</a>, Pair)と呼ばれる．
+</p>
+<pre class="example">
+scala&gt; val pair = ("scala", 2.9)
+pair: (String, Double) = (scala,2.9)
+</pre>
+
+<p>
+対は，以下のように記述しても良い．
+</p>
+<pre class="example">
+scala&gt; "scala" -&gt; 2.9
+scala&gt; Tuple2("scala", 2.9)
+scala&gt; Pair("scala", 2.9)
+</pre>
+
+<p>
+組の i 番目の要素は， <code>_1</code>, <code>_2</code>, <code>_3</code> のようにその番号を用いたメソッドで取り出す．
+</p>
+<pre class="example">
+scala&gt; pair._1
+res: String = scala
+scala&gt; pair._2
+res: Double = 2.9
+</pre>
+
+<p>
+また，代入において，その要素を取り出すことができる．
+</p>
+<pre class="example">
+scala&gt; val (s,v) = pair
+s: String = scala
+v: Double = 2.9
+</pre>
+</div>
+
+<div id="outline-container-orgheadline29" class="outline-3">
+<h3 id="orgheadline29"><span class="section-number-3">9.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-9-1">
+<div class="answer">
+<p>
+変数 pairs が以下のように定義されているとする．
+</p>
+<pre class="example">
+scala&gt; val pairs = for (x &lt;- 1 to 3; y &lt;- 1 to 3) yield (x,y)
+pairs: IndexedSeq[(Int, Int)] = Vector((1,1), (1,2), (1,3), (2,1), ..., (3,3))
+</pre>
+
+<ol class="org-ol">
+<li>pairs について，各対の第1要素と第2要素を交換したリストを求めるにはどうすれば良いか． 
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; pairs.map(p =&gt; (p._2,p._1))
+res: IndexedSeq[(Int, Int)] = Vector((1,1), (2,1), (3,1), (1,2), ..., (3,3))
+scala&gt; for ((x,y) &lt;- pairs) yield (y,x)
+res: IndexedSeq[(Int, Int)] = Vector((1,1), (2,1), (3,1), (1,2), ..., (3,3))
+</pre></dd>
+</dl></li>
+<li>pairs について，各対の第1要素から成る集合を求めるにはどうすれば良いか． 
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; pairs.map(_._1).toSet
+res: Set[Int] = Set(1, 2, 3)
+</pre></dd>
+</dl></li>
+<li>pairs について，第1要素と第2要素の和の昇順にソートしたリストを求めるにはどうすれば良いか
+(ヒント: sortBy を用いる)
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; pairs.sortBy(p =&gt; p._1 + p._2)
+res: IndexedSeq[(Int, Int)] = Vector((1,1), (1,2), (2,1), ..., (2,3), (3,2), (3,3))
+</pre></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline32" class="outline-2">
+<h2 id="orgheadline32"><span class="section-number-2">10</span> オプション型 (Option)</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+Scala では値が存在しない可能性がある場合などに <a href="http://www.scala-lang.org/api/current/scala/Option.html">Option</a> 型を用いる．
+たとえば，以下のマップを考える．
+</p>
+<pre class="example">
+scala&gt; val ageMap = Map("Taro" -&gt; 21, "Jiro" -&gt; 19)
+ageMap: Map[String,Int] = Map(Taro -&gt; 21, Jiro -&gt; 19)
+</pre>
+
+<p>
+ageMap.get(p) は，p の値が a の場合 Some(a) を返し，
+値が存在しない場合 None を返す．
+</p>
+<pre class="example">
+scala&gt; ageMap.get("Taro")
+res: Option[Int] = Some(21)
+scala&gt; ageMap.get("Saburo")
+res: Option[Int] = None
+</pre>
+
+<p>
+Some(a) から値 a を取り出すには get メソッドを用いる．
+None に対して get を使用した場合は例外が発生する．
+</p>
+<pre class="example">
+scala&gt; ageMap.get("Taro").get
+res Int = 21
+scala&gt; ageMap.get("Saburo").get
+java.util.NoSuchElementException: None.get
+</pre>
+
+<p>
+Some(a) か None かは isEmpty メソッドで区別できる．
+</p>
+<pre class="example">
+scala&gt; ageMap.get("Taro").isEmpty
+res: Boolean = false
+scala&gt; ageMap.get("Saburo").isEmpty
+res: Boolean = true
+</pre>
+
+<p>
+Some(a) は長さ 1 のリスト，None は空リストと同様である．
+例えば filter を用いることができる．
+</p>
+<pre class="example">
+scala&gt; ageMap.get("Taro").filter(_ &gt;= 20)
+res: Option[Int] = Some(21)
+scala&gt; ageMap.get("Jiro").filter(_ &gt;= 20)
+res: Option[Int] = None
+scala&gt; ageMap.get("Saburo").filter(_ &gt;= 20)
+res: Boolean = None
+</pre>
+
+<p>
+for でも同様のことができる．
+</p>
+<pre class="example">
+scala&gt; for (a &lt;- ageMap.get("Taro"); if a &gt;= 20) yield a
+res: Option[Int] = Some(21)
+scala&gt; for (a &lt;- ageMap.get("Jiro"); if a &gt;= 20) yield a
+res: Option[Int] = None
+scala&gt; for (a &lt;- ageMap.get("Saburo"); if a &gt;= 20) yield a
+res: Option[Int] = None
+</pre>
+
+<p>
+文字列のリストに対して適用した例を見てみよう．
+</p>
+<pre class="example">
+scala&gt; val names = Seq("Taro", "Jiro", "Saburo")
+res: Seq[String] = List(Taro, Jiro, Saburo)
+scala&gt; names.map(p =&gt; ageMap.get(p).filter(_ &gt;= 20))
+res: Seq[Option[Int]] = List(Some(21), None, None)
+scala&gt; names.map(p =&gt; ageMap.get(p).map(_ + 1))
+res: Seq[Option[Int]] = List(Some(22), Some(20), None)
+</pre>
+
+<p>
+Option 型のデータはリストと同様なので，それらを連結することができる．
+</p>
+<pre class="example">
+scala&gt; Some(21) ++ Some(19)
+res: Iterable[Int] = List(21, 19)
+scala&gt; Some(21) ++ None
+res: Iterable[Int] = List(21)
+scala&gt; names.map(p =&gt; ageMap.get(p))
+res: Seq[Option[Int]] = List(Some(21), Some(19), None)
+scala&gt; names.map(p =&gt; ageMap.get(p)).flatten
+res: Seq[Int] = List(21, 19)
+</pre>
+
+<p>
+flatMap や for を用いるとその利点が明らかになる．
+値が定義されてるものだけを簡潔に取り出すことが可能である．
+</p>
+<pre class="example">
+scala&gt; names.flatMap(p =&gt; ageMap.get(p))
+res: Seq[Int] = List(21, 19)
+scala&gt; for (p &lt;- names; a &lt;- ageMap.get(p)) yield a
+res: Seq[Int] = List(21, 19)
+</pre>
+
+<p>
+値が存在する場合と存在しない場合についての場合分けをせずに，統一的な処理が可能になっている．
+</p>
+</div>
+
+<div id="outline-container-orgheadline31" class="outline-3">
+<h3 id="orgheadline31"><span class="section-number-3">10.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-10-1">
+<div class="answer">
+<ol class="org-ol">
+<li><code>names.map(p =&gt; ageMap.get(p).filter(_ &gt;= 20).map(_ + 1))</code> の結果はどうなるか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; names.map(p =&gt; ageMap.get(p).filter(_ &gt;= 20).map(_ + 1))
+res: Seq[Option[Int]] = List(Some(22), None, None)
+</pre></dd>
+</dl></li>
+<li><code>names.flatMap(p =&gt; ageMap.get(p).filter(_ &gt;= 20).map(_ + 1))</code> の結果はどうなるか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; names.flatMap(p =&gt; ageMap.get(p).filter(_ &gt;= 20).map(_ + 1))
+res: Seq[Int] = List(22)
+</pre></dd>
+</dl></li>
+<li><code>for (p &lt;- names; a &lt;- ageMap.get(p); if a &gt;= 20) yield a + 1</code> の結果はどうなるか．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; for (p &lt;- names; a &lt;- ageMap.get(p); if a &gt;= 20) yield a + 1
+res: Seq[Int] = List(22)
+</pre></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline34" class="outline-2">
+<h2 id="orgheadline34"><span class="section-number-2">11</span> イテレータ (Iterator)</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+<a href="http://www.scala-lang.org/api/current/scala/collection/Iterator.html">Iterator</a> は List や Seq と良く似ているが，
+要素を1度しか参照できない点が異なっている．
+</p>
+
+<pre class="example">
+scala&gt; val iter = Iterator(3, 1, 4)
+iter: Iterator[Int] = non-empty iterator
+</pre>
+
+<p>
+1度要素を参照すると，その要素は削除される．
+</p>
+<pre class="example">
+scala&gt; iter.size
+res: Int = 3
+
+scala&gt; iter.size
+res: Int = 0
+</pre>
+
+<p>
+何度も参照したい場合には toList で List に変換すれば良い
+(toSeq で Seq に変換するのでも良い．この場合は，遅延評価される Stream データになる)．
+</p>
+<pre class="example">
+scala&gt; val iter = Iterator(2, 7, 1, 8)
+iter: Iterator[Int] = non-empty iterator
+scala&gt; val list = iter.toList
+list: List[Int] = List(2, 7, 1, 8)
+</pre>
+
+<p>
+Iterator は 2度と参照できないという欠点はあるが，
+巨大なサイズのデータでも List や Seq と同様に処理が可能になるという利点がある．
+</p>
+
+<p>
+Iterator を利用しているメソッドとしては，
+リストのすべての順列を返す permutations や，すべての組合せを返す combination(n) がある．
+</p>
+<pre class="example">
+scala&gt; List(1,2,3).permutations.foreach(println)
+List(1, 2, 3)
+List(1, 3, 2)
+List(2, 1, 3)
+List(2, 3, 1)
+List(3, 1, 2)
+List(3, 2, 1)
+
+scala&gt; List(1,2,3).combinations(2).foreach(println)
+List(1, 2)
+List(1, 3)
+List(2, 3)
+</pre>
+
+<p>
+他には，リストを n 個ずつのリストに分割する grouped(n)，
+リストから連続する n 個の要素を取り出したリストを返す sliding(n) がある．
+</p>
+<pre class="example">
+scala&gt; (1 to 10).grouped(3).foreach(println)
+Vector(1, 2, 3)
+Vector(4, 5, 6)
+Vector(7, 8, 9)
+Vector(10)
+
+scala&gt; (1 to 10).sliding(3).foreach(println)
+Vector(1, 2, 3)
+Vector(2, 3, 4)
+Vector(3, 4, 5)
+Vector(4, 5, 6)
+Vector(5, 6, 7)
+Vector(6, 7, 8)
+Vector(7, 8, 9)
+Vector(8, 9, 10)
+</pre>
+</div>
+
+
+
+<div id="outline-container-orgheadline33" class="outline-3">
+<h3 id="orgheadline33"><span class="section-number-3">11.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-11-1">
+<div class="answer">
+<ol class="org-ol">
+<li>整数列 seq の要素が，すべて異なっていることを調べる関数 alldiff(seq) を定義せよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; def alldiff(seq: Seq[Int]) = seq.combinations(2).forall(s =&gt; s(0) != s(1))
+scala&gt; alldiff(Seq(1,2,3,4))
+res: Boolean = true
+scala&gt; alldiff(Seq(1,2,3,4,1))
+res: Boolean = false
+</pre></dd>
+</dl></li>
+<li>整数列 seq の要素が，昇順になっていることを調べる関数 ascending(seq) を定義せよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; def ascending(seq: Seq[Int]) = seq.sliding(2).forall(s =&gt; s(0) &lt;= s(1))
+scala&gt; ascending(Seq(1,3,5))
+res: Boolean = true
+scala&gt; ascending(Seq(1,3,5,2))
+res: Boolean = false
+</pre></dd>
+</dl></li>
+<li>整数列 seq 中で，連続する n 要素の和の最大値を求める関数 maxSum(n, seq) を定義せよ．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; def maxSum(n: Int, seq: Seq[Int]) = seq.sliding(n).map(_.sum).max
+scala&gt; maxSum(3, Seq(3,1,4,1,5,9,2,6,5,3,5))
+res: Int = 17
+</pre></dd>
+</dl></li>
+<li>与えられた整数列 seq の階差数列を求める関数diffSeq(seq)を定義せよ．
+階差数列は，次の要素との差から成る数列である．
+たとえば Seq(2,7,1,8) の階差数列は Seq(5,-6,7) である．
+<dl class="org-dl">
+<dt>@&lt;a onclick="toggleAnswer(this.parentNode.parentNode)"&gt;(解答例)@&lt;/a&gt;</dt><dd><pre class="example">
+scala&gt; def diffSeq(seq: Seq[Int]) = seq.sliding(2).map(p =&gt; p(1)-p(0)).toSeq
+scala&gt; diffSeq(Seq(2,7,1,8))
+res: Seq[Int] = Stream(5, ?)
+</pre>
+<p>
+すべての要素を求めるには toList する．
+</p>
+<pre class="example">
+scala&gt; diffSeq(Seq(2,7,1,8)).toList
+res: List[Int] = List(5, -6, 7)
+</pre></dd>
+</dl></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">&#33879;&#32773;: 田村直之</p>
+<p class="date">Created: 2018-02-26 月 15:10</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

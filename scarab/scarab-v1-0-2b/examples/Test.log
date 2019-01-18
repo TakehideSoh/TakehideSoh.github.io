@@ -1,0 +1,19 @@
+Test (decisions,1)
+Test (rootSimplifications,0)
+Test (inspects,3)
+Test (updateLBD,0)
+Test (conflicts,0)
+Test (learnedternaryclauses,0)
+Test (learnedclauses,0)
+Test (reducedliterals,0)
+Test (ignoredclauses,0)
+Test (learnedbinaryclauses,0)
+Test (starts,1)
+Test (shortcuts,0)
+Test (reduceddb,0)
+Test (changedreason,0)
+Test (learnedliterals,0)
+Test (propagations,3)
+Testconstraints type 
+Testorg.sat4j.minisat.constraints.card.AtLeast => 2
+Test2 constraints processed.

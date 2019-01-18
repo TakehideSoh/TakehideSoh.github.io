@@ -1,0 +1,1779 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>Scalaで言語処理</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Scalaで言語処理"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2018-03-03 01:07:01 JST"/>
+<meta name="author" content="田村直之"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 1000px)" href="/include/org-toc-right.css">
+<link rel="stylesheet" type="text/css" href="prolang.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="/include/mathjax/MathJax.js">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Scalaで言語処理</h1>
+
+
+<script type="text/javascript" src="prolang.js"></script>
+<ul>
+<li><a href="scala.html">Top</a>
+</li>
+<li><a href="scala-list.html">Scalaでリスト処理</a>
+</li>
+<li><a href="scala-recursive.html">Scalaで再帰プログラミング</a>
+</li>
+<li><a href="http://bach.istc.kobe-u.ac.jp/lect/tfpl/">言語工学のページに戻る</a>
+</li>
+<li><a href="../index.html">プログラミング言語論のページに戻る</a>
+</li>
+</ul>
+
+
+
+
+
+
+<div class="clear"></div>
+<ul>
+<li><a href="scala-complex.html">Scalaで複素数計算</a>
+</li>
+<li><a href="scala-primeruler.html">Scalaで素数ものさしを探す</a>
+</li>
+<li><a href="scala-sieve.html">Scalaでエラトステネスの篩</a>
+</li>
+<li><a href="scala-parser.html">Scalaで言語処理</a>
+</li>
+</ul>
+
+
+
+
+
+
+<div class="clear"></div>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 概要</a>
+<ul>
+<li><a href="#sec-1-1">1.1 注意</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 正規表現</a>
+<ul>
+<li><a href="#sec-2-1">2.1 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 文脈自由文法とEBNF</a></li>
+<li><a href="#sec-4">4 前置記法の電卓</a>
+<ul>
+<li><a href="#sec-4-1">4.1 構文定義</a></li>
+<li><a href="#sec-4-2">4.2 練習問題</a></li>
+<li><a href="#sec-4-3">4.3 構文解析結果の利用</a></li>
+<li><a href="#sec-4-4">4.4 練習問題</a></li>
+<li><a href="#sec-4-5">4.5 複数引数への拡張</a></li>
+<li><a href="#sec-4-6">4.6 練習問題</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 課題1</a>
+<ul>
+<li><a href="#sec-5-1">5.1 テスト方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 日本語での数表記が可能な電卓への拡張</a></li>
+<li><a href="#sec-7">7 課題2</a>
+<ul>
+<li><a href="#sec-7-1">7.1 テスト方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-8">8 発展課題</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 概要</h2>
+<div class="outline-text-2" id="text-1">
+
+<blockquote>
+
+<p>Scalaのparser combinatorの機能を学び，電卓を作成する．
+</p>
+</blockquote>
+
+
+<p>
+<font color="red">以下は，作成中である．</font>
+</p>
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 注意</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<p>  本Webページの作成には <a href="http://orgmode.org/">Emacs org-mode</a> を用い，
+  数式等の表示は <a href="http://www.mathjax.org">MathJax</a> を用いています．
+  IEでは正しく表示されないことがあるため，
+  Firefox, Safari等のWebブラウザでJavaScriptを有効にしてお使いください．
+  また <a href="http://orgmode.org/worg/code/org-info-js/">org-info.js</a> を利用しており，
+  「m」キーをタイプするとinfoモードでの表示になります．
+  利用できるショートカットは「?」で表示されます．
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 正規表現</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>Scalaプログラムでの正規表現 (regular expressions)は，与えられた文字列が正規表現で指定した
+パターンにマッチするかどうかを調べるために用いられる．
+なお，正規表現は，形式言語理論の正規言語 (regular languages)，
+すなわち有限オートマトン (finite automata)に対応している．
+</p>
+<ul>
+<li>参考リンク: <a href="https://ja.wikipedia.org/wiki/正規表現">Wikipedia: 正規表現</a>
+</li>
+</ul>
+
+
+<p>
+例えば，正規表現 <code>w*</code> は文字 <code>w</code> を0回以上繰り返したパターンを表しており，
+空文字列および <code>w</code>, <code>ww</code>, <code>www</code>, <code>wwww</code> などにマッチする．
+Scalaでの実行例は以下のようになる．
+</p>
+
+
+<pre class="src src-scala">scala&gt; <span class="org-string">"www"</span>.matches(<span class="org-string">"w*"</span>)
+res: Boolean = <span class="org-constant">true</span>
+
+scala&gt; <span class="org-string">"vvv"</span>.matches(<span class="org-string">"w*"</span>)
+res: Boolean = <span class="org-constant">false</span>
+</pre>
+
+
+<p>
+同様に，正規表現 <code>w+</code> は文字 <code>w</code> を1回以上繰り返したパターンを表す．
+</p>
+
+
+<pre class="src src-scala">scala&gt; <span class="org-string">"www"</span>.matches(<span class="org-string">"w+"</span>)
+res: Boolean = <span class="org-constant">true</span>
+
+scala&gt; <span class="org-string">""</span>.matches(<span class="org-string">"w+"</span>)
+res: Boolean = <span class="org-constant">false</span>
+</pre>
+
+
+<p>
+複数の文字列の可能性があるパターンは \((r_1|r_2|\cdots|r_n)\) のように表す．
+例えば <code>(A|T|G|C)+</code> は， <code>A</code> または <code>T</code> または <code>G</code> または <code>C</code> の文字を1回以上繰り返したパターンである．
+</p>
+
+
+<pre class="src src-scala">scala&gt; <span class="org-string">"ATTACCA"</span>.matches(<span class="org-string">"(A|T|G|C)+"</span>)
+res: Boolean = <span class="org-constant">true</span>
+</pre>
+
+
+<p>
+上の例は， <code>[ATGC]+</code> と表すこともできる．
+\([c_1c_2\cdots c_n]\) は，いずれかの文字 \(c_i\) と一致するパターンを表す．
+</p>
+
+
+<pre class="src src-scala">scala&gt; <span class="org-string">"ATTACCA"</span>.matches(<span class="org-string">"[ATGC]+"</span>)
+res: Boolean = <span class="org-constant">true</span>
+</pre>
+
+
+<p>
+正規表現 \([c_1c_2\cdots c_n]\) で，
+<code>[0123456789]</code> のように選択肢の文字の文字コードが連続している場合には，
+<code>[0-9]</code> のように文字の範囲を用いて記述できる．
+例えば <code>[0-9]</code> は10進表記の1桁とマッチし， <code>[0-9a-fA-F]</code> は16進表記の1桁とマッチする．
+</p>
+
+
+<pre class="src src-scala">scala&gt; <span class="org-string">"2018"</span>.matches(<span class="org-string">"[0-9]+"</span>)
+res: Boolean = <span class="org-constant">true</span>
+
+scala&gt; <span class="org-string">"7E2"</span>.matches(<span class="org-string">"[0-9a-fA-F]+"</span>)
+res: Boolean = <span class="org-constant">true</span>
+</pre>
+
+
+<p>
+さらに <code>[0-9]</code> は <code>\d</code> と記述できる．
+ただし，バックスラッシュはScalaも文字列記法中でエスケープ文字にあたるため，
+Scalaプログラム中では <code>"\\d"</code> のように，バックスラッシュを2つ書く必要がある．
+あるいは，エスケープ文字を無効にした文字列表記を用いて <code>"""\d"""</code> と記述する．
+</p>
+
+
+<pre class="src src-scala">scala&gt; <span class="org-string">"2018"</span>.matches(<span class="org-string">"\\d+"</span>)
+res: Boolean = <span class="org-constant">true</span>
+
+scala&gt; <span class="org-string">"2018"</span>.matches(<span class="org-string">"""\d+"""</span>)
+res: Boolean = <span class="org-constant">true</span>
+
+scala&gt; <span class="org-string">"7E2"</span>.matches(<span class="org-string">"""[\da-fA-F]+"""</span>)
+res: Boolean = <span class="org-constant">true</span>
+</pre>
+
+
+<p>
+パターン \(r?\) は \(r\) または空とマッチする記法である．
+例えば <code>-?</code> は，文字列 <code>-</code> または空文字列とマッチする．
+したがって，負の数を含む整数の10進表記とマッチする正規表現として <code>-?\d+</code> が利用できる．
+</p>
+
+
+<pre class="src src-scala">scala&gt; <span class="org-string">"-2018"</span>.matches(<span class="org-string">"""-?\d+"""</span>)
+res: Boolean = <span class="org-constant">true</span>
+</pre>
+
+
+<p>
+正規表現には，他にも様々な表現方法があるが，とりあえず以上で説明を終える．
+Scalaで利用できる正規表現の詳細は，以下のページなどを参考にされたい．
+</p>
+<ul>
+<li><a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/regex/Pattern.html">Java 8の正規表現</a>
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 練習問題</h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<div class="answer">
+<ol>
+<li>正規表現「 <code>(A*|T*|G*|C*)</code> 」は，どのような文字列にマッチするか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       空文字列, <code>A</code>, <code>T</code>, <code>G</code>, <code>C</code>, <code>AA</code>, <code>TT</code>, <code>GG</code>, <code>CC</code>, <code>AAA</code>, <code>TTT</code>, <code>GGG</code>, <code>CCC</code> など．
+</p></dd>
+</dl>
+
+</li>
+<li>正規表現「 <code>(A*|T*|G*|C*)+</code> 」は，どのような文字列にマッチするか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       正規表現「 <code>(A|T|G|C)*</code> 」と同じ文字列にマッチする．
+</p></dd>
+</dl>
+
+</li>
+<li><code>A</code>, <code>T</code>, <code>G</code>, <code>C</code> の文字だけからなる空でない文字列で，長さが3の倍数のものとマッチする正規表現は何か．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       例えば「 <code>([ATGC][ATGC][ATGC])+</code> 」である．
+       繰り返しを表す記法 \(\{m\}\) を用いれば，「 <code>([ATGC]{3})+</code> 」と書ける．
+</p></dd>
+</dl>
+
+</li>
+<li>正規表現「 <code>\d+</code> 」は <code>007</code> など，先頭に余分な <code>0</code> がある場合にもマッチしてしまう．
+     これを避けるには，どのような正規表現を用いれば良いか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       「 <code>[1-9]\d*</code> 」で良さそうだが， <code>0</code> とマッチしない．
+</p>
+
+
+<pre class="src src-scala">scala&gt; <span class="org-string">"0"</span>.matches(<span class="org-string">"""[1-9]\d*"""</span>)
+res: Boolean = <span class="org-constant">false</span>
+</pre>
+
+<p>
+       したがって「 <code>(0|[1-9]\d*)</code> 」などとすれば良い．
+</p>
+
+
+<pre class="src src-scala">scala&gt; <span class="org-string">"0"</span>.matches(<span class="org-string">"""(0|[1-9]\d*)"""</span>)
+res: Boolean = <span class="org-constant">true</span>
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>正規表現「 <code>-?\d+</code> 」は，先頭に余分な <code>0</code> がある場合にもマッチするだけでなく，
+     <code>-0</code> にもマッチしてしまう．
+     これを避けるには，どのような正規表現を用いれば良いか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       「 <code>(0|-?[1-9]\d*)</code> 」などとすれば良い．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 文脈自由文法とEBNF</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>電卓で用いる数式の構文 (syntax)などは，
+形式文法 (formal grammar)の一種である文脈自由文法 (context free languages)を用いて定義することができる．
+文脈自由文法による文法定義には，
+バッカス・ナウア記法 (Backus-Naur Form; BNF)を拡張したEBNFが用いられることが多い．
+EBNFは，対象言語 (object language)の文法を定義する言語であるから，
+メタ言語 (metalanguage)と呼ばれることがある．
+</p>
+<ul>
+<li>参考リンク: <a href="https://ja.wikipedia.org/wiki/形式文法">Wikipedia: 形式文法</a>
+</li>
+<li>参考リンク: <a href="https://ja.wikipedia.org/wiki/文脈自由文法">Wikipedia: 文脈自由文法</a>
+</li>
+<li>参考リンク: <a href="https://ja.wikipedia.org/wiki/バッカス・ナウア記法">Wikipedia: バッカス・ナウア記法</a>
+</li>
+<li>参考リンク: <a href="https://ja.wikipedia.org/wiki/EBNF">Wikipedia: EBNF</a>
+</li>
+<li>参考リンク: <a href="https://ja.wikipedia.org/wiki/メタ言語">Wikipedia: メタ言語</a>
+</li>
+</ul>
+
+
+<p>
+EBNFの具体的な書き方には，様々な流儀があるが，ここでは以下のように書くことにする．
+</p>
+<ul>
+<li><b>終端記号</b> (terminal symbols; 対象言語の文字列): 
+    <code>"a"</code> のようにダブル・クォーテーションでくくって表す．
+</li>
+<li><b>非終端記号</b> (nonterminal symbols; EBNFの記号): 
+    <i>expression</i> のようにイタリック文字で表記し，構文カテゴリーを表す．
+</li>
+<li><b>構文規則</b> (syntax rules): 
+    以下のような形式で表し，非終端記号で表される文字列集合を定義する．
+    \begin{align*}
+    \mbox{非終端記号} & ::= \mbox{定義}
+    \end{align*}
+</li>
+</ul>
+
+
+<p>
+また，定義中に以下のような記法を使用する．
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">EBNFでの記法</th><th scope="col" class="left">説明</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">\(\alpha_1\ \alpha_2\)</td><td class="left">\(\alpha_1\) と \(\alpha_2\) の連結</td></tr>
+<tr><td class="left">\(\alpha_1 \mid \alpha_2\)</td><td class="left">\(\alpha_1\) または \(\alpha_2\)</td></tr>
+<tr><td class="left">\(\{\ \alpha\ \}\)</td><td class="left">\(\alpha\) の0回以上の繰り返し</td></tr>
+<tr><td class="left">\([\ \,\alpha\ \,]\)</td><td class="left">\(\alpha\) または空</td></tr>
+<tr><td class="left">\((\ \alpha\ )\)</td><td class="left">\(\alpha\) のグループ化</td></tr>
+</tbody>
+</table>
+
+
+<p>
+例えば，以下は10進数字を表す構文カテゴリー <i>digit</i> と，
+10進表記の整数を表す構文カテゴリー <i>integer</i> を定義している．
+\begin{align*}
+  \textit{digit} & ::=\ 
+  \mbox{"0"}\ \mid\ \mbox{"1"}\ \mid\ \mbox{"2"}\ \mid\ \mbox{"3"}\ \mid\ \mbox{"4"}\ \mid\ 
+  \mbox{"5"}\ \mid\ \mbox{"6"}\ \mid\ \mbox{"7"}\ \mid\ \mbox{"8"}\ \mid\ \mbox{"9"} \\
+  \textit{integer} & ::=\ 
+  [\ \mbox{"-"}\ ]\ \textit{digit}\ \{\ \textit{digit}\ \}
+\end{align*}
+
+</p></div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 前置記法の電卓</h2>
+<div class="outline-text-2" id="text-4">
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 構文定義</h3>
+<div class="outline-text-3" id="text-4-1">
+
+<p>まず，文法が簡単な前置記法 (prefix notation)の電卓を考える．
+すなわち，加減乗除算を
+<code>+(x,y)</code>, <code>-(x,y)</code>, <code>*(x,y)</code>, <code>/(x,y)</code>
+のように記述する記法である．
+この記法だと，例えば \(3+1-4*2\) は <code>-(+(3,1),*(4,2))</code> と記述する．
+</p>
+<p>
+この構文は，EBNFで以下のように定義できる．
+</p>
+
+
+\begin{align*}
+  \textit{expr} & ::=\ 
+  \textit{integer}\ \mid\ 
+  \textit{func}\ \mbox{"("}\ \textit{expr}\ \mbox{","}\ \textit{expr}\ \mbox{")"} \\
+  \textit{func} & ::=\ 
+  \mbox{"+"}\ \mid\ \mbox{"-"}\ \mid\ \mbox{"*"}\ \mid\ \mbox{"/"}
+  %
+\end{align*}
+
+<p>
+Scalaのparser combinatorを用いると，EBNFと同様の記法で構文を定義し，
+与えられた文字列の構文解析を実現できる．
+ただ，すべての構文定義を実現できるわけではない．
+Scalaのparser combinatorは，
+トップダウン型の再帰下降構文解析 (recursive descent parsing)のため
+左再帰 (left recursive)な構文規則は利用できない．
+しかし，それと同等の記述が可能であり，実用上は問題ない．
+</p>
+<ul>
+<li>参考リンク: <a href="http://www.scala-lang.org/api/current/scala-parser-combinators/scala/util/parsing/combinator/Parsers.html">scala.util.parsing.combinator.Parsers</a>
+</li>
+<li>参考リンク: <a href="http://www.artima.com/pins1ed/">Programming in Scala, First Edition</a>: 31. Combinator Parsing
+</li>
+<li>参考リンク: <a href="https://en.wikipedia.org/wiki/Parser%5Fcombinator">Wikipedia: Parser combinator</a>
+</li>
+<li>参考リンク: <a href="https://ja.wikipedia.org/wiki/再帰下降構文解析">Wikipedia: 再帰下降構文解析</a>
+</li>
+<li>参考リンク: <a href="https://ja.wikipedia.org/wiki/左再帰">Wikipedia: 左再帰</a>
+</li>
+</ul>
+
+
+<p>
+EBNFで，具体的に構文を定義しようとすると，空白の取り扱いが面倒になる．
+数の文字列の途中に空白文字は許したくないが，コンマやカッコの前後には空白文字を許したい．
+これを，EBNFで正しく定義しようとすると，たとえば以下のようになり，無駄に複雑だ．
+\begin{align*}
+  \textit{expr} & ::=\ 
+  \textit{spaces}\ (\ 
+  \textit{integer}\ \mid\ 
+  \textit{func}\ \mbox{"("}\ \textit{expr}\ \mbox{","}\ \textit{expr}\ \mbox{")"}\ 
+  )\ \textit{spaces} \\
+  \textit{func} & ::=\ 
+  \textit{spaces}\ (\ 
+  \mbox{"+"}\ \mid\ \mbox{"-"}\ \mid\ \mbox{"*"}\ \mid\ \mbox{"/"}\ 
+  )\ \textit{spaces} \\
+  \textit{spaces} & ::=\ 
+  \{\ \mbox{" "}\ \}
+\end{align*}
+
+そこで，数や変数名など途中に空白文字を許さない構文単位を <b>トークン</b> (token)と呼び，
+トークンとトークンの間には自動的に空白を許すことにすれば便利だ．
+</p>
+<p>
+<a href="http://www.scala-lang.org/api/current/scala-parser-combinators/scala/util/parsing/combinator/JavaTokenParsers.html">scala.util.parsing.combinator.JavaTokenParsers</a> では，
+以下の関数が事前に定義されており，トークンとして利用可能である．
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">関数名</th><th scope="col" class="left">トークンの種類</th><th scope="col" class="left">例</th></tr>
+</thead>
+<tbody>
+<tr><td class="left"><code>ident</code></td><td class="left">変数名などの識別名</td><td class="left"><code>x</code>, <code>x1</code>, <code>名前</code> など</td></tr>
+<tr><td class="left"><code>wholeNumber</code></td><td class="left">整数</td><td class="left"><code>12</code>, <code>-34</code> など</td></tr>
+<tr><td class="left"><code>decimalNumber</code></td><td class="left">符号なし小数</td><td class="left"><code>12</code>, <code>12.3</code>, <code>.14</code> など</td></tr>
+<tr><td class="left"><code>floatingPointNumber</code></td><td class="left">浮動小数点数</td><td class="left"><code>3.14</code>, <code>6.02e23</code> など</td></tr>
+<tr><td class="left"><code>stringLiteral</code></td><td class="left">文字列</td><td class="left"><code>"abc"</code>, <code>"\\d"</code> など</td></tr>
+</tbody>
+</table>
+
+
+<p>
+なお JavaTokenParsers は <a href="http://www.scala-lang.org/api/current/scala-parser-combinators/scala/util/parsing/combinator/RegexParsers.html">scala.util.parsing.combinator.RegexParsers</a> のサブクラスになっており，
+正規表現を用いて新たなトークンを定義することもできる．
+</p>
+<p>
+前置記法の電卓を JavaTokenParsers で定義したプログラムは，
+以下のように書ける(<a href="prog/parser/CalcP0.scala">CalcP0.scala</a>)．
+</p>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">import</span> scala.util.parsing.combinator._
+
+<span class="org-keyword">object</span> <span class="org-variable-name">CalcP0</span> <span class="org-keyword">extends</span> <span class="org-type">JavaTokenParsers</span> {
+  <span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[Any]</span> = integer | func ~ <span class="org-string">"("</span> ~ expr ~ <span class="org-string">","</span> ~ expr ~ <span class="org-string">")"</span>
+  <span class="org-keyword">def</span> <span class="org-function-name">func</span> = <span class="org-string">"+"</span> | <span class="org-string">"-"</span> | <span class="org-string">"*"</span> | <span class="org-string">"/"</span>
+  <span class="org-keyword">def</span> <span class="org-function-name">integer</span> = wholeNumber
+}
+</pre>
+
+
+<p>
+関数exprが前置記法の式の <b>パーサ</b> (parser; 構文解析器)である．
+そして，関数funcが演算子の部分をパースするパーサ，
+関数integerが整数の部分をパースするパーサとなっている．
+</p>
+<p>
+関数exprの定義部分を見ればわかるように，
+「または」はEBNFと同様に <code>"|"</code> を用いているが，「連結」には <code>"~"</code> を用いている．
+その他の記法は以下のように対応しており，
+Scalaのparser combinatorで，EBNFの記法をほぼ自然に記述できることがわかる．
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">Scalaでの記法</th><th scope="col" class="left">EBNFでの記法</th><th scope="col" class="left">説明</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">\(\alpha_1\) ~ \(\alpha_2\)</td><td class="left">\(\alpha_1\ \alpha_2\)</td><td class="left">\(\alpha_1\) と \(\alpha_2\) の連結</td></tr>
+<tr><td class="left">\(\alpha_1 \mid \alpha_2\)</td><td class="left">\(\alpha_1 \mid \alpha_2\)</td><td class="left">\(\alpha_1\) または \(\alpha_2\)</td></tr>
+<tr><td class="left"><code>rep(</code> \(\alpha\) <code>)</code></td><td class="left">\(\{\ \alpha\ \}\)</td><td class="left">\(\alpha\) の0回以上の繰り返し</td></tr>
+<tr><td class="left"><code>opt(</code> \(\alpha\) <code>)</code></td><td class="left">\([\ \,\alpha\ \,]\)</td><td class="left">\(\alpha\) または空</td></tr>
+<tr><td class="left"><code>(</code> \(\alpha\) <code>)</code></td><td class="left">\((\ \alpha\ )\)</td><td class="left">\(\alpha\) のグループ化</td></tr>
+</tbody>
+</table>
+
+
+<p>
+このプログラムは以下のようにすればScala REPL内から実行できるようになる
+(Scalaを実行する同じフォルダ中にCalcP0.scalaが保存しておくこと)．
+</p>
+
+
+<pre class="example">$ scala
+scala&gt; :load CalcP0.scala
+</pre>
+
+
+<p>
+まず，CalcP0オブジェクト中で定義されている関数を直接実行できるようにimport命令を実行する．
+</p>
+
+
+<pre class="example">scala&gt; import CalcP0._
+</pre>
+
+<p>
+なお，import命令の実行は，プログラムをloadするたびに行う必要がある点に注意すること．
+</p>
+<p>
+parseAll関数を用いると，与えた文字列に対して <b>構文解析</b> (parsing)を実行することができる．
+例えば，以下は <code>+(12,34)</code> を <i>expr</i> として構文解析した結果である．
+</p>
+
+
+<pre class="src src-scala">scala&gt; parseAll(expr, <span class="org-string">"+(12,34)"</span>)
+res: CalcP0.ParseResult[Any] = [1.9] parsed: (((((+~()~12)~,)~34)~))
+</pre>
+
+
+<p>
+出力中の <code>[1.9]</code> は，文字列 <code>+(12,34)</code> の1文字目から9文字目の前 (つまり最終文字)まで
+構文解析できたことを表し，
+<code>(((((+~()~12)~,)~34)~))</code> が構文解析の結果として得られた <b>構文木</b> (parse tree)を文字列表示したものである．
+</p>
+<p>
+この表示は，非常にわかりにくいが，以下のような構造になっている (わかるだろうか?)．
+</p><pre class="example">
+((((("+" ~ "(") ~ "12") ~ ",") ~ "34") ~ ")")
+</pre>
+
+
+<p>
+これを構文木として図示すると以下のようになる(トークンは四角の箱で表されている)．
+</p>
+
+
+<center>
+
+<p>
+<img src="images/scala-parse-tree1_aa424b059f845dce7ee0150628a229e0e65b7e0f.png" width="40%" alt="images/scala-parse-tree1_aa424b059f845dce7ee0150628a229e0e65b7e0f.png" />
+</p>
+
+
+</center>
+
+<p>
+<code>"+"</code>, <code>"("</code>, <code>"12"</code>, <code>","</code>, <code>"34"</code>, <code>")"</code> の各トークンに対し，
+2項演算子 <code>"~"</code> で左結合的に対が作成されていることがわかる．
+</p>
+<p>
+このように，得られた構文木中に意味的には不要なトークン(<code>"("</code>, <code>","</code>, <code>")"</code>)が
+含まれており，複雑になっている．
+</p>
+<p>
+Scalaのparser combinatorには，不要な構造を削除する演算が用意されている．
+演算子 <code>"~"</code> の代わりに  <code>"~&gt;"</code> を用いると左側の構文解析結果が構文木から削除され，
+<code>"&lt;~"</code> を用いると右側の構文解析結果が構文木から削除される．
+</p>
+<p>
+以下のプログラム <a href="prog/parser/CalcP1.scala">CalcP1.scala</a> は， <code>"&lt;~"</code> を用いて不要なトークンを結果の構文木から省いている．
+</p>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">import</span> scala.util.parsing.combinator._
+
+<span class="org-keyword">object</span> <span class="org-variable-name">CalcP1</span> <span class="org-keyword">extends</span> <span class="org-type">JavaTokenParsers</span> {
+  <span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[Any]</span> = integer | (func &lt;~ <span class="org-string">"("</span>) ~ (expr &lt;~ <span class="org-string">","</span>) ~ (expr &lt;~ <span class="org-string">")"</span>)
+  <span class="org-keyword">def</span> <span class="org-function-name">func</span> = <span class="org-string">"+"</span> | <span class="org-string">"-"</span> | <span class="org-string">"*"</span> | <span class="org-string">"/"</span>
+  <span class="org-keyword">def</span> <span class="org-function-name">integer</span> = wholeNumber
+}
+</pre>
+
+
+<p>
+実行するには，以下のように入力する．
+</p>
+
+
+<pre class="src src-scala">$ scala
+scala&gt; :load CalcP1.scala
+scala&gt; <span class="org-keyword">import</span> CalcP1._
+scala&gt; parseAll(expr, <span class="org-string">"+(12,34)"</span>)
+res: CalcP1.ParseResult[Any] = [1.9] parsed: ((+~12)~34)
+</pre>
+
+
+<p>
+表示された結果は，以下のような構文木を表している．
+</p>
+
+
+<center>
+
+<p>
+<img src="images/scala-parse-tree2_606648ec1cbbbdeec1fc1887f438f8b6c2a3c21a.png" width="20%" alt="images/scala-parse-tree2_606648ec1cbbbdeec1fc1887f438f8b6c2a3c21a.png" />
+</p>
+
+
+</center>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> 練習問題</h3>
+<div class="outline-text-3" id="text-4-2">
+
+
+<div class="answer">
+<ol>
+<li>CalcP1.scala を修正し，整数でなく浮動小数点数が利用できるようにせよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       例えば以下のように修正する(<a href="prog/parser/CalcP1float.scala">CalcP1float.scala</a>)．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[Any]</span> = number | (func &lt;~ <span class="org-string">"("</span>) ~ (expr &lt;~ <span class="org-string">","</span>) ~ (expr &lt;~ <span class="org-string">")"</span>)
+<span class="org-keyword">def</span> <span class="org-function-name">func</span> = <span class="org-string">"+"</span> | <span class="org-string">"-"</span> | <span class="org-string">"*"</span> | <span class="org-string">"/"</span>
+<span class="org-keyword">def</span> <span class="org-function-name">number</span> = floatingPointNumber
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>CalcP1.scala を修正し <code>"-(12)"</code> や <code>"abs(-34)"</code> などの1引数の演算や関数を記述できるようにせよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       例えば以下のように修正する(<a href="prog/parser/CalcP1unary.scala">CalcP1unary.scala</a>)．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[Any]</span> =
+  integer |
+  (func1 &lt;~ <span class="org-string">"("</span>) ~ (expr &lt;~ <span class="org-string">")"</span>) |
+  (func2 &lt;~ <span class="org-string">"("</span>) ~ (expr &lt;~ <span class="org-string">","</span>) ~ (expr &lt;~ <span class="org-string">")"</span>)
+<span class="org-keyword">def</span> <span class="org-function-name">func1</span> = <span class="org-string">"-"</span> | ident
+<span class="org-keyword">def</span> <span class="org-function-name">func2</span> = <span class="org-string">"+"</span> | <span class="org-string">"-"</span> | <span class="org-string">"*"</span> | <span class="org-string">"/"</span> | ident
+<span class="org-keyword">def</span> <span class="org-function-name">integer</span> = wholeNumber
+</pre>
+
+<p>
+       ここでは，1引数の関数名として <code>ident</code> を許しているから，
+       <code>abs</code> だけでなく任意の識別名が利用可能となっている．
+       また，2引数の関数名としても任意の識別名が利用できるようにしている．
+</p></dd>
+</dl>
+
+</li>
+<li>以下の関数 <code>hexnum</code> を用いると <code>#7E2</code> などの16進表記の整数をトークンとして利用できる．
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">hexnum</span> = <span class="org-string">"#"</span> ~&gt; <span class="org-string">"[0-9a-fA-F]+"</span>.r
+</pre>
+
+<p>
+     CalcP1.scala を修正し16進表記の整数を利用できるようにせよ．
+</p><dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       例えば <a href="prog/parser/CalcP1hex.scala">CalcP1hex.scala</a> のように修正する．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> 構文解析結果の利用</h3>
+<div class="outline-text-3" id="text-4-3">
+
+<p>ここまでで，前置記法の式の構文解析が実現できた．
+Scalaのparser combinatorでは，構文解析結果に対する処理を記述することもできる．
+その機能を用いて，前置記法の電卓を実現しよう．
+なお，ここでは計算結果は整数とし，浮動小数点の電卓の実現は練習問題とする．
+</p>
+<p>
+<a href="prog/parser/CalcP1.scala">CalcP1.scala</a> の expr の定義を見ると
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">&#38306;&#25968;&#21517;</span>: <span class="org-type">Parser[Any]</span> = &#27083;&#25991;&#23450;&#32681;1 | &#27083;&#25991;&#23450;&#32681;2 | ... | &#27083;&#25991;&#23450;&#32681;n
+</pre>
+
+<p>
+のようになっている．
+これを，Scalaで整数を表すデータ型Intを返すようにするには，
+以下のように記述する(わかりやすく改行を追加している)．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">&#38306;&#25968;&#21517;</span>: <span class="org-type">Parser[Int]</span> =
+  &#27083;&#25991;&#23450;&#32681;1 ^^ Int&#12434;&#36820;&#12377;&#38306;&#25968;1 |
+  &#27083;&#25991;&#23450;&#32681;2 ^^ Int&#12434;&#36820;&#12377;&#38306;&#25968;2 |
+  ...
+  &#27083;&#25991;&#23450;&#32681;n ^^ Int&#12434;&#36820;&#12377;&#38306;&#25968;n
+</pre>
+
+<p>
+ここで「Intを返す関数i」は，「構文定義i」の構文解析結果を引数としてIntの結果を返す関数である．
+</p>
+<p>
+expr の「構文定義1」は <code>integer</code> で，これは構文解析結果として文字列 (String)を返す．
+したがって「Intを返す関数1」としては，10進整数の文字列表記からその値を求める関数を
+記述すれば良い(データ型は <code>String =&gt; Int</code>)．
+</p>
+<p>
+Scalaの匿名関数 (anonymous function)の機能を用いれば，
+10進整数の文字列表記からその値を求める関数は <code>(s =&gt; s.toInt)</code> や
+ <code>{ s =&gt; s.toInt }</code> と記述できる．
+あるいは，さらに引数を省略して <code>(_.toInt)</code> や <code>{ _.toInt }</code> と記述しても良い．
+すなわち，以下のような記述となる．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[Int]</span> =
+  integer ^^ { _.toInt } |
+  (func &lt;~ <span class="org-string">"("</span>) ~ (expr &lt;~ <span class="org-string">","</span>) ~ (expr &lt;~ <span class="org-string">")"</span>) ^^ { t =&gt; ... }
+</pre>
+
+
+<p>
+expr の「構文定義2」は <code>(func &lt;~ "(") ~ (expr &lt;~ ",") ~ (expr &lt;~ ")")</code> で，
+<code>(("+" ~ 12) ~ 34)</code> などの構造が返ってきて，
+そのデータ型は <code>~[~[String,Int],Int]</code> である．
+データ構造 <code>(x ~ y)</code> の第一要素は <code>._1</code> のメソッドで，
+第二要素は <code>._2</code> のメソッドで取り出すことができる．
+つまり， <code>t</code> の値が <code>(("+" ~ 12) ~ 34)</code> の場合，
+<code>t._1._2</code> で12を， <code>t._2</code> で34が得られる．
+</p>
+<p>
+しかし，このように複雑な構造から必要なデータを取り出す場合，Scalaのmatch構文を用いることができる．
+</p>
+
+
+<pre class="src src-scala">t <span class="org-keyword">match</span> {
+  <span class="org-keyword">case</span> <span class="org-variable-name">&#12497;&#12479;&#12540;&#12531;1</span> =&gt; &#20966;&#29702;1
+  <span class="org-keyword">case</span> <span class="org-variable-name">&#12497;&#12479;&#12540;&#12531;2</span> =&gt; &#20966;&#29702;2
+  ...
+  <span class="org-keyword">case</span> <span class="org-variable-name">&#12497;&#12479;&#12540;&#12531;n</span> =&gt; &#20966;&#29702;n
+}
+</pre>
+
+<p>
+この時，「パターン1」から順に <code>t</code> の構造とパターンマッチ (pattern matching)が行われ，
+最初にマッチした「パターンi」に対して「処理i」が実行される．
+</p>
+<p>
+expr の「構文定義2」は <code>(func &lt;~ "(") ~ (expr &lt;~ ",") ~ (expr &lt;~ ")")</code> に対するパターンは，
+<code>f ~ x ~ y</code> のように書けるから，以下のような記述となる．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[Int]</span> =
+  integer ^^ { _.toInt } |
+  (func &lt;~ <span class="org-string">"("</span>) ~ (expr &lt;~ <span class="org-string">","</span>) ~ (expr &lt;~ <span class="org-string">")"</span>) ^^ { t =&gt; t <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-variable-name">f</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">y</span> =&gt; ...
+  }}
+</pre>
+
+<p>
+構文定義中の <code>func</code> の部分が変数 <code>f</code> に， 
+最初の <code>expr</code> の部分が変数 <code>x</code> に，
+次の <code>expr</code> の部分が変数 <code>y</code> に代入される．
+なお， <code>f</code> のデータ型は <code>String</code> ， <code>x</code> と <code>y</code> のデータ型は <code>Int</code> である．
+</p>
+<p>
+<code>f</code> に代入される値は <code>"+"</code>, <code>"-"</code>, <code>"*"</code>, <code>"/"</code> のいずれかだ．
+したがって，パターンを以下のように4通り記述すれば，よりわかりやすくなる．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[Int]</span> =
+  integer ^^ { _.toInt } |
+  (func &lt;~ <span class="org-string">"("</span>) ~ (expr &lt;~ <span class="org-string">","</span>) ~ (expr &lt;~ <span class="org-string">")"</span>) ^^ { t =&gt; t <span class="org-keyword">match</span> {
+    <span class="org-keyword">case</span> <span class="org-string">"+"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">y</span> =&gt; ...
+    <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">y</span> =&gt; ...
+    <span class="org-keyword">case</span> <span class="org-string">"*"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">y</span> =&gt; ...
+    <span class="org-keyword">case</span> <span class="org-string">"/"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">y</span> =&gt; ...
+  }}
+</pre>
+
+
+<p>
+また <code>{ t =&gt; t match { ... } }</code> は，単に <code>{ ... }</code> と省略して書くことができる．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[Int]</span> =
+  integer ^^ { _.toInt } |
+  (func &lt;~ <span class="org-string">"("</span>) ~ (expr &lt;~ <span class="org-string">","</span>) ~ (expr &lt;~ <span class="org-string">")"</span>) ^^ {
+    <span class="org-keyword">case</span> <span class="org-string">"+"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">y</span> =&gt; ...
+    <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">y</span> =&gt; ...
+    <span class="org-keyword">case</span> <span class="org-string">"*"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">y</span> =&gt; ...
+    <span class="org-keyword">case</span> <span class="org-string">"/"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">y</span> =&gt; ...
+  }
+</pre>
+
+
+<p>
+加減乗除の各演算に対し，値を計算する処理を付け加えると以下のようになる
+(<a href="prog/parser/CalcP2.scala">CalcP2.scala</a>)．
+</p>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">import</span> scala.util.parsing.combinator._
+
+<span class="org-keyword">object</span> <span class="org-variable-name">CalcP2</span> <span class="org-keyword">extends</span> <span class="org-type">JavaTokenParsers</span> {
+  <span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[Int]</span> =
+    integer ^^ { _.toInt } |
+    (func &lt;~ <span class="org-string">"("</span>) ~ (expr &lt;~ <span class="org-string">","</span>) ~ (expr &lt;~ <span class="org-string">")"</span>) ^^ {
+      <span class="org-keyword">case</span> <span class="org-string">"+"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">y</span> =&gt; x + y
+      <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">y</span> =&gt; x - y
+      <span class="org-keyword">case</span> <span class="org-string">"*"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">y</span> =&gt; x * y
+      <span class="org-keyword">case</span> <span class="org-string">"/"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">y</span> =&gt; x / y
+    }
+  <span class="org-keyword">def</span> <span class="org-function-name">func</span> = <span class="org-string">"+"</span> | <span class="org-string">"-"</span> | <span class="org-string">"*"</span> | <span class="org-string">"/"</span>
+  <span class="org-keyword">def</span> <span class="org-function-name">integer</span> = wholeNumber
+}
+</pre>
+
+
+<p>
+以下は，実行例である．
+</p>
+
+
+<pre class="src src-scala">scala&gt; :load CalcP2.scala
+scala&gt; <span class="org-keyword">import</span> CalcP2._
+scala&gt; parseAll(expr, <span class="org-string">"+(*(1,2), *(3,4))"</span>)
+res: CalcP2.ParseResult[Int] = [1.18] parsed: 14
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> 練習問題</h3>
+<div class="outline-text-3" id="text-4-4">
+
+
+<div class="answer">
+<ol>
+<li>CalcP2.scala を修正し，整数でなく浮動小数点数が利用できるようにせよ．
+     結果が <code>Double</code> となることに注意すること．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       例えば <a href="prog/parser/CalcP2float.scala">CalcP2float.scala</a> のように修正する．
+</p></dd>
+</dl>
+
+</li>
+<li>さらに修正し <code>"-(0.1)"</code>, <code>"abs(-2.3)"</code>, <code>"max(4, 5)"</code> などの演算および関数が利用できるようにせよ．
+     なお，これらの関数は <code>math.abs(-2.3)</code>, <code>math.max((4, 5)</code> などとすれば計算できる．
+     使用できる関数については <a href="http://www.scala-lang.org/api/current/scala/math/">scala.math</a> パッケージを参照のこと．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       例えば <a href="prog/parser/CalcP2float2.scala">CalcP2float2.scala</a> のように修正する．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> 複数引数への拡張</h3>
+<div class="outline-text-3" id="text-4-5">
+
+<p>さらに，
+<tt>+(x<sub>1</sub>, x<sub>2</sub>, &hellip;, x<sub>n</sub>)</tt> のように，複数の引数を許すようにしよう (n &ge; 1)．
+この構文は，EBNFで以下のように定義できる．
+\begin{align*}
+  \textit{expr} & ::=\ 
+  \textit{integer}\ \mid\ 
+  \textit{func}\ \mbox{"("}\ \textit{expr}\ \{\ \mbox{","}\ \textit{expr}\ \}\ \mbox{")"}
+\end{align*}
+ここで \(\{\ \alpha\ \}\) は \(\alpha\) の0回以上の繰り返しを表している．
+</p>
+<p>
+これは，Scalaのparser combinatorを用いれば以下のように記述できる
+(<a href="prog/parser/CalcP3.scala">CalcP3.scala</a>)．
+</p>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">import</span> scala.util.parsing.combinator._
+
+<span class="org-keyword">object</span> <span class="org-variable-name">CalcP3</span> <span class="org-keyword">extends</span> <span class="org-type">JavaTokenParsers</span> {
+  <span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[Any]</span> =
+    integer |
+    (func &lt;~ <span class="org-string">"("</span>) ~ expr ~ (rep(<span class="org-string">","</span> ~&gt; expr) &lt;~ <span class="org-string">")"</span>)
+  <span class="org-keyword">def</span> <span class="org-function-name">func</span> = <span class="org-string">"+"</span> | <span class="org-string">"-"</span> | <span class="org-string">"*"</span> | <span class="org-string">"/"</span> | ident
+  <span class="org-keyword">def</span> <span class="org-function-name">integer</span> = wholeNumber
+}
+</pre>
+
+
+<p>
+<code>rep("," ~&gt; expr)</code> が \(\{\ \mbox{","}\ \textit{expr}\ \}\) に対応している．
+また，任意の識別子を関数名として利用できるよう， <code>func</code> の定義に <code>ident</code> を追加している．
+</p>
+<p>
+このプログラムを <code>+(1,2,3,4)</code> に対して実行すると以下の結果になる．
+</p>
+
+
+<pre class="src src-scala">scala&gt; :load CalcP3.scala
+scala&gt; <span class="org-keyword">import</span> CalcP3._
+scala&gt; parseAll(expr, <span class="org-string">"+(1,2,3,4)"</span>)
+res: CalcP3.ParseResult[Any] = [1.11] parsed: ((+~1)~List(2, 3, 4))
+</pre>
+
+
+<p>
+<code>rep("," ~&gt; expr)</code> の部分に対応する結果が整数のリスト <code>List(2,3,4)</code> となっていることがわかる．
+したがって，整数の結果を計算するプログラムは以下のように書ける．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[Int]</span> =
+  integer ^^ { _.toInt } |
+  (func &lt;~ <span class="org-string">"("</span>) ~ expr ~ (rep(<span class="org-string">","</span> ~&gt; expr) &lt;~ <span class="org-string">")"</span>) ^^ {
+    <span class="org-keyword">case</span> <span class="org-string">"+"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; ...
+    <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; ...
+    <span class="org-keyword">case</span> <span class="org-string">"*"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; ...
+    <span class="org-keyword">case</span> <span class="org-string">"/"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; ...
+  }
+</pre>
+
+
+<p>
+<code>+(1,2,3,4)</code> の場合，変数 <code>x</code> に整数 <code>1</code> が代入され，
+変数 <code>ys</code> に整数のリスト <code>List(2,3,4)</code> が代入される．
+したがって，結果は <code>x + ys.sum</code> とすれば良い
+(あるいは <code>(x +: ys).sum</code> でも良い)．
+</p>
+<p>
+<code>-(1,2,3,4)</code> の場合は \(1-2-3-4\) を表すと考えれば，
+同様に結果は <code>x - ys.sum</code> で良い．
+また <code>*(1,2,3,4)</code> の場合は \(1\times 2\times 3\times 4\) を表すと考えられるから，
+結果は <code>x * ys.product</code> となり，
+<code>/(1,2,3,4)</code> の場合も同様に <code>x / ys.product</code> で良いだろう．
+</p>
+<p>
+しかし，引数の個数が1つの場合に問題が生じる．
+<code>+(1)</code>, <code>-(1)</code>, <code>*(1)</code>, <code>/(1)</code> のいずれの場合も結果が <code>1</code> となる．
+<code>+</code>, <code>*</code>, <code>/</code> についてはこの結果でも良いが，
+<code>-(1)</code> の場合には <code>-1</code> を結果とすべきだろう．
+</p>
+<p>
+これは，以下のようにプログラムすれば解決できる
+(<a href="prog/parser/CalcP4.scala">CalcP4.scala</a>)．
+</p>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">import</span> scala.util.parsing.combinator._
+
+<span class="org-keyword">object</span> <span class="org-variable-name">CalcP4</span> <span class="org-keyword">extends</span> <span class="org-type">JavaTokenParsers</span> {
+  <span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[Int]</span> =
+    integer ^^ { _.toInt } |
+    (func &lt;~ <span class="org-string">"("</span>) ~ expr ~ (rep(<span class="org-string">","</span> ~&gt; expr) &lt;~ <span class="org-string">")"</span>) ^^ {
+      <span class="org-keyword">case</span> <span class="org-string">"+"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x + ys.sum
+      <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-type">Nil</span> =&gt; - x
+      <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x - ys.sum
+      <span class="org-keyword">case</span> <span class="org-string">"*"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x * ys.product
+      <span class="org-keyword">case</span> <span class="org-string">"/"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x / ys.product
+    }
+  <span class="org-keyword">def</span> <span class="org-function-name">func</span> = <span class="org-string">"+"</span> | <span class="org-string">"-"</span> | <span class="org-string">"*"</span> | <span class="org-string">"/"</span> | ident
+  <span class="org-keyword">def</span> <span class="org-function-name">integer</span> = wholeNumber
+}
+</pre>
+
+
+<p>
+<code>ys</code> の箇所が空リスト <code>Nil</code> になる場合のcaseパターンを追加している．
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4-6" class="outline-3">
+<h3 id="sec-4-6"><span class="section-number-3">4.6</span> 練習問題</h3>
+<div class="outline-text-3" id="text-4-6">
+
+
+<div class="answer">
+<ol>
+<li>CalcP4.scala で <code>parseAll(expr, "abs(-1)")</code> を実行するとどうなるか．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       構文解析は成功しているが，その後の値の計算で，
+       対応するcaseパターンが存在しないため <code>scala.MatchError</code> が表示される．
+</p></dd>
+</dl>
+
+</li>
+<li>CalcP4.scala を修正し <code>abs(x)</code> で <code>x</code> の絶対値を計算するように拡張せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       以下の行を追加すれば良い．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">case</span> <span class="org-string">"abs"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-type">Nil</span> =&gt; math.abs(x)
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>CalcP4.scala を修正し，結果が <code>Int</code> でなく <code>BigInt</code> となるようにせよ．
+     また <code>fact(x)</code> で <code>x</code> の階乗を計算するようにせよ．
+     なお，10進表記の文字列 <code>s</code> について <code>BigInt(s)</code> とすれば，
+     <code>BigInt</code> に変換できる．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(解答例)</a> </dt><dd>
+<p>
+       例えば <a href="prog/parser/CalcP4bigint.scala">CalcP4bigint.scala</a> のように修正する．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 課題1</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>以下からいくつかを選択し， <a href="prog/parser/Work1.scala">Work1.scala</a> に対して拡張を行うこと．
+</p>
+
+
+<div class="answer">
+<ol>
+<li>xiすべての最大値を求める関数 <code>max(x1, x2, ..., xn)</code> を追加せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     <code>BigInt</code> のリスト <code>ys</code> の最大値は <code>ys.max</code> で求めることができる．
+</p></dd>
+</dl>
+
+</li>
+<li>正の整数xとyの最大公約数を求める関数 <code>gcd(x, y)</code> を追加せよ．
+   二つの <code>BigInt</code> の最小公倍数を求める方法については <a href="http://www.scala-lang.org/api/current/scala/math/BigInt.html">scala.math.BigInt</a> を参照．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     <code>BigInt</code> の <code>gcd</code> メソッドを使用する．
+</p></dd>
+</dl>
+
+</li>
+<li>正の整数xiすべての最大公約数を求める関数 <code>gcd(x1, x2, ... xn)</code> を追加せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     <code>BigInt</code> のリストに対し <code>reduce</code> を用いると良い．
+</p></dd>
+</dl>
+
+</li>
+<li>正の整数xiすべての最小公倍数を求める関数 <code>lcm(x1, x2, ... xn)</code> を追加せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     xとyの最小公倍数を求める関数 <code>lcm(x, y)</code> をScalaプログラム中で以下のように定義し，
+     xiのリストに対して <code>reduce</code> を用いる．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">lcm</span>(<span class="org-variable-name">x</span>: <span class="org-type">BigInt</span>, <span class="org-variable-name">y</span>: <span class="org-type">BigInt</span>) = ...
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>n番目のフィボナッチ数を求める関数 <code>fib(n)</code> を追加せよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     <a href="scala-recursive.html">Scalaで再帰プログラミング</a> を参照し関数 <code>fib(n)</code> をoScalaプログラム中で定義する．
+     なお <code>BigInt</code> の値 <code>x</code> を <code>Int</code> に変換するには <code>x.toInt</code> とする．
+</p></dd>
+</dl>
+
+</li>
+<li>西暦y年 (y &ge; 1900) m月d日のユリウス日 (JDN)を求める関数 <code>julius(y, m, d)</code> を追加せよ．
+   今日のユリウス日から自分の誕生日のユリウス日を引けば，何日生きてきたかがわかる．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     ユリウス日 (JDN)の計算方法については <a href="https://ja.wikipedia.org/wiki/ユリウス通日">Wikipedia: ユリウス通日</a> 中の「グレゴリオ暦からの換算式」を参照．
+     なお \((month - 3) \bmod 12\) の部分は <code>(month - 3) % 12</code> として良い．
+</p></dd>
+</dl>
+
+</li>
+<li>n番目の素数を求める関数 <code>prime(n)</code> を追加せよ．
+   ただし素数の値は <code>Int</code> の範囲内として良い．なお，1番目の素数は2である．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     <a href="scala-primeruler.html">Scalaで素数ものさしを探す</a> を参照．
+</p></dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> テスト方法</h3>
+<div class="outline-text-3" id="text-5-1">
+
+<p>テスト用のデータ <a href="prog/parser/test1.txt">test1.txt</a> を同じフォルダにダウンロードし，
+以下のように実行するとテストを実施できる．
+</p>
+
+
+
+<pre class="src src-scala">scala&gt; :load Work1.scala
+scala&gt; Work1.test
+</pre>
+
+
+<ul>
+<li><code>OK</code> と表示された場合，構文解析に成功し，計算した結果が正しい．
+</li>
+<li><code>NG</code> と表示された場合，構文解析に成功したが，計算結果が正しくない．
+</li>
+<li><code>ERR</code> と表示された場合，構文解析でエラーが生じている．
+</li>
+<li><code>scala.MatchError</code> などと表示された場合は，プログラムの誤りである．
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 日本語での数表記が可能な電卓への拡張</h2>
+<div class="outline-text-2" id="text-6">
+
+<p>"二千十八" など，日本語での数表記が可能な電卓へ拡張してみよう．
+</p>
+<p>
+<a href="prog/parser/CalcP4.scala">CalcP4.scala</a> の <code>expr</code> の定義を変更し，
+日本語表記の文字列に対し整数を返す関数 <code>jint</code> を追加する．
+また，整数を <code>Int</code> でなく <code>BigInt</code> で表すように変更する．
+</p>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[BigInt]</span> =
+  integer ^^ { BigInt(_) } |
+  jint |
+  (func &lt;~ <span class="org-string">"("</span>) ~ expr ~ (rep(<span class="org-string">","</span> ~&gt; expr) &lt;~ <span class="org-string">")"</span>) ^^ {
+    <span class="org-keyword">case</span> <span class="org-string">"+"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x + ys.sum
+    <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-type">Nil</span> =&gt; - x
+    <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x - ys.sum
+    <span class="org-keyword">case</span> <span class="org-string">"*"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x * ys.product
+    <span class="org-keyword">case</span> <span class="org-string">"/"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x / ys.product
+  }
+</pre>
+
+
+<p>
+まず "一" から "九" の一桁の表記を可能なプログラムを作成してみよう
+(<a href="prog/parser/CalcPJ1.scala">CalcPJ1.scala</a>)．
+プログラム中で <code>jint1</code> は一桁の数を構文解析し <code>BigInt</code> の値を返す関数である．
+</p>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">import</span> scala.util.parsing.combinator._
+
+<span class="org-keyword">object</span> <span class="org-variable-name">CalcPJ1</span> <span class="org-keyword">extends</span> <span class="org-type">JavaTokenParsers</span> {
+  <span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[BigInt]</span> =
+    integer ^^ { BigInt(_) } |
+    jint |
+    (func &lt;~ <span class="org-string">"("</span>) ~ expr ~ (rep(<span class="org-string">","</span> ~&gt; expr) &lt;~ <span class="org-string">")"</span>) ^^ {
+      <span class="org-keyword">case</span> <span class="org-string">"+"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x + ys.sum
+      <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-type">Nil</span> =&gt; - x
+      <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x - ys.sum
+      <span class="org-keyword">case</span> <span class="org-string">"*"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x * ys.product
+      <span class="org-keyword">case</span> <span class="org-string">"/"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x / ys.product
+    }
+  <span class="org-keyword">def</span> <span class="org-function-name">func</span> = <span class="org-string">"+"</span> | <span class="org-string">"-"</span> | <span class="org-string">"*"</span> | <span class="org-string">"/"</span> | ident
+  <span class="org-keyword">def</span> <span class="org-function-name">integer</span> = wholeNumber
+  <span class="org-keyword">def</span> <span class="org-function-name">jint</span> = jint1
+  <span class="org-keyword">def</span> <span class="org-function-name">jint1</span> =
+    <span class="org-string">"&#19968;"</span> ^^ { _ =&gt; BigInt(1) } |
+    <span class="org-string">"&#20108;"</span> ^^ { _ =&gt; BigInt(2) } |
+    <span class="org-string">"&#19977;"</span> ^^ { _ =&gt; BigInt(3) } |
+    <span class="org-string">"&#22235;"</span> ^^ { _ =&gt; BigInt(4) } |
+    <span class="org-string">"&#20116;"</span> ^^ { _ =&gt; BigInt(5) } |
+    <span class="org-string">"&#20845;"</span> ^^ { _ =&gt; BigInt(6) } |
+    <span class="org-string">"&#19971;"</span> ^^ { _ =&gt; BigInt(7) } |
+    <span class="org-string">"&#20843;"</span> ^^ { _ =&gt; BigInt(8) } |
+    <span class="org-string">"&#20061;"</span> ^^ { _ =&gt; BigInt(9) }
+}
+</pre>
+
+
+<p>
+次に，これを "二十三" などの二桁の表記が可能なように拡張しよう．
+二桁の数は "二十" や "十三" なども可能である．
+つまり "二十三" での "二" や "三" の部分 (あるいは両方)が省略できる．
+したがって，二桁以下の数を表す <code>jint2</code> の構文は以下のように定義できる．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">jint2</span> = opt(jint1) ~ <span class="org-string">"&#21313;"</span> ~ opt(jint1) | jint1
+</pre>
+
+
+<p>
+<code>opt(jint1)</code> は，空または <code>jint1</code> を表している．
+<code>opt(jint1)</code> に対する構文解析結果のデータ型は <code>Option[BigInt]</code> となり，
+空の場合は <code>None</code> という値を持ち，
+空でない場合は <code>Some(x)</code> という値を持つ (<code>x</code> は <code>jint1</code> の結果)．
+</p>
+<p>
+したがって，二桁以下の表記が利用できるプログラム <a href="prog/parser/CalcPJ2.scala">CalcPJ2.scala</a> は以下のようになる．
+</p>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">import</span> scala.util.parsing.combinator._
+
+<span class="org-keyword">object</span> <span class="org-variable-name">CalcPJ2</span> <span class="org-keyword">extends</span> <span class="org-type">JavaTokenParsers</span> {
+  <span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[BigInt]</span> =
+    integer ^^ { BigInt(_) } |
+    jint |
+    (func &lt;~ <span class="org-string">"("</span>) ~ expr ~ (rep(<span class="org-string">","</span> ~&gt; expr) &lt;~ <span class="org-string">")"</span>) ^^ {
+      <span class="org-keyword">case</span> <span class="org-string">"+"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x + ys.sum
+      <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-type">Nil</span> =&gt; - x
+      <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x - ys.sum
+      <span class="org-keyword">case</span> <span class="org-string">"*"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x * ys.product
+      <span class="org-keyword">case</span> <span class="org-string">"/"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x / ys.product
+    }
+  <span class="org-keyword">def</span> <span class="org-function-name">func</span> = <span class="org-string">"+"</span> | <span class="org-string">"-"</span> | <span class="org-string">"*"</span> | <span class="org-string">"/"</span> | ident
+  <span class="org-keyword">def</span> <span class="org-function-name">integer</span> = wholeNumber
+  <span class="org-keyword">def</span> <span class="org-function-name">jint</span> = jint2
+  <span class="org-keyword">def</span> <span class="org-function-name">jint1</span> =
+    <span class="org-string">"&#19968;"</span> ^^ { _ =&gt; BigInt(1) } |
+    <span class="org-string">"&#20108;"</span> ^^ { _ =&gt; BigInt(2) } |
+    <span class="org-string">"&#19977;"</span> ^^ { _ =&gt; BigInt(3) } |
+    <span class="org-string">"&#22235;"</span> ^^ { _ =&gt; BigInt(4) } |
+    <span class="org-string">"&#20116;"</span> ^^ { _ =&gt; BigInt(5) } |
+    <span class="org-string">"&#20845;"</span> ^^ { _ =&gt; BigInt(6) } |
+    <span class="org-string">"&#19971;"</span> ^^ { _ =&gt; BigInt(7) } |
+    <span class="org-string">"&#20843;"</span> ^^ { _ =&gt; BigInt(8) } |
+    <span class="org-string">"&#20061;"</span> ^^ { _ =&gt; BigInt(9) }
+  <span class="org-keyword">def</span> <span class="org-function-name">jint2</span> =
+    jint1 |
+    (opt(jint1) &lt;~ <span class="org-string">"&#21313;"</span>) ~ opt(jint1) ^^ {
+      <span class="org-keyword">case</span> <span class="org-type">None</span> <span class="org-variable-name">~</span> <span class="org-type">None</span> =&gt; BigInt(10)
+      <span class="org-keyword">case</span> <span class="org-type">Some</span>(<span class="org-variable-name">x1</span>) <span class="org-variable-name">~</span> <span class="org-type">None</span> =&gt; 10 * x1
+      <span class="org-keyword">case</span> <span class="org-type">None</span> <span class="org-variable-name">~</span> <span class="org-type">Some</span>(<span class="org-variable-name">x2</span>) =&gt; 10 + x2
+      <span class="org-keyword">case</span> <span class="org-type">Some</span>(<span class="org-variable-name">x1</span>) <span class="org-variable-name">~</span> <span class="org-type">Some</span>(<span class="org-variable-name">x2</span>) =&gt; 10 * x1 + x2
+    }
+}
+</pre>
+
+
+<p>
+以下は，実行例である．
+</p>
+
+
+<pre class="src src-scala">scala&gt; :load CalcPJ2.scala
+scala&gt; <span class="org-keyword">import</span> CalcPJ2._
+scala&gt; parseAll(expr, <span class="org-string">"+(&#19968;,&#20108;,&#19977;,&#22235;)"</span>)
+res: CalcPJ2.ParseResult[BigInt] = [1.11] parsed: 10
+</pre>
+
+
+<p>
+ただし， <code>jint2</code> の構文を以下のように定義すると "二十" の構文解析でエラーになってしまう．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">jint2</span> = jint1 | opt(jint1) ~ <span class="org-string">"&#21313;"</span> ~ opt(jint1)
+</pre>
+
+
+
+<pre class="src src-scala">scala&gt; parseAll(expr, <span class="org-string">"&#20108;&#21313;"</span>)
+res: CalcPJ2.ParseResult[BigInt] =
+[1.2] failure: end of input expected
+
+&#20108;&#21313;
+ ^
+</pre>
+
+
+<p>
+これは "二十" の構文解析で， <code>jint1</code> の規則の適用が "二" の部分に対して先に成功してしまい，
+<code>opt(jint1) ~ "十" ~ opt(jint1)</code> の規則へ進まないためである．
+したがって，文法定義の際には，このような点に注意しなければならない．
+</p>
+<p>
+さらに，三桁の "九百九十九" 以下の値まで利用できる
+プログラム <a href="prog/parser/CalcPJ3.scala">CalcPJ3.scala</a> は以下のようになる．
+</p>
+
+
+
+<pre class="src src-scala"><span class="org-keyword">import</span> scala.util.parsing.combinator._
+
+<span class="org-keyword">object</span> <span class="org-variable-name">CalcPJ3</span> <span class="org-keyword">extends</span> <span class="org-type">JavaTokenParsers</span> {
+  <span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[BigInt]</span> =
+    integer ^^ { BigInt(_) } |
+    jint |
+    (func &lt;~ <span class="org-string">"("</span>) ~ expr ~ (rep(<span class="org-string">","</span> ~&gt; expr) &lt;~ <span class="org-string">")"</span>) ^^ {
+      <span class="org-keyword">case</span> <span class="org-string">"+"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x + ys.sum
+      <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-type">Nil</span> =&gt; - x
+      <span class="org-keyword">case</span> <span class="org-string">"-"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x - ys.sum
+      <span class="org-keyword">case</span> <span class="org-string">"*"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x * ys.product
+      <span class="org-keyword">case</span> <span class="org-string">"/"</span> <span class="org-variable-name">~</span> <span class="org-variable-name">x</span> <span class="org-variable-name">~</span> <span class="org-variable-name">ys</span> =&gt; x / ys.product
+    }
+  <span class="org-keyword">def</span> <span class="org-function-name">func</span> = <span class="org-string">"+"</span> | <span class="org-string">"-"</span> | <span class="org-string">"*"</span> | <span class="org-string">"/"</span> | ident
+  <span class="org-keyword">def</span> <span class="org-function-name">integer</span> = wholeNumber
+  <span class="org-keyword">def</span> <span class="org-function-name">jint</span> = jint3
+  <span class="org-keyword">def</span> <span class="org-function-name">jint1</span> =
+    <span class="org-string">"&#19968;"</span> ^^ { _ =&gt; BigInt(1) } |
+    <span class="org-string">"&#20108;"</span> ^^ { _ =&gt; BigInt(2) } |
+    <span class="org-string">"&#19977;"</span> ^^ { _ =&gt; BigInt(3) } |
+    <span class="org-string">"&#22235;"</span> ^^ { _ =&gt; BigInt(4) } |
+    <span class="org-string">"&#20116;"</span> ^^ { _ =&gt; BigInt(5) } |
+    <span class="org-string">"&#20845;"</span> ^^ { _ =&gt; BigInt(6) } |
+    <span class="org-string">"&#19971;"</span> ^^ { _ =&gt; BigInt(7) } |
+    <span class="org-string">"&#20843;"</span> ^^ { _ =&gt; BigInt(8) } |
+    <span class="org-string">"&#20061;"</span> ^^ { _ =&gt; BigInt(9) }
+  <span class="org-keyword">def</span> <span class="org-function-name">jint2</span> =
+    (opt(jint1) &lt;~ <span class="org-string">"&#21313;"</span>) ~ opt(jint1) ^^ {
+      <span class="org-keyword">case</span> <span class="org-type">None</span> <span class="org-variable-name">~</span> <span class="org-type">None</span> =&gt; BigInt(10)
+      <span class="org-keyword">case</span> <span class="org-type">Some</span>(<span class="org-variable-name">x1</span>) <span class="org-variable-name">~</span> <span class="org-type">None</span> =&gt; 10 * x1
+      <span class="org-keyword">case</span> <span class="org-type">None</span> <span class="org-variable-name">~</span> <span class="org-type">Some</span>(<span class="org-variable-name">x2</span>) =&gt; 10 + x2
+      <span class="org-keyword">case</span> <span class="org-type">Some</span>(<span class="org-variable-name">x1</span>) <span class="org-variable-name">~</span> <span class="org-type">Some</span>(<span class="org-variable-name">x2</span>) =&gt; 10 * x1 + x2
+    } |
+    jint1
+  <span class="org-keyword">def</span> <span class="org-function-name">jint3</span> =
+    (opt(jint1) &lt;~ <span class="org-string">"&#30334;"</span>) ~ opt(jint2) ^^ {
+      <span class="org-keyword">case</span> <span class="org-type">None</span> <span class="org-variable-name">~</span> <span class="org-type">None</span> =&gt; BigInt(100)
+      <span class="org-keyword">case</span> <span class="org-type">Some</span>(<span class="org-variable-name">x1</span>) <span class="org-variable-name">~</span> <span class="org-type">None</span> =&gt; 100 * x1
+      <span class="org-keyword">case</span> <span class="org-type">None</span> <span class="org-variable-name">~</span> <span class="org-type">Some</span>(<span class="org-variable-name">x2</span>) =&gt; 100 + x2
+      <span class="org-keyword">case</span> <span class="org-type">Some</span>(<span class="org-variable-name">x1</span>) <span class="org-variable-name">~</span> <span class="org-type">Some</span>(<span class="org-variable-name">x2</span>) =&gt; 100 * x1 + x2
+    } |
+    jint2
+}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> 課題2</h2>
+<div class="outline-text-2" id="text-7">
+
+<p>以下からいくつかを選択し， <a href="prog/parser/Work2.scala">Work2.scala</a> に対して拡張を行うこと．
+</p>
+
+
+<div class="answer">
+<ol>
+<li>"九千九百九十九" 以下の値を利用できるようにせよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     以下の構文定義を利用する．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">jint4</span> = (opt(jint1) &lt;~ <span class="org-string">"&#21315;"</span>) ~ opt(jint3) | jint3
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>"九千九百九十九万九千九百九十九" 以下の値を利用できるようにせよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     以下の構文定義を利用する．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">jintMan</span> = (jint4 &lt;~ <span class="org-string">"&#19975;"</span>) ~ opt(jint4) | jint4
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>"九千九百九十九億九千九百九十九万九千九百九十九" 以下の値を利用できるようにせよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     以下の構文定義を利用する．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">jintOku</span> = (jint4 &lt;~ <span class="org-string">"&#20740;"</span>) ~ opt(jintMan) | jintMan
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>さらに "兆", "京", "垓" などを利用できるようにせよ (<a href="https://ja.wikipedia.org/wiki/命数法">Wikipedia: 命数法</a>)．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     "兆" については以下の構文定義を利用する．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">jintCho</span> = (jint4 &lt;~ <span class="org-string">"&#20806;"</span>) ~ opt(jintOku) | jintOku
+</pre>
+
+</dd>
+</dl>
+
+</li>
+<li>"きゅうひゃくきゅうじゅうきゅう" など，ひらがなの表記を利用できるようにせよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     <code>jint1</code>, <code>jint2</code> などに規則を追加すれば良い．
+</p></dd>
+</dl>
+
+</li>
+<li><code>"和(1,2,3,4)</code> など，日本語で加減乗除を記述できるようにせよ．
+   関数名は "和", "差", "積", "商" とすること．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     <code>expr</code> に規則を追加すれば良い．
+</p></dd>
+</dl>
+
+</li>
+<li><code>#7E2</code> などの16進表記が可能になるようにせよ．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     16進表記を許す構文規則については，以前の練習問題を参照．
+     <code>BigInt("7E2", 16)</code> などとすれば，16進表記の文字列を <code>BigInt</code> に変換できる．
+</p></dd>
+</dl>
+
+</li>
+<li><code>"12k</code> で 12000， <code>"12M"</code> で 12000000 などを表せるようにせよ (<a href="https://ja.wikipedia.org/wiki/SI接頭辞">Wikipedia: SI接頭辞</a>)．
+<dl>
+<dt><a onclick="toggleAnswer(this.parentNode.parentNode)">(ヒント)</a> </dt><dd>
+<p>
+     以下の構文定義を利用する．
+</p>
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[All]</span> =
+  integer ~ (<span class="org-string">"k"</span> | <span class="org-string">"M"</span> | <span class="org-string">"G"</span> | <span class="org-string">"T"</span> | <span class="org-string">"P"</span>) |
+  integer |
+  jint |
+  (func &lt;~ <span class="org-string">"("</span>) ~ expr ~ (rep(<span class="org-string">","</span> ~&gt; expr) &lt;~ <span class="org-string">")"</span>)
+</pre>
+
+</dd>
+</dl>
+
+</li>
+</ol>
+
+
+</div>
+
+
+</div>
+
+<div id="outline-container-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> テスト方法</h3>
+<div class="outline-text-3" id="text-7-1">
+
+<p>テスト用のデータ <a href="prog/parser/test2.txt">test2.txt</a> を同じフォルダにダウンロードし，
+以下のように実行するとテストを実施できる．
+</p>
+
+
+
+<pre class="src src-scala">scala&gt; :load Work2.scala
+scala&gt; Work2.test
+</pre>
+
+
+<ul>
+<li><code>OK</code> と表示された場合，構文解析に成功し，計算した結果が正しい．
+</li>
+<li><code>NG</code> と表示された場合，構文解析に成功したが，計算結果が正しくない．
+</li>
+<li><code>ERR</code> と表示された場合，構文解析でエラーが生じている．
+</li>
+<li><code>scala.MatchError</code> などと表示された場合は，プログラムの誤りである．
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> 発展課題</h2>
+<div class="outline-text-2" id="text-8">
+
+<p><code>Work1.scala</code>, <code>Work2.scala</code> と同様に <code>Work3.scala</code> を作成し，自由に拡張を行え．
+ただし，テスト用のデータ <code>test3.txt</code> を作成し <code>Work3.test</code> でテストを実行できるようにせよ．
+</p>
+<p>
+以下は，拡張の例である．
+</p>
+
+
+<div class="answer">
+<ol>
+<li>以下の構文規則を利用し， <code>3+1*4</code> などの挿入記法での通常の数式表記を可能にする．
+
+
+
+<pre class="src src-scala"><span class="org-keyword">def</span> <span class="org-function-name">expr</span>: <span class="org-type">Parser[Any]</span> = opt(<span class="org-string">"-"</span>) ~ term ~ rep(<span class="org-string">"+"</span> ~ term | <span class="org-string">"-"</span> ~ term)
+<span class="org-keyword">def</span> <span class="org-function-name">term</span>: <span class="org-type">Parser[Any]</span> = factor ~ rep(<span class="org-string">"*"</span> ~ factor | <span class="org-string">"/"</span> ~ factor)
+<span class="org-keyword">def</span> <span class="org-function-name">factor</span>: <span class="org-type">Parser[Any]</span> = integer | <span class="org-string">"("</span> ~&gt; expr &lt;~ <span class="org-string">")"</span> | (ident &lt;~ <span class="org-string">"("</span>) ~ expr ~ (rep(<span class="org-string">","</span> ~&gt; expr) &lt;~ <span class="org-string">")"</span>)
+</pre>
+
+</li>
+<li><code>"一足す二引く三"</code> など，日本語を用いた挿入記法での表記を可能にする．
+</li>
+<li><code>"MMXVIII"</code> など，ローマ数字の表記を可能にする (<a href="https://ja.wikipedia.org/wiki/ローマ数字">Wikipedia: ローマ数字</a>)．
+</li>
+<li>"nine hundreds and ninety nine" など，英語での表記を可能にする．
+</li>
+<li>複素数の計算を行う電卓を作成する．
+</li>
+<li>有理数 (分数)の計算を行う電卓を作成する．
+</li>
+<li>ベクトルや行列の計算を行う電卓を作成する．
+</li>
+</ol>
+
+
+</div>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2018-03-03 01:07:01 JST</p>
+<p class="author">Author: 田村直之</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

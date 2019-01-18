@@ -1,0 +1,9 @@
+#+LATEX: \begin{comment}
+  本Webページの作成には [[http://orgmode.org/][Emacs org-mode]] を用い，
+  数式等の表示は [[http://www.mathjax.org][MathJax]] を用いています．
+  IEでは正しく表示されないことがあるため，
+  Firefox, Safari等のWebブラウザでJavaScriptを有効にしてお使いください．
+  また [[http://orgmode.org/worg/code/org-info-js/][org-info.js]] を利用しており，
+  「m」キーをタイプするとinfoモードでの表示になります．
+  利用できるショートカットは「?」で表示されます．
+#+LATEX: \end{comment}

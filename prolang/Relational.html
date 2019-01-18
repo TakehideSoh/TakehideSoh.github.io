@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>プログラミング言語論および演習 (演習前半) <br>** 有理数の計算 **</title>
+<!-- 2013-10-30 水 15:27 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">プログラミング言語論および演習 (演習前半) <br>** 有理数の計算 **</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">有理数の計算を行うプログラムを Scala で作ってみよう．</a>
+<ul>
+<li><a href="#sec-1-1">RetionalNum クラス</a></li>
+<li><a href="#sec-1-2">plus 関数</a></li>
+<li><a href="#sec-1-3">minus 関数</a></li>
+<li><a href="#sec-1-4">times 関数</a></li>
+<li><a href="#sec-1-5">divide 関数</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">実装のテンプレート</a></li>
+<li><a href="#sec-3">テスト</a></li>
+<li><a href="#sec-4">チャレンジ課題</a>
+<ul>
+<li><a href="#sec-4-1">上記を単純に実装しただけでは，分子が24で分母が9の場合にそのまま出力される．これが8/3と出力されるような RelSimp クラスを設計し，実装しよう．但し RelSimp クラスは以下の仕様を持つものとする．</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<style type="text/css">
+#table1 th { font-weight:normal; text-align: left; background-color: #ffeeee; border: none}
+#table1 td { background-color: #ffeeee; border: none}
+
+#table2 th    { background-color: #3B5998; color: white; border-style:
+#solid; border-color: black; border-width: thin; border: none;}
+#table2 td    { background-color: #eeeeee; color: black; border-style: solid; border-color: black; border-width: thin; border: none}
+#table2 td+td { background-color: #efefff; color: black;}
+#table2 td    { text-align: center; background-color: #3B5998; color: white; width:120px}
+#table2 td+td { text-align: center; width:120px; color: black;}
+#table2 td+td+td { text-align: left; width:500px; color: black;}
+
+#table3 th { font-weight:normal; text-align: left;  border: none; background-color: #f1f1f1}
+#table3 td { border: none; background-color: #f1f1f1}
+</style>
+
+<p>
+この課題にはScalaによる複素数の計算の<a href="./Complex.html">ページ</a>が役に立つ．
+</p>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">有理数の計算を行うプログラムを Scala で作ってみよう．</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+実装の仕様を以下に記述する.
+</p>
+</div>
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">RetionalNum クラス</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><ul class="org-ul"><li>インスタンス変数としてInt型の numer (分子), Int型の denom (分母) を持つ．<br  /></li>
+<li>以下のメソッドが内部で定義される<br  /></li></ul>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">plus 関数</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><ul class="org-ul"><li>(入力) RationalNum型のthat<br  /></li>
+<li>(出力) RationalNum型．有理数 this と that の和<br  /></li>
+<li>(出力例) 未作成<br  /></li></ul>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">minus 関数</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><ul class="org-ul"><li>(入力) RationalNum型のthat<br  /></li>
+<li>(出力) RationalNum型．有理数 this と that の差<br  /></li>
+<li>(出力例) 未作成<br  /></li></ul>
+</div>
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">times 関数</h3>
+<div class="outline-text-3" id="text-1-4">
+</div><ul class="org-ul"><li>(入力) RationalNum型のthat<br  /></li>
+<li>(出力) RationalNum型．有理数 this と that の積<br  /></li>
+<li>(出力例) 未作成<br  /></li></ul>
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5">divide 関数</h3>
+<div class="outline-text-3" id="text-1-5">
+</div><ul class="org-ul"><li>(入力) RationalNum型のthat<br  /></li>
+<li>(出力) RationalNum型．有理数 this と that の商<br  /></li>
+<li>(出力例) 未作成<br  /></li></ul>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">実装のテンプレート</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">case</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">RelationalNum</span>(<span style="color: #a0522d;">numer</span>: <span style="color: #228b22;">Int</span>, <span style="color: #a0522d;">denom</span>: <span style="color: #228b22;">Int</span>) {
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">plus</span>(<span style="color: #a0522d;">that</span>: <span style="color: #228b22;">RelationalNum</span>) = ???
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">minus</span>(<span style="color: #a0522d;">that</span>: <span style="color: #228b22;">RelationalNum</span>) = ???
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">times</span>(<span style="color: #a0522d;">that</span>: <span style="color: #228b22;">RelationalNum</span>) = ???
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">divide</span>(<span style="color: #a0522d;">that</span>: <span style="color: #228b22;">RelationalNum</span>) = ???
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">テスト</h2>
+<div class="outline-text-2" id="text-3">
+</div><ul class="org-ul"><li>(出力例) 未作成<br  /></li></ul>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">チャレンジ課題</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">上記を単純に実装しただけでは，分子が24で分母が9の場合にそのまま出力される．これが8/3と出力されるような RelSimp クラスを設計し，実装しよう．但し RelSimp クラスは以下の仕様を持つものとする．</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li>二つのインスタンス変数を持ち, RelSimp(24, 9) などでオブジェクトを生成できること (case class RelSimp(numer: Int, denom: Int)と定義しておけば自然にそうなる)
+</li>
+<li>plus, minus, times, divide 関数を持ち，有理数の四則演算を行えること．
+</li>
+<li>上記の関数以外にも内部で使う他の関数を定義しても構わない．
+</li>
+<li>(ヒント) 約分する必要がある．すなわち最大公約数を求める必要がある．
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Takehide Soh</p>
+<p class="date">Created: 2013-10-30 水 15:27</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 23.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.1)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
