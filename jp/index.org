@@ -1,0 +1,359 @@
+# -*- coding: utf-8 -*-
+#+TITLE: 
+#+AUTHOR: Takehide Soh
+#+EMAIL: soh@lion.kobe-u.ac.jp
+
+#+OPTIONS: ^:nil toc:nil H:1 num:2
+
+#+HTML_HEAD: <!-- Global site tag (gtag.js) - Google Analytics -->
+#+HTML_HEAD: <script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
+#+HTML_HEAD: <script>
+#+HTML_HEAD:   window.dataLayer = window.dataLayer || [];
+#+HTML_HEAD:  function gtag(){dataLayer.push(arguments);}
+#+HTML_HEAD:  gtag('js', new Date());
+#+HTML_HEAD:  gtag('config', 'UA-6313627-5');
+#+HTML_HEAD: </script>
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../myhome.css" />
+
+#+MACRO: title @@html:<span class="title">$1</span>@@
+#+MACRO: author @@html:<span class="author">$1</span>@@
+#+MACRO: others @@html:<span class="others">$1</span>@@
+
+#+MACRO: date @@html:<span class="date">$1</span>@@
+#+MACRO: item @@html:<span class="item">$1</span>@@
+#+MACRO: item2 @@html:<span class="item2">$1</span>@@
+
+#+MACRO: pc @@html:<span class="others">プログラム委員</span>@@
+#+MACRO: pcc @@html:<span class="others">プログラム委員長</span>@@
+#+MACRO: org @@html:<span class="others">オーガナイザ</span>@@
+
+#+MACRO: going @@html:<span class="prize">進行中</span>@@
+#+MACRO: st @@html:<font color="#3B5998"><b>$1</b></font>@@
+#+MACRO: alert @@html:<font color="#bb4e4c"><b>$1</b></font>@@
+
+#+MACRO: prize @@html:<span class="prize">受賞</span>@@
+
+#+BEGIN_HTML html
+<style type="text/css">
+#tb1 td   { width:100px }
+#tb1 td+td   { width:700px }
+</style>
+#+END_HTML
+
+#+INCLUDE: "top-jp.html"
+
+* プロフィールページ
+  - [[https://scholar.google.co.jp/citations?user=N10uw7YAAAAJ&hl=en][Google Scholar]]
+  - [[https://dblp.org/pers/hd/s/Soh:Takehide][DBLP]]
+  - [[https://dl.acm.org/author_page.cfm?id=81324493968][ACM Digital Library]]
+  - [[https://researchmap.jp/soh/?lang=english][researchmap]] 
+
+* 最近の出来事と今後の予定
+#+BEGIN_HTML
+<div align="center">
+<img width="500px" src="../xcsp18-result-light.jpg">
+</div>
+#+END_HTML
+  - <2018-08-28 火> {{{prize}}}
+    - 制約充足問題 (CSP) の国際ソルバー競技会である XCSP18 にCSPソルバー
+      [[../sCOP/][sCOP]] で2部門に参加し，その2部門（CSP逐次/並列）で優勝しました!!!
+      - http://www.cril.univ-artois.fr/XCSP18/files/resultsXCSP3-18.pdf
+  - <2017-09-06 水> 
+    - フランス国立科学研究センター (Centre national de la recherche
+      scientifique; CNRS) の客員研究員として2018年9月までフランスの
+      CRIL (Centre de Recherche en Informatique de Lens) に研究滞在し
+      ます．
+
+  - <2017-03-10 金> {{{prize}}}
+    - 第19回プログラミングおよびプログラミング言語ワークショップ
+      (PPL 2017) で{{{alert(PPL2017発表賞 (一般の部) }}}を受賞しました！([[https://ppl2017.ipl-e.ai.kyutech.ac.jp][詳細]])
+  - <2016-09-20 火> {{{prize}}}
+    - 日本ソフトウェア科学会 {{{alert(第20回研究論文賞（2015年度）)}}}を受賞しました
+      ([[http://www.jssst.or.jp/announce/detail/id=261][詳細]])．
+      - パッキング配列問題の制約モデリングとSAT符号化. コンピュータソフトウェア, 31(1):116-130, 2014.
+  - <2015-10-21 水>
+    - 第9回AIツールセミナー{{{alert(SATソルバーとそのアプリケーション開発について)}}}で講師を務めます ([[http://kix.istc.kobe-u.ac.jp/~soh/ai-tool/][詳細]])．
+      - 日時：12月14日（月）10:00〜17:00 予定
+      - 場所：国立情報学研究所
+      - 主催：人工知能学会
+      - 詳細情報・お申し込みは[[http://kix.istc.kobe-u.ac.jp/~soh/ai-tool/][こちら]]．
+  - <2015-08-27 木> {{{prize}}}
+    - iSugar+GlueMiniSatチームがDAシンポジウム2015において開催されたアルゴリズムデザインコンテストにおいて第1位となり{{{alert(最優秀賞)}}}を受賞しました．
+    - さらに詳細が日経オンラインテクノロジーの[[http://techon.nikkeibp.co.jp/atcl/news/15/102300875/][記事]]で紹介されました．
+      - {{{alert(数から質へ、IC設計に通じるパズル解きコンテストが進化)}}}
+  - <2015-07-23 木>
+    - SAT型CSPソルバー [[../dsugar/][Diet-Sugar]] をリリース ([[./software.html][ソフトウェア]]).
+  - <2015-06-21 日>
+    - SAT型CPシステム [[../scarab/][Scarab]] のバージョン 1.6.9をリリース ([[./software.html][ソフトウェア]]).
+  - <2014-12-10 水> {{{prize}}}
+    - 日本ソフトウェア科学会・{{{alert(第31回大会高橋奨励賞)}}}を受賞しました！([[http://www.jssst.or.jp/award/detail/takahashi_list.html][詳細]])
+
+* 興味のある研究
+# 最近は特にSAT型制約プログラミングシステム [[../scarab/][Scarab]] に力をいれてます．
+  - SATやCSPとその応用
+    - 充足可能性判定 (SAT) 問題
+    - 制約充足問題 (CSP)
+  - 制約プログラミング
+  - システム生物，特に代謝パスウェイにおける知識発見
+
+* 職歴
+- {{{date(2012/04 - 現在)}}} {{{item(神戸大学 情報基盤センター 助教)}}}
+- {{{date(2017/09 - 2018/09)}}} {{{item(Centre National de la Recherche Scientifique; CNRS 客員研究員)}}}
+- {{{date(2011/10 - 2012/03)}}}  {{{item(新領域融合研究センター\, 融合プロジェクト特任研究員)}}} 
+- {{{date(2010/04 - 2011/09)}}}  {{{item(日本学術振興会特別研究員)}}}                            
+- {{{date(2008/04 - 2010/09)}}}  {{{item(国立情報学研究所\, リサーチアシスタント)}}}             
+- {{{date(2006/04 - 2008/03)}}}  {{{item(サントリー株式会社\, 情報システム事業部)}}}             
+
+# #+ATTR_HTML: :border 0 :rules all :frame void
+
+  # - 2012年4月 - 現在
+  #   - 神戸大学 情報基盤センター 助教
+  # - 2011年10月 - 2012年3月
+  #   - 新領域融合研究センター, 融合プロジェクト特任研究員
+  # - 2010年4月 - 2011年9月
+  #   - 日本学術振興会特別研究員
+  # - 2008年4月 - 2010年9月
+  #   - リサーチアシスタント, 国立情報学研究所
+  # - 2006年4月 - 2008年3月
+  #   - サントリー株式会社, 情報システム事業部
+
+* 学歴
+# #+ATTR_HTML: :border 0 :rules all :frame void
+- {{{date(2011/09)}}}  {{{item(博士(情報学)\, 総合研究大学院大学 複合科学研究科 情報学専攻)}}} 
+- {{{date(2006/03)}}}  {{{item(修士(工学)\, 神戸大学大学院 自然科学研究科 電気電子工学専攻)}}} 
+- {{{date(2004/03)}}}  {{{item(学士(工学)\, 神戸大学 工学部 電気電子工学科)}}}    
+
+  # - 2011年9月
+  #   - 博士(情報学), 総合研究大学院大学 複合科学研究科 情報学専攻
+  # - 2006年3月
+  #   - 修士(工学), 神戸大学大学院 自然科学研究科 電気電子工学専攻
+  # - 2004年3月
+  #   - 学士(工学), 神戸大学 工学部 電気電子工学科
+
+# #+ATTR_HTML: :border 0 :rules all :frame void
+* 受賞歴
+** {{{date(2018/09)}}} {{{item(情報処理学会 2018 年度特選論文)}}}
+*** (URL) http://www.ipsj.or.jp/award/ssp_award.html
+#  - {{{others((共同受賞) 寸田智也\, 宋剛秀\, 番原睦則\, 田村直之\, 井上 克巳)}}}
+** {{{date(2018/08)}}} {{{item(XCSP18 逐次CSPソルバー部門1位\, 並列CSPソルバー部門1位)}}}
+*** (URL) http://www.cril.univ-artois.fr/XCSP18/
+#  - CSPソルバーの性能を競う国際競技会 (http://www.cril.univ-artois.fr/XCSP18/) での受賞
+** {{{date(2017/03)}}} {{{item(PPL2017発表賞（一般の部） (日本ソフトウェア科学会 第19回プログラミングおよびプログラミング言語ワークショップ))}}}
+*** (URL) https://ppl2017.ipl-e.ai.kyutech.ac.jp/#winning
+
+** {{{date(2016/03)}}} {{{item(日本ソフトウェア科学会 第20回研究論文賞)}}}
+*** (URL) https://www.jssst.or.jp/award/detail/ronbunsho_list.html
+
+# - {{{others((共同受賞) 則武治樹，番原睦則，宋剛秀，田村直之，井上克巳)}}}
+
+** {{{date(2015/08)}}} {{{item(アルゴリズムデザインコンテスト2015 最優秀賞 (DAシンポジウム2015))}}} ([[http://techon.nikkeibp.co.jp/atcl/news/15/102300875/][日経オンラインテクノロジー記事]])
+*** (URL)  http://www.sig-sldm.org/DC2015/ADC2015results2.pdf
+# *** {{{others((共同受賞) 迫龍哉，川原征大，田村直之，番原睦則，宋剛秀，鍋島英知)}}}
+
+** {{{date(2014/11)}}} {{{item(日本ソフトウェア科学会 第31回大会高橋奨励賞 (2014))}}}
+*** (URL)  https://www.jssst.or.jp/award/detail/takahashi_list.html
+
+** {{{date(2014/08)}}} {{{item(アルゴリズムデザインコンテスト2014 最優秀賞 (DAシンポジウム2014・SWEST16))}}}  [[http://techon.nikkeibp.co.jp/article/NEWS/20141218/395212/][(日経テクノロジーオンライン記事)]] 
+*** (URL)  http://www.sig-sldm.org/DC2014/results.html
+#  - {{{others((共同受賞) 田村直之，宋剛秀，番原睦則，鍋島英知)}}}
+** {{{date(2010/04)}}} {{{item(2010年度 総合研究大学院大学学長賞)}}}
+*** (URL)  https://www.soken.ac.jp/education/dispatch/scientistaward/fsaward/winners/
+
+** {{{date(2009/10)}}} {{{item(人工知能学会 2009年度全国大会優秀賞)}}}
+*** (URL)  https://www.ai-gakkai.or.jp/about/award/jsai_award-conf/
+
+#  - (論文名) SAT技術を用いたペトリネットのデッドロック検出手法の提案
+  # - 日本ソフトウェア科学会 第31回大会高橋奨励賞 (2014)
+  # - 2010年度 総合研究大学院大学学長賞
+  # - 人工知能学会 2009年度全国大会優秀賞
+# 受賞年月日
+
+* 招待講演
+- {{{date(2015/12/14)}}} {{{item(SATソルバーとそのアプリケーション開発について (SAT型制約ソルバー).)}}} 宋剛秀. 第9回AIツール入門講座, 国立情報学研究所, 19階会議室1901,1902,1903.  
+# - {{{date(2016/02/19)}}} {{{item(SATソルバーとSAT型制約プログラミングシステム.)}}} 宋剛秀. SAT技術と制約プログラミングに関する講演会, 産業技術総合研究所・関西センター C6棟034-030. 
+
+* 言語
+  - 日本語 (ネイティブ), 英語 (TOEIC 905)
+
+* 研究奨励金，競争的研究資金の獲得実績 (代表者)
+ *(代表者)*
+** {{{date(2019/08 - 2021/07)}}} 
+*** (*研究代表者*) {{{item(SAT技術を用いた非同期なオートマタネットワークにおけるアトラクタの計算)}}} 
+*** {{{others(JSPS 二国間交流事業(共同研究) フランスとの共同研究(MEAE-MESRI) ``SAKURAプログラム''>)}}}
+** {{{date(2016/04 - 2019/03)}}} 
+*** (*研究代表者*) {{{item(ハイブリッド符号化を用いた高性能なSAT型制約プログラミングシステム)}}} {{{going}}} 
+*** {{{others(JSPS 科学研究費補助金若手研究(B) (No. 16K16036))}}}
+*** (KAKEN) https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16K16036/
+** {{{date(2013/04 - 2016/03)}}} 
+*** (*研究代表者*) {{{item(代謝パスウェイ解析のための制約プログラミングシステムの研究開発)}}}                
+*** {{{others(JSPS 科学研究費補助金若手研究(B) (No. 25730042))}}}
+*** (KAKEN)  https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-25730042/
+** {{{date(2014/04 - 2015/03)}}} 
+*** (*研究代表者*) {{{item(SAT技術を用いた教育機関のための高速な時間割システムの実現)}}}                     
+*** {{{others(平成26年度国立情報学研究所共同研究一般研究公募型)}}}                                       
+** {{{date(2013/04 - 2014/03)}}}
+*** (*研究代表者*) {{{item(インクリメンタル解法を用いた高性能かつ高機能な制約 ASP ソルバーに関する研究)}}}  
+*** {{{others(平成25年度国立情報学研究所共同研究一般研究公募型)}}}                                        
+** {{{date(2011/11 - 2012/03)}}} 
+*** (*研究代表者*) {{{item(グローバル調節ネットワークにおける因果関係と推論を用いた知識発見)}}}
+*** {{{others(融合研究シーズ探索)}}}  
+** {{{date(2010/04 - 2012/03)}}}
+*** (*研究代表者*) {{{item(SAT変換を用いた制約充足問題の解法とシステム生物学への応用)}}}
+*** {{{others(JSPS 特別研究員（DC2）-- 科学研究費補助金（特別研究員奨励金）)}}}
+*** {{{others(2011年10月より所属機関変更・継続)}}} 
+*** (KAKEN) https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-10J02321/
+
+* 研究奨励金，競争的研究資金の獲得実績 (共同研究者・分担者 (科研費))) 
+*(共同研究者・分担者 (科研費))*
+** {{{date(2018/04 - 2021/03)}}}
+*** (研究分担者) {{{item(先進的な知識表現および推論技術を基盤とした多目的最適化ソルバーの研究開発)}}} {{{going}}} 
+*** {{{others(JSPS 科学研究費補助金基盤研究(C) (No.18K11242; 研究代表者：名古屋大学・番原睦則教授)}}}
+*** (KAKEN) https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-18K11242/
+
+** {{{date(2016/04 - 2019/03)}}}  
+*** (研究分担者) {{{item(SATを基盤とした新しい制約プログラミングシステムの研究開発)}}} {{{going}}}  
+*** {{{others(JSPS 科学研究費補助金基盤研究(B) (No. 16H02803)，研究代表者：神戸大学・田村直之教授)}}}
+*** (KAKEN) https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16H02803/
+
+*** [[http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/][CSPSAT3]]                                                                                                  
+** {{{date(2015/04 - 2018/03)}}}  
+*** (研究分担者) {{{item(SAT符号化を用いた制約解集合プログラミングに関する研究開発)}}}                        
+*** {{{others(JSPS 科学研究費補助金基盤研究(C) (No.15K00099; 研究代表者：神戸大学・番原睦則准教授)}}}
+*** (KAKEN) https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-15K00099/
+** {{{date(2012/04 - 2015/03)}}} 
+*** (研究分担者) {{{item( 命題論理の推論技術を用いた高性能かつ柔軟な制約プログラミングシステムの実現)}}}      
+*** {{{others(JSPS 科学研究費補助金基盤研究(B) (No.24300007)，研究代表者：神戸大学・田村直之教授)}}}
+*** (KAKEN) https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-24300007/
+*** [[http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/cspsat2.html][CSPSAT2]]  
+
+* 研究奨励金，競争的研究資金の獲得実績 (共同研究者・分担者 (NII共同研究))
+*(共同研究者・分担者 (NII共同研究))*
+
+** {{{date(2018/04 - 2019/03)}}}
+*** (共同研究者) {{{item(背景理論付き解集合プログラミングに関する研究開発)}}} {{{going}}}                                     
+*** {{{others(平成30年度国立情報学研究所共同研究戦略研究公募型 研究代表者：名古屋大学・番原睦則教授)}}}
+*** {{{others(番原睦則\, 井上克巳\, 田村直之\, 沖本天太\, 宋剛秀\, 坡山直樹\, SCHAUB Torsten)}}}                                                                                                           
+** {{{date(2017/04 - 2018/03)}}}
+*** (共同研究者) {{{item(背景理論付き解集合プログラミングに関する研究開発)}}}                                                
+*** {{{others(平成29年度国立情報学研究所共同研究戦略研究公募型 研究代表者：神戸大学・番原睦則准教授)}}}
+*** {{{others(番原睦則\, 井上克巳\, 田村直之\, 沖本天太\, 宋剛秀\, 坡山直樹\, SCHAUB Torsten)}}}
+** {{{date(2015/04 - 2016/03)}}}
+*** (共同研究者) {{{item(クラウド上のソフトウェア最適配置問題の解法)}}}                                                      
+*** {{{others(平成27年度国立情報学研究所共同研究戦略研究公募型 研究代表者：神戸大学・田村直之教授)}}}                        
+*** {{{others(田村直之\, 井上克巳\, 鍋島英知\, 番原睦則\, 宋剛秀\, 川原正広\, 迫龍哉\, Le BERRE Daniel\, Di COSMO Roberto)}}} 
+** {{{date(2015/04 - 2016/03)}}}
+*** (共同研究者) {{{item(解集合プログラミングによるシステム検証)}}}                                                          
+*** {{{others(平成27年度国立情報学研究所共同研究自由提案公募型 研究代表者：神戸大学・番原睦則准教授)}}}                     
+*** {{{others(番原睦則\, 井上克巳\, 田村直之\, 宋剛秀\, SCHAUB Torsten)}}}                                                   
+** {{{date(2012/04 - 2013/03)}}}
+*** (共同研究者) {{{item(SAT技術を用いた制約解集合プログラミングに関する研究)}}}                                              
+*** {{{others(平成24年度国立情報学研究所共同研究一般研究公募型 研究代表者：神戸大学・番原睦則准教授)}}}                       
+*** {{{others(番原睦則\, 井上克巳\, 田村直之\, 宋剛秀\, 丹生智也)}}}                                                          
+** {{{date(2011/04 - 2012/03)}}}
+*** (共同研究者) {{{item(SAT技術を用いた制約解集合プログラミングに関する研究)}}}                                              
+*** {{{others(平成23年度国立情報学研究所共同研究一般研究公募型 研究代表者：神戸大学・番原睦則准教授)}}}                       
+*** {{{others(番原睦則\, 井上克巳\, 田村直之\, 宋剛秀\, 丹生智也)}}}                                                          
+** {{{date(2010/04 - 2011/03)}}} 
+*** (共同研究者) {{{item(新しいSAT符号化法，新しいSATソルバー， 及び求解困難な問題への応用に関する研究)}}}                    
+*** {{{others(平成22年度国立情報学研究所共同研究公募型 研究代表者：神戸大学・番原睦則准教授)}}}                               
+*** {{{others(番原睦則\, 井上克巳\, 田村直之\, 鍋島英知\, 越村三幸\, 宋剛秀\, 丹生智也)}}}                                    
+** {{{date(2009/04 - 2010/03)}}}
+*** (共同研究者) {{{item(SAT変換技術の拡張による求解困難な制約最適化問題の解法に関する研究)}}}                                
+*** {{{others(平成21年度国立情報学研究所共同研究公募型 研究代表者：神戸大学・田村直之教授)}}}                                 
+*** {{{others(田村直之\, 井上克巳\, 番原睦則\, 鍋島英知\, 越村三幸\, 宋剛秀\, 丹生智也)}}}                                    
+** {{{date(2008/04 - 2009/03)}}}
+*** (共同研究者) {{{item(求解困難な制約最適化問題のSAT変換による解決に関する研究)}}}                                          
+*** {{{others(平成20年度国立情報学研究所共同研究公募型 研究代表者：神戸大学・田村直之教授)}}}                                 
+*** {{{others(田村直之\, 井上克巳\, 番原睦則\, 平山勝敏\, 岩沼宏治\, 鍋島英知\, 越村三幸\, 宋剛秀)}}}                         
+** {{{date(2005/04 - 2006/03)}}} 
+*** (共同研究者) {{{item(分散協調SATアルゴリズムの設計と実現に関する研究)}}}                                                  
+*** {{{others(平成17年度国立情報学研究所共同研究企画型 研究代表者：国立情報学研究所・井上克巳教授)}}}                         
+*** {{{others(井上克巳\, 田村直之\, 番原睦則\, 平山勝敏\, 宋剛秀)}}}                                                          
+** {{{date(2004/04 - 2005/03)}}}
+*** (共同研究者) {{{item(分散知能システムの基礎および実現に関する研究)}}}                                                     
+*** {{{others(平成16年度国立情報学研究所共同研究企画型 研究代表者：国立情報学研究所・井上克巳教授)}}}                         
+*** {{{others(井上克巳\, 和田修\, 田川聖治\, 岩内英二\, 岡本孝之\, 山本秦生\, 宋剛秀)}}}                                   
+
+     # 上記の他に以下の国立情報学研究所共同研究プロジェクトに共同研究者として参加しています．
+     # #+HTML: <font size="2">
+     # #+ATTR_HTML: :border 0 :rules all :frame void
+     # #+HTML: </font>
+
+* (国際) 学会ならびに社会における活動
+** {{{date(2018/07/09-12)}}} {{{item(International Conference on Theory and Applications of Satisfiability Testing (SAT 2018))}}}
+*** {{{pc}}}
+*** (URL) https://sat2018.azurewebsites.net/organization/
+** {{{date(2017/08/28)}}} {{{item(International Workshop of Pragmatics of Constraint Reasoning (PoCR 2017))}}}
+*** {{{pc}}}
+*** (URL) http://www.pragmaticsofsat.org/2017/
+** {{{date(2017/08/28)}}} {{{item(CP/ICLP/SAT Doctoral Program 2017)}}}
+*** {{{pc}}}
+*** (URL) http://cp2017.a4cp.org/doctoral_program/
+** {{{date(2016/07/05-08)}}} {{{item(International Conference on Theory and Applications of Satisfiability Testing (SAT 2016))}}}
+*** {{{pc}}}
+*** (URL) http://sat2016.labri.fr
+** {{{date(2016/10/18)}}} {{{item(12th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2016))}}}
+*** {{{pc}}}
+*** (URL) http://dc-iclp16.cs.bath.ac.uk/organisation/
+** {{{date(2015/09/23)}}} {{{item(International Workshop of Pragmatics of SAT 2015 (PoS 2015))}}}                                     
+*** {{{pc}}}
+*** (URL) http://www.pragmaticsofsat.org/2015/
+** {{{date(2015/08/31)}}} {{{item(11th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2015))}}}
+*** {{{pc}}}
+** {{{date(2014/07/21)}}}  {{{item(10th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2014))}}}
+*** {{{pc}}}
+** {{{date(2014/06/04-06)}}} {{{item(12th International Symposium on Functional and Logic Programming (FLOPS 2014))}}}
+*** {{{pc}}}
+*** (URL) http://www.jaist.ac.jp/flops2014/organization.html
+** {{{date(2012/05/23-25)}}} {{{item(11th International Symposium on Functional and Logic Programming (FLOPS 2012)\, Kobe Japan.)}}}
+*** {{{others(Local Committee Member)}}}
+*** (URL) http://www.org.kobe-u.ac.jp/flops2012/committees.html
+** {{{date(2011/11/13-17)}}} {{{item(International Symposium on Symbolic Systems Biology (ISSSB' 11)\, Hayama Japan.)}}}
+*** {{{others(Local Organizer)}}}
+*** (URL) http://www.cs.bris.ac.uk/~oray/ISSSB11/
+** {{{date(2009/09/21-25)}}} {{{item(3rd Franco-Japanese Symposium on Knowledge Discovery in Systems Biology (FJ'09)\, Corsica France)}}}
+*** {{{others(Program Committee Chair)}}}
+*** (URL) http://research.nii.ac.jp/il/fj/3rd_ws/
+** {{{date(2008/10/30-11/03)}}} {{{item(2nd Franco-Japanese Symposium on Knowledge Discovery in Systems Biology (FJ'08)\, Takayama Japan)}}}
+*** {{{others(Local Committee Member)}}}
+*** (URL) http://research.nii.ac.jp/il/fj/2nd_ws/
+
+
+* (国内) 学会ならびに社会における活動
+** {{{date(2017/03/08-10)}}} {{{item(第19回プログラミングおよびプログラミング言語ワークショップ (PPL 2017))}}}
+*** {{{pc}}}
+*** (URL) https://ppl2017.ipl-e.ai.kyutech.ac.jp
+** {{{date(2016/06/06-06/07)}}} {{{item(オーガナイズドセッション SAT技術の理論，実装，応用)}}}
+*** {{{others(第30回人工知能学会全国大会 (JSAI2016))}}}
+*** {{{org}}}
+*** (URL) http://www.ai-gakkai.or.jp/jsai2016/os/#os-2
+** {{{date(2016/04 - 2019/03)}}} {{{item(人工知能学会 人工知能基本問題研究会)}}}
+*** {{{org}}}
+*** http://sig-fpai.org
+** {{{date(2015/05/31-06/02)}}} {{{item(オーガナイズドセッション SAT技術の理論，実装，応用)}}}
+*** {{{others(第29回人工知能学会全国大会 (JSAI2015))}}}
+*** {{{org}}}
+*** (URL) http://www.ai-gakkai.or.jp/jsai2015/os/#os-3
+
+** {{{date(2015/03/04-06)}}} {{{item(第17回プログラミングおよびプログラミング言語ワークショップ (PPL 2015))}}}
+*** {{{pc}}}
+*** (URL) http://www-kb.is.s.u-tokyo.ac.jp/ppl2015/
+
+** {{{date(2014/05/12)}}} {{{item(オーガナイズドセッション SAT技術の理論，実装，応用)}}}
+*** {{{others(第28回人工知能学会全国大会 (JSAI2014))}}}
+*** {{{org}}}
+*** (URL) http://www.ai-gakkai.or.jp/jsai2014/os/#os-11
+
+** {{{date(2013/06/05)}}} {{{item(オーガナイズドセッション SAT技術の理論，実装，応用)}}}
+*** {{{others(第27回人工知能学会全国大会 (JSAI2013))}}}
+*** {{{org}}}
+*** (URL) http://2013.conf.ai-gakkai.or.jp/os#os-9
+
+
+* これまでに担当した授業
+  - 情報基礎 (神戸大学・学部)
+  - プログラミング言語論および演習：演習前半 (神戸大学・学部)
+  - [[http://apache.cs.uni-potsdam.de/de/profs/ifi/wv/lehre/ss14/wrep-ss14][Wissensrepräsentation und -verarbeitung]] (ポツダム大学・学部/大学院)
+    - 日時: 2014年7月11日 12:15-13:15
+    - タイトル: Incremental SAT-based Method with Native Boolean Cardinality Handling for the Hamiltonian Cycle Problem
