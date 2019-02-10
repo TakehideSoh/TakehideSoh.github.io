@@ -1,0 +1,795 @@
+# -*- coding: utf-8 -*-
+#+TITLE: Scarab チュートリアル
+#+AUTHOR: Takehide Soh
+#+EMAIL: soh@lion.kobe-u.ac.jp
+
+#+OPTIONS: ^:nil H:2 num:t
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../../myhome.css"/>
+#+MACRO: pdf @@html:<a href="../pdf-open/$1">[PDF]</a>@@
+#+MACRO: pptx @@html:<a href="../pdf-open/$1">[PPTX]</a>@@
+#+MACRO: pdfs @@html:<a href="../pdf2/$1">[PDF]</a>@@ (PDFは限定公開)
+#+MACRO: pptxs @@html:<a href="../pdf2/$1">[PPTX]</a>@@
+
+#+MACRO: title @@html:<span class="title">$1</span>@@
+#+MACRO: author @@html:<span class="author">$1</span>@@
+#+MACRO: others @@html:<span class="others">$1</span>@@
+
+#+MACRO: date @@html:<span class="date">$1</span>@@
+#+MACRO: item @@html:<span class="item">$1</span>@@
+#+MACRO: item2 @@html:<span class="item2">$1</span>@@
+
+#+MACRO: st @@html:<font color="#0000ff"><b>$1</b></font>@@
+#+MACRO: alert @@html:<font color="#bb4e4c"><b>$1</b></font>@@
+
+#+BEGIN_HTML html
+<style type="text/css">
+#table1 th { background-color: #3B5998; color: white;
+     border-style: solid; border-color: black; border-width: thin;
+     border: none;}
+#table1 td { background-color: #3B5998; color: white;
+     border-style: solid; border-color: black; border-width: thin; border: none}
+#table1 td+td { background-color: #eeeeee; color: black; width:500px}
+
+h1#aa {
+    border-color:#6576CC;
+    border-width:4px 0px 4px 0px;
+    margin-top:30px;
+    margin-bottom:30px;
+    padding-top:30px;
+    padding-bottom:30px;
+    padding-left:30px;
+    border-style:solid;
+    font-size:1.7em;
+}
+</style>
+#+END_HTML
+
+* 参考資料
+  - [[http://kix.istc.kobe-u.ac.jp/~soh/scarab/index.html][Scarab の web page]]
+  - [[http://www.csplib.org/Problems/][CSPLib]]
+
+* インストール
+以下の説明は Scarab のバージョン 1.8.1 の説明です．
+1. [[http://www.java.com/][Java]] runtime version 1.7 以降をインストールする．
+2. [[http://www.scala-lang.org][Scala]] version 2.11.* をインストールする．
+   - Scarab 1.8.1 は Scala version 2.11.* で動作します (他のバージョンでは動作しません)．
+3. Scarab (jarファイル) を[[http://kix.istc.kobe-u.ac.jp/~soh/scarab/scarab181.jar][ダウンロード]]
+   - http://kix.istc.kobe-u.ac.jp/~soh/scarab/scarab181.jar
+   - ソースコードは [[https://github.com/TakehideSoh/Scarab][Github ]]から入手できます．
+
+以下このチュートリアルでは次のようなディレクトリ構成になっていると仮定しています．
+#+BEGIN_SRC -sh
+csp/
+ |
+ |- scarab181.jar 
+#+END_SRC
+- 適当なディレクトリに移動します (例えば sat-tools)．
+#+BEGIN_SRC -sh
+$ mkdir csp
+$ cd csp
+$ mkdir classes
+$ wget http://kix.istc.kobe-u.ac.jp/~soh/scarab/scarab181.jar
+#+END_SRC
+
+* 実行の方法
+  - Scarab の制約記述言語は Scala 上のドメイン特化言語として実装されて
+    います． [[file:ref.html][Scala の説明]]
+  - Scala と同じく3つの方法でプログラムを記述し，実行できます．
+    - REPL (Read Eval Print Loop) による対話的な実行方法
+    - スクリプトによるコンパイル不要な実行方法
+    - scalac で実行形式にコンパイルしてから実行する方法
+  - 以下ではまずREPL による対話的な実行方法を通して scarab に慣れていきたいと思います．
+
+* REPL による対話的な実行方法
+  - 以下の例題を考える．
+    #+BEGIN_EXAMPLE
+    12セント，16セント，20セント，27セントの切手をそれぞれ10枚持っている．
+    この時に90セント分の切手を構成できるか?
+    #+END_EXAMPLE
+    - この問題は以下の制約充足問題 (CSP) として定義できる．
+      #+BEGIN_QUOTE
+      - \(X = \{a, b, c, d\}\)
+      - \(Dom\)
+        - \(Dom(a) = \{0, \ldots, 10\}\)
+        - \(Dom(b) = \{0, \ldots, 10\}\)
+        - \(Dom(c) = \{0, \ldots, 10\}\)
+        - \(Dom(d) = \{0, \ldots, 10\}\)
+      - \(C\)
+        - \(12a + 16b + 20c + 27d = 90\)
+      #+END_QUOTE
+
+** CSP の定義
+   - 上記のCSPに対応するScarabプログラムは以下になります．
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._ , dsl._
+
+int('a, 0, 10)
+int('b, 0, 10)
+int('c, 0, 10)
+int('d, 0, 10)
+
+add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
+#+END_SRC
+   - まず REPL を用いた対話的な実行方法を説明します．"scala -cp scarab181.jar" と入力します．
+     #+BEGIN_SRC scala
+hoge $ scala -cp scarab181.jar 
+Welcome to Scala version 2.11.5 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.1_11).
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala>
+#+END_SRC
+    - scala の REPL モードが scarab のクラスを読み込んで起動されます．
+    - 次に scarab のクラスをインポートします．
+      #+BEGIN_SRC scala
+ scala> import jp.kobe_u.scarab._ , dsl._
+ import jp.kobe_u.scarab._
+ import dsl._
+      #+END_SRC
+    - import 文が読み込まれ (Read Eval) 実行結果が表示 (Print) されます．
+    - 整数変数を定義します．
+      #+BEGIN_SRC scala
+scala> int('a, 0, 10)
+res0: jp.kobe_u.scarab.Var = a
+
+scala> int('b, 0, 10)
+res1: jp.kobe_u.scarab.Var = b
+
+scala> int('c, 0, 10)
+res2: jp.kobe_u.scarab.Var = c
+
+scala> int('d, 0, 10)
+res3: jp.kobe_u.scarab.Var = d      
+      #+END_SRC
+    - ここでは変数a, b, c, dを宣言しています (下限 0，上限 10)． シングルクォーテーションから始まる記述 'x は ScalaにおけるSymbolオブジェクトの記法ですが， Scarab DSLによりScarabの整数変数 (Varオブジェクト)に暗黙変換されます．
+    - 制約を定義します．
+      #+BEGIN_SRC scala
+scala> add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
+res4: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
+      #+END_SRC
+    - ここでは制約 12a + 16b + 20c + 27d = 90 を追加しています．
+      - add は制約をCSPオブジェクトに追加するためのメソッドです． 
+      - 制約中での等号に \(===\) を用いる点に注意してください．
+      - 5 * 'a のように係数を前にして記述できない点に注意してください．
+    - 定義したCSPオブジェクトは変数cspとして参照できます．
+      #+BEGIN_SRC scala
+scala> csp
+res8: jp.kobe_u.scarab.CSP = CSP(Vector(a, b, c, d),Vector(),Map(..),Vector(..))
+      #+END_SRC
+    - CSPオブジェクトは，整数変数の列 variables, ブール変数の列 bools, 変数ドメインのマップ dom, 制約の列 constraints から構成されます．
+    - 以下のように csp オブジェクトから参照できます．
+      #+BEGIN_SRC scala
+scala> csp.variables
+res5: IndexedSeq[jp.kobe_u.scarab.Var] = Vector(a, b, c, d)
+
+scala> csp.constraints
+res6: IndexedSeq[jp.kobe_u.scarab.Constraint] = Vector(EqZero(Sum(-90+12*a+16*b+20*c+27*d)))
+      #+END_SRC
+    - show メソッドでも表示できる．
+      #+BEGIN_SRC scala
+scala> csp.show
+int(a,Domain(0 to 10))
+int(b,Domain(0 to 10))
+int(c,Domain(0 to 10))
+int(d,Domain(0 to 10))
+EqZero(Sum(-90+12*a+16*b+20*c+27*d))      
+      #+END_SRC
+    - CSPオブジェクトは，変数や制約の追加を行える mutable なオブジェクトとして実装されている．
+
+** 解の探索
+   - 最初の解の探索は find で行う．
+     #+BEGIN_SRC scala
+scala> find
+res9: Boolean = true
+     #+END_SRC
+   - 結果の true は，解が存在することを表す． CSPの解は，solution 変数
+     に代入されている．
+     #+BEGIN_SRC scala
+scala> solution
+res10: jp.kobe_u.scarab.Assignment = Assignment(Map(a -> 3, b -> 0, c -> 0, d -> 2),Map())
+     #+END_SRC
+   - Solutionオブジェクトは，整数変数 (Varオブジェクト)に対する値割当てを表すマップと ブール変数 (Boolオブジェクト)に対する値割当てを表すマップから構成される．
+     #+BEGIN_SRC scala
+scala> solution.intMap
+res11: Map[jp.kobe_u.scarab.Var,Int] = Map(a -> 3, b -> 0, c -> 0, d -> 2)
+
+scala> solution.boolMap
+res12: Map[jp.kobe_u.scarab.Bool,Boolean] = Map()
+     #+END_SRC
+   - 解における各変数の値は solution メソッドで得ることができる．
+     #+BEGIN_SRC scala
+scala> solution('a)
+res13: Int = 3
+
+scala> solution('b)
+res14: Int = 0
+
+scala> solution('c)
+res15: Int = 0
+
+scala> solution('d)
+res16: Int = 2     
+     #+END_SRC
+   - 次の解の探索は findNext で行う．
+     #+BEGIN_SRC scala
+scala> findNext
+res17: Boolean = true
+
+scala> solution
+res18: jp.kobe_u.scarab.Assignment = Assignment(Map(a -> 0, b -> 1, c -> 1, d -> 2),Map())
+     #+END_SRC
+   - findNext は最も最近得られた解の否定をcspに追加することで次の解を求めている．
+   - show メソッドを実行すると，制約が追加されていることが分かる．
+     #+BEGIN_SRC scala
+int(a,Domain(0 to 10))
+int(b,Domain(0 to 10))
+int(c,Domain(0 to 10))
+int(d,Domain(0 to 10))
+LeZero(Sum(-90+12*a+16*b+20*c+27*d))
+LeZero(Sum(90-12*a-16*b-20*c-27*d))
+Or(LeZero(Sum(-2+a)),LeZero(Sum(4-a)),LeZero(Sum(1+b)),LeZero(Sum(1-b)),LeZero(Sum(1+c)),LeZero(Sum(1-c)),LeZero(Sum(-1+d)),LeZero(Sum(3-d)))     
+     #+END_SRC
+   - ここでこの次の解の探索時には，最初に解を求めた時の学習節を再利用するインクリメンタルSAT解法を行っている．
+   - Scarab では明示的にSATソルバーを reset しない限り，常に学習節を保持して効率的に求解を行う．
+   - もう一度 findNext を呼ぶと false が返る．
+     #+BEGIN_SRC scala
+scala> findNext
+res22: Boolean = false     
+     #+END_SRC
+   - 結果の false は，解が存在しないことを表す． この場合，変数 solution は null になっている．
+     #+BEGIN_SRC scala
+scala> solution
+res23: jp.kobe_u.scarab.Assignment = null
+     #+END_SRC
+
+* スクリプトによるコンパイル不要な実行方法
+** 内容の確認
+- CSPをScalaのスクリプトファイルとして定義することもできる．
+- 以下がCSPを定義したスクリプトファイルである [[file:hoge/files/ex-csp.sc][ex-csp.sc]] .
+  - http://kix.istc.kobe-u.ac.jp/~soh/ai-tool/20151214sat/scarab-tutorial/hoge/files/ex-csp.sc
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._ , dsl._
+
+int('a, 0, 10)
+int('b, 0, 10)
+int('c, 0, 10)
+int('d, 0, 10)
+add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
+#+END_SRC
+
+- 以下がCSPを定義した後に求解し，解があれば出力するスクリプトファイルである [[file:hoge/files/ex-csp-solve.sc][ex-csp-solve.sc]] .
+  - [[http://kix.istc.kobe-u.ac.jp/~soh/ai-tool/20151214sat/scarab-tutorial/hoge/files/ex-csp-solve.sc]]
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._ , dsl._
+
+int('a, 0, 10)
+int('b, 0, 10)
+int('c, 0, 10)
+int('d, 0, 10)
+add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
+
+if (find) println(solution)
+#+END_SRC
+** scala コマンドによる実行
+   - 以下のように保存したファイルを scala コマンドに与えればコンパイル無しで実行してくれる．
+#+BEGIN_SRC sh
+$ scala -cp scarab181.jar ex-csp-solve.sc
+#+END_SRC
+
+** REPLからのスクリプトファイルの読み込み
+- スクリプトファイルは以下のようにREPLから :load コマンドを使用して読み込む．
+#+BEGIN_SRC scala
+scala> :load ./csp/files/ex-csp.sc
+Loading ./csp/files/ex-csp.sc...
+import jp.kobe_u.scarab._
+import dsl._
+res0: jp.kobe_u.scarab.Var = a
+res1: jp.kobe_u.scarab.Var = b
+res2: jp.kobe_u.scarab.Var = c
+res3: jp.kobe_u.scarab.Var = d
+res4: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
+#+END_SRC
+- スクリプトファイルの内容を変更した後，再度読み込みたい場合には，:load の前に reset (scarab のコマンド) を実行し，いったんCSPの定義を消去する必要がある．
+
+#+BEGIN_SRC scala
+scala> reset
+
+scala> :load ./files/ex-csp.sc
+Loading ./files/ex-csp.sc...
+import jp.kobe_u.scarab._
+import dsl._
+res13: jp.kobe_u.scarab.Var = a
+res14: jp.kobe_u.scarab.Var = b
+res15: jp.kobe_u.scarab.Var = c
+res16: jp.kobe_u.scarab.Var = d
+res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
+#+END_SRC
+
+** 練習問題
+- 89円分の切手を構成できるかテストしてみよう．
+
+* 簡単な例題
+** 部分和問題
+#+BEGIN_EXAMPLE
+使いきらなければならない予算が 50 千円あります．
+購入できる品物は 2, 3, 5, 8, 13, 21, 34 (単位: 千円) が1つずつです．
+ちょうど予算を使い切るような組合せはあるか?
+#+END_EXAMPLE
+# 集合 {2,3,5,8,13,21,34} の部分集合で， 和が50になるものはあるか?
+- この問題は 部分和問題 (Subset sum problem)として知られている問題の例である． 部分和問題はNP-完全である ([[https://ja.wikipedia.org/wiki/%E9%83%A8%E5%88%86%E5%92%8C%E5%95%8F%E9%A1%8C][Wikipedia:部分和問題]])．
+- これは，以下の制約充足問題として定式化できる．
+      #+BEGIN_QUOTE
+      - \(X = \{x_2, x_3, x_5, x_8, x_{13}, x_{21}, x_{34}\}\)
+      - \(Dom\)
+        - \(Dom(x_2) = \{0, 1\}\)
+        - \(Dom(x_3) = \{0, 1\}\)
+        - \(Dom(x_5) = \{0, 1\}\)
+        - \(Dom(x_8) = \{0, 1\}\)
+        - \(Dom(x_{13}) = \{0, 1\}\)
+        - \(Dom(x_{21}) = \{0, 1\}\)
+        - \(Dom(x_{34}) = \{0, 1\}\)
+      - \(C\)
+        - \(2x_2 + 3x_3 + 5x_5 + 8x_8 + 13x_{13} + 21x_{21} + 34x_{34} = 50\)
+      #+END_QUOTE
+- CSPを記述したファイルは以下のようになる [[file:files/ex-subsetsum.sc][ex-subsetsum.sc]]
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._ , dsl._ 
+
+def define(sum: Int) {
+  reset
+  boolInt('x(2))
+  boolInt('x(3))
+  boolInt('x(5))
+  boolInt('x(8))
+  boolInt('x(13))
+  boolInt('x(21))
+  boolInt('x(34))
+  add('x(2)*2 + 'x(3)*3 + 'x(5)*5 + 'x(8)*8 + 'x(13)*13 + 'x(21)*21 + 'x(34)*34 === sum)
+}
+#+END_SRC
+
+- boolInt は 0-1 変数の宣言であり， boolInt(x) は int(x, 0, 1) と同一である．
+- また上記プログラムでは，直接CSPを記述するのではなく， 関数 define(sum: Int) で和を与えられるようにしている． この場合，利用方法は以下のようになる．
+#+BEGIN_SRC scala
+scala> :load ./files/ex-subsetsum.sc
+Loading ./files/ex-subsetsum.sc...
+import jp.kobe_u.scarab._
+import dsl._
+define: (sum: Int)Unit
+
+scala> define(50)
+
+scala> find
+res1: Boolean = true
+
+scala> solution
+res2: jp.kobe_u.scarab.Assignment = Assignment(Map(x(8) -> 1, x(21) -> 1, x(3) -> 1, x(13) -> 1, x(2) -> 0, x(34) -> 0, x(5) -> 1),Map())
+#+END_SRC
+- 解が見にくいが，以下のようにすれば見やすくなる．
+#+BEGIN_SRC scala
+scala> for (x <- csp.variables) println(s"$x ${solution(x)}")
+x(2) 0
+x(3) 1
+x(5) 1
+x(8) 1
+x(13) 1
+x(21) 1
+x(34) 0
+#+END_SRC
+- この解は 3, 5, 8, 13, 21 (単位: 千円) の品物を買えば 50 千円になることを表している．
+- 34 千円の品物が入った解が欲しい場合は，以下のように制約を追加して解を求めれば良い．
+#+BEGIN_SRC scala
+scala> add('x(34) === 1)
+res6: jp.kobe_u.scarab.Constraint = EqZero(Sum(-1+x(34)))
+
+scala> find
+res7: Boolean = true
+
+scala> solution
+res8: jp.kobe_u.scarab.Assignment = Assignment(Map(x(8) -> 0, x(21) -> 0, x(3) -> 1, x(13) -> 1, x(2) -> 0, x(34) -> 1, x(5) -> 0),Map())
+
+scala> for (x <- csp.variables) println(s"$x ${solution(x)}")
+x(2) 0
+x(3) 1
+x(5) 0
+x(8) 0
+x(13) 1
+x(21) 0
+x(34) 1
+#+END_SRC
+
+*** 練習問題
+- 和が40の場合はどうなるか?
+
+** 魔方陣
+#+BEGIN_EXAMPLE
+1から9の数字を 3×3 に配置し， 各行，各列，各対角線の和がいずれも15になるようにせよ．
+#+END_EXAMPLE
+
+- このような配置は魔方陣 (Magic square)と呼ばれる ([[http://ja.wikipedia.org/wiki/%E9%AD%94%E6%96%B9%E9%99%A3][Wikipedia:魔方陣]])．
+- 以下のようにCSPとして定式化できる．
+
+#+BEGIN_QUOTE
+      - \(X = \cup_{0 \le i,j \le 2} x_{i,j} \)
+        - \(x_{0,0}, x_{0,1}, \ldots, x_{2,2}\)
+      - \(Dom\)
+        - \(Dom(x_{i,j}) = \{1, 9\}\)
+      - \(C\)
+        - \(alldiff(x_{0,0}, x_{0,1}, \ldots, x_{2,2})\)
+        - \( x_{i,0} + x_{i,1} + x_{i,2} = 15 (i = 0, 1, 2) \)
+        - \( x_{0,j} + x_{1,j} + x_{2,j} = 15 (j = 0, 1, 2) \)
+        - \( x_{0,0} + x_{1,1} + x_{2,2} = 15 \)
+        - \( x_{0,2} + x_{1,1} + x_{2,0} = 15 \)
+#+END_QUOTE
+
+- ここで alldiff はCSPのグローバル制約の一つ Alldifferent 制約であり，与えられた引数が互いに異なることを表す．
+- すなわち alldiff(\(x_1, x_2, \ldots, x_n\)) は \(x_i \ne x_j\) (for all  \(i < j\)) と同じである．
+- CSPを記述したファイルは以下のようになる [[file:hoge/files/ex-magicsq.sc][ex-magicsq.sc]]
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._ , dsl._
+
+reset
+int('x(0,0), 1, 9); int('x(0,1), 1, 9); int('x(0,2), 1, 9)
+int('x(1,0), 1, 9); int('x(1,1), 1, 9); int('x(1,2), 1, 9)
+int('x(2,0), 1, 9); int('x(2,1), 1, 9); int('x(2,2), 1, 9)
+add(alldiff(
+  'x(0,0), 'x(0,1), 'x(0,2),
+  'x(1,0), 'x(1,1), 'x(1,2),
+  'x(2,0), 'x(2,1), 'x(2,2)
+))
+add('x(0,0) + 'x(0,1) + 'x(0,2) === 15)
+add('x(1,0) + 'x(1,1) + 'x(1,2) === 15)
+add('x(2,0) + 'x(2,1) + 'x(2,2) === 15)
+add('x(0,0) + 'x(1,0) + 'x(2,0) === 15)
+add('x(0,1) + 'x(1,1) + 'x(2,1) === 15)
+add('x(0,2) + 'x(1,2) + 'x(2,2) === 15)
+add('x(0,0) + 'x(1,1) + 'x(2,2) === 15)
+add('x(0,2) + 'x(1,1) + 'x(2,0) === 15)
+#+END_SRC
+
+- ただこの書き方だともっと大きい魔方陣のプログラムを書くのは大変．
+- Scala の制御構造やクラスを利用すればもっと以下のように簡潔に記述できる．
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._, dsl._
+
+val xs = for (i <- 1 to 3; j <- 1 to 3) yield int('x(i,j), 1, 9)
+add(alldiff(xs))
+
+for (i <- 1 to 3)
+  add(Sum((1 to 3).map(j => 'x(i,j))) === 15)
+for (j <- 1 to 3)
+  add(Sum((1 to 3).map(i => 'x(i,j))) === 15)
+
+add(Sum((1 to 3).map(i => 'x(i,i))) === 15)
+add(Sum((1 to 3).map(i => 'x(i,4-i))) === 15)
+#+END_SRC
+
+*** 練習問題
+    - n x n の魔方陣を記述してみよう．
+
+
+** 正方形矩形パッキング
+#+BEGIN_EXAMPLE
+正方形詰込み問題 SP(n,s) は一辺の長さ 1 から n まで1ずつ増加する正方形の集合を
+一辺の長さ s の正方形の枠内に重なりなく配置する問題である．
+#+END_EXAMPLE
+
+
+#+attr_html: :width 400px 
+[[file:figs/spp15.png]]
+
+- 最も素直なモデリングは整数変数 $x_{i}, y_{i} \in \{0, \ldots, s-i\}$ をそれぞれの正方形 $i~(1 \le i \le n)$ に $(x_{i},~y_{i})$ が正方形 $i$ の左下の座標を指すようにするものである．
+- 以下の制約は任意の二つの正方形 $i$ と $j$ (但し $1\le i < j \le n$) が重なることを禁止する．
+  - $(x_{i}+i \le x_{j}) \vee (x_{j}+j \le x_{i}) \vee (y_{i}+i \le y_{j}) \vee (y_{j}+j \le y_{i})$
+
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._ , dsl._
+
+val n = 15
+val s = 100
+
+var lb = 15
+var ub = s
+int('m, lb, ub)
+
+for (i <- 1 to n) { 
+  int('x(i),0,s-i) 
+  int('y(i),0,s-i) 
+}
+
+for (i <- 1 to n)
+  add(('x(i)+i <= 'm) && ('y(i)+i <= 'm)) 
+
+for (i <- 1 to n; j <- i+1 to n) 
+  add(('x(i)+i<='x(j)) || ('x(j)+j<='x(i)) || ('y(i)+i<='y(j)) || ('y(j)+j<='y(i)))
+
+while(lb <= ub && find('m <= ub)) {
+  add('m <= ub)
+  ub -= 1
+  println(ub)
+}
+#+END_SRC
+- 最適化部分は1ずつ下げているが，もっと良い方法がある．
+
+** その他の例題
+   - [[http://www.csplib.org/Problems/prob024/][ラングフォード・ペアリング]]
+   - プログラム例は [[http://kix.istc.kobe-u.ac.jp/~soh/scarab/examples.html][Scarab の Example]] ページにある．
+
+* COMMENT CEGARを用いたハミルトン閉路問題の解法
+#+BEGIN_EXAMPLE
+与えられたグラフについて，全ての頂点を一度だけ通る閉路が存在するかどうか調べる問題である．
+#+END_EXAMPLE
+
+- 問題サンプル
+  - [[file:sample/myciel7.col][myciel7.col]]
+  - [[file:sample/myciel3.col][myciel3.col]]
+
+- CEGAR を使った Scarab コードは以下になる．
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._ , dsl._
+import scala.io.Source
+
+case class Graph(var nodes: Set[Int] = Set.empty, var edges: Set[(Int, Int)] = Set.empty) {
+
+  def edge(n1: Int, n2: Int) = if (n1 < n2) (n1, n2) else (n2, n1)
+
+  private var adjacentMap: Map[Int, Set[Int]] = Map.empty
+  private def addAdjacent(n1: Int, n2: Int) =
+    adjacentMap += n1 -> (adjacentMap.getOrElse(n1, Set.empty) + n2)
+
+  def addNode(n1: Int) = nodes += n1
+  def addEdge(n1: Int, n2: Int) =
+    if (n1 != n2) {
+      edges += edge(n1, n2)
+      addAdjacent(n1, n2)
+      addAdjacent(n2, n1)
+    }
+  def adjacent(n: Int) = adjacentMap(n)
+  def adjacentEdge(n: Int) = adjacent(n).map(n2 => edge(n, n2))
+}
+
+object Graph {
+  def parse(source: Source): Graph = {
+    val graph = Graph()
+    val re = """e\s+(\d+)\s+(\d+)""".r
+    for (line <- source.getLines.map(_.trim)) {
+      line match {
+        case re(s1, s2) => {
+          val n1 = s1.toInt; graph.addNode(n1)
+          val n2 = s2.toInt; graph.addNode(n2)
+          graph.addEdge(n1, n2)
+        }
+        case _ =>
+      }
+    }
+    graph
+  }
+}
+
+def getCycle(node: Int, initial: Int, cycle: List[Int]): List[Int] = {
+  val node2: Int = graph.adjacent(node).find(node2 => solver.solution('arc(node, node2)) > 0).get
+  if (node2 == initial) node2 :: cycle
+  else getCycle(node2, initial, node2 :: cycle)
+}
+
+def getCycles: Set[List[Int]] = {
+  var cycles: Set[List[Int]] = Set.empty
+  var nodes = graph.nodes
+  while (!nodes.isEmpty) {
+    val node = nodes.head
+    val cycle = getCycle(node, node, List(node))
+    cycles += cycle
+    nodes --= cycle
+  }
+  cycles
+}
+
+def define = {
+  for ((n1, n2) <- graph.edges) {
+    int('arc(n1, n2), 0, 1)
+    int('arc(n2, n1), 0, 1)
+    add('arc(n1, n2) + 'arc(n2, n1) <= 1)
+  }
+  for (n1 <- graph.nodes) {
+    val nodes = graph.adjacent(n1).toSeq
+    add(Sum(nodes.map(i => 'arc(i, n1))) === 1)
+    add(Sum(nodes.map(i => 'arc(n1, i))) === 1)
+  }
+}
+
+def addBlockingClauses(cycle: List[Int]) {
+  val ceArcs = for (edge <- cycle.sliding(2).toList) 
+             yield (edge(0), edge(1))
+  add(Or(ceArcs.map(i => 'arc(i._1, i._2) <= 0)))
+  add(Or(ceArcs.map(i => 'arc(i._2, i._1) <= 0)))
+}
+
+val graph = Graph.parse(Source.fromFile(args(0)))
+
+use(new Sat4j("Glucose21"))
+use(new NativePBEncoder(csp, satSolver))
+
+define
+
+while (solver.find) {
+  val cycles: Set[List[Int]] = getCycles
+  if (cycles.size == 1) {
+    println("A Hamiltonian Cycle is Found")
+	  println(Some(cycles.head).get.mkString(" "))
+    System.exit(0)
+  } else
+    for (cycle <- cycles)
+      addBlockingClauses(cycle)
+}
+println("This Graph has no Hamiltonian Cycle")
+#+END_SRC
+
+
+
+* Scarab のクラスとメソッドの簡単なまとめ
+
+** Scarab DSL の制約記述に関する構文 (BNF記法)
+- *V*, *T*, *C*, *B* を *Var* (整数変数), *Term* (項), *Constraint* (制約), *Bool* (ブール変数) に対応するScarabオブジェクトとする.
+- Int, String, Any は Scala のオブジェクトとする．
+- 制約に関する Scarab DSL の構文は以下のように定義される．
+#+BEGIN_EXAMPLE lisp
+ T  ::= V | -T | T + Int | T + T | T - Int | T - T | T * Int | Sum(V, ...) | Sum(Seq(V, ...))  
+ V  ::= Var(String, String, ...) | V(Any, ...)
+ C  ::= B | T op T | !C | C && C | C || C | alldiff(Seq(T, ...)) |  
+       And(C, ...) | And(Seq(C, ...)) | Or(C, ...) | Or(Seq(C, ...))
+ op ::= <= | < | => | > | === | !==
+ B  ::= Bool(String, String, ...) | B(Any, ...)
+#+END_EXAMPLE
+
+** Scarab のクラス図
+*** CSPに関係するクラス図
+#+HTML:<center>
+[[file:figs/class_diagram_csp.png]]
+#+HTML:</center>
+
+*** 制約ソルバーに関係するクラス図
+#+HTML:<center>
+[[file:figs/class_diagram_solver.png]]
+#+HTML:</center>
+
+
+** プログラムの簡単なまとめ
+*** 項オブジェクト (Termオブジェクト)
+**** 整数変数オブジェクト (Varオブジェクト)
+- 整数変数オプジェクトは Var で生成する． 引数にはその名前を与える．
+#+BEGIN_SRC scala
+scala> val x = Var("x")
+x: jp.kobe_u.scarab.Var = x
+#+END_SRC
+- 名前がない場合は，新しい匿名変数オブジェクトが生成される．
+#+BEGIN_SRC scala
+scala> val z = Var()
+z: jp.kobe_u.scarab.Var = TMP_I_1
+#+END_SRC
+- Varオブジェクトに添字を与えることで，新しいVarオブジェクトを生成できる． 添字には整数や文字列を使用でき，また複数与えても良い． ただし，添字にScarabの整数変数を用いることはできない．
+#+BEGIN_SRC scala
+scala> x("book", "apple", 300)
+res16: jp.kobe_u.scarab.Var = x(book,apple,300)
+#+END_SRC
+- Scala の Symbol は，Varオブジェクトに暗黙変換される．
+#+BEGIN_SRC scala
+scala> 'abc(2)
+res19: jp.kobe_u.scarab.Var = abc(2)
+#+END_SRC
+- Varオブジェクトは後述の項 (Term) オブジェクトの一種である．
+
+**** 和算オブジェクト (Sumオブジェクト)
+- Sumオブジェクトは整数変数の加算 ($+$)，減算 ($-$) を表す．
+#+BEGIN_SRC scala
+scala> Sum('x + 'y)
+res21: jp.kobe_u.scarab.Sum = Sum(+x+y)
+
+scala> Sum(- 'x - 'y)
+res22: jp.kobe_u.scarab.Sum = Sum(-x-y)
+
+scala> - Sum(- 'x - 'y)
+res23: jp.kobe_u.scarab.Sum = Sum(+x+y)
+#+END_SRC
+
+*** 制約オブジェクト
+- Termオブジェクトと比較演算子 <= ($\le$), <, >= ($\ge$), >, === ($=$),　!== ($\ne$) の組合せで構成される．
+#+BEGIN_SRC scala
+scala> Sum('x - 'y) <= 3
+res25: jp.kobe_u.scarab.Constraint = LeZero(Sum(-3+x-y))
+#+END_SRC
+- 宣言されると同時に <= 0 の形に正規化される．
+
+*** CSPオブジェクト
+- CSPオブジェクトは，制約充足問題を表すオブジェクトである． jp.kobe_u.scarab.dsl._ を import した場合， デフォールトのCSPオブジェクトを変数 csp として参照できる．
+**** 整数変数の宣言 (CSPへ整数変数を追加)
+     - 整数変数は int メソッドで宣言する． 通常は，下限値と上限値を与える．
+#+BEGIN_SRC scala
+scala> int('x, 0, 10)
+res27: jp.kobe_u.scarab.Var = x
+#+END_SRC
+     - 飛び飛びのドメインも利用できる．
+#+BEGIN_SRC scala
+scala> int('y, Seq(1,3,5))
+res28: jp.kobe_u.scarab.Var = y
+#+END_SRC
+- 変数のドメインは，csp.dom メソッドで確認できる．
+#+BEGIN_SRC scala
+scala> csp.dom('x)
+res29: jp.kobe_u.scarab.Domain = Domain(0 to 10)
+
+scala> csp.dom('y)
+res30: jp.kobe_u.scarab.Domain = Domain(1,3,5)
+#+END_SRC
+
+**** 制約の追加
+     - 制約の追加は add メソッドで宣言する．
+#+BEGIN_SRC scala
+scala> add('x === 'y * 2)
+res31: jp.kobe_u.scarab.Constraint = EqZero(Sum(+x-2*y))
+#+END_SRC
+     - 現時点での変数宣言と制約は show で確認できる．
+#+BEGIN_SRC scala
+scala> show
+int(x,Domain(0 to 10))
+int(y,Domain(1,3,5))
+EqZero(Sum(+x-2*y))
+#+END_SRC
+
+*** 解の探索
+    - 最初の解の探索は find で行う．
+#+BEGIN_SRC scala
+scala> find
+res34: Boolean = true
+#+END_SRC
+    - 結果が true なら解が存在し，false なら存在しない． 見つかった解は solution で表示される．
+#+BEGIN_SRC scala
+scala> solution
+res35: jp.kobe_u.scarab.Assignment = Assignment(Map(x -> 10, y -> 5),Map())
+#+END_SRC
+    - 変数を solution への引数として与えれば，値が得られる．
+#+BEGIN_SRC scala
+scala> solution('x)
+res37: Int = 10
+#+END_SRC
+    - find メソッド中では，以下が実行されている．
+      - CSPオブジェクトをSAT符号化し，SATソルバーへ節を追加
+      - SATソルバーによる解探索を実行
+      - SATソルバーが発見した解をCSPの解に復号化
+    - 次の解は findNext で求める．
+#+BEGIN_SRC scala
+scala> findNext
+res38: Boolean = true
+
+scala> solution
+res39: jp.kobe_u.scarab.Assignment = Assignment(Map(x -> 6, y -> 3),Map())
+#+END_SRC
+    - findNextメソッド中では，以下が実行されている．
+      - 現在の解の否定を表す条件をソルバーに追加
+      - 追加したCNFに対し，SATソルバーによる解探索を実行
+      - SATソルバーの発見した解をCSPの解に復号化
+
+*** その他
+    - SATソルバーを切り替えるには以下のようにする
+#+BEGIN_SRC scala
+use(new Sat4jPB)
+use(new ExtSatSolver("minisat"))
+#+END_SRC
+    - 外部SATソルバー (ExtSatSolver) の引数には実行パスを入れる．
+    - エンコーダを切り替えるには以下のようにする
+      - デフォルトは OrderEncoder 
+#+BEGIN_SRC scala
+use(new NativePBEncoder(csp, satSolver))
+use(new LogEncoder(csp, satSolver))
+#+END_SRC
+    - 各種符号化・機能とSatSolverの対応表は以下になる．
+|                     | Sat4j | Sat4jPB | ExtSolver |
+|---------------------+-------+---------+-----------|
+| OrderEncoder        | o     | o       | o         |
+| LogEncorder         | o     | o       | x         |
+| NativePBEncoder     | o     | o       | x         |
+|---------------------+-------+---------+-----------|
+| インクリメンタルSAT | o     | o       | x         |
+| 仮説                | o     | o       | x         |
+| 極小非充足コア      | o     | x       | x         |
+|---------------------+-------+---------+-----------|
+
