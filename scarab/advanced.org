@@ -1,0 +1,175 @@
+#+TITLE: Scarab: Advanced Solving Techniques
+#+AUTHOR: [[http://kix.istc.kobe-u.ac.jp/~soh/][Takehide Soh]]
+
+#+INCLUDE: "./title.html" quote
+#+OPTIONS: ^:nil toc:nil H:1 num:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../myhome.css" />
+
+#+BEGIN_HTML
+<style type="text/css">
+#table1 th { background-color: lightyellow;
+     border-style: solid; border-color: black; border-width: thin; }
+#table1 td { background-color: #eeeeee;
+     border-style: solid; border-color: black; border-width: thin; }
+#table1 td+td { background-color: white; }
+#table1 td { text-align: left; }
+#table1 td+td { text-align: right; }
+</style>
+#+END_HTML
+
+
+* Developers can Construct their own SAT-based Systems.
+** Since Scarab is designed to be an useful workbench rather than a final product, constraint models and search strategies are intended to be modeled and/or customized to meet developers' requirement. 
+** This page provides some examples of customizing *alldiff constraints* and *search strategies*. 
+
+* Customizing Alldiff Constraint
+** We consider the following 4 models of $alldiff(x_{1}, x_{2}, \ldots, x_{n})$
+
+** *Alldiff 1*: Original Alldiff.
+\( \bigwedge_{i < j} (x_{i} \ne x_{j}) \)
+#+BEGIN_SRC scala
+def alldiff(xs: Seq[Var]) = {
+  And(And(for (Seq(x, y) <- xs.combinations(2)) yield x !== y))
+}
+#+END_SRC
+** *Alldiff 2*: Alldiff with Permutaion Constraints
+#+HTML:<br>
+ \(\bigwedge_{i < j} (x_{i} \ne x_{j}) \wedge \bigwedge_{i=lb}^{ub}\left(\bigvee_{j=1}^{n} (x_{j}=i)\right)\)
+  #+BEGIN_SRC scala
+def alldiff(xs: Seq[Var]) = {
+  var lb = for (x <- xs) yield csp.dom(x).lb 
+  var ub = for (x <- xs) yield csp.dom(x).ub 
+  And(
+    And(for (Seq(x, y) <- xs.combinations(2)) yield x !== y),
+    And(for (num <- lb.min to ub.max) yield Or(for (x <- xs) yield x === num))
+  )
+}
+  #+END_SRC
+
+** *Alldiff 3*: Alldiff with Pigeon Hole Constraints
+#+HTML:<br>
+ $\bigwedge_{i < j} (x_{i} \ne x_{j}) \wedge \neg\bigwedge_{i=1}^{n}(x_{i} < lb + n - 1) \wedge \neg\bigwedge_{i=1}^{n}(x_{i} > ub - n+ 1)$
+  #+BEGIN_SRC scala
+def alldiff(xs: Seq[Var]) = {
+  var lb = for (x <- xs) yield csp.dom(x).lb 
+  var ub = for (x <- xs) yield csp.dom(x).ub 
+  And(
+    And(for (Seq(x, y) <- xs.combinations(2)) yield x !== y),
+    Or(for (x <- xs) yield !(x < lb.min+xs.size-1)),
+    Or(for (x <- xs) yield !(x > ub.max-xs.size+1))
+  )
+}
+  #+END_SRC
+** *Alldiff 4*: Alldiff with Permutation and Pigeon Hole Constraints
+#+HTML:<br>
+ $\bigwedge_{i < j} (x_{i} \ne x_{j}) \wedge \bigwedge_{i=lb}^{ub}\left(\bigvee_{j=1}^{n} (x_{j}=i)\right) \wedge \neg\bigwedge_{i=1}^{n}(x_{i} < lb + n - 1) \wedge \neg\bigwedge_{i=1}^{n}(x_{i} > ub - n+ 1)$
+  #+BEGIN_SRC scala
+def alldiff(xs: Seq[Var]) = {
+  var lb = for (x <- xs) yield csp.dom(x).lb 
+  var ub = for (x <- xs) yield csp.dom(x).ub 
+  And(
+    And(for (Seq(x, y) <- xs.combinations(2)) yield x !== y),
+    And(for (num <- lb.min to ub.max) yield Or(for (x <- xs) yield x === num)),
+    Or(for (x <- xs) yield !(x < lb.min+xs.size-1)),
+    Or(for (x <- xs) yield !(x > ub.max-xs.size+1))
+  )
+}
+  #+END_SRC
+** *Experiments on Latin Square*: We compared the 4 models with the following Latin Square program. Results are available below.
+  #+BEGIN_SRC scala
+import jp.kobe_u.scarab._ , dsl._
+
+var n: Int = 5
+for (i <- 1 to n; j <- 1 to n)  int('x(i,j),1,n) 
+for (i <- 1 to n) {
+  add(alldiff((1 to n).map(j => 'x(i,j))))
+  add(alldiff((1 to n).map(j => 'x(j,i))))
+  add(alldiff((1 to n).map(j => 'x(j,(i+j-1)%n+1))))
+  add(alldiff((1 to n).map(j => 'x(j,(i+(j-1)*(n-1))%n+1))))}
+
+if (find)  println(solution)
+  #+END_SRC
+
+* Experimental Results for Latin Square
+** We compare the above 4 types of alldiff constraints written in Scarab.
+#+HTML:<br>
+
+#+CAPTION: Results for Latin Square of Sizes 7 to 16 (2.93GHz CPU, 3600 sec. T.O.)
+#+ATTR_HTML: id="table1"
+|-------------+-------+-------+-------+-------+-------+-------+-------+--------+---------+----------+---------|
+|             |     7 |     8 |     9 |    10 |    11 |    12 | 13    |     14 |      15 |       16 | #Total  |
+|-------------+-------+-------+-------+-------+-------+-------+-------+--------+---------+----------+---------|
+| Alldiff 1     | 0.210 |  T.O. |  T.O. |  T.O. | 0.347 |  T.O. | T.O.  |   T.O. |    T.O. |     T.O. |       2 |
+| Alldiff 2   | 0.232 | 0.245 | 0.230 | 0.391 | 0.317 | 1.150 | T.O.  | 14.309 | 953.0   | 1303.0   |       9 |
+| Alldiff 3   | 0.265 | 0.306 | 0.219 | 0.332 | 0.252 | 0.885 | T.O.  |  9.826 | 423.3   |  840.7   |       9 |
+| Alldiff 4   | 0.221 | 0.212 | 0.235 | 0.370 | 0.332 | 0.981 | 0.545 |  9.792 | 389.9   |  458.1   |     *10*  |
+|-------------+-------+-------+-------+-------+-------+-------+-------+--------+---------+----------+---------|
+
+#+HTML:<br>
+
+** The best performance is achieved by Alldiff (4), which has extra permutation and pigeon hole constraints.
+** As is shown in [[./examples.html][here]], all alldiff constraints are implemented less than 10 lines. 
+** *Implementing your ideas and trials are easy in Scarab!*
+
+   
+* Modeling Search Strategies
+** In the following, we provide some examples of how to write search strategies.
+** The first one is decremental search for Square Packing. 
+  #+BEGIN_SRC scala
+import jp.kobe_u.scarab._ , dsl._
+
+val n = 15; val s =36 
+
+for (i <- 1 to n)  { int('x(i),0,s-i) ; int('y(i),0,s-i) }
+for (i <- 1 to n; j <- i+1 to n) 
+  add(('x(i)+i<='x(j)) || ('x(j)+j<='x(i)) || ('y(i)+i<='y(j)) || ('y(j)+j<='y(i)))
+
+if (find) println(solution.intMap) 
+
+var lb = 15; var ub = s; int('m, lb, ub)
+for (i <- 1 to n)
+  add(('x(i)+i <= 'm) && ('y(i)+i <= 'm)) 
+
+while(lb <= ub && find('m <= ub)) {
+  add('m <= ub); ub -= 1
+}
+
+while(find)  println(solution.intMap)
+  #+END_SRC
+*** (Lines 13 to 15) add constraints for optimization
+*** (Lines 17 to 19) decremental search
+*** (Line 21) enumerate optimal solutions
+
+** Incremental Search
+  #+BEGIN_SRC scala
+var lb = 15; var ub = s; int('m, lb, ub)
+for (i <- 1 to n)
+  add(('x(i)+i <= 'm) && ('y(i)+i <= 'm)) 
+
+while(lb < ub && !find('m <= lb)) {
+  add('m > lb); lb += 1
+}
+
+while(find)  println(solution.intMap)
+  #+END_SRC
+*** (Lines 1 to 3) add constraints for optimization
+*** (Lines 5 to 7) decremental search
+*** (Line 9) enumerate optimal solutions
+
+** Binary Search
+  #+BEGIN_SRC scala
+var lb = 5; var ub = s
+commit
+while(lb < ub) {
+  var size = (lb + ub) / 2
+  for (i <- 1 to n)
+    add(('x(i)+i<=size)&&('y(i)+i<=size))
+  if (find) {
+    ub = size; commit;
+  } else {
+    lb = size + 1; rollback;
+  }
+}
+  #+END_SRC
+*** (Lines 3 to 12) binary search
+

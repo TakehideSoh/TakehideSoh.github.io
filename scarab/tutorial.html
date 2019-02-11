@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-02-10 日 16:02 -->
+<!-- 2019-02-11 月 14:59 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scarab チュートリアル</title>
@@ -94,7 +94,15 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
 </style>
-<link rel="stylesheet" type="text/css" href="../../../myhome.css"/>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-6313627-5');
+</script>
+<link rel="stylesheet" type="text/css" href="../myhome.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -141,28 +149,7 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
-</script>
-<script type="text/javascript"
-        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body>
 <div id="content">
@@ -241,17 +228,17 @@ h1#aa {
 <h2 id="orgheadline2"><span class="section-number-2">2</span> インストール</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-以下の説明は Scarab のバージョン 1.8.1 の説明です．
+以下の説明は Scarab のインストールの説明です．
 </p>
 <ol class="org-ol">
-<li><a href="http://www.java.com/">Java</a> runtime version 1.7 以降をインストールする．</li>
-<li><a href="http://www.scala-lang.org/">Scala</a> version 2.11.* をインストールする．
+<li><a href="http://www.java.com/">Java</a> runtime version 1.8 以降をインストールする．</li>
+<li>Scala をインストールしてください (2019年2月時点で 2.12.8 が最新).</li>
+<li>使用している Scala のバージョンに応じて，以下から適切な scarab jar
+を選択してダウンローそしてください．
 <ul class="org-ul">
-<li>Scarab 1.8.1 は Scala version 2.11.* で動作します (他のバージョンでは動作しません)．</li>
-</ul></li>
-<li>Scarab (jarファイル) を<a href="http://kix.istc.kobe-u.ac.jp/~soh/scarab/scarab181.jar">ダウンロード</a>
-<ul class="org-ul">
-<li><a href="http://kix.istc.kobe-u.ac.jp/~soh/scarab/scarab181.jar">http://kix.istc.kobe-u.ac.jp/~soh/scarab/scarab181.jar</a></li>
+<li>(for Scala 2.12.*) use <a href="jars/scarab-v196-s212.jar">jars/scarab-v196-s212.jar</a></li>
+<li>(for Scala 2.11.*) use <a href="jars/scarab-v196-s211.jar">jars/scarab-v196-s211.jar</a></li>
+<li>(for Scala 2.10.*) use <a href="jars/scarab-v196-s210.jar">jars/scarab-v196-s210.jar</a></li>
 <li>ソースコードは <a href="https://github.com/TakehideSoh/Scarab">Github </a>から入手できます．</li>
 </ul></li>
 </ol>
@@ -263,7 +250,7 @@ h1#aa {
 
 <pre class="src src--sh">csp/
  |
- |- scarab181.jar
+ |- scarab-&lt;scarab version&gt;-&lt;scala version&gt;.jar
 </pre>
 </div>
 <ul class="org-ul">
@@ -274,7 +261,7 @@ h1#aa {
 <pre class="src src--sh">$ mkdir csp
 $ cd csp
 $ mkdir classes
-$ wget http://kix.istc.kobe-u.ac.jp/~soh/scarab/scarab181.jar
+$ wget http://tsoh.org/scarab/jars/scarab-v196-s212.jar
 </pre>
 </div>
 </div>
@@ -352,11 +339,11 @@ add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 </div>
 <ul class="org-ul">
 <li><p>
-まず REPL を用いた対話的な実行方法を説明します．&ldquo;scala -cp scarab181.jar&rdquo; と入力します．
+まず REPL を用いた対話的な実行方法を説明します．&ldquo;scala -cp scarab-v196-s212.jar&rdquo; と入力します．
 </p>
 <div class="org-src-container">
 
-<pre class="src src-scala">hoge $ scala -cp scarab181.jar 
+<pre class="src src-scala">hoge $ scala -cp {{{scarabJAR()}}} 
 Welcome to Scala version 2.11.5 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.1_11).
 Type in expressions to have them evaluated.
 Type :help <span style="color: #a020f0;">for</span> more information.
@@ -611,7 +598,7 @@ add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-sh">$ scala -cp scarab181.jar ex-csp-solve.sc
+<pre class="src src-sh">$ scala -cp scarab-v196-s212.jar ex-csp-solve.sc
 </pre>
 </div>
 </div>
@@ -1294,7 +1281,7 @@ use(<span style="color: #a020f0;">new</span> LogEncoder(csp, satSolver))
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Takehide Soh</p>
-<p class="date">Created: 2019-02-10 日 16:02</p>
+<p class="date">Created: 2019-02-11 月 14:59</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

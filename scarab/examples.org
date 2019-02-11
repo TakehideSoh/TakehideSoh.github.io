@@ -1,0 +1,296 @@
+#+TITLE: Scarab: Program Examples
+#+AUTHOR: [[http://kix.istc.kobe-u.ac.jp/~soh/][Takehide Soh]]
+
+#+INCLUDE: "./title.html" quote
+#+OPTIONS: ^:nil toc:nil H:2 num:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../myhome.css" />
+
+* Latin Square
+ #+BEGIN_SRC scala
+import jp.kobe_u.scarab._, dsl._
+
+var n: Int = 5
+for (i <- 1 to n; j <- 1 to n)  int('x(i,j),1,n) 
+for (i <- 1 to n) {
+  add(alldiff((1 to n).map(j => 'x(i,j))))
+  add(alldiff((1 to n).map(j => 'x(j,i))))
+  add(alldiff((1 to n).map(j => 'x(j,(i+j-1)%n+1))))
+  add(alldiff((1 to n).map(j => 'x(j,(i+(j-1)*(n-1))%n+1))))}
+
+if (find)  println(solution)
+ #+END_SRC
+*** (Lines 1 to 3) import Scarab classes
+*** (Line 6) declare integer variables
+*** (Lines 8 to 11) add alldifferenct constraints for each row, column, and diagonal
+*** (Line 12) print found solution if it exists
+* Square Packing
+  #+BEGIN_SRC scala
+import jp.kobe_u.scarab._, dsl._
+
+val n = 15; val s =36 
+
+for (i <- 1 to n)  { int('x(i),0,s-i) ; int('y(i),0,s-i) }
+for (i <- 1 to n; j <- i+1 to n) 
+  add(('x(i)+i <='x(j)) || ('x(j)+j<='x(i)) || ('y(i)+i<='y(j)) || ('y(j)+j<='y(i)))
+
+if (find) println(solution.intMap) 
+  #+END_SRC
+*** (Lines 1 to 3) import Scarab classes
+*** (Line 7) declare integer variables
+*** (Lines 8 and 9) add non-overlaping constraints
+*** (Line 11) print found solution if it exists
+
+# ** Magic Square of Size 3
+#   #+BEGIN_SRC scala -n
+# import jp.kobe_u.scarab.csp._
+# import jp.kobe_u.scarab.solver._
+# import jp.kobe_u.scarab.sapp._
+
+# val xs = for (i <- 1 to 3; j <- 1 to 3) yield int('x(i,j), 1, 9)
+# add(alldiff(xs))
+# for (i <- 1 to 3) add(Sum((1 to 3).map(j => 'x(i,j))) === 15)
+# for (j <- 1 to 3) add(Sum((1 to 3).map(i => 'x(i,j))) === 15)
+# add(Sum((1 to 3).map(i => 'x(i,i))) === 15)
+# add(Sum((1 to 3).map(i => 'x(i,4-i))) === 15)
+
+# if (find)  println(solution)
+#   #+END_SRC
+# *** (Lines 1 to 3) import Scarab classes
+# *** (Line 5) define integer variables and define "xs" as a list of them
+# *** (Line 6) add alldifferenct constraint for all variables
+# *** (Lines 7 to 10) add constraints so that each sum for each row, column, and diagonal become 15
+# *** (Line 12) print found solution if it exists
+* Langford Pairing
+#When $2n$ numbers $\{1, 1, 2, 2, \ldots, n, n\}$ are given, (see also http://www.csplib.org)
+** Model 1
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._, dsl._
+
+val n = 4
+
+for (i <- 1 to 2*n) int('x(i),1,n)
+for (i <- 1 to n) 
+  add(Or(for (j <- 1 to 2*n-i-1) yield And(('x(j) === 'x(j+i+1)), ('x(j) === i))))
+
+if(find) println(solution)
+#+END_SRC
+*** (Line 7) declare integer variables representing each of $2n$ positions has which number.
+** Model 2 (with position variable)
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._, dsl._
+
+val n = 4
+
+for (i <- 1 to n) { 
+  int('l(i),1,2*n-i-1)
+  int('r(i),1,2*n) 
+}
+
+for (i <- 1 to n)  add('l(i) === 'r(i)-i-1)
+add(alldiff((1 to n).map(i => 'l(i))))
+add(alldiff((1 to n).map(i => 'r(i))))
+
+if(find) println(solution)
+#+END_SRC
+*** (Lines 7 to 10) declare integer variables representing each pairs of $n$ numbers are placed to which positions.
+* Graph Coloring
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._, dsl._
+
+val nodes = Seq(1,2,3,4,5)
+val edges = Seq((1,2),(1,5),(2,3),(2,4),(3,4),(4,5))
+var maxColor = 4;
+
+int('color,1,maxColor)
+for (i <- nodes) int('n(i),1,maxColor)
+for (i <- nodes) add('n(i) <= 'color)
+for ((i,j) <- edges)  add('n(i) !== 'n(j))
+
+while (find('color <= maxColor)) {
+  println(solution)
+  maxColor -= 1
+}
+#+END_SRC
+*** (Lines 5 to 7) declare graph structure.
+*** (Lines 9 and 10) declare integer variables representing available colors and each node of the given graph.
+*** (Lines 11 and 12) declare constraints that limit available colors and adjacent nodes have different color.
+*** (Lines 14 to 17) minimizing number of colors.
+* Magic Square
+  #+BEGIN_SRC scala
+import jp.kobe_u.scarab._, dsl._
+
+val xs = for (i <- 1 to 3; j <- 1 to 3) yield csp.int('x(i,j), 1, 9)
+  add(alldiff(xs))
+
+for (i <- 1 to 3)
+  add(Sum((1 to 3).map(j => 'x(i,j))) === 15)
+for (j <- 1 to 3)
+  add(Sum((1 to 3).map(i => 'x(i,j))) === 15)
+add(Sum((1 to 3).map(i => 'x(i,i))) === 15)
+add(Sum((1 to 3).map(i => 'x(i,4-i))) === 15)
+
+if (find) println(solution)
+  #+END_SRC
+*** (Lines 1 to 3) import Scarab classes
+*** (Line 5) declare integer variables and puts them to xs
+*** (Line 6) declare alldiff for the variables
+*** (Lines 8 and 11) add constraints such that the sum for each row and column become 15
+*** (Line 12 and 13) add constraints such that the sum for each main diagonal become 15
+*** (Line 15) print found solution if it exists
+
+# ** Magic Square of Size 3
+#   #+BEGIN_SRC scala -n
+# import jp.kobe_u.scarab.csp._
+# import jp.kobe_u.scarab.solver._
+# import jp.kobe_u.scarab.sapp._
+
+# val xs = for (i <- 1 to 3; j <- 1 to 3) yield int('x(i,j), 1, 9)
+# add(alldiff(xs))
+# for (i <- 1 to 3) add(Sum((1 to 3).map(j => 'x(i,j))) === 15)
+# for (j <- 1 to 3) add(Sum((1 to 3).map(i => 'x(i,j))) === 15)
+# add(Sum((1 to 3).map(i => 'x(i,i))) === 15)
+# add(Sum((1 to 3).map(i => 'x(i,4-i))) === 15)
+
+# if (find)  println(solution)
+#   #+END_SRC
+# *** (Lines 1 to 3) import Scarab classes
+# *** (Line 5) define integer variables and define "xs" as a list of them
+# *** (Line 6) add alldifferenct constraint for all variables
+# *** (Lines 7 to 10) add constraints so that each sum for each row, column, and diagonal become 15
+# *** (Line 12) print found solution if it exists
+* Alphametic Problem *SAT + IS + FUN = TRUE*
+$S*100 + A*10 + T + I*10 + S + F*100 + U*10 + N = T*1000 + R*100 + U*10 + E$
+  #+BEGIN_SRC scala
+import jp.kobe_u.scarab._, dsl._
+
+val base = 10
+
+for (v <- Seq('s,'i,'f,'t)) yield int(v,1,base-1)     // S, I, F and T are not zero
+for (v <- Seq('a,'u,'n,'r,'e)) yield int(v,0,base-1)  // others can be zero
+for (v <- Seq('c1,'c2,'c3)) yield int(v,0,2)          // carries
+
+add('t + 's + 'n       === 'e + 'c1*base)
+add('a + 'i + 'u + 'c1 === 'u + 'c2*base)
+add('s +      'f + 'c2 === 'r + 'c3*base)
+add(               'c3 === 't)
+
+add(alldiff(Seq('s,'i,'f,'t,'a,'u,'n,'r,'e)))
+
+if (find)  println(solution.intMap)
+  #+END_SRC
+*** (Lines 11 to 14) constraint model considering each digit and carry, which takes around 1 second;)
+* COMMENT Using ModelIterator of Sat4j
+  #+BEGIN_SRC scala
+import jp.kobe_u.scarab._
+
+object SimpleEnum {
+  def main(args: Array[String]) = {
+    val csp = new CSP()
+    val satSolver = new Sat4j("iterator")
+    val encoder = new OrderEncoder(csp,satSolver)
+    val solver = new Solver(csp,satSolver,encoder)
+
+    csp.int('x,1,3)
+    csp.int('y,1,3)
+    csp.add('x === 'y)
+
+    while (solver.enumerate) {
+      println(solver.solution)
+    }
+  }
+}
+  #+END_SRC
+*** (Line 7) define *Sat4j("iterator")* for ModelIterator
+*** (Line 15) *solver.enumerate* enumerates models
+* Open-shop Scheduling
+  #+BEGIN_SRC scala
+import jp.kobe_u.scarab._, dsl._
+
+use(new Sat4j("glucose"))
+
+val pt = Seq(
+  Seq(661,   6, 333),
+  Seq(168, 489, 343),
+  Seq(171, 505, 324))
+
+val n = pt.size
+val lb = pt.map(_.sum).max
+var ub = (0 until n).map(k => (0 until n).map(i => pt(i)((i + k) % n)).max).sum
+
+int('makespan, lb, ub)
+
+for (i <- 0 until n; j <- 0 until n) {
+  int('s(i,j), 0, ub)
+  add('s(i,j) + pt(i)(j) <= 'makespan)
+}
+for (i <- 0 until n) {
+  for (j <- 0 until n; l <- j+1 until n)
+    add('s(i,j) + pt(i)(j) <= 's(i,l) ||
+        's(i,l) + pt(i)(l) <= 's(i,j))
+}
+for (j <- 0 until n) {
+  for (i <- 0 until n; k <- i+1 until n)
+    add('s(i,j) + pt(i)(j) <= 's(k,j) ||
+        's(k,j) + pt(k)(j) <= 's(i,j))
+}
+
+while (find('makespan <= ub)) {
+  println(solution)
+  val end = (for(i <- 0 until n; j <- 0 until n) 
+             yield solution.intMap('s(i,j))+pt(i)(j)).max
+  ub = end - 1
+  println(ub)
+}
+  #+END_SRC
+*** (Lines 1 to 3) import Scarab classes
+*** (Lines 7 to 10) declare an instance
+*** (Lines 12 to 14) compute size, lower and upper bounds of the instance
+*** (Line 16) declares an integer variable representing current makespan
+*** (Lines 18 to 21) forces all operations are ended before makespan
+*** (Lines 22 to 26) forces for operations in the same job do not overlap each other
+*** (Lines 27 to 31) forces for operations sharing same resource do not overlap each other
+*** (Lines 33 to 38) coumputes optimum solution
+* Colored N Queen
+  #+BEGIN_SRC scala
+import jp.kobe_u.scarab._, dsl._
+
+val n = args(0).toInt
+val c = n
+
+use(new Sat4j("glucose"))
+
+for (i <- 1 to n; color <- 1 to c)
+  int('q(i,color), 1, c)
+
+for (color <- 1 to c) {
+  add(alldiff((1 to n).map(i => 'q(i,color))))
+  add(alldiff((1 to n).map(i => 'q(i,color)+i)))
+  add(alldiff((1 to n).map(i => 'q(i,color)-i)))
+}
+
+for (i <- 1 to n)
+  add(alldiff((1 to c).map(color => 'q(i,color))))
+
+if (find) {
+  for (color <- 1 to c) {
+    for (row <- 1 to n) {
+      var seq: Seq[Int] = Seq.empty
+      for (column <- 1 to n)
+	if (encoder.decode('q(row,color)) == column)
+	  seq = seq :+ color
+	else
+	  seq = seq :+ 0
+      println(seq.mkString(" "))
+    }
+    println("-----------------")
+  }
+}
+  #+END_SRC
+*** (Lines 1 to 3) import Scarab classes
+*** (Lines 5 to 6) size is given from command line
+*** (Lines 8) declares the use of Sat4j of Glucose setting.
+*** (Lines 10 to 11) declares integer variables representing queens
+*** (Lines 13 to 17) representing N-Queen constraints for each color
+*** (Lines 19 to 20) forces that Queens of each color do no overlap
+*** (Lines 22 to 35) compute solutions and show the obtained placement
+
