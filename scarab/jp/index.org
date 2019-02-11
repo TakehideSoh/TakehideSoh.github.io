@@ -37,9 +37,15 @@
 
 ** 使い方
   - [[https://tsoh.org/scarab/scarab196.jar][最新バージョン 1.9.6 (scarab196.jar)]] をダウンロードしてください
+
+  - 最新の jar をダウンロードしてください．使用している Scala のバージョ
+    ンに応じて適切な jar を選択してください．
+    - (for Scala 2.12.*) use [[file:jars/scarab-v196-s212.jar]]
+    - (for Scala 2.11.*) use [[file:jars/scarab-v196-s211.jar]]
+    - (for Scala 2.10.*) use [[file:jars/scarab-v196-s210.jar]]
   - ソース・ファイルを含む全ての情報は
-    https://github.com/TakehideSoh/Scarab のコミット番号 922c886 を参
-    照してください．
+    https://github.com/TakehideSoh/Scarab の以下のコミット番号を参照してください．
+    - 30315e9
     
 #+ATTR_HTML: :alt image :title Action! :align right
 [[../figs/latin5-diagonal.gif]]

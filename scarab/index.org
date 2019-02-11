@@ -31,9 +31,14 @@ Features of Scarab are follows:
 - *Portability* Run on JVM.
 
 ** How to use it
-  - Download [[https://tsoh.org/scarab/scarab196.jar][the latest version 1.9.6 (scarab196.jar).]]
-  - All materials (source codes etd.) can be found in Commit ID
-    922c886 of https://github.com/TakehideSoh/Scarab
+  - Download the latest jar (According to your Scala version select
+    appropriate one).  
+    - (for Scala 2.12.*) use [[file:jars/scarab-v196-s212.jar]]
+    - (for Scala 2.11.*) use [[file:jars/scarab-v196-s211.jar]]
+    - (for Scala 2.10.*) use [[file:jars/scarab-v196-s210.jar]]
+    
+  - For more detail (including source files), please refere the
+    following Commit ID 30315e9 of https://github.com/TakehideSoh/Scarab
 
 #+ATTR_HTML: :alt image :title Action! :align right
 [[./figs/latin5-diagonal.gif]]
