@@ -88,7 +88,7 @@ and to experiment with different modelings.
 
 
 * API Documents and Class Diagrams of Scarab
-** [[./docs/index.html][Scarab API]] (see also Sat4j version 2.3.3 API [[./sat4j/doc/index.html][Sat4j API]])
+** [[../docs/scarab-api/][Scarab API]] (see also Sat4j version 2.3.3 API [[../docs/sat4j-api/index.html][Sat4j API]])
 ** CSP package
 #+HTML:<center>
 [[file:figs/class_diagram_csp.png]]
