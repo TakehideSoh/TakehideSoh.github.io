@@ -18,8 +18,7 @@ and to experiment with different modelings.
    - Scarab also can utilize current state-of-the-art SAT techniques.
 ** *Customizability:* 
    - Scarab allows a programmer to customize his/her own constraints and to customize the search strategies.
-   - Scarab itself can be also customizable since it is *500* lines
-     (800 lines in version 1.0.4) long without any comments.
+   - Scarab itself can be also customizable since it is *500* lines (800 lines in version 1.0.4) long without any comments.
    - In particular, our core part of order encoding module is only *25* lines long.
 ** *Portability:* 
    - The current version of Scarab adopts [[http://www.sat4j.org][Sat4j]] as the back-end SAT solver. 
@@ -30,7 +29,7 @@ and to experiment with different modelings.
 ** (JP) [[file:talk-jp.pdf][ScalaMatsuri2014-jp]]
 
 * Scarab Paper (Presented in PoS-13)
-** You can also see details of Scarab from a [[./pos2013scarab.pdf][paper]] presented in PoS-13.
+** You can also see details of Scarab from a [[./publications/pos2013scarab.pdf][paper]] presented in PoS-13.
 
 * Process Flow of Scarab
 #+HTML:<center>
