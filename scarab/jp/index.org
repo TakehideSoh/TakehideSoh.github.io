@@ -1,0 +1,118 @@
+#+TITLE: Scarab: SAT型制約プログラミングシステム
+#+AUTHOR: 宋 剛秀 (SOH Takehide)
+#+INCLUDE: "./title.html" quote
+#+OPTIONS: ^:nil toc:nil H:2 num:nil
+
+#+HTML_HEAD: <!-- Global site tag (gtag.js) - Google Analytics -->
+#+HTML_HEAD: <script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
+#+HTML_HEAD: <script>
+#+HTML_HEAD:   window.dataLayer = window.dataLayer || [];
+#+HTML_HEAD:  function gtag(){dataLayer.push(arguments);}
+#+HTML_HEAD:  gtag('js', new Date());
+#+HTML_HEAD:  gtag('config', 'UA-6313627-5');
+#+HTML_HEAD: </script>
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../myhome.css" />
+
+#+STYLE: <style type="text/css">
+#+STYLE:<!--/*--><![CDATA[/*><!--*/
+#+STYLE: div.figure { float:left; }
+#+STYLE: /*]]>*/-->
+#+STYLE: </style>
+
+* 概要
+このページではSAT型システムのためのツール (SAT型制約プログラミングシステム) 
+*Scarab* について説明します．Scarab の特長は以下になります:
+
+- *表現性* 制約記述のためのドメイン固有言語と汎用プログラミング言語で
+  あるScalaの両方を用いて，与えられた問題を記述することが可能である．
+
+- *効率性* 対数符号化，最適化された順序符号化，組込みのBC/PB制約を用い
+  て問題を符号化し，SATソルバーSat4jを使って解くという点で効率的である．
+
+- *拡張性* \scarab のソースコードは全体で1000行ほどであり，
+  ユーザが \scarab 自身を拡張することが可能．
+
+- *可搬性* Sat4j と共に Java 仮想マシン上で動きます．
+
+** 使い方
+  - [[https://tsoh.org/scarab/scarab196.jar][最新バージョン 1.9.6 (scarab196.jar)]] をダウンロードしてください
+  - ソース・ファイルを含む全ての情報は
+    https://github.com/TakehideSoh/Scarab のコミット番号 922c886 を参
+    照してください．
+    
+#+ATTR_HTML: :alt image :title Action! :align right
+[[../figs/latin5-diagonal.gif]]
+  - Scarab プログラムを書きます．例として，汎対角線ラテン方陣 *PLS(n)*
+    を解くことを考えます．
+    - 汎対角線ラテン方陣問題は $n$ 個の数字を $n \times n$ のマス目に
+      記入する問題です．但し，以下の制約を満たす必要があります．
+      - 各行，各列，各汎対角線において，全ての数字がちょうど一回だけ表
+        れる．
+#+HTML: <br style="clear:both;" />
+ #+BEGIN_SRC scala
+import jp.kobe_u.scarab._ ; import dsl._ 
+
+var n: Int = 5
+for (i <- 1 to n; j <- 1 to n)  int('x(i,j),1,n) 
+for (i <- 1 to n) {
+  add(alldiff((1 to n).map(j => 'x(i,j))))
+  add(alldiff((1 to n).map(j => 'x(j,i))))
+  add(alldiff((1 to n).map(j => 'x(j,(i+j-1)%n+1))))
+  add(alldiff((1 to n).map(j => 'x(j,(i+(j-1)*(n-1))%n+1))))}
+
+if (find)  println(solution.intMap)
+ #+END_SRC
+  - 上記のプログラム *pls.sc* として保存してください．
+  - *pls.sc* を実行するには以下のコマンドを実行するだけです!
+  #+BEGIN_SRC sh
+   scala -cp scarab<$version>.jar pls.sc
+  #+END_SRC
+
+# Scarab package (lib/scarab-<version>.jar) includes [[http://www.sat4j.org][Sat4j]] package and
+# [[http://bach.istc.kobe-u.ac.jp/sugar/][Sugar]] for the ease of use.
+# We really appreciate the developers of Sat4j!
+
+# ** [[./scarab-v1-5-4.jar][JAR of Scarab]] -- Version 1.5.4 (compiled by Scala 2.11.1)
+# ** This software is distributed under the [[http://opensource.org/licenses/bsd-license.php][BSD License]]. See [[./LICENSE][LICENSE]] file.
+
+** その他の情報
+   - Scarab のプログラム例についてはこちらを御覧ください [[./../examples.html]["example" page]].
+   - Scarab のドキュメントについてはこちらを御覧ください [[./../doc.html]["documents" page]].
+
+** ライセンス
+  - このソフトウェアは [[http://opensource.org/licenses/bsd-license.php][BSD ライセンス]] で配布されます．詳細は [[../LICENSE][LICENSE]]
+    ファイルをご覧ください．
+  - scarab-<version>.jar は [[http://www.sat4j.org][Sat4j]] パッケージを含んでいます．
+
+* リリースノート
+  - [[../index.html][英語ページ]]を参照してください．
+
+* 論文
+  - Scarab: A Rapid Prototyping Tool for SAT-based Constraint Programming Systems
+    - Takehide Soh, Naoyuki Tamura, and Mutsunori Banbara
+    - In the Proceedings of the 16th International Conference on Theory and Applications of Satisfiability Testing (SAT 2013), LNCS 7962, pp. 429-436, 2013.
+  - System Architecture and Implementation of a Prototyping Tool for SAT-based Constraint Programming Systems
+    - Takehide Soh, Naoyuki Tamura, Mutsunori Banbara, Daniel Le Berre, and Stéphanie Roussel
+    - In the Proceedings of Pragmatics of SAT 2013 (PoS-13), 14 pages, July 2013.
+
+
+* COMMENT 関連ツールへのリンク
+
+| [[http://www.sat4j.org][Sat4j]]      | SAT solver in Java, which Scarab adopts!                                     |
+| [[http://bach.istc.kobe-u.ac.jp/sugar/][Sugar]]      | SAT-based CSP Solver using order encoding.                                   |
+| [[http://bach.istc.kobe-u.ac.jp/copris/][Copris]]     | Copris is a constraint programming DSL embedded in Scala.                    |
+|            | It is also developed by our team!                                            |
+| [[http://numberjack.ucc.ie][Numberjack]] | Constraint Programming System in Python                                      |
+| [[http://lara.epfl.ch/web2010/scp][SCP]]        | Constraint Programming in Scala using Z3                                     |
+| [[http://code.google.com/p/scalasmt/][scalasmt]]   | SMT in Scala using Z3                                                        |
+| [[https://bitbucket.org/oscarlib/oscar][OscaR]]      | OR in Scala                                                                  |
+| [[http://jacop.osolpro.com/][JaCoP]]      | Constraint programming in Java and Scala                                     |
+| [[http://www.emn.fr/x-info/choco-solver/][Choco]]      | Constraint programming in Java                                               |
+| [[http://jcp.org/en/jsr/detail?id%3D331][JSR 331]]    | Java Specification Requests: Constraint Programming API                      |
+| [[http://amit.metodi.me/research/bee/][BEE]]        | a compiler which enables to encode finite domain constraint problems to CNF. |
+
+
+
+
+

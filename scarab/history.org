@@ -1,0 +1,84 @@
+#+TITLE: Scarab: history
+#+AUTHOR: Takehide Soh
+#+INCLUDE: "./title.html" quote
+#+OPTIONS: ^:nil toc:nil H:1 num:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../myhome.css" />
+
+* History
+
+** [2016.07.03] [[./scarab-v1-8-9.zip][ZIP of Scarab Package]] -- Version 1.8.9 is released.  
+   - Some bug fix.
+   - Makefile and build.sbt are fixed and work correctly.
+
+** [2015.06.14] [[./scarab-v1-6-9.zip][ZIP of Scarab Package]] -- Version 1.6.9 is released.  
+   - changes will be updated soon.
+
+** [2015.05.25] [[./scarab168.jar][JAR of Scarab]] -- Version 1.6.8 is released.  
+   - changes will be updated soon.
+** [2015.02.08] [[./scarab-v1-5-7.jar][JAR of Scarab]] -- Version 1.5.7 is released. 
+   - To run this version, Scala 2.11.* or higher is required. 
+   - Addition of new functions.
+     - UNSAT Core dectection in CSP level.
+     - Nested commit.
+     - Built-in optimization function.
+   - Refactoring for some parts.
+
+** [2015.01.09] [[./scarab-v1-5-6.jar][JAR of Scarab]] -- Version 1.5.6 is released. 
+# *** [2015.01.05] [[./scarab-v1-5-4.jar][JAR of Scarab]] -- Version 1.5.4 is released. 
+    - To run this version, Scala 2.11.* or higher is required. 
+    - Support non-contiguous domain.
+    - Performance improvement.
+      - Order Encoding Module is tuned.
+      - Native PB Constraint is tuned. 
+
+
+
+** [2014.07.05] [[./scarab-v1-1-2.zip][Scarab -- Version 1.1.2]] is released
+*** Native BC and Natice PB are implemented on Scarab.
+*** some bug fix. 
+
+** [2014.07.01] [[./scarab-v1-1-1.zip][Scarab -- Version 1.1.1]] is released
+*** it is adopted to Scala 2.11.*
+** [2014.05.27] [[./scarab-v1-1-0.zip][Scarab -- Version 1.1.0]] is released
+*** bug fix (in the case constraint includes some obvious domain inconsitency).
+** [2014.01.31] [[./scarab-v1-0-8.zip][Scarab -- Version 1.0.8]] is released
+*** some bug fix.
+** [2013.12.25] [[./scarab-v1-0-6.zip][Scarab -- Version 1.0.6]] is released
+*** It supports boolInt type.
+*** It supports external SAT solvers like minisat, glucose, and lingeling.
+
+** [2013.11.25] [[./scarab-v1-0-4.zip][Scarab -- Version 1.0.4]] is released
+*** Native Encoder is updated.
+*** Sat4j included in Scarab JAR is updated.
+*** This version is written in about 800 lines of Scala without comments.
+
+** [2013.10.04] [[./scarab-v1-0-3.zip][Scarab -- Version 1.0.3]] is released
+*** Internally, Constraints are now represented by using LeZero, GeZero, EqZero, NeZero, Bool, and Not @@html:<br>@@(Until 1.0.2, all of constraints are represented by using only LeZero, Bool, Not).
+*** Addition to OrderEncoder, NativeEncoder is now available, which directly passes Boolean cardinality constraints to Sat4j without SAT encoding.
+*** This version introduces many Sat4j configurations: "MiniLearningHeap", "MiniLearningHeapEZSimp", "Glucose21", "BestWL", "BestHT", "SAT", "UNSAT", "greedy" etc
+*** You can use it by defining SAT solvers like: new Sat4j("MiniLearningHeap")
+** [2013.09.14] [[./scarab-v1-0-2.zip][Scarab -- Version 1.0.2]] is released 
+*** [[http://www.sat4j.org][Sat4j]] verion 2.3.5 is now included
+*** some bug fix is done
+*** "findNext" of solver is introduced for enumerating solutions (enumeration feature of "find" is dismounted).
+** [2013.07.08-12] Scarab is presented at [[http://www.satcompetition.org/PoS13/][PoS-13]] and [[http://sat2013.cs.helsinki.fi][SAT]] (paper for the PoS workshop is available [[./pos2013scarab.pdf][here]]).
+** [2013.05.27] We have move examples (see [[./examples.html][Examples]]) 
+** [2013.04.20] [[./scarab-v1-0-1.zip][Scarab -- Version 1.0.1]] is released 
+*** [[http://www.sat4j.org][Sat4j]] verion 2.3.3 is now included
+*** ModelIterator of Sat4j is [[./examples.html][available]] to use
+** [2013.04.12] Web page is re-organized 
+** [2013.04.12] Class diagrams are added to [[./doc.html][Documents]] 
+** [2013.03.25] Magic Square is added to [[./examples.html][Examples]] 
+
+
+* Old versions
+Since Scala is not binary comaptible in major versions, the following
+older version may need re-compile accorinding to your environment.
+** [[./scarab-v1-1-1.zip][version 1.1.1]] 
+** [[./scarab-v1-1-0.zip][version 1.1.0]] 
+** [[./scarab-v1-0-8.zip][version 1.0.8]]
+** [[./scarab-v1-0-6.zip][version 1.0.6]] 
+** [[./scarab-v1-0-4.zip][version 1.0.4]]
+** [[./scarab-v1-0-3.zip][version 1.0.3]]
+** [[./scarab-v1-0-2.zip][version 1.0.2]]
+** [[./scarab-v1-0-1.zip][version 1.0.1]]
