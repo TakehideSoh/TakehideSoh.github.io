@@ -36,10 +36,8 @@
 - *可搬性* Sat4j と共に Java 仮想マシン上で動きます．
 
 ** 使い方
-  - [[https://tsoh.org/scarab/scarab196.jar][最新バージョン 1.9.6 (scarab196.jar)]] をダウンロードしてください
-
-  - 最新の jar をダウンロードしてください．使用している Scala のバージョ
-    ンに応じて適切な jar を選択してください．
+  - 使用している Scala のバージョンに応じて，以下から適切な jar を選択
+    してダウンローそしてください．
     - (for Scala 2.12.*) use [[file:jars/scarab-v196-s212.jar]]
     - (for Scala 2.11.*) use [[file:jars/scarab-v196-s211.jar]]
     - (for Scala 2.10.*) use [[file:jars/scarab-v196-s210.jar]]
