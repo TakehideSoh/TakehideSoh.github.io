@@ -55,8 +55,14 @@ h1#aa {
 #+END_HTML
 
 * 参考資料
-  - [[http://kix.istc.kobe-u.ac.jp/~soh/scarab/index.html][Scarab の web page]]
-  - [[http://www.csplib.org/Problems/][CSPLib]]
+  - Scarab 資料
+    - [[http://tsoh.org/scarab/][ホームページ]]
+    - [[https://github.com/TakehideSoh/Scarab][github]]
+  - プレゼンテーション
+    - Scarab の説明 @ ScalaMatsuri 2014
+      - [[https://tsoh.org/scarab/talks/talk-jp-scalamatsuri.pdf][日本語]]
+      - [[https://tsoh.org/scarab/talks/talk-en-scalamatsuri.pdf][英語]]
+    - [[https://tsoh.org/scarab/talks/talk-jp-ppl2017.pdf][SATソルバーの最新動向と利用技術 (日本語) @ PPL 2017]]
 
 * インストール
 以下の説明は Scarab のインストールの説明です．
