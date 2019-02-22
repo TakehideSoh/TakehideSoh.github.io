@@ -71,7 +71,9 @@ $ wget http://tsoh.org/scarab/jars/scarab-v196-s212.jar
 この時に90セント分の切手を構成できるか?
 #+END_EXAMPLE
 この問題は以下の制約充足問題 (CSP) として定義できる．
-#+BEGIN_QUOTE
+
+#+NAME: test
+#+BEGIN_QUOTE html
 === 制約充足問題 (CSP)  ===
   - 変数の集合 \(X = \{a, b, c, d\}\)
   - 変数が取り得る値の集合 (ドメイン) を表す関数 \(Dom\)
@@ -230,8 +232,8 @@ res23: jp.kobe_u.scarab.Assignment = null
 * スクリプトによるコンパイル不要な実行方法
 ** 内容の確認
 - CSPをScalaのスクリプトファイルとして定義することもできる．
-- 以下がCSPを定義したスクリプトファイルである [[file:hoge/files/ex-csp.sc][ex-csp.sc]] .
-  - http://kix.istc.kobe-u.ac.jp/~soh/ai-tool/20151214sat/scarab-tutorial/hoge/files/ex-csp.sc
+- 以下がCSPを定義したスクリプトファイルである [[file:ex-csp.sc][ex-csp.sc]].
+  - [[http://tsoh.org/scarab/sample-codes/ex-csp.sc]]
 #+BEGIN_SRC scala
 import jp.kobe_u.scarab._ , dsl._
 
@@ -242,8 +244,8 @@ int('d, 0, 10)
 add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 #+END_SRC
 
-- 以下がCSPを定義した後に求解し，解があれば出力するスクリプトファイルである [[file:hoge/files/ex-csp-solve.sc][ex-csp-solve.sc]] .
-  - [[http://kix.istc.kobe-u.ac.jp/~soh/ai-tool/20151214sat/scarab-tutorial/hoge/files/ex-csp-solve.sc]]
+- 以下がCSPを定義した後に求解し，解があれば出力するスクリプトファイルである [[file:ex-csp-solve.sc][ex-csp-solve.sc]].
+  - [[http://tsoh.org/scarab/sample-codes/ex-csp-solve.sc]]
 #+BEGIN_SRC scala
 import jp.kobe_u.scarab._ , dsl._
 
@@ -498,7 +500,7 @@ while(lb <= ub && find('m <= ub)) {
 
 ** その他の例題
    - [[http://www.csplib.org/Problems/prob024/][ラングフォード・ペアリング]]
-   - プログラム例は [[http://kix.istc.kobe-u.ac.jp/~soh/scarab/examples.html][Scarab の Example]] ページにある．
+   - プログラム例は [[http://tsoh.org/scarab/examples.html][Scarab の Example]] ページにある．
 
 * COMMENT CEGARを用いたハミルトン閉路問題の解法
 #+BEGIN_EXAMPLE
