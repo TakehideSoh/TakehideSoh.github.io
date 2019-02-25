@@ -26,7 +26,7 @@
       - [[https://tsoh.org/scarab/talks/talk-en-scalamatsuri.pdf][英語]]
     - AIツールセミナー (2015年12月)
       - [[https://tsoh.org/scarab/talks/ai-tool-soh-1.pdf][SAT型制約ソルバーと Scarab]]
-      - [[https://tsoh.org/scarab/talks/ai-tool-soh-2.pdf%20][alldiffrent制約を例に用いた制約の拡張]]
+      - [[https://tsoh.org/scarab/talks/ai-tool-soh-2.pdf][alldiffrent制約を例に用いた制約の拡張]]
     - [[https://tsoh.org/scarab/talks/talk-jp-ppl2017.pdf][SATソルバーの最新動向と利用技術 (日本語) @ PPL 2017]]
 
 * インストール
