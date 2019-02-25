@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-02-26 火 01:08 -->
+<!-- 2019-02-26 火 01:44 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scarab チュートリアル</title>
@@ -208,6 +208,11 @@ for the JavaScript code in this tag.
 <li><a href="https://tsoh.org/scarab/talks/talk-jp-scalamatsuri.pdf">日本語</a></li>
 <li><a href="https://tsoh.org/scarab/talks/talk-en-scalamatsuri.pdf">英語</a></li>
 </ul></li>
+<li>AIツールセミナー (2015年12月)
+<ul class="org-ul">
+<li><a href="https://tsoh.org/scarab/talks/ai-tool-soh-1.pdf">SAT型制約ソルバーと Scarab</a></li>
+<li><a href="https://tsoh.org/scarab/talks/ai-tool-soh-2.pdf%20">alldiffrent制約を例に用いた制約の拡張</a></li>
+</ul></li>
 <li><a href="https://tsoh.org/scarab/talks/talk-jp-ppl2017.pdf">SATソルバーの最新動向と利用技術 (日本語) @ PPL 2017</a></li>
 </ul></li>
 </ul>
@@ -218,15 +223,15 @@ for the JavaScript code in this tag.
 <h2 id="orgheadline2"><span class="section-number-2">2</span> インストール</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
-<li><a href="https://www.scala-lang.org/download/">Scala のページ</a> から sbt をダウンロードしてインストールする
+<li><a href="https://www.scala-lang.org/download/">Scala のページ</a> から sbt をダウンロードしてインストールする．
 <ul class="org-ul">
-<li>ターミナルや PowerShell 等を起動して sbt を実行できれば OK</li>
-<li>環境によってはパスを設定する必要がある</li>
+<li>ターミナルや PowerShell 等を起動して sbt を実行できれば OK.</li>
+<li>環境によってはパスを設定する必要がある．</li>
 </ul></li>
-<li><a href="./sbt-scarab.zip">sbt-scarab.zip</a> をダウンロードして適当なディレクトリに展開する</li>
+<li><a href="./sbt-scarab.zip">sbt-scarab.zip</a> をダウンロードして適当なディレクトリに展開する．</li>
 <li><p>
 sbt-scarab のディレクトリに入って sbt を実行すれば必要なライブラリ
-(scala を含む) のダウンロードとコンパイルが行われる
+(scala を含む) のダウンロードとコンパイルが行われる．
 </p>
 <div class="org-src-container">
 
@@ -234,7 +239,8 @@ sbt-scarab のディレクトリに入って sbt を実行すれば必要なラ�
 </pre>
 </div></li>
 <li><p>
-以下のように sbt:Scarab&gt; というプロンプトが出てくればインストール完了
+以下のように sbt:Scarab&gt; というプロンプトが出てくればインストール完
+了となる．
 </p>
 <div class="org-src-container">
 
@@ -243,6 +249,15 @@ sbt-scarab のディレクトリに入って sbt を実行すれば必要なラ�
 ... &#20013;&#30053; ...
 [info] sbt server started at 127.0.0.1:4891
 sbt:Scarab&gt;
+</pre>
+</div></li>
+<li><p>
+exit で終了できる．
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">sbt:Scarab&gt; exit 
+[sbt-scarab]$
 </pre>
 </div></li>
 </ol>
@@ -262,7 +277,7 @@ sbt:Scarab&gt;
 <li>scalac で実行形式にコンパイルしてから実行する方法</li>
 </ul></li>
 <li>本チュートリアルでは REPL による対話的な実行方法を通して scarab を
-説明する</li>
+説明する．</li>
 </ul>
 </div>
 </div>
@@ -280,12 +295,11 @@ sbt:Scarab&gt;
 この時に90セント分の切手を構成できるか?
 </pre>
 <p>
-この問題は以下の制約充足問題 (CSP) として定義できる．
+この問題は以下のように制約充足問題 (CSP) として定義できる．
 </p>
-
 <blockquote>
 <p>
-<code>=</code> 制約充足問題 (CSP)  <code>=</code>
+<code>=</code> 切手の問題の CSP による定義 <code>=</code>
 </p>
 <ul class="org-ul">
 <li>変数の集合 \(X = \{a, b, c, d\}\)</li>
@@ -323,11 +337,10 @@ add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 </pre>
 </div>
 <ul class="org-ul">
-<li><p>
-このプログラムを REPL (対話的な実行方法) で記述実行するために,
+<li>このプログラムを REPL (対話的な実行方法) で記述実行するために,
 sbt-scarab ディレクトリで sbt コマンド実行後に, console を実行す
-る. すると最終的に scala&gt; というコンソールが立ち上げる. 
-</p>
+る. すると最終的に scala&gt; というコンソールが立ち上げる.</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-sh">[sbt-scarab]$ sbt
@@ -337,22 +350,20 @@ scala&gt;
 </pre>
 </div>
 <ul class="org-ul">
-<li>これで scala の REPL モードが scarab のクラスを読み込んで起動さ
-れた．</li>
-<li><p>
-次に scarab のクラスをインポートする. 
-</p>
+<li>これで scala の REPL モードが scarab のクラスを読み込んで起動された．</li>
+<li>次に scarab のクラスをインポートする.</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">scala&gt; <span style="color: #a020f0;">import</span> jp.kobe_u.scarab._ , dsl._
 <span style="color: #a020f0;">import</span> jp.kobe_u.scarab._
 <span style="color: #a020f0;">import</span> dsl._
 </pre>
-</div></li>
+</div>
+<ul class="org-ul">
 <li>import 文が読み込まれ (Read Eval) 実行結果が表示 (Print) される.</li>
-<li><p>
-整数変数を定義する. 
-</p>
+<li>整数変数を定義する.</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">scala&gt; int('a, 0, 10)
@@ -367,40 +378,40 @@ res2: jp.kobe_u.scarab.Var = c
 scala&gt; int('d, 0, 10)
 res3: jp.kobe_u.scarab.Var = d
 </pre>
-</div></li>
+</div>
+<ul class="org-ul">
 <li>ここでは変数a, b, c, dを宣言している (下限 0，上限 10)． シング
 ルクォーテーションから始まる記述 &rsquo;x は ScalaにおけるSymbolオブジェ
 クトの記法ですが， Scarab DSLによりScarabの整数変数 (Varオブジェ
 クト) に暗黙変換される.</li>
-<li><p>
-制約を定義する. 
-</p>
+<li>制約を定義する.</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">scala&gt; add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 res4: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 </pre>
-</div></li>
+</div>
+<ul class="org-ul">
 <li>ここでは制約 12a + 16b + 20c + 27d = 90 を追加している. 
 <ul class="org-ul">
 <li>add は制約をCSPオブジェクトに追加するためのメソッドである.</li>
 <li>制約中での等号に \(===\) を用いる点に注意されたい.</li>
 <li>5 * &rsquo;a のように係数を前にして記述できない点にも注意されたい.</li>
 </ul></li>
-<li><p>
-定義したCSPオブジェクトは変数cspとして参照できる. 
-</p>
+<li>定義したCSPオブジェクトは変数cspとして参照できる.</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">scala&gt; csp
 res8: jp.kobe_u.scarab.CSP = CSP(Vector(a, b, c, d),Vector(),Map(..),Vector(..))
 </pre>
-</div></li>
+</div>
+<ul class="org-ul">
 <li>CSPオブジェクトは，整数変数の列 variables, ブール変数の列 bools,
 変数ドメインのマップ dom, 制約の列 constraints から構成される.</li>
-<li><p>
-以下のように csp オブジェクトから参照できる. 
-</p>
+<li>以下のように csp オブジェクトから参照できる.</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">scala&gt; csp.variables
@@ -409,10 +420,10 @@ res5: IndexedSeq[jp.kobe_u.scarab.Var] = Vector(a, b, c, d)
 scala&gt; csp.constraints
 res6: IndexedSeq[jp.kobe_u.scarab.Constraint] = Vector(EqZero(Sum(-90+12*a+16*b+20*c+27*d)))
 </pre>
-</div></li>
-<li><p>
-show メソッドでも表示できる．
-</p>
+</div>
+<ul class="org-ul">
+<li>show メソッドでも表示できる．</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">scala&gt; csp.show
@@ -422,9 +433,9 @@ int(c,Domain(0 to 10))
 int(d,Domain(0 to 10))
 EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 </pre>
-</div></li>
+</div>
+<ul class="org-ul">
 <li>CSPオブジェクトは，変数や制約の追加を行える mutable なオブジェクトとして実装されている．</li>
-</ul></li>
 </ul>
 </div>
 </div>
@@ -433,28 +444,27 @@ EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 <h3 id="orgheadline5"><span class="section-number-3">4.2</span> 解の探索</h3>
 <div class="outline-text-3" id="text-4-2">
 <ul class="org-ul">
-<li><p>
-最初の解の探索は find で行う．
-</p>
+<li>最初の解の探索は find で行う．</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">scala&gt; find
 res9: Boolean = <span style="color: #008b8b;">true</span>
 </pre>
-</div></li>
-<li><p>
-結果の true は，解が存在することを表す． CSPの解は，solution 変数
-に代入されている．
-</p>
+</div>
+<ul class="org-ul">
+<li>結果の true は，解が存在することを表す． CSPの解は，solution 変数
+に代入されている．</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">scala&gt; solution
 res10: jp.kobe_u.scarab.Assignment = Assignment(Map(a -&gt; 3, b -&gt; 0, c -&gt; 0, d -&gt; 2),Map())
 </pre>
-</div></li>
-<li><p>
-Solutionオブジェクトは，整数変数 (Varオブジェクト)に対する値割当てを表すマップと ブール変数 (Boolオブジェクト)に対する値割当てを表すマップから構成される．
-</p>
+</div>
+<ul class="org-ul">
+<li>Solutionオブジェクトは，整数変数 (Varオブジェクト)に対する値割当てを表すマップと ブール変数 (Boolオブジェクト)に対する値割当てを表すマップから構成される．</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">scala&gt; solution.intMap
@@ -463,10 +473,10 @@ res11: Map[jp.kobe_u.scarab.Var,Int] = Map(a -&gt; 3, b -&gt; 0, c -&gt; 0, d -&
 scala&gt; solution.boolMap
 res12: Map[jp.kobe_u.scarab.Bool,Boolean] = Map()
 </pre>
-</div></li>
-<li><p>
-解における各変数の値は solution メソッドで得ることができる．
-</p>
+</div>
+<ul class="org-ul">
+<li>解における各変数の値は solution メソッドで得ることができる．</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">scala&gt; solution('a)
@@ -481,10 +491,10 @@ res15: Int = 0
 scala&gt; solution('d)
 res16: Int = 2
 </pre>
-</div></li>
-<li><p>
-次の解の探索は findNext で行う．
-</p>
+</div>
+<ul class="org-ul">
+<li>次の解の探索は findNext で行う．</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">scala&gt; findNext
@@ -493,11 +503,11 @@ res17: Boolean = <span style="color: #008b8b;">true</span>
 scala&gt; solution
 res18: jp.kobe_u.scarab.Assignment = Assignment(Map(a -&gt; 0, b -&gt; 1, c -&gt; 1, d -&gt; 2),Map())
 </pre>
-</div></li>
+</div>
+<ul class="org-ul">
 <li>findNext は最も最近得られた解の否定をcspに追加することで次の解を求めている．</li>
-<li><p>
-show メソッドを実行すると，制約が追加されていることが分かる．
-</p>
+<li>show メソッドを実行すると，制約が追加されていることが分かる．</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">int(a,Domain(0 to 10))
@@ -508,28 +518,27 @@ LeZero(Sum(-90+12*a+16*b+20*c+27*d))
 LeZero(Sum(90-12*a-16*b-20*c-27*d))
 Or(LeZero(Sum(-2+a)),LeZero(Sum(4-a)),LeZero(Sum(1+b)),LeZero(Sum(1-b)),LeZero(Sum(1+c)),LeZero(Sum(1-c)),LeZero(Sum(-1+d)),LeZero(Sum(3-d)))
 </pre>
-</div></li>
+</div>
+<ul class="org-ul">
 <li>ここでこの次の解の探索時には，最初に解を求めた時の学習節を再利用するインクリメンタルSAT解法を行っている．</li>
 <li>Scarab では明示的にSATソルバーを reset しない限り，常に学習節を保持して効率的に求解を行う．</li>
-<li><p>
-もう一度 findNext を呼ぶと false が返る．
-</p>
+<li>もう一度 findNext を呼ぶと false が返る．</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">scala&gt; findNext
 res22: Boolean = <span style="color: #008b8b;">false</span>
 </pre>
-</div></li>
-<li><p>
-結果の false は，解が存在しないことを表す． この場合，変数 solution は null になっている．
-</p>
+</div>
+<ul class="org-ul">
+<li>結果の false は，解が存在しないことを表す． この場合，変数 solution は null になっている．</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-scala">scala&gt; solution
 res23: jp.kobe_u.scarab.Assignment = <span style="color: #008b8b;">null</span>
 </pre>
-</div></li>
-</ul>
+</div>
 </div>
 </div>
 </div>
@@ -539,7 +548,7 @@ res23: jp.kobe_u.scarab.Assignment = <span style="color: #008b8b;">null</span>
 <div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li>CSPをScalaのスクリプトファイルとして定義することもできる．</li>
-<li>以下がCSPを定義したスクリプトファイルである <a href="sample-scripts/ex-csp.sc">ex-csp.sc</a>.
+<li>以下がCSPを定義したスクリプトファイルである.
 <ul class="org-ul">
 <li><a href="http://tsoh.org/scarab/sample-scripts/ex-csp.sc">http://tsoh.org/scarab/sample-scripts/ex-csp.sc</a></li>
 </ul></li>
@@ -556,7 +565,7 @@ add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 </pre>
 </div>
 <ul class="org-ul">
-<li>以下がCSPを定義した後に求解し，解があれば出力するスクリプトファイルである <a href="sample-scripts/ex-csp-solve.sc">ex-csp-solve.sc</a>.
+<li>以下がCSPを定義した後に求解し，解があれば出力するスクリプトファイルである.
 <ul class="org-ul">
 <li><a href="http://tsoh.org/scarab/sample-scripts/ex-csp-solve.sc">http://tsoh.org/scarab/sample-scripts/ex-csp-solve.sc</a></li>
 </ul></li>
@@ -637,9 +646,8 @@ res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 
 <ul class="org-ul">
 <li>この問題は 部分和問題 (Subset sum problem)として知られている問題の例である． 部分和問題はNP-完全である (<a href="https://ja.wikipedia.org/wiki/%E9%83%A8%E5%88%86%E5%92%8C%E5%95%8F%E9%A1%8C">Wikipedia:部分和問題</a>)．</li>
-<li><p>
-これは，以下の制約充足問題として定式化できる．
-</p>
+<li>これは，以下の制約充足問題として定式化できる．</li>
+</ul>
 <blockquote>
 <ul class="org-ul">
 <li>\(X = \{x_2, x_3, x_5, x_8, x_{13}, x_{21}, x_{34}\}\)</li>
@@ -658,8 +666,9 @@ res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 <li>\(2x_2 + 3x_3 + 5x_5 + 8x_8 + 13x_{13} + 21x_{21} + 34x_{34} = 50\)</li>
 </ul></li>
 </ul>
-</blockquote></li>
-<li>CSPを記述したファイルは以下のようになる <a href="files/ex-subsetsum.sc">ex-subsetsum.sc</a></li>
+</blockquote>
+<ul class="org-ul">
+<li>CSPを記述したファイルは以下のようになる <a href="https://tsoh.org/scarab/sample-scripts/ex-subsetsum.sc">ex-subsetsum.sc</a></li>
 </ul>
 <div class="org-src-container">
 
@@ -685,8 +694,8 @@ res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-scala">scala&gt; :load ./files/ex-subsetsum.sc
-Loading ./files/ex-subsetsum.sc...
+<pre class="src src-scala">scala&gt; :load ./ex-subsetsum.sc
+Loading ./ex-subsetsum.sc...
 <span style="color: #a020f0;">import</span> jp.kobe_u.scarab._
 <span style="color: #a020f0;">import</span> dsl._
 define: (sum: Int)Unit
@@ -921,7 +930,7 @@ int('m, lb, ub)
 <li>scala -cp scarab-v196-s212.jar などどすることで, scarab を利用できま
 す</li>
 <li>使用している Scala のバージョンに応じて，以下から適切な scarab jar
-を選択してダウンローそしてください．
+を選択してダウンロードしてください．
 <ul class="org-ul">
 <li>(for Scala 2.12.*) use <a href="jars/scarab-v196-s212.jar">jars/scarab-v196-s212.jar</a></li>
 <li>(for Scala 2.11.*) use <a href="jars/scarab-v196-s211.jar">jars/scarab-v196-s211.jar</a></li>
@@ -1268,7 +1277,7 @@ use(<span style="color: #a020f0;">new</span> LogEncoder(csp, satSolver))
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Takehide Soh</p>
-<p class="date">Created: 2019-02-26 火 01:08</p>
+<p class="date">Created: 2019-02-26 火 01:44</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -14,8 +14,6 @@
 #+HTML_HEAD: </script>
 
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../myhome.css" />
-
-
 #+MACRO: scarabJAR @@html:scarab-v196-s212.jar@@
 
 * 参考資料
@@ -26,19 +24,23 @@
     - Scarab の説明 @ ScalaMatsuri 2014
       - [[https://tsoh.org/scarab/talks/talk-jp-scalamatsuri.pdf][日本語]]
       - [[https://tsoh.org/scarab/talks/talk-en-scalamatsuri.pdf][英語]]
+    - AIツールセミナー (2015年12月)
+      - [[https://tsoh.org/scarab/talks/ai-tool-soh-1.pdf][SAT型制約ソルバーと Scarab]]
+      - [[https://tsoh.org/scarab/talks/ai-tool-soh-2.pdf%20][alldiffrent制約を例に用いた制約の拡張]]
     - [[https://tsoh.org/scarab/talks/talk-jp-ppl2017.pdf][SATソルバーの最新動向と利用技術 (日本語) @ PPL 2017]]
 
 * インストール
-1. [[https://www.scala-lang.org/download/][Scala のページ]] から sbt をダウンロードしてインストールする
-   - ターミナルや PowerShell 等を起動して sbt を実行できれば OK
-   - 環境によってはパスを設定する必要がある
-2. [[./sbt-scarab.zip][sbt-scarab.zip]] をダウンロードして適当なディレクトリに展開する
+1. [[https://www.scala-lang.org/download/][Scala のページ]] から sbt をダウンロードしてインストールする．
+   - ターミナルや PowerShell 等を起動して sbt を実行できれば OK.
+   - 環境によってはパスを設定する必要がある．
+2. [[./sbt-scarab.zip][sbt-scarab.zip]] をダウンロードして適当なディレクトリに展開する．
 3. sbt-scarab のディレクトリに入って sbt を実行すれば必要なライブラリ
-   (scala を含む) のダウンロードとコンパイルが行われる
+   (scala を含む) のダウンロードとコンパイルが行われる．
    #+BEGIN_SRC sh
    [sbt-scarab]$ sbt 
    #+END_SRC
-4. 以下のように sbt:Scarab> というプロンプトが出てくればインストール完了
+4. 以下のように sbt:Scarab> というプロンプトが出てくればインストール完
+   了となる．
    #+BEGIN_SRC sh
    [sbt-scarab]$ sbt
    [info] Loading settings from assembly.sbt ...
@@ -46,20 +48,11 @@
    [info] sbt server started at 127.0.0.1:4891
    sbt:Scarab> 
    #+END_SRC
-
-# 以下このチュートリアルでは次のようなディレクトリ構成になっていると仮定しています．
-# #+BEGIN_SRC -sh
-# csp/
-#  |
-#  |- scarab-<scarab version>-<scala version>.jar 
-# #+END_SRC
-# - 適当なディレクトリに移動します (例えば sat-tools)．
-# #+BEGIN_SRC -sh
-# $ mkdir csp
-# $ cd csp
-# $ mkdir classes
-# $ wget http://tsoh.org/scarab/jars/scarab-v196-s212.jar
-# #+END_SRC
+5. exit で終了できる．
+   #+BEGIN_SRC sh
+   sbt:Scarab> exit 
+   [sbt-scarab]$ 
+   #+END_SRC
 
 * 実行の方法
   - Scarab の制約記述言語は Scala 上のドメイン特化言語として実装されて
@@ -69,7 +62,7 @@
     - スクリプトによるコンパイル不要な実行方法
     - scalac で実行形式にコンパイルしてから実行する方法
   - 本チュートリアルでは REPL による対話的な実行方法を通して scarab を
-    説明する
+    説明する．
 
 * REPL による対話的な実行方法
 簡単な例題を通して, Scala の REPL (対話的実行環境) を用いた scarab の
@@ -79,11 +72,10 @@
 12セント，16セント，20セント，27セントの切手をそれぞれ10枚持っている．
 この時に90セント分の切手を構成できるか?
 #+END_EXAMPLE
-この問題は以下の制約充足問題 (CSP) として定義できる．
-
+この問題は以下のように制約充足問題 (CSP) として定義できる．
 #+NAME: test
 #+BEGIN_QUOTE html
-=== 制約充足問題 (CSP)  ===
+=== 切手の問題の CSP による定義 ===
   - 変数の集合 \(X = \{a, b, c, d\}\)
   - 変数が取り得る値の集合 (ドメイン) を表す関数 \(Dom\)
     - \(Dom(a) = \{0, \ldots, 10\}\)
@@ -92,7 +84,7 @@
     - \(Dom(d) = \{0, \ldots, 10\}\)
   - 制約条件 \(C\)
     - \(12a + 16b + 20c + 27d = 90\)
- #+END_QUOTE
+#+END_QUOTE
 
 ** CSP の定義
    - 上記のCSPに対応するScarabプログラムは以下になる
@@ -106,26 +98,25 @@ int('d, 0, 10)
 
 add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 #+END_SRC
-   - このプログラムを REPL (対話的な実行方法) で記述実行するために,
-     sbt-scarab ディレクトリで sbt コマンド実行後に, console を実行す
-     る. すると最終的に scala> というコンソールが立ち上げる. 
-     #+BEGIN_SRC sh
-     [sbt-scarab]$ sbt
-     sbt:Scarab> console
-     ... メッセージ省略 ...
-     scala> 
-     #+END_SRC
-    - これで scala の REPL モードが scarab のクラスを読み込んで起動さ
-      れた．
-    - 次に scarab のクラスをインポートする. 
-      #+BEGIN_SRC scala
+- このプログラムを REPL (対話的な実行方法) で記述実行するために,
+  sbt-scarab ディレクトリで sbt コマンド実行後に, console を実行す
+  る. すると最終的に scala> というコンソールが立ち上げる. 
+#+BEGIN_SRC sh
+[sbt-scarab]$ sbt
+sbt:Scarab> console
+... メッセージ省略 ...
+scala> 
+#+END_SRC
+- これで scala の REPL モードが scarab のクラスを読み込んで起動された．
+- 次に scarab のクラスをインポートする. 
+#+BEGIN_SRC scala
  scala> import jp.kobe_u.scarab._ , dsl._
  import jp.kobe_u.scarab._
  import dsl._
       #+END_SRC
-    - import 文が読み込まれ (Read Eval) 実行結果が表示 (Print) される. 
-    - 整数変数を定義する. 
-      #+BEGIN_SRC scala
+- import 文が読み込まれ (Read Eval) 実行結果が表示 (Print) される. 
+- 整数変数を定義する. 
+#+BEGIN_SRC scala
 scala> int('a, 0, 10)
 res0: jp.kobe_u.scarab.Var = a
 
@@ -137,68 +128,68 @@ res2: jp.kobe_u.scarab.Var = c
 
 scala> int('d, 0, 10)
 res3: jp.kobe_u.scarab.Var = d      
-      #+END_SRC
-    - ここでは変数a, b, c, dを宣言している (下限 0，上限 10)． シング
-      ルクォーテーションから始まる記述 'x は ScalaにおけるSymbolオブジェ
-      クトの記法ですが， Scarab DSLによりScarabの整数変数 (Varオブジェ
-      クト) に暗黙変換される. 
-    - 制約を定義する. 
-      #+BEGIN_SRC scala
+#+END_SRC
+- ここでは変数a, b, c, dを宣言している (下限 0，上限 10)． シング
+  ルクォーテーションから始まる記述 'x は ScalaにおけるSymbolオブジェ
+  クトの記法ですが， Scarab DSLによりScarabの整数変数 (Varオブジェ
+  クト) に暗黙変換される. 
+- 制約を定義する. 
+#+BEGIN_SRC scala
 scala> add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 res4: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
-      #+END_SRC
-    - ここでは制約 12a + 16b + 20c + 27d = 90 を追加している. 
-      - add は制約をCSPオブジェクトに追加するためのメソッドである. 
-      - 制約中での等号に \(===\) を用いる点に注意されたい. 
-      - 5 * 'a のように係数を前にして記述できない点にも注意されたい. 
-    - 定義したCSPオブジェクトは変数cspとして参照できる. 
-      #+BEGIN_SRC scala
+#+END_SRC
+- ここでは制約 12a + 16b + 20c + 27d = 90 を追加している. 
+  - add は制約をCSPオブジェクトに追加するためのメソッドである. 
+  - 制約中での等号に \(===\) を用いる点に注意されたい. 
+  - 5 * 'a のように係数を前にして記述できない点にも注意されたい. 
+- 定義したCSPオブジェクトは変数cspとして参照できる. 
+#+BEGIN_SRC scala
 scala> csp
 res8: jp.kobe_u.scarab.CSP = CSP(Vector(a, b, c, d),Vector(),Map(..),Vector(..))
-      #+END_SRC
-    - CSPオブジェクトは，整数変数の列 variables, ブール変数の列 bools,
-      変数ドメインのマップ dom, 制約の列 constraints から構成される. 
-    - 以下のように csp オブジェクトから参照できる. 
-      #+BEGIN_SRC scala
+#+END_SRC
+- CSPオブジェクトは，整数変数の列 variables, ブール変数の列 bools,
+  変数ドメインのマップ dom, 制約の列 constraints から構成される. 
+- 以下のように csp オブジェクトから参照できる. 
+#+BEGIN_SRC scala
 scala> csp.variables
 res5: IndexedSeq[jp.kobe_u.scarab.Var] = Vector(a, b, c, d)
 
 scala> csp.constraints
 res6: IndexedSeq[jp.kobe_u.scarab.Constraint] = Vector(EqZero(Sum(-90+12*a+16*b+20*c+27*d)))
-      #+END_SRC
-    - show メソッドでも表示できる．
-      #+BEGIN_SRC scala
+#+END_SRC
+- show メソッドでも表示できる．
+#+BEGIN_SRC scala
 scala> csp.show
 int(a,Domain(0 to 10))
 int(b,Domain(0 to 10))
 int(c,Domain(0 to 10))
 int(d,Domain(0 to 10))
 EqZero(Sum(-90+12*a+16*b+20*c+27*d))      
-      #+END_SRC
-    - CSPオブジェクトは，変数や制約の追加を行える mutable なオブジェクトとして実装されている．
+#+END_SRC
+- CSPオブジェクトは，変数や制約の追加を行える mutable なオブジェクトとして実装されている．
 
 ** 解の探索
-   - 最初の解の探索は find で行う．
-     #+BEGIN_SRC scala
+- 最初の解の探索は find で行う．
+#+BEGIN_SRC scala
 scala> find
 res9: Boolean = true
-     #+END_SRC
-   - 結果の true は，解が存在することを表す． CSPの解は，solution 変数
-     に代入されている．
-     #+BEGIN_SRC scala
+#+END_SRC
+- 結果の true は，解が存在することを表す． CSPの解は，solution 変数
+  に代入されている．
+#+BEGIN_SRC scala
 scala> solution
 res10: jp.kobe_u.scarab.Assignment = Assignment(Map(a -> 3, b -> 0, c -> 0, d -> 2),Map())
-     #+END_SRC
-   - Solutionオブジェクトは，整数変数 (Varオブジェクト)に対する値割当てを表すマップと ブール変数 (Boolオブジェクト)に対する値割当てを表すマップから構成される．
-     #+BEGIN_SRC scala
+#+END_SRC
+- Solutionオブジェクトは，整数変数 (Varオブジェクト)に対する値割当てを表すマップと ブール変数 (Boolオブジェクト)に対する値割当てを表すマップから構成される．
+#+BEGIN_SRC scala
 scala> solution.intMap
 res11: Map[jp.kobe_u.scarab.Var,Int] = Map(a -> 3, b -> 0, c -> 0, d -> 2)
 
 scala> solution.boolMap
 res12: Map[jp.kobe_u.scarab.Bool,Boolean] = Map()
-     #+END_SRC
-   - 解における各変数の値は solution メソッドで得ることができる．
-     #+BEGIN_SRC scala
+#+END_SRC
+- 解における各変数の値は solution メソッドで得ることができる．
+#+BEGIN_SRC scala
 scala> solution('a)
 res13: Int = 3
 
@@ -210,18 +201,18 @@ res15: Int = 0
 
 scala> solution('d)
 res16: Int = 2     
-     #+END_SRC
-   - 次の解の探索は findNext で行う．
-     #+BEGIN_SRC scala
+#+END_SRC
+- 次の解の探索は findNext で行う．
+#+BEGIN_SRC scala
 scala> findNext
 res17: Boolean = true
 
 scala> solution
 res18: jp.kobe_u.scarab.Assignment = Assignment(Map(a -> 0, b -> 1, c -> 1, d -> 2),Map())
-     #+END_SRC
-   - findNext は最も最近得られた解の否定をcspに追加することで次の解を求めている．
-   - show メソッドを実行すると，制約が追加されていることが分かる．
-     #+BEGIN_SRC scala
+#+END_SRC
+- findNext は最も最近得られた解の否定をcspに追加することで次の解を求めている．
+- show メソッドを実行すると，制約が追加されていることが分かる．
+#+BEGIN_SRC scala
 int(a,Domain(0 to 10))
 int(b,Domain(0 to 10))
 int(c,Domain(0 to 10))
@@ -229,23 +220,23 @@ int(d,Domain(0 to 10))
 LeZero(Sum(-90+12*a+16*b+20*c+27*d))
 LeZero(Sum(90-12*a-16*b-20*c-27*d))
 Or(LeZero(Sum(-2+a)),LeZero(Sum(4-a)),LeZero(Sum(1+b)),LeZero(Sum(1-b)),LeZero(Sum(1+c)),LeZero(Sum(1-c)),LeZero(Sum(-1+d)),LeZero(Sum(3-d)))     
-     #+END_SRC
-   - ここでこの次の解の探索時には，最初に解を求めた時の学習節を再利用するインクリメンタルSAT解法を行っている．
-   - Scarab では明示的にSATソルバーを reset しない限り，常に学習節を保持して効率的に求解を行う．
-   - もう一度 findNext を呼ぶと false が返る．
-     #+BEGIN_SRC scala
+#+END_SRC
+- ここでこの次の解の探索時には，最初に解を求めた時の学習節を再利用するインクリメンタルSAT解法を行っている．
+- Scarab では明示的にSATソルバーを reset しない限り，常に学習節を保持して効率的に求解を行う．
+- もう一度 findNext を呼ぶと false が返る．
+#+BEGIN_SRC scala
 scala> findNext
 res22: Boolean = false     
-     #+END_SRC
-   - 結果の false は，解が存在しないことを表す． この場合，変数 solution は null になっている．
-     #+BEGIN_SRC scala
+#+END_SRC
+- 結果の false は，解が存在しないことを表す． この場合，変数 solution は null になっている．
+#+BEGIN_SRC scala
 scala> solution
 res23: jp.kobe_u.scarab.Assignment = null
-     #+END_SRC
+#+END_SRC
 
 * スクリプトファイルの読み込み
 - CSPをScalaのスクリプトファイルとして定義することもできる．
-- 以下がCSPを定義したスクリプトファイルである [[file:sample-scripts/ex-csp.sc][ex-csp.sc]].
+- 以下がCSPを定義したスクリプトファイルである.
   - [[http://tsoh.org/scarab/sample-scripts/ex-csp.sc]]
 #+BEGIN_SRC scala
 import jp.kobe_u.scarab._ , dsl._
@@ -256,7 +247,7 @@ int('c, 0, 10)
 int('d, 0, 10)
 add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 #+END_SRC
-- 以下がCSPを定義した後に求解し，解があれば出力するスクリプトファイルである [[file:sample-scripts/ex-csp-solve.sc][ex-csp-solve.sc]].
+- 以下がCSPを定義した後に求解し，解があれば出力するスクリプトファイルである.
   - [[http://tsoh.org/scarab/sample-scripts/ex-csp-solve.sc]]
 #+BEGIN_SRC scala
 import jp.kobe_u.scarab._ , dsl._
@@ -304,7 +295,7 @@ res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 
 * 簡単な例題
 ** 部分和問題
-#+BEGIN_EXAMPLE 
+#+BEGIN_EXAMPLE html
 使いきらなければならない予算が 50 千円あります．
 購入できる品物は 2, 3, 5, 8, 13, 21, 34 (単位: 千円) が1つずつです．
 ちょうど予算を使い切るような組合せはあるか?
@@ -312,20 +303,20 @@ res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 # 集合 {2,3,5,8,13,21,34} の部分集合で， 和が50になるものはあるか?
 - この問題は 部分和問題 (Subset sum problem)として知られている問題の例である． 部分和問題はNP-完全である ([[https://ja.wikipedia.org/wiki/%E9%83%A8%E5%88%86%E5%92%8C%E5%95%8F%E9%A1%8C][Wikipedia:部分和問題]])．
 - これは，以下の制約充足問題として定式化できる．
-      #+BEGIN_QUOTE
-      - \(X = \{x_2, x_3, x_5, x_8, x_{13}, x_{21}, x_{34}\}\)
-      - \(Dom\)
-        - \(Dom(x_2) = \{0, 1\}\)
-        - \(Dom(x_3) = \{0, 1\}\)
-        - \(Dom(x_5) = \{0, 1\}\)
-        - \(Dom(x_8) = \{0, 1\}\)
-        - \(Dom(x_{13}) = \{0, 1\}\)
-        - \(Dom(x_{21}) = \{0, 1\}\)
-        - \(Dom(x_{34}) = \{0, 1\}\)
-      - \(C\)
-        - \(2x_2 + 3x_3 + 5x_5 + 8x_8 + 13x_{13} + 21x_{21} + 34x_{34} = 50\)
-      #+END_QUOTE
-- CSPを記述したファイルは以下のようになる [[file:files/ex-subsetsum.sc][ex-subsetsum.sc]]
+#+BEGIN_QUOTE
+  - \(X = \{x_2, x_3, x_5, x_8, x_{13}, x_{21}, x_{34}\}\)
+  - \(Dom\)
+    - \(Dom(x_2) = \{0, 1\}\)
+    - \(Dom(x_3) = \{0, 1\}\)
+    - \(Dom(x_5) = \{0, 1\}\)
+    - \(Dom(x_8) = \{0, 1\}\)
+    - \(Dom(x_{13}) = \{0, 1\}\)
+    - \(Dom(x_{21}) = \{0, 1\}\)
+    - \(Dom(x_{34}) = \{0, 1\}\)
+  - \(C\)
+    - \(2x_2 + 3x_3 + 5x_5 + 8x_8 + 13x_{13} + 21x_{21} + 34x_{34} = 50\)
+#+END_QUOTE
+- CSPを記述したファイルは以下のようになる [[https://tsoh.org/scarab/sample-scripts/ex-subsetsum.sc][ex-subsetsum.sc]]
 #+BEGIN_SRC scala
 import jp.kobe_u.scarab._ , dsl._ 
 
@@ -345,8 +336,8 @@ def define(sum: Int) {
 - boolInt は 0-1 変数の宣言であり， boolInt(x) は int(x, 0, 1) と同一である．
 - また上記プログラムでは，直接CSPを記述するのではなく， 関数 define(sum: Int) で和を与えられるようにしている． この場合，利用方法は以下のようになる．
 #+BEGIN_SRC scala
-scala> :load ./files/ex-subsetsum.sc
-Loading ./files/ex-subsetsum.sc...
+scala> :load ./ex-subsetsum.sc
+Loading ./ex-subsetsum.sc...
 import jp.kobe_u.scarab._
 import dsl._
 define: (sum: Int)Unit
@@ -626,7 +617,7 @@ println("This Graph has no Hamiltonian Cycle")
 - scala -cp scarab-v196-s212.jar などどすることで, scarab を利用できま
   す
 - 使用している Scala のバージョンに応じて，以下から適切な scarab jar
-   を選択してダウンローそしてください．
+   を選択してダウンロードしてください．
    - (for Scala 2.12.*) use [[file:jars/scarab-v196-s212.jar]]
    - (for Scala 2.11.*) use [[file:jars/scarab-v196-s211.jar]]
    - (for Scala 2.10.*) use [[file:jars/scarab-v196-s210.jar]]
