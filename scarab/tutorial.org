@@ -29,38 +29,47 @@
     - [[https://tsoh.org/scarab/talks/talk-jp-ppl2017.pdf][SATソルバーの最新動向と利用技術 (日本語) @ PPL 2017]]
 
 * インストール
-以下の説明は Scarab のインストールの説明です．
-1. [[http://www.java.com/][Java]] runtime version 1.8 以降をインストールする．
-2. Scala をインストールしてください (2019年2月時点で 2.12.8 が最新). 
-3. 使用している Scala のバージョンに応じて，以下から適切な scarab jar
-   を選択してダウンローそしてください．
-   - (for Scala 2.12.*) use [[file:jars/scarab-v196-s212.jar]]
-   - (for Scala 2.11.*) use [[file:jars/scarab-v196-s211.jar]]
-   - (for Scala 2.10.*) use [[file:jars/scarab-v196-s210.jar]]
-   - ソースコードは [[https://github.com/TakehideSoh/Scarab][Github ]]から入手できます．
+1. [[https://www.scala-lang.org/download/][Scala のページ]] から sbt をダウンロードしてインストールする
+   - ターミナルや PowerShell 等を起動して sbt を実行できれば OK
+   - 環境によってはパスを設定する必要がある
+2. [[./sbt-scarab.zip][sbt-scarab.zip]] をダウンロードして適当なディレクトリに展開する
+3. sbt-scarab のディレクトリに入って sbt を実行すれば必要なライブラリ
+   (scala を含む) のダウンロードとコンパイルが行われる
+   #+BEGIN_SRC sh
+   [sbt-scarab]$ sbt 
+   #+END_SRC
+4. 以下のように sbt:Scarab> というプロンプトが出てくればインストール完了
+   #+BEGIN_SRC sh
+   [sbt-scarab]$ sbt
+   [info] Loading settings from assembly.sbt ...
+   ... 中略 ...
+   [info] sbt server started at 127.0.0.1:4891
+   sbt:Scarab> 
+   #+END_SRC
 
-以下このチュートリアルでは次のようなディレクトリ構成になっていると仮定しています．
-#+BEGIN_SRC -sh
-csp/
- |
- |- scarab-<scarab version>-<scala version>.jar 
-#+END_SRC
-- 適当なディレクトリに移動します (例えば sat-tools)．
-#+BEGIN_SRC -sh
-$ mkdir csp
-$ cd csp
-$ mkdir classes
-$ wget http://tsoh.org/scarab/jars/scarab-v196-s212.jar
-#+END_SRC
+# 以下このチュートリアルでは次のようなディレクトリ構成になっていると仮定しています．
+# #+BEGIN_SRC -sh
+# csp/
+#  |
+#  |- scarab-<scarab version>-<scala version>.jar 
+# #+END_SRC
+# - 適当なディレクトリに移動します (例えば sat-tools)．
+# #+BEGIN_SRC -sh
+# $ mkdir csp
+# $ cd csp
+# $ mkdir classes
+# $ wget http://tsoh.org/scarab/jars/scarab-v196-s212.jar
+# #+END_SRC
 
 * 実行の方法
   - Scarab の制約記述言語は Scala 上のドメイン特化言語として実装されて
-    います． [[file:ref.html][Scala の説明]]
-  - Scala と同じく3つの方法でプログラムを記述し，実行できます．
+    いる． [[file:ref.html][Scala の説明]]
+  - Scala と同じく3つの方法でプログラムを記述し，実行できる．
     - REPL (Read Eval Print Loop) による対話的な実行方法
     - スクリプトによるコンパイル不要な実行方法
     - scalac で実行形式にコンパイルしてから実行する方法
-  - 以下ではまずREPL による対話的な実行方法を通して scarab に慣れていきたいと思います．
+  - 本チュートリアルでは REPL による対話的な実行方法を通して scarab を
+    説明する
 
 * REPL による対話的な実行方法
 簡単な例題を通して, Scala の REPL (対話的実行環境) を用いた scarab の
@@ -86,7 +95,7 @@ $ wget http://tsoh.org/scarab/jars/scarab-v196-s212.jar
  #+END_QUOTE
 
 ** CSP の定義
-   - 上記のCSPに対応するScarabプログラムは以下になります．
+   - 上記のCSPに対応するScarabプログラムは以下になる
 #+BEGIN_SRC scala
 import jp.kobe_u.scarab._ , dsl._
 
@@ -97,24 +106,25 @@ int('d, 0, 10)
 
 add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 #+END_SRC
-   - まず REPL を用いた対話的な実行方法を説明します．"scala -cp {{{scarabJAR()}}}" と入力します．
-     #+BEGIN_SRC scala
-hoge $ scala -cp {{{scarabJAR()}}} 
-Welcome to Scala version 2.11.5 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.1_11).
-Type in expressions to have them evaluated.
-Type :help for more information.
-
-scala>
-#+END_SRC
-    - scala の REPL モードが scarab のクラスを読み込んで起動されます．
-    - 次に scarab のクラスをインポートします．
+   - このプログラムを REPL (対話的な実行方法) で記述実行するために,
+     sbt-scarab ディレクトリで sbt コマンド実行後に, console を実行す
+     る. すると最終的に scala> というコンソールが立ち上げる. 
+     #+BEGIN_SRC sh
+     [sbt-scarab]$ sbt
+     sbt:Scarab> console
+     ... メッセージ省略 ...
+     scala> 
+     #+END_SRC
+    - これで scala の REPL モードが scarab のクラスを読み込んで起動さ
+      れた．
+    - 次に scarab のクラスをインポートする. 
       #+BEGIN_SRC scala
  scala> import jp.kobe_u.scarab._ , dsl._
  import jp.kobe_u.scarab._
  import dsl._
       #+END_SRC
-    - import 文が読み込まれ (Read Eval) 実行結果が表示 (Print) されます．
-    - 整数変数を定義します．
+    - import 文が読み込まれ (Read Eval) 実行結果が表示 (Print) される. 
+    - 整数変数を定義する. 
       #+BEGIN_SRC scala
 scala> int('a, 0, 10)
 res0: jp.kobe_u.scarab.Var = a
@@ -128,23 +138,27 @@ res2: jp.kobe_u.scarab.Var = c
 scala> int('d, 0, 10)
 res3: jp.kobe_u.scarab.Var = d      
       #+END_SRC
-    - ここでは変数a, b, c, dを宣言しています (下限 0，上限 10)． シングルクォーテーションから始まる記述 'x は ScalaにおけるSymbolオブジェクトの記法ですが， Scarab DSLによりScarabの整数変数 (Varオブジェクト)に暗黙変換されます．
-    - 制約を定義します．
+    - ここでは変数a, b, c, dを宣言している (下限 0，上限 10)． シング
+      ルクォーテーションから始まる記述 'x は ScalaにおけるSymbolオブジェ
+      クトの記法ですが， Scarab DSLによりScarabの整数変数 (Varオブジェ
+      クト) に暗黙変換される. 
+    - 制約を定義する. 
       #+BEGIN_SRC scala
 scala> add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 res4: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
       #+END_SRC
-    - ここでは制約 12a + 16b + 20c + 27d = 90 を追加しています．
-      - add は制約をCSPオブジェクトに追加するためのメソッドです． 
-      - 制約中での等号に \(===\) を用いる点に注意してください．
-      - 5 * 'a のように係数を前にして記述できない点に注意してください．
-    - 定義したCSPオブジェクトは変数cspとして参照できます．
+    - ここでは制約 12a + 16b + 20c + 27d = 90 を追加している. 
+      - add は制約をCSPオブジェクトに追加するためのメソッドである. 
+      - 制約中での等号に \(===\) を用いる点に注意されたい. 
+      - 5 * 'a のように係数を前にして記述できない点にも注意されたい. 
+    - 定義したCSPオブジェクトは変数cspとして参照できる. 
       #+BEGIN_SRC scala
 scala> csp
 res8: jp.kobe_u.scarab.CSP = CSP(Vector(a, b, c, d),Vector(),Map(..),Vector(..))
       #+END_SRC
-    - CSPオブジェクトは，整数変数の列 variables, ブール変数の列 bools, 変数ドメインのマップ dom, 制約の列 constraints から構成されます．
-    - 以下のように csp オブジェクトから参照できます．
+    - CSPオブジェクトは，整数変数の列 variables, ブール変数の列 bools,
+      変数ドメインのマップ dom, 制約の列 constraints から構成される. 
+    - 以下のように csp オブジェクトから参照できる. 
       #+BEGIN_SRC scala
 scala> csp.variables
 res5: IndexedSeq[jp.kobe_u.scarab.Var] = Vector(a, b, c, d)
@@ -229,11 +243,10 @@ scala> solution
 res23: jp.kobe_u.scarab.Assignment = null
      #+END_SRC
 
-* スクリプトによるコンパイル不要な実行方法
-** 内容の確認
+* スクリプトファイルの読み込み
 - CSPをScalaのスクリプトファイルとして定義することもできる．
-- 以下がCSPを定義したスクリプトファイルである [[file:ex-csp.sc][ex-csp.sc]].
-  - [[http://tsoh.org/scarab/sample-codes/ex-csp.sc]]
+- 以下がCSPを定義したスクリプトファイルである [[file:sample-scripts/ex-csp.sc][ex-csp.sc]].
+  - [[http://tsoh.org/scarab/sample-scripts/ex-csp.sc]]
 #+BEGIN_SRC scala
 import jp.kobe_u.scarab._ , dsl._
 
@@ -243,9 +256,8 @@ int('c, 0, 10)
 int('d, 0, 10)
 add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 #+END_SRC
-
-- 以下がCSPを定義した後に求解し，解があれば出力するスクリプトファイルである [[file:ex-csp-solve.sc][ex-csp-solve.sc]].
-  - [[http://tsoh.org/scarab/sample-codes/ex-csp-solve.sc]]
+- 以下がCSPを定義した後に求解し，解があれば出力するスクリプトファイルである [[file:sample-scripts/ex-csp-solve.sc][ex-csp-solve.sc]].
+  - [[http://tsoh.org/scarab/sample-scripts/ex-csp-solve.sc]]
 #+BEGIN_SRC scala
 import jp.kobe_u.scarab._ , dsl._
 
@@ -257,17 +269,12 @@ add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 
 if (find) println(solution)
 #+END_SRC
-** scala コマンドによる実行
-   - 以下のように保存したファイルを scala コマンドに与えればコンパイル無しで実行してくれる．
-#+BEGIN_SRC sh
-$ scala -cp scarab-v196-s212.jar ex-csp-solve.sc
-#+END_SRC
 
-** REPLからのスクリプトファイルの読み込み
-- スクリプトファイルは以下のようにREPLから :load コマンドを使用して読み込む．
+- スクリプトファイルは以下のようにREPLから :load コマンドを使用して読
+  み込む (カレントディレクトリにファイルがあるものとする)．
 #+BEGIN_SRC scala
-scala> :load ./csp/files/ex-csp.sc
-Loading ./csp/files/ex-csp.sc...
+scala> :load ./ex-csp.sc
+Loading ./ex-csp.sc...
 import jp.kobe_u.scarab._
 import dsl._
 res0: jp.kobe_u.scarab.Var = a
@@ -281,8 +288,8 @@ res4: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 #+BEGIN_SRC scala
 scala> reset
 
-scala> :load ./files/ex-csp.sc
-Loading ./files/ex-csp.sc...
+scala> :load ./ex-csp.sc
+Loading ./ex-csp.sc...
 import jp.kobe_u.scarab._
 import dsl._
 res13: jp.kobe_u.scarab.Var = a
@@ -297,7 +304,7 @@ res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 
 * 簡単な例題
 ** 部分和問題
-#+BEGIN_EXAMPLE
+#+BEGIN_EXAMPLE 
 使いきらなければならない予算が 50 千円あります．
 購入できる品物は 2, 3, 5, 8, 13, 21, 34 (単位: 千円) が1つずつです．
 ちょうど予算を使い切るような組合せはあるか?
@@ -613,7 +620,17 @@ println("This Graph has no Hamiltonian Cycle")
 
 
 
-* Scarab のクラスとメソッドの簡単なまとめ
+* その他 Scarab の説明クラスとメソッドの簡単なまとめ
+** jar ファイルとソースコード
+- scarab を jar ファイルにまとめたものです
+- scala -cp scarab-v196-s212.jar などどすることで, scarab を利用できま
+  す
+- 使用している Scala のバージョンに応じて，以下から適切な scarab jar
+   を選択してダウンローそしてください．
+   - (for Scala 2.12.*) use [[file:jars/scarab-v196-s212.jar]]
+   - (for Scala 2.11.*) use [[file:jars/scarab-v196-s211.jar]]
+   - (for Scala 2.10.*) use [[file:jars/scarab-v196-s210.jar]]
+   - ソースコードは [[https://github.com/TakehideSoh/Scarab][Github ]]から入手できます．
 
 ** Scarab DSL の制約記述に関する構文 (BNF記法)
 - *V*, *T*, *C*, *B* を *Var* (整数変数), *Term* (項), *Constraint* (制約), *Bool* (ブール変数) に対応するScarabオブジェクトとする.

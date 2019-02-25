@@ -1,0 +1,271 @@
+# -*- coding: utf-8 -*-
+#+TITLE: 補助ページ
+#+AUTHOR: Takehide Soh
+#+EMAIL: soh@lion.kobe-u.ac.jp
+
+#+OPTIONS: ^:nil H:2 num:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../../myhome.css"/>
+#+MACRO: pdf @@html:<a href="../pdf-open/$1">[PDF]</a>@@
+#+MACRO: pptx @@html:<a href="../pdf-open/$1">[PPTX]</a>@@
+#+MACRO: pdfs @@html:<a href="../pdf2/$1">[PDF]</a>@@ (PDFは限定公開)
+#+MACRO: pptxs @@html:<a href="../pdf2/$1">[PPTX]</a>@@
+
+#+MACRO: title @@html:<span class="title">$1</span>@@
+#+MACRO: author @@html:<span class="author">$1</span>@@
+#+MACRO: others @@html:<span class="others">$1</span>@@
+
+#+MACRO: date @@html:<span class="date">$1</span>@@
+#+MACRO: item @@html:<span class="item">$1</span>@@
+#+MACRO: item2 @@html:<span class="item2">$1</span>@@
+
+#+MACRO: st @@html:<font color="#0000ff"><b>$1</b></font>@@
+#+MACRO: alert @@html:<font color="#bb4e4c"><b>$1</b></font>@@
+
+#+BEGIN_HTML
+
+<style type="text/css">
+#table1 th { background-color: #3B5998; color: white;
+     border-style: solid; border-color: black; border-width: thin;
+     border: none;}
+#table1 td { background-color: #3B5998; color: white;
+     border-style: solid; border-color: black; border-width: thin; border: none}
+#table1 td+td { background-color: #eeeeee; color: black; width:500px}
+
+h1#aa {
+    border-color:#6576CC;
+    border-width:4px 0px 4px 0px;
+    margin-top:30px;
+    margin-bottom:30px;
+    padding-top:30px;
+    padding-bottom:30px;
+    padding-left:30px;
+    border-style:solid;
+    font-size:1.7em;
+}
+</style>
+#+END_HTML
+
+* Scala について
+- Scarab プログラムを書くのに最低限知っていたほうが良い，Scala の知識を以下に記載する．
+
+- もっと詳細に知りたい方は以下などを参照してください．
+  - 日本語
+    - [[http://www.ne.jp/asahi/hishidama/home/tech/scala/][Scalaメモ(Hishidama's Scala Memo)]]
+      - 辞書的に利用することができます．
+    - [[http://bach.istc.kobe-u.ac.jp/lect/ProLang/org/scala.html][Scalaプログラミング入門]]
+      - 課題をこなしながら，Scala を基礎から勉強できます．
+    - [[http://kix.istc.kobe-u.ac.jp/~soh/prolang/GameOfLife.html][Scala でライフゲーム]]
+      - Scala で簡単なライフゲームのプログラムを作ります．
+    - [[http://kix.istc.kobe-u.ac.jp/~soh/prolang/Ticket.html][Scala で切符問題]]
+      - 二分木や再帰を使って Scala で切符問題を解きます．
+  - 英語
+    - Scala 本家 (http://www.scala-lang.org)
+      - Documentation / Manuals / Translations に日本語のマニュアル等がある
+
+** REPL のオプション
+   - Scala の REPL のオプションは :help で表示できます．
+#+BEGIN_SRC scala
+scala> :help
+All commands can be abbreviated, e.g., :he instead of :help.
+:edit <id>|<line>        edit history
+:help [command]          print this summary or command-specific help
+:history [num]           show the history (optional num is commands to show)
+:h? <string>             search the history
+:imports [name name ...] show import history, identifying sources of names
+:implicits [-v]          show the implicits in scope
+:javap <path|class>      disassemble a file or class name
+:line <id>|<line>        place line(s) at the end of history
+:load <path>             interpret lines in a file
+:paste [-raw] [path]     enter paste mode or paste a file
+:power                   enable power user mode
+:quit                    exit the interpreter
+:replay [options]        reset the repl and replay all previous commands
+:require <path>          add a jar to the classpath
+:reset [options]         reset the repl to its initial state, forgetting all session entries
+:save <path>             save replayable session to a file
+:sh <command line>       run a shell command (result is implicitly => List[String])
+:settings <options>      update compiler options, if possible; see reset
+:silent                  disable/enable automatic printing of results
+:type [-v] <expr>        display the type of an expression without evaluating it
+:kind [-v] <expr>        display the kind of expression's type
+:warnings                show the suppressed warnings from the most recent line which had any
+#+END_SRC
+
+** import 文の書き方
+いろいろな書き方ができます．
+- 一番素直な書き方はフルパスを書く方法です．
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._
+import jp.kobe_u.scarab.dsl._
+#+END_SRC
+- scala では相対 import ができ，以下のようにも書けます．
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._
+import dsl._
+#+END_SRC
+- セミコロンで区切って一行で書けます．
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._ ; import dsl._
+#+END_SRC
+- カンマで区切ると import 文も省略できます．
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._, dsl._
+#+END_SRC
+
+** (Scalaの) 変数の宣言
+   - 変数は，「var」によって宣言する．
+     - 変数は後から値の代入・変更が出来る
+   - 定数は，「val」によって宣言する．
+     - 定数は後から値の代入をすることが出来ない
+   - "a" という定数を宣言してみる．
+#+BEGIN_SRC scala
+scala> val a = 1
+a: Int = 1
+
+scala> a
+res0: Int = 1
+#+END_SRC
+   - "a" は定数なので再代入しようとするとエラーが出る．
+#+BEGIN_SRC scala
+scala> a = 3
+<console>:8: error: reassignment to val
+       a = 3
+         ^
+#+END_SRC
+   - "b" という変数を宣言してみる．
+#+BEGIN_SRC scala
+scala> var b = 1
+b: Int = 1
+
+scala> b
+res1: Int = 1
+#+END_SRC
+   - "b" は変数なので再代入できる．
+#+BEGIN_SRC scala
+scala> b = 3
+b: Int = 3
+
+scala> b
+res2: Int = 3
+#+END_SRC
+
+** print 文について
+   - 他の言語と同様に標準出力したいダブルクォーテーションで囲む
+   - print は改行なし，println は文字列の最後で改行する．
+#+BEGIN_SRC scala
+scala> print("Hello world")
+Hello world
+scala> println("Hello world")
+Hello world
+
+#+END_SRC
+   - 便利な機能として s"..." とすることで変数を埋め込むことも可能
+#+BEGIN_SRC scala
+scala> val c = 4
+c: Int = 4
+
+scala> val d = 5
+d: Int = 5
+
+scala> println(s"c + d = ${c + d}")
+c + d = 9
+#+END_SRC
+
+** for 文について
+   - Scala の for 文は以下のように書ける
+#+BEGIN_SRC scala
+scala> for (i <- 1 to 3) println(i)
+1
+2
+3
+#+END_SRC
+   - セミコロンで区切れば2重のループも簡単に書ける
+#+BEGIN_SRC scala
+scala> for (i <- 1 to 3 ; j <- 1 to 3) println(i,j)
+(1,1)
+(1,2)
+...
+(3,2)
+(3,3)
+#+END_SRC
+   - 3以上の多重ループも同様
+#+BEGIN_SRC scala
+scala> for (i <- 1 to 3 ; j <- 1 to 3 ; k <- 1 to 3) println(i,j,k)
+(1,1,1)
+(1,1,2)
+...
+(3,3,2)
+(3,3,3)
+#+END_SRC
+
+** 値を返すfor（yield）
+  - 基本的なfor式では戻り値は無いが，yieldを付けることによって，繰り返した本体の演算結果を返すことが出来る.
+  - 繰り返された本体の計算結果がList等のコレクションに順番に入れられて返ってくる．
+    - Scala のコレクションについての詳細は [[http://www.ne.jp/asahi/hishidama/home/tech/scala/collection/index.html][こちら]]．
+  - 以下では 1 から 5 の整数がコレクション Vector に入れられて返っている．
+#+BEGIN_SRC scala
+scala> for (i <- 1 to 5) yield i
+res5: scala.collection.immutable.IndexedSeq[Int] = Vector(1, 2, 3, 4, 5)
+#+END_SRC
+
+** 関数定義
+   - Scalaで関数 (function)を定義する．
+#+BEGIN_SRC scala
+scala> def inc(x: Int): Int = x + 1
+inc: (x: Int)Int
+#+END_SRC
+   - 「inc」が関数名，「x: Int」が引数名とそのデータ型， その右の「Int」が返り値のデータ型， 「=」の右の「x + 1」が関数定義本体になる．
+   - 定義した関数を使うには以下のようにする．
+#+BEGIN_SRC scala
+scala> inc(1)
+res6: Int = 2
+
+scala> inc(inc(1))
+res7: Int = 3
+#+END_SRC
+
+** コレクション
+   - Scalaにはリストを始め，コレクションと呼ばれるさまざまなデータ構造が用意されている． 
+   - 代表的なものは Seq，Map，Set である. (Scala では Array や List は Seq から派生している).
+   - 以下のように使える．
+#+BEGIN_SRC scala
+scala> Seq(1,2,3)
+res10: Seq[Int] = List(1, 2, 3)
+
+scala> val s = Seq(1,2,3)
+s: Seq[Int] = List(1, 2, 3)
+
+scala> s.size
+res11: Int = 3
+
+scala> s.head
+res12: Int = 1
+
+scala> s.tail
+res13: Seq[Int] = List(2, 3)
+#+END_SRC
+   - ここで s. と入力してタブキーを押せば，s が持つメソッドが表示される．
+#+BEGIN_SRC scala
+scala> s.
+++             canEqual        diff        fold              indexOfSlice         lastIndexOf        mkString       reduceLeftOption    scanRight       stringPrefix   toIterator      unzip3         
+++:            collect         distinct    foldLeft          indexWhere           lastIndexOfSlice   nonEmpty       reduceOption        segmentLength   sum            toList          updated        
++:             collectFirst    drop        foldRight         indices              lastIndexWhere     orElse         reduceRight         seq             tail           toMap           view           
+/:             combinations    dropRight   forall            init                 lastOption         padTo          reduceRightOption   size            tails          toSeq           withFilter     
+:+             companion       dropWhile   foreach           inits                length             par            repr                slice           take           toSet           zip            
+:\             compose         endsWith    genericBuilder    intersect            lengthCompare      partition      reverse             sliding         takeRight      toStream        zipAll         
+addString      contains        exists      groupBy           isDefinedAt          lift               patch          reverseIterator     sortBy          takeWhile      toString        zipWithIndex   
+aggregate      containsSlice   filter      grouped           isEmpty              map                permutations   reverseMap          sortWith        to             toTraversable                  
+andThen        copyToArray     filterNot   hasDefiniteSize   isInstanceOf         max                prefixLength   runWith             sorted          toArray        toVector                       
+apply          copyToBuffer    find        head              isTraversableAgain   maxBy              product        sameElements        span            toBuffer       transpose                      
+applyOrElse    corresponds     flatMap     headOption        iterator             min                reduce         scan                splitAt         toIndexedSeq   union                          
+asInstanceOf   count           flatten     indexOf           last                 minBy              reduceLeft     scanLeft            startsWith      toIterable     unzip
+#+END_SRC
+
+** map
+   - Scalaでは， リストの要素に関数 (function)を適用した新しいリストを求めることなどが簡単に行える．
+   - リストの各要素に関数を適用するにはmapを用いる．
+   - 以下では map により 1, 2, 3 という入力リストに対し 2, 3, 4 というリストが返されている．
+#+BEGIN_SRC scala
+scala> Seq(1,2,3).map(i => i + 1)
+res9: Seq[Int] = List(2, 3, 4)
+#+END_SRC
