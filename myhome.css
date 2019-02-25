@@ -95,7 +95,8 @@ pre.src
 {
   background: #f3f3e3;
   color: black;
-  overflow: scroll;
+  overflow: auto;
+/*  overflow: scroll;*/
 }
 
 pre.example
