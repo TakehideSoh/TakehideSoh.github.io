@@ -39,8 +39,7 @@
    #+BEGIN_SRC sh
    [sbt-scarab]$ sbt 
    #+END_SRC
-4. 以下のように sbt:Scarab> というプロンプトが出てくればインストール完
-   了となる．
+4. 以下のように sbt:Scarab> というプロンプトが出てくればインストール完了となる．
    #+BEGIN_SRC sh
    [sbt-scarab]$ sbt
    [info] Loading settings from assembly.sbt ...
@@ -55,18 +54,15 @@
    #+END_SRC
 
 * 実行の方法
-  - Scarab の制約記述言語は Scala 上のドメイン特化言語として実装されて
-    いる． [[file:ref.html][Scala の説明]]
+  - Scarab の制約記述言語は Scala 上のドメイン特化言語として実装されている． [[file:ref.html][Scala の説明]]
   - Scala と同じく3つの方法でプログラムを記述し，実行できる．
     - REPL (Read Eval Print Loop) による対話的な実行方法
     - スクリプトによるコンパイル不要な実行方法
     - scalac で実行形式にコンパイルしてから実行する方法
-  - 本チュートリアルでは REPL による対話的な実行方法を通して scarab を
-    説明する．
+  - 本チュートリアルでは REPL による対話的な実行方法を通して scarab を説明する．
 
 * REPL による対話的な実行方法
-簡単な例題を通して, Scala の REPL (対話的実行環境) を用いた scarab の
-利用方法を理解しよう.
+簡単な例題を通して, Scala の REPL (対話的実行環境) を用いた scarab の利用方法を理解しよう.
 #+BEGIN_EXAMPLE html
 === 問題 ===
 12セント，16セント，20セント，27セントの切手をそれぞれ10枚持っている．
@@ -98,9 +94,7 @@ int('d, 0, 10)
 
 add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 #+END_SRC
-- このプログラムを REPL (対話的な実行方法) で記述実行するために,
-  sbt-scarab ディレクトリで sbt コマンド実行後に, console を実行す
-  る. すると最終的に scala> というコンソールが立ち上げる. 
+- このプログラムを REPL (対話的な実行方法) で記述実行するために, sbt-scarab ディレクトリで sbt コマンド実行後に, console を実行する. すると最終的に scala> というコンソールが立ち上げる. 
 #+BEGIN_SRC sh
 [sbt-scarab]$ sbt
 sbt:Scarab> console
@@ -129,10 +123,7 @@ res2: jp.kobe_u.scarab.Var = c
 scala> int('d, 0, 10)
 res3: jp.kobe_u.scarab.Var = d      
 #+END_SRC
-- ここでは変数a, b, c, dを宣言している (下限 0，上限 10)． シング
-  ルクォーテーションから始まる記述 'x は ScalaにおけるSymbolオブジェ
-  クトの記法ですが， Scarab DSLによりScarabの整数変数 (Varオブジェ
-  クト) に暗黙変換される. 
+- ここでは変数a, b, c, dを宣言している (下限 0，上限 10)． シングルクォーテーションから始まる記述 'x は ScalaにおけるSymbolオブジェクトの記法だが， Scarab DSLによりScarabの整数変数 (Varオブジェクト) に暗黙変換される. 
 - 制約を定義する. 
 #+BEGIN_SRC scala
 scala> add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
@@ -174,8 +165,7 @@ EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 scala> find
 res9: Boolean = true
 #+END_SRC
-- 結果の true は，解が存在することを表す． CSPの解は，solution 変数
-  に代入されている．
+- 結果の true は，解が存在することを表す． CSPの解は，solution 変数に代入されている．
 #+BEGIN_SRC scala
 scala> solution
 res10: jp.kobe_u.scarab.Assignment = Assignment(Map(a -> 3, b -> 0, c -> 0, d -> 2),Map())

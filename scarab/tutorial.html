@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-02-26 火 01:44 -->
+<!-- 2019-02-26 火 01:50 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scarab チュートリアル</title>
@@ -239,8 +239,7 @@ sbt-scarab のディレクトリに入って sbt を実行すれば必要なラ�
 </pre>
 </div></li>
 <li><p>
-以下のように sbt:Scarab&gt; というプロンプトが出てくればインストール完
-了となる．
+以下のように sbt:Scarab&gt; というプロンプトが出てくればインストール完了となる．
 </p>
 <div class="org-src-container">
 
@@ -268,16 +267,14 @@ exit で終了できる．
 <h2 id="orgheadline3"><span class="section-number-2">3</span> 実行の方法</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
-<li>Scarab の制約記述言語は Scala 上のドメイン特化言語として実装されて
-いる． <a href="ref.html">Scala の説明</a></li>
+<li>Scarab の制約記述言語は Scala 上のドメイン特化言語として実装されている． <a href="ref.html">Scala の説明</a></li>
 <li>Scala と同じく3つの方法でプログラムを記述し，実行できる．
 <ul class="org-ul">
 <li>REPL (Read Eval Print Loop) による対話的な実行方法</li>
 <li>スクリプトによるコンパイル不要な実行方法</li>
 <li>scalac で実行形式にコンパイルしてから実行する方法</li>
 </ul></li>
-<li>本チュートリアルでは REPL による対話的な実行方法を通して scarab を
-説明する．</li>
+<li>本チュートリアルでは REPL による対話的な実行方法を通して scarab を説明する．</li>
 </ul>
 </div>
 </div>
@@ -286,8 +283,7 @@ exit で終了できる．
 <h2 id="orgheadline6"><span class="section-number-2">4</span> REPL による対話的な実行方法</h2>
 <div class="outline-text-2" id="text-4">
 <p>
-簡単な例題を通して, Scala の REPL (対話的実行環境) を用いた scarab の
-利用方法を理解しよう.
+簡単な例題を通して, Scala の REPL (対話的実行環境) を用いた scarab の利用方法を理解しよう.
 </p>
 <pre class="example">
 === 問題 ===
@@ -337,9 +333,7 @@ add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 </pre>
 </div>
 <ul class="org-ul">
-<li>このプログラムを REPL (対話的な実行方法) で記述実行するために,
-sbt-scarab ディレクトリで sbt コマンド実行後に, console を実行す
-る. すると最終的に scala&gt; というコンソールが立ち上げる.</li>
+<li>このプログラムを REPL (対話的な実行方法) で記述実行するために, sbt-scarab ディレクトリで sbt コマンド実行後に, console を実行する. すると最終的に scala&gt; というコンソールが立ち上げる.</li>
 </ul>
 <div class="org-src-container">
 
@@ -380,10 +374,7 @@ res3: jp.kobe_u.scarab.Var = d
 </pre>
 </div>
 <ul class="org-ul">
-<li>ここでは変数a, b, c, dを宣言している (下限 0，上限 10)． シング
-ルクォーテーションから始まる記述 &rsquo;x は ScalaにおけるSymbolオブジェ
-クトの記法ですが， Scarab DSLによりScarabの整数変数 (Varオブジェ
-クト) に暗黙変換される.</li>
+<li>ここでは変数a, b, c, dを宣言している (下限 0，上限 10)． シングルクォーテーションから始まる記述 &rsquo;x は ScalaにおけるSymbolオブジェクトの記法だが， Scarab DSLによりScarabの整数変数 (Varオブジェクト) に暗黙変換される.</li>
 <li>制約を定義する.</li>
 </ul>
 <div class="org-src-container">
@@ -453,8 +444,7 @@ res9: Boolean = <span style="color: #008b8b;">true</span>
 </pre>
 </div>
 <ul class="org-ul">
-<li>結果の true は，解が存在することを表す． CSPの解は，solution 変数
-に代入されている．</li>
+<li>結果の true は，解が存在することを表す． CSPの解は，solution 変数に代入されている．</li>
 </ul>
 <div class="org-src-container">
 
@@ -1277,7 +1267,7 @@ use(<span style="color: #a020f0;">new</span> LogEncoder(csp, satSolver))
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Takehide Soh</p>
-<p class="date">Created: 2019-02-26 火 01:44</p>
+<p class="date">Created: 2019-02-26 火 01:50</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
