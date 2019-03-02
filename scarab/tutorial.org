@@ -4,6 +4,7 @@
 #+EMAIL: soh@lion.kobe-u.ac.jp
 #+OPTIONS: ^:nil H:2 num:t
 
+
 #+HTML_HEAD: <!-- Global site tag (gtag.js) - Google Analytics -->
 #+HTML_HEAD: <script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
 #+HTML_HEAD: <script>
@@ -14,6 +15,9 @@
 #+HTML_HEAD: </script>
 
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../myhome.css" />
+
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/Bigblow.setup
+
 #+MACRO: scarabJAR @@html:scarab-v196-s212.jar@@
 
 * 参考資料
