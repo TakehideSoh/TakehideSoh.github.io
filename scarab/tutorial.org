@@ -4,7 +4,6 @@
 #+EMAIL: soh@lion.kobe-u.ac.jp
 #+OPTIONS: ^:nil H:2 num:t
 
-
 #+HTML_HEAD: <!-- Global site tag (gtag.js) - Google Analytics -->
 #+HTML_HEAD: <script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
 #+HTML_HEAD: <script>
@@ -14,9 +13,18 @@
 #+HTML_HEAD:  gtag('config', 'UA-6313627-5');
 #+HTML_HEAD: </script>
 
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../myhome.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
 
-#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/Bigblow.setup
+#+HTML_HEAD: <style type="text/css">
+#+HTML_HEAD: <!--/*--><![CDATA[/*><!--*/
+#+HTML_HEAD: #content { max-width: 1200px; }
+#+HTML_HEAD:  /*]]>*/-->
+#+HTML_HEAD: </style>
 
 #+MACRO: scarabJAR @@html:scarab-v196-s212.jar@@
 
