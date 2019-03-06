@@ -44,16 +44,21 @@
     - [[https://tsoh.org/scarab/talks/talk-jp-ppl2017.pdf][SATソルバーの最新動向と利用技術 (日本語) @ PPL 2017]]
 
 * インストール
-1. [[https://www.scala-lang.org/download/][Scala のページ]] から sbt をダウンロードしてインストールする．
-   - ターミナルや PowerShell 等を起動して sbt を実行できれば OK.
-   - 環境によってはパスを設定する必要がある．
+1. [[https://www.scala-sbt.org/1.x/docs/ja/Setup.html][sbt 本家]] のインストールマニュアルをみて，sbt のインストールを行う.
+   以下の環境へのインストール方法が記載されている. 
+   - [[https://www.scala-sbt.org/1.x/docs/ja/Installing-sbt-on-Mac.html][Mac へのインストール方法]]
+   - [[https://www.scala-sbt.org/1.x/docs/ja/Installing-sbt-on-Windows.html][Windows へのインストール方法]]
+   - [[https://www.scala-sbt.org/1.x/docs/ja/Installing-sbt-on-Linux.html][Linux へのインストール方法]]
+   - 念のため, 上記のページを参考に Windows 10, Ubuntu 18.04, Mac OS X
+     10.11.6 にインストールした方法を [[https://tsoh.org/misc/scala-install.html][ここ]] に記載する. 
 2. [[./sbt-scarab.zip][sbt-scarab.zip]] をダウンロードして適当なディレクトリに展開する．
 3. sbt-scarab のディレクトリに入って sbt を実行すれば必要なライブラリ
-   (scala を含む) のダウンロードとコンパイルが行われる．
+   (scala を含む) のダウンロードとコンパイルが行われる (初回は結構時間
+   がかかる)．
    #+BEGIN_SRC sh
    [sbt-scarab]$ sbt 
    #+END_SRC
-4. 以下のように sbt:Scarab> というプロンプトが出てくればインストール完了となる．
+4. 以下のように sbt:Scarab> というプロンプトが出てくる. 
    #+BEGIN_SRC sh
    [sbt-scarab]$ sbt
    [info] Loading settings from assembly.sbt ...
@@ -61,9 +66,18 @@
    [info] sbt server started at 127.0.0.1:4891
    sbt:Scarab> 
    #+END_SRC
-5. exit で終了できる．
+4. 以下のように console を実行する (初回は結構時間がかかる). 
    #+BEGIN_SRC sh
-   sbt:Scarab> exit 
+   sbt:Scarab> console
+   #+END_SRC
+5. 以下のように scala というプロンプトが出てくれば sbt および scarab
+   のインストール完了．
+   #+BEGIN_SRC sh
+   scala> 
+   #+END_SRC
+5. :quit で終了できる．
+   #+BEGIN_SRC sh
+   scala> :quit
    [sbt-scarab]$ 
    #+END_SRC
 

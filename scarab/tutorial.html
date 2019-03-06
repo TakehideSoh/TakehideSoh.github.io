@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-03-03 日 18:36 -->
+<!-- 2019-03-06 水 17:27 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scarab チュートリアル</title>
@@ -233,15 +233,20 @@ for the JavaScript code in this tag.
 <h2 id="orgheadline2"><span class="section-number-2">2</span> インストール</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
-<li><a href="https://www.scala-lang.org/download/">Scala のページ</a> から sbt をダウンロードしてインストールする．
+<li><a href="https://www.scala-sbt.org/1.x/docs/ja/Setup.html">sbt 本家</a> のインストールマニュアルをみて，sbt のインストールを行う.
+以下の環境へのインストール方法が記載されている. 
 <ul class="org-ul">
-<li>ターミナルや PowerShell 等を起動して sbt を実行できれば OK.</li>
-<li>環境によってはパスを設定する必要がある．</li>
+<li><a href="https://www.scala-sbt.org/1.x/docs/ja/Installing-sbt-on-Mac.html">Mac へのインストール方法</a></li>
+<li><a href="https://www.scala-sbt.org/1.x/docs/ja/Installing-sbt-on-Windows.html">Windows へのインストール方法</a></li>
+<li><a href="https://www.scala-sbt.org/1.x/docs/ja/Installing-sbt-on-Linux.html">Linux へのインストール方法</a></li>
+<li>念のため, 上記のページを参考に Windows 10, Ubuntu 18.04, Mac OS X
+10.11.6 にインストールした方法を <a href="https://tsoh.org/misc/scala-install.html">ここ</a> に記載する.</li>
 </ul></li>
 <li><a href="./sbt-scarab.zip">sbt-scarab.zip</a> をダウンロードして適当なディレクトリに展開する．</li>
 <li><p>
 sbt-scarab のディレクトリに入って sbt を実行すれば必要なライブラリ
-(scala を含む) のダウンロードとコンパイルが行われる．
+(scala を含む) のダウンロードとコンパイルが行われる (初回は結構時間
+がかかる)．
 </p>
 <div class="org-src-container">
 
@@ -249,7 +254,7 @@ sbt-scarab のディレクトリに入って sbt を実行すれば必要なラ�
 </pre>
 </div></li>
 <li><p>
-以下のように sbt:Scarab&gt; というプロンプトが出てくればインストール完了となる．
+以下のように sbt:Scarab&gt; というプロンプトが出てくる. 
 </p>
 <div class="org-src-container">
 
@@ -261,11 +266,28 @@ sbt:Scarab&gt;
 </pre>
 </div></li>
 <li><p>
-exit で終了できる．
+以下のように console を実行する (初回は結構時間がかかる). 
 </p>
 <div class="org-src-container">
 
-<pre class="src src-sh">sbt:Scarab&gt; exit 
+<pre class="src src-sh">sbt:Scarab&gt; console
+</pre>
+</div></li>
+<li><p>
+以下のように scala というプロンプトが出てくれば sbt および scarab
+のインストール完了．
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">scala&gt;
+</pre>
+</div></li>
+<li><p>
+:quit で終了できる．
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">scala&gt; :quit
 [sbt-scarab]$
 </pre>
 </div></li>
@@ -1277,7 +1299,7 @@ use(<span style="color: #a020f0;">new</span> LogEncoder(csp, satSolver))
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Takehide Soh</p>
-<p class="date">Created: 2019-03-03 日 18:36</p>
+<p class="date">Created: 2019-03-06 水 17:27</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
