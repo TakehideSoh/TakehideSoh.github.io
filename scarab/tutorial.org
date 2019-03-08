@@ -48,6 +48,10 @@
    以下の環境へのインストール方法が記載されている. 
    - [[https://www.scala-sbt.org/1.x/docs/ja/Installing-sbt-on-Mac.html][Mac へのインストール方法]]
    - [[https://www.scala-sbt.org/1.x/docs/ja/Installing-sbt-on-Windows.html][Windows へのインストール方法]]
+     - ただし，Windows に関しては sbt サイトの方法だと環境変数の設定が
+       必要になるので, パッケージ管理ソフト chocolatey を使う [[https://tsoh.org/misc/scala-install.html][ここ]] の
+       方法がおすすめ．
+
    - [[https://www.scala-sbt.org/1.x/docs/ja/Installing-sbt-on-Linux.html][Linux へのインストール方法]]
    - 念のため, 上記のページを参考に Windows 10, Ubuntu 18.04, Mac OS X
      10.11.6 にインストールした方法を [[https://tsoh.org/misc/scala-install.html][ここ]] に記載する. 
