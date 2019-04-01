@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-04-01 月 17:21 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Takehide Soh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-6313627-5');
+</script>
+<title>Takehide soh</title>
+<link rel="stylesheet" type="text/css" href="./myhome.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<style type="text/css">
+#tb1 td   { width:150px }
+#tb1 td+td   { width:750px }
+</style>
+
+
+<table>
+<tbody>
+<tr>
+<td class="pic" rowspan="3" align="center"><img border="0" padding="0" width="160px" src="./soh2013.png"><br>@Helsinki
+</td>
+<td width="740px" align="center"><h1>SOH, Takehide<br>宋 剛秀</h1>
+<img width="150px" src="soh.png">
+</td>
+</tr>
+<tr>
+<td align="center" height="20px">English Page | <a href="./jp/index.html">Japanese Page</a></td>
+</tr>
+<!-- <tr> -->
+<!-- <td align="center" height="20px"> -->
+<!-- <a href="https://scholar.google.co.jp/citations?user=N10uw7YAAAAJ&hl=en">Google Scholar</a> |  -->
+<!-- <a href="https://dblp.org/pers/hd/s/Soh:Takehide">DBLP</a> | -->
+<!-- <a href="https://dl.acm.org/author_page.cfm?id=81324493968">ACM Degital Library</a> | -->
+<!-- <a href="https://researchmap.jp/soh/?lang=english">researchmap</a> -->
+<!-- </td> -->
+<!-- </tr> -->
+<tr>
+<td align="center" height="20px">
+<a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/">Tamura Lab</a> | 
+<a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/en/index.html">CSPSAT</a> |
+<a href="http://kix.istc.kobe-u.ac.jp/~soh/scarab/">Scarab</a>
+</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<table class="menu" border="0" cellspacing="0" cellpadding="20" width="1000px">
+<tr >
+<td class="menu" bgcolor="#3B5998"><a href="index.html">About me</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="publications.html">Publications</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="software.html">Software</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="links.html">Links</a></td>
+<td class="menu" bgcolor="#3B5998"><a></a></td>
+</tr>
+</table>
+<div id="content">
+
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Profile Pages</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li><a href="https://scholar.google.co.jp/citations?user=N10uw7YAAAAJ&amp;hl=en">Google Scholar</a></li>
+<li><a href="https://dblp.org/pers/hd/s/Soh:Takehide">DBLP</a></li>
+<li><a href="https://dl.acm.org/author_page.cfm?id=81324493968">ACM Digital Library</a></li>
+<li><a href="https://researchmap.jp/soh/?lang=english">researchmap</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> News and Future Events</h2>
+<div class="outline-text-2" id="text-2">
+<div align="center">
+<img width="500px" src="xcsp18-result-light.jpg">
+</div>
+<ul class="org-ul">
+<li>Joined XCSP18 (an international CSP solver competition) with a
+SAT-based solver <a href="./sCOP/">sCOP</a> and won first places in 2 categories (CSP
+sequential/paralle)!!!
+<ul class="org-ul">
+<li><a href="http://www.cril.univ-artois.fr/XCSP18/files/resultsXCSP3-18.pdf">http://www.cril.univ-artois.fr/XCSP18/files/resultsXCSP3-18.pdf</a></li>
+</ul></li>
+<li>From September 2017 to September 2018, I will stay in CRIL (Centre
+de Recherche en Informatique de Lens), France as a guest researcher
+of CNRS (Centre national de la recherche scientifique).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">3</span> Research Interests</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>Boolean Satisfiability and Constraint Programming</li>
+<li>Knowledge Discovery for Systems Biology</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">4</span> Employment</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li><span class="date">2019 Apr. - present</span> <span class="item">Associate Professor, Information Science and Technology Center, Kobe University</span></li>
+<li><span class="date">2012 Apr. - 2019 Mar.</span> <span class="item">Assistant Professor, Information Science and Technology Center, Kobe University</span></li>
+<li><span class="date">2017 Sep. - 2018 Sep.</span> <span class="item">Visiting Researcher, Centre national de la recherche scientifique; CNRS, France</span></li>
+<li><span class="date">2011 Oct. - 2012 Mar.</span> <span class="item">Project Researcher, Transdisciplinary Research Integration Center (TRIC)</span></li>
+<li><span class="date">2010 Apr. - 2011 Sep.</span> <span class="item">Research Fellow, Japan Society for the Promotion of Science (JSPS)</span></li>
+<li><span class="date">2008 Apr. - 2010 Sep.</span> <span class="item">Research Assistant, National Institute of Informatics</span></li>
+<li><span class="date">2006 Apr. - 2008 Mar.</span> <span class="item">work @ Information Systems Department, Suntory Limited</span></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">5</span> Education</h2>
+<div class="outline-text-2" id="text-5">
+<ul class="org-ul">
+<li><span class="date">2011 Sep.</span> <span class="item">Ph.D., Dapartment of Informatics, The Graduate University for Advanced Studies (Sokendai)</span></li>
+<li><span class="date">2006 Mar.</span> <span class="item">M.S. Engineering, Graduate School of Science and Technology, Kobe University</span></li>
+<li><span class="date">2004 Mar.</span> <span class="item">B.S. Engineering, Department of Engineering</span></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-2">
+<h2 id="orgheadline24"><span class="section-number-2">6</span> Award</h2>
+<div class="outline-text-2" id="text-6">
+</div><ol class="org-ol"><li><a id="orgheadline7"></a><span class="date">2018 Sep.</span> <span class="item">Specially Selected Paper --- Journal of Information Processing, IPSJ</span><br  /><ul class="org-ul"><li><a id="orgheadline6"></a>(URL) <a href="http://www.ipsj.or.jp/award/ssp_award.html">http://www.ipsj.or.jp/award/ssp_award.html</a><br  /></li></ul></li>
+
+<li><a id="orgheadline9"></a><span class="date">2018 Aug.</span> <span class="item">XCSP18 Sequential CSP Solver 1st place, Parallel CSP Solver 1st place</span><br  /><ul class="org-ul"><li><a id="orgheadline8"></a>(URL) <a href="http://www.cril.univ-artois.fr/XCSP18/">http://www.cril.univ-artois.fr/XCSP18/</a><br  /></li></ul></li>
+
+<li><a id="orgheadline11"></a><span class="date">2017 Mar.</span> <span class="item">PPL 2017 Presentation Award --- The presentation award of the 19th workshop of programming and programming language (PPL 2017).</span><br  /><ul class="org-ul"><li><a id="orgheadline10"></a>(URL) <a href="https://ppl2017.ipl-e.ai.kyutech.ac.jp/#winning">https://ppl2017.ipl-e.ai.kyutech.ac.jp/#winning</a><br  /></li></ul></li>
+
+<li><a id="orgheadline13"></a><span class="date">2015 Sep.</span> <span class="item">2015 Best Research Paper Award --- Japan Society for Software Science and Technology</span><br  /><ul class="org-ul"><li><a id="orgheadline12"></a>(URL) <a href="https://www.jssst.or.jp/award/detail/ronbunsho_list.html">https://www.jssst.or.jp/award/detail/ronbunsho_list.html</a><br  /></li></ul></li>
+
+<li><a id="orgheadline15"></a><span class="date">2015 Aug.</span> <span class="item">The 1st place at algorithm design contest of DA symposium 2015</span><br  /><ul class="org-ul"><li><a id="orgheadline14"></a>(URL) <a href="http://www.sig-sldm.org/DC2015/ADC2015results2.pdf">http://www.sig-sldm.org/DC2015/ADC2015results2.pdf</a><br  /></li></ul></li>
+
+<li><a id="orgheadline17"></a><span class="date">2014 Nov.</span> <span class="item">Takahashi Award for the best presentation and paper</span><br  /><ul class="org-ul"><li><a id="orgheadline16"></a>(URL) <a href="https://www.jssst.or.jp/award/detail/takahashi_list.html">https://www.jssst.or.jp/award/detail/takahashi_list.html</a><br  /></li></ul></li>
+
+<li><a id="orgheadline19"></a><span class="date">2014 Aug.</span> <span class="item">The 1st place at algorithm design contest of DA symposium 2014</span><br  /><ul class="org-ul"><li><a id="orgheadline18"></a>(URL) <a href="http://www.sig-sldm.org/DC2014/results.html">http://www.sig-sldm.org/DC2014/results.html</a><br  /></li></ul></li>
+<li><a id="orgheadline21"></a><span class="date">2010 Apr.</span> <span class="item">The SOKENDAI President's Award.</span><br  /><ul class="org-ul"><li><a id="orgheadline20"></a>(URL) <a href="https://www.soken.ac.jp/education/dispatch/scientistaward/fsaward/winners/">https://www.soken.ac.jp/education/dispatch/scientistaward/fsaward/winners/</a><br  /></li></ul></li>
+
+<li><a id="orgheadline23"></a><span class="date">2009 Sep.</span> <span class="item">The 2009 JSAI Convention Award.</span><br  /><ul class="org-ul"><li><a id="orgheadline22"></a>(URL) <a href="https://www.ai-gakkai.or.jp/about/award/jsai_award-conf/">https://www.ai-gakkai.or.jp/about/award/jsai_award-conf/</a><br  /></li></ul></li></ol>
+</div>
+
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">7</span> Language</h2>
+<div class="outline-text-2" id="text-7">
+<ul class="org-ul">
+<li>Japanese (Native), English (TOEIC 905)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline47" class="outline-2">
+<h2 id="orgheadline47"><span class="section-number-2">8</span> Grant, Competitive Research Funds (as Pricipal Investigator)</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+<b>as Pricipal Investigator (PI)</b>
+</p>
+</div>
+<ol class="org-ol"><li><a id="orgheadline29"></a><span class="date">2016/04 - 2019/03</span><br  /><ul class="org-ul"><li><a id="orgheadline26"></a>(<b>PI</b>) <span class="item">High Performance SAT-based Constraint Programming System using Hybrid Encoding</span> <span class="prize">Ongoing</span><br  /></li>
+<li><a id="orgheadline27"></a><span class="others">JSPS Grants-in-Aid for Young Scientists (B), No. 16K16036</span><br  /></li>
+<li><a id="orgheadline28"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16K16036/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16K16036/</a><br  /></li></ul></li>
+
+<li><a id="orgheadline33"></a><span class="date">2013/04 - 2016/03</span><br  /><ul class="org-ul"><li><a id="orgheadline30"></a>(<b>PI</b>) <span class="item">Research and Development of Constraint Programming Systems for Pathway Analysis</span><br  /></li>
+<li><a id="orgheadline31"></a><span class="others">JSPS Grants-in-Aid for Young Scientists (B), No. 25730042</span><br  /></li>
+<li><a id="orgheadline32"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-25730042/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-25730042/</a><br  /></li></ul></li>
+<li><a id="orgheadline36"></a><span class="date">2014/04 - 2015/03</span><br  /><ul class="org-ul"><li><a id="orgheadline34"></a>(<b>PI</b>) <span class="item">Research on High-performance Educational Timetabling Systems using SAT Technology</span><br  /></li>
+<li><a id="orgheadline35"></a><span class="others">2014 NII Collaborative Research Grants</span><br  /></li></ul></li>
+<li><a id="orgheadline39"></a><span class="date">2013/04 - 2014/03</span><br  /><ul class="org-ul"><li><a id="orgheadline37"></a>(<b>PI</b>) <span class="item">Research on High-performance and Hi-level Constraint ASP Solvers Using Incremental Solving</span><br  /></li>
+<li><a id="orgheadline38"></a><span class="others">2013 NII Collaborative Research Grants</span><br  /></li></ul></li>
+<li><a id="orgheadline42"></a><span class="date">2011/11 - 2012/03</span><br  /><ul class="org-ul"><li><a id="orgheadline40"></a>(<b>PI</b>) <span class="item">Knowledge Discovery on Global Regulation Networks Based on Inference with Causal Relations</span><br  /></li>
+<li><a id="orgheadline41"></a><span class="others">The 2nd Transdisciplinary Seeds Research</span><br  /></li></ul></li>
+<li><a id="orgheadline46"></a><span class="date">2010/04 - 2012/03</span><br  /><ul class="org-ul"><li><a id="orgheadline43"></a>(<b>PI</b>) <span class="item">Solving Constraint Satisfaction Problem via SAT Encoding and its Application to Systems Biology</span><br  /></li>
+<li><a id="orgheadline44"></a><span class="others">JSPS Research grant (Grant-in-Aid for JSPS Fellows) for Doctoral Course Students (DC2)</span><br  /></li>
+<li><a id="orgheadline45"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-10J02321/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-10J02321/</a><br  /></li></ul></li></ol>
+</div>
+
+<div id="outline-container-orgheadline70" class="outline-2">
+<h2 id="orgheadline70"><span class="section-number-2">9</span> Grant, Competitive Research Funds (as Co-Investigator (COI) JSPS Kakenhi)</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+<b>as Co-Investigator JSPS Kakenhi (COI-JSPS)</b>
+</p>
+</div>
+<ol class="org-ol"><li><a id="orgheadline52"></a><span class="date">2018/04 - 2021/03</span><br  /><ul class="org-ul"><li><a id="orgheadline48"></a>(COI-JSPS) <span class="item">先進的な知識表現および推論技術を基盤とした多目的最適化ソルバーの研究開発</span> <span class="prize">Ongoing</span><br  /></li>
+<li><a id="orgheadline49"></a><span class="others">Grants-in-Aid for Scientific Research (C), No.18K11242</span><br  /></li>
+<li><a id="orgheadline50"></a><span class="others">Principal Investigator: Prof. Mutsunori Banbara (Nagoya University)</span><br  /></li>
+<li><a id="orgheadline51"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-18K11242/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-18K11242/</a><br  /></li></ul></li>
+<li><a id="orgheadline58"></a><span class="date">2016/04 - 2019/03</span><br  /><ul class="org-ul"><li><a id="orgheadline53"></a>(COI-JSPS) <span class="item">Research and Development of a New Constraint Programming System based on SAT</span> <span class="prize">Ongoing</span><br  /></li>
+<li><a id="orgheadline54"></a><span class="others">Grants-in-Aid for Scientific Research (B), No. 16H02803</span><br  /></li>
+<li><a id="orgheadline55"></a><span class="others">Principal Investigator: Prof. Naoyuki Tamura (Kobe University</span><br  /></li>
+<li><a id="orgheadline56"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16H02803/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16H02803/</a><br  /></li>
+<li><a id="orgheadline57"></a><a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/">CSPSAT3</a><br  /></li></ul></li>
+<li><a id="orgheadline63"></a><span class="date">2015/04 - 2018/03</span><br  /><ul class="org-ul"><li><a id="orgheadline59"></a>(COI-JSPS) <span class="item">Research and Development on Constraint Answer Set Programming Using SAT Encoding</span><br  /></li>
+<li><a id="orgheadline60"></a><span class="others">Grants-in-Aid for Scientific Research (C), No.15K00099</span><br  /></li>
+<li><a id="orgheadline61"></a><span class="others">Principal Investigator: Prof. Mutsunori Banbara (Kobe University)</span><br  /></li>
+<li><a id="orgheadline62"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-15K00099/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-15K00099/</a><br  /></li></ul></li>
+<li><a id="orgheadline69"></a><span class="date">2012/04 - 2015/03</span><br  /><ul class="org-ul"><li><a id="orgheadline64"></a>(COI-JSPS) <span class="item">Realization of High-Performance and Flexible Constraint Programming Systems Using Propositional Inference Techniques</span><br  /></li>
+<li><a id="orgheadline65"></a><span class="others">Grants-in-Aid for Scientific Research (B), No.24300007</span><br  /></li>
+<li><a id="orgheadline66"></a><span class="others">Principal Investigator: Prof. Naoyuki Tamura (Kobe University</span><br  /></li>
+<li><a id="orgheadline67"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-24300007/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-24300007/</a><br  /></li>
+<li><a id="orgheadline68"></a><a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/cspsat2.html">CSPSAT2</a><br  /></li></ul></li></ol>
+</div>
+
+<div id="outline-container-orgheadline115" class="outline-2">
+<h2 id="orgheadline115"><span class="section-number-2">10</span> Grant, Competitive Research Funds (as Co-Investigator NII Collaborative Research)</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+<b>as Co-Investigator NII Collaborative Research (COI)</b>
+</p>
+</div>
+<ol class="org-ol"><li><a id="orgheadline74"></a><span class="date">2018/04 - 2019/03</span><br  /><ul class="org-ul"><li><a id="orgheadline71"></a>(COI) <span class="item">背景理論付き解集合プログラミングに関する研究開発</span> <span class="prize">Ongoing</span><br  /></li>
+<li><a id="orgheadline72"></a><span class="others">2018 NII Collaborative Research Grants</span><br  /></li>
+<li><a id="orgheadline73"></a><span class="others">Principal Investigator: Prof. Mutsunori Banbara (Kobe University</span><br  /></li></ul></li>
+<li><a id="orgheadline78"></a><span class="date">2017/04 - 2018/03</span><br  /><ul class="org-ul"><li><a id="orgheadline75"></a>(COI) <span class="item">Multi-objective optimization in Answer Set Programming</span><br  /></li>
+<li><a id="orgheadline76"></a><span class="others">2017 NII Collaborative Research Grants</span><br  /></li>
+<li><a id="orgheadline77"></a><span class="others">Principal Investigator: Prof. Mutsunori Banbara (Kobe University)</span><br  /></li></ul></li>
+<li><a id="orgheadline82"></a><span class="date">2015 Apr. - 2016 Mar.</span><br  /><ul class="org-ul"><li><a id="orgheadline79"></a>(COI) <span class="item">Solving Optimal Software Component Deployment Problem in Cloud</span><br  /></li>
+<li><a id="orgheadline80"></a><span class="others">2014 NII Collaborative Research Grants</span><br  /></li>
+<li><a id="orgheadline81"></a><span class="others">Co-Investigator</span><br  /></li></ul></li>
+<li><a id="orgheadline86"></a><span class="date">2015 Apr. - 2016 Mar.</span><br  /><ul class="org-ul"><li><a id="orgheadline83"></a>(COI) <span class="item">ASP-based System Verification</span><br  /></li>
+<li><a id="orgheadline84"></a><span class="others">2014 NII Collaborative Research Grants</span><br  /></li>
+<li><a id="orgheadline85"></a><span class="others">Co-Investigator</span><br  /></li></ul></li>
+<li><a id="orgheadline90"></a><span class="date">2012 Apr. - 2013 Mar.</span><br  /><ul class="org-ul"><li><a id="orgheadline87"></a>(COI) <span class="item">Research on Constraint Answer Set Programming Using SAT Techniques</span><br  /></li>
+<li><a id="orgheadline88"></a><span class="others">2012 NII Collaborative Research Grants</span><br  /></li>
+<li><a id="orgheadline89"></a><span class="others">Co-Investigator</span><br  /></li></ul></li>
+<li><a id="orgheadline94"></a><span class="date">2011 Apr. - 2012 Mar.</span><br  /><ul class="org-ul"><li><a id="orgheadline91"></a>(COI) <span class="item">Research on Constraint Answer Set Programming Using SAT Techniques</span><br  /></li>
+<li><a id="orgheadline92"></a><span class="others">2011 NII Collaborative Research Grants</span><br  /></li>
+<li><a id="orgheadline93"></a><span class="others">(No.35; Co-Investigator) Principal Investigator: Prof. Mutsunori Banbara (Kobe University)</span><br  /></li></ul></li>
+<li><a id="orgheadline98"></a><span class="date">2010 Apr. - 2011 Mar.</span><br  /><ul class="org-ul"><li><a id="orgheadline95"></a>(COI) <span class="item">Research on New SAT Encoding Methods, New SAT Solvers, and Their Application to Hard Problems</span><br  /></li>
+<li><a id="orgheadline96"></a><span class="others">2010 NII Collaborative Research Grants</span><br  /></li>
+<li><a id="orgheadline97"></a><span class="others">(No.3; Co-Investigator) Principal Investigator: Prof. Mutsunori Banbara (Kobe University)</span><br  /></li></ul></li>
+<li><a id="orgheadline102"></a><span class="date">2009 Apr. - 2010 Mar.</span><br  /><ul class="org-ul"><li><a id="orgheadline99"></a>(COI) <span class="item">Research on Solving Methods for Hard Constraint Optimization Problems by Enhancing SAT Encoding Techniques</span><br  /></li>
+<li><a id="orgheadline100"></a><span class="others">2009 NII Collaborative Research Grants</span><br  /></li>
+<li><a id="orgheadline101"></a><span class="others">(No.1; Co-Investigator)</span><br  /></li></ul></li>
+<li><a id="orgheadline106"></a><span class="date">2008 Apr. - 2009 Mar.</span><br  /><ul class="org-ul"><li><a id="orgheadline103"></a>(COI) <span class="item">Research on Solving Hard Constraint Optimization Problems by Using SAT Encoding</span><br  /></li>
+<li><a id="orgheadline104"></a><span class="others">2008 NII Collaborative Research Grants</span><br  /></li>
+<li><a id="orgheadline105"></a><span class="others">(No.1; Co-Investigator)</span><br  /></li></ul></li>
+<li><a id="orgheadline110"></a><span class="date">2005 Apr. - 2006 Mar.</span><br  /><ul class="org-ul"><li><a id="orgheadline107"></a>(COI) <span class="item">Research on Design and Realization of Distributed SAT Algorithm</span><br  /></li>
+<li><a id="orgheadline108"></a><span class="others">2005 NII Collaborative Research Grants</span><br  /></li>
+<li><a id="orgheadline109"></a><span class="others">(No. 7; Co-Investigator)</span><br  /></li></ul></li>
+<li><a id="orgheadline114"></a><span class="date">2004 Apr. - 2005 Mar.</span><br  /><ul class="org-ul"><li><a id="orgheadline111"></a>(COI) <span class="item">Research on Foundations and Realization of Distributed Intelligent Systems</span><br  /></li>
+<li><a id="orgheadline112"></a><span class="others">2004 NII Collaborative Research Grants</span><br  /></li>
+<li><a id="orgheadline113"></a><span class="others">(No. 26; Co-Investigator)</span><br  /></li></ul></li></ol>
+</div>
+
+<div id="outline-container-orgheadline153" class="outline-2">
+<h2 id="orgheadline153"><span class="section-number-2">11</span> (International) Professional Activities</h2>
+<div class="outline-text-2" id="text-11">
+</div><ol class="org-ol"><li><a id="orgheadline118"></a><span class="date">2018/07/09-12</span> <span class="item">International Conference on Theory and Applications of Satisfiability Testing (SAT 2018)</span><br  /><ul class="org-ul"><li><a id="orgheadline116"></a><span class="others">Program Committee</span><br  /></li>
+<li><a id="orgheadline117"></a>(URL) <a href="https://sat2018.azurewebsites.net/organization/">https://sat2018.azurewebsites.net/organization/</a><br  /></li></ul></li>
+<li><a id="orgheadline121"></a><span class="date">2017/08/28</span> <span class="item">International Workshop of Pragmatics of Constraint Reasoning (PoCR 2017)</span><br  /><ul class="org-ul"><li><a id="orgheadline119"></a><span class="others">Program Committee</span><br  /></li>
+<li><a id="orgheadline120"></a>(URL) <a href="http://www.pragmaticsofsat.org/2017/">http://www.pragmaticsofsat.org/2017/</a><br  /></li></ul></li>
+<li><a id="orgheadline124"></a><span class="date">2017/08/28</span> <span class="item">CP/ICLP/SAT Doctoral Program 2017</span><br  /><ul class="org-ul"><li><a id="orgheadline122"></a><span class="others">Program Committee</span><br  /></li>
+<li><a id="orgheadline123"></a>(URL) <a href="http://cp2017.a4cp.org/doctoral_program/">http://cp2017.a4cp.org/doctoral_program/</a><br  /></li></ul></li>
+<li><a id="orgheadline127"></a><span class="date">2016/07/05-08</span> <span class="item">International Conference on Theory and Applications of Satisfiability Testing (SAT 2016)</span><br  /><ul class="org-ul"><li><a id="orgheadline125"></a><span class="others">Program Committee</span><br  /></li>
+<li><a id="orgheadline126"></a>(URL) <a href="http://sat2016.labri.fr">http://sat2016.labri.fr</a><br  /></li></ul></li>
+<li><a id="orgheadline130"></a><span class="date">2016/10/18</span> <span class="item">12th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2016)</span><br  /><ul class="org-ul"><li><a id="orgheadline128"></a><span class="others">Program Committee</span><br  /></li>
+<li><a id="orgheadline129"></a>(URL) <a href="http://dc-iclp16.cs.bath.ac.uk/organisation/">http://dc-iclp16.cs.bath.ac.uk/organisation/</a><br  /></li></ul></li>
+<li><a id="orgheadline133"></a><span class="date">2015/09/23</span> <span class="item">International Workshop of Pragmatics of SAT 2015 (PoS 2015)</span><br  /><ul class="org-ul"><li><a id="orgheadline131"></a><span class="others">Program Committee</span><br  /></li>
+<li><a id="orgheadline132"></a>(URL) <a href="http://www.pragmaticsofsat.org/2015/">http://www.pragmaticsofsat.org/2015/</a><br  /></li></ul></li>
+<li><a id="orgheadline135"></a><span class="date">2015/08/31</span> <span class="item">11th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2015)</span><br  /><ul class="org-ul"><li><a id="orgheadline134"></a><span class="others">Program Committee</span><br  /></li></ul></li>
+<li><a id="orgheadline137"></a><span class="date">2014/07/21</span>  <span class="item">10th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2014)</span><br  /><ul class="org-ul"><li><a id="orgheadline136"></a><span class="others">Program Committee</span><br  /></li></ul></li>
+<li><a id="orgheadline140"></a><span class="date">2014/06/04-06</span> <span class="item">12th International Symposium on Functional and Logic Programming (FLOPS 2014)</span><br  /><ul class="org-ul"><li><a id="orgheadline138"></a><span class="others">Program Committee</span><br  /></li>
+<li><a id="orgheadline139"></a>(URL) <a href="http://www.jaist.ac.jp/flops2014/organization.html">http://www.jaist.ac.jp/flops2014/organization.html</a><br  /></li></ul></li>
+<li><a id="orgheadline143"></a><span class="date">2012/05/23-25</span> <span class="item">11th International Symposium on Functional and Logic Programming (FLOPS 2012), Kobe Japan.</span><br  /><ul class="org-ul"><li><a id="orgheadline141"></a><span class="others">Local Committee Member</span><br  /></li>
+<li><a id="orgheadline142"></a>(URL) <a href="http://www.org.kobe-u.ac.jp/flops2012/committees.html">http://www.org.kobe-u.ac.jp/flops2012/committees.html</a><br  /></li></ul></li>
+<li><a id="orgheadline146"></a><span class="date">2011/11/13-17</span> <span class="item">International Symposium on Symbolic Systems Biology (ISSSB' 11), Hayama Japan.</span><br  /><ul class="org-ul"><li><a id="orgheadline144"></a><span class="others">Local Organizer</span><br  /></li>
+<li><a id="orgheadline145"></a>(URL) <a href="http://www.cs.bris.ac.uk/~oray/ISSSB11/">http://www.cs.bris.ac.uk/~oray/ISSSB11/</a><br  /></li></ul></li>
+<li><a id="orgheadline149"></a><span class="date">2009/09/21-25</span> <span class="item">3rd Franco-Japanese Symposium on Knowledge Discovery in Systems Biology (FJ'09), Corsica France</span><br  /><ul class="org-ul"><li><a id="orgheadline147"></a><span class="others">Program Committee Chair</span><br  /></li>
+<li><a id="orgheadline148"></a>(URL) <a href="http://research.nii.ac.jp/il/fj/3rd_ws/">http://research.nii.ac.jp/il/fj/3rd_ws/</a><br  /></li></ul></li>
+<li><a id="orgheadline152"></a><span class="date">2008/10/30-11/03</span> <span class="item">2nd Franco-Japanese Symposium on Knowledge Discovery in Systems Biology (FJ'08), Takayama Japan</span><br  /><ul class="org-ul"><li><a id="orgheadline150"></a><span class="others">Local Committee Member</span><br  /></li>
+<li><a id="orgheadline151"></a>(URL) <a href="http://research.nii.ac.jp/il/fj/2nd_ws/">http://research.nii.ac.jp/il/fj/2nd_ws/</a><br  /></li></ul></li></ol>
+</div>
+
+<div id="outline-container-orgheadline176" class="outline-2">
+<h2 id="orgheadline176"><span class="section-number-2">12</span> (Domestic) Professional Activities</h2>
+<div class="outline-text-2" id="text-12">
+</div><ol class="org-ol"><li><a id="orgheadline156"></a><span class="date">2017/03/08-10</span> <span class="item">19th Workshop of Programming and Programming Languages (PPL 2017)</span><br  /><ul class="org-ul"><li><a id="orgheadline154"></a><span class="others">Program Committee</span><br  /></li>
+<li><a id="orgheadline155"></a>(URL) <a href="https://ppl2017.ipl-e.ai.kyutech.ac.jp">https://ppl2017.ipl-e.ai.kyutech.ac.jp</a><br  /></li></ul></li>
+<li><a id="orgheadline160"></a><span class="date">2016/06/06-09</span> <span class="item">Organized Session "Theory, Implementation, and Applications of SAT Technology")</span><br  /><ul class="org-ul"><li><a id="orgheadline157"></a><span class="others">The 30th Annual Conference of Japanese Society for Artificial Intelligence (JSAI2016)</span><br  /></li>
+<li><a id="orgheadline158"></a><span class="others">Organizer</span><br  /></li>
+<li><a id="orgheadline159"></a>(URL) <a href="http://www.ai-gakkai.or.jp/jsai2016/os/#os-2">http://www.ai-gakkai.or.jp/jsai2016/os/#os-2</a><br  /></li></ul></li>
+<li><a id="orgheadline164"></a><span class="date">2015/05/31-06/02</span> <span class="item">Organized Session "Theory, Implementation, and Applications of SAT Technology")</span><br  /><ul class="org-ul"><li><a id="orgheadline161"></a><span class="others">The 29th Annual Conference of Japanese Society for Artificial Intelligence (JSAI2015)</span><br  /></li>
+<li><a id="orgheadline162"></a><span class="others">Organizer</span><br  /></li>
+<li><a id="orgheadline163"></a>(URL) <a href="http://www.ai-gakkai.or.jp/jsai2015/os/#os-3">http://www.ai-gakkai.or.jp/jsai2015/os/#os-3</a><br  /></li></ul></li>
+<li><a id="orgheadline167"></a><span class="date">2015/03/04-06</span> <span class="item">17th Workshop of Programming and Programming Languages (PPL 2015)</span><br  /><ul class="org-ul"><li><a id="orgheadline165"></a><span class="others">Program Committee</span><br  /></li>
+<li><a id="orgheadline166"></a>(URL) <a href="http://www-kb.is.s.u-tokyo.ac.jp/ppl2015/">http://www-kb.is.s.u-tokyo.ac.jp/ppl2015/</a><br  /></li></ul></li>
+<li><a id="orgheadline171"></a><span class="date">2014/05/12</span> <span class="item">Organized Session "Theory, Implementation, and Applications of SAT Technology"</span><br  /><ul class="org-ul"><li><a id="orgheadline168"></a><span class="others">The 28th Annual Conference of Japanese Society for Artificial Intelligence (JSAI2014)</span><br  /></li>
+<li><a id="orgheadline169"></a><span class="others">Organizer</span><br  /></li>
+<li><a id="orgheadline170"></a>(URL) <a href="http://www.ai-gakkai.or.jp/jsai2014/os/#os-11">http://www.ai-gakkai.or.jp/jsai2014/os/#os-11</a><br  /></li></ul></li>
+<li><a id="orgheadline175"></a><span class="date">2013/06/05</span> <span class="item">Organized Session "Theory, Implementation, and Applications of SAT Technology"</span><br  /><ul class="org-ul"><li><a id="orgheadline172"></a><span class="others">The 27th Annual Conference of Japanese Society for Artificial Intelligence (JSAI2013)</span><br  /></li>
+<li><a id="orgheadline173"></a><span class="others">Organizer</span><br  /></li>
+<li><a id="orgheadline174"></a>(URL) <a href="http://2013.conf.ai-gakkai.or.jp/os#os-9">http://2013.conf.ai-gakkai.or.jp/os#os-9</a><br  /></li></ul></li></ol>
+</div>
+</div>
+</body>
+</html>

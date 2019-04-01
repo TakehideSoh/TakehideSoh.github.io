@@ -1,0 +1,306 @@
+# -*- coding: utf-8 -*-
+#+TITLE: 
+#+AUTHOR: Takehide Soh
+#+EMAIL: soh@lion.kobe-u.ac.jp
+#+OPTIONS: ^:nil toc:nil H:1 num:2 creater:nil
+#+OPTIONS: html-postamble:nil
+
+
+#+HTML_HEAD: <!-- Global site tag (gtag.js) - Google Analytics -->
+#+HTML_HEAD: <script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
+#+HTML_HEAD: <script>
+#+HTML_HEAD:   window.dataLayer = window.dataLayer || [];
+#+HTML_HEAD:  function gtag(){dataLayer.push(arguments);}
+#+HTML_HEAD:  gtag('js', new Date());
+#+HTML_HEAD:  gtag('config', 'UA-6313627-5');
+#+HTML_HEAD: </script>
+
+#+HTML_HEAD: <title>Takehide soh</title>
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./myhome.css" />
+
+#+MACRO: title @@html:<span class="title">$1</span>@@
+#+MACRO: author @@html:<span class="author">$1</span>@@
+#+MACRO: others @@html:<span class="others">$1</span>@@
+
+#+MACRO: date @@html:<span class="date">$1</span>@@
+#+MACRO: item @@html:<span class="item">$1</span>@@
+
+#+MACRO: pc @@html:<span class="others">Program Committee</span>@@
+#+MACRO: org @@html:<span class="others">Organizer</span>@@
+
+#+MACRO: going @@html:<span class="prize">Ongoing</span>@@
+
+#+BEGIN_HTML
+<style type="text/css">
+#tb1 td   { width:150px }
+#tb1 td+td   { width:750px }
+</style>
+#+END_HTML
+
+#+INCLUDE: "./top.html"
+
+
+* Profile Pages
+  - [[https://scholar.google.co.jp/citations?user=N10uw7YAAAAJ&hl=en][Google Scholar]]
+  - [[https://dblp.org/pers/hd/s/Soh:Takehide][DBLP]]
+  - [[https://dl.acm.org/author_page.cfm?id=81324493968][ACM Digital Library]]
+  - [[https://researchmap.jp/soh/?lang=english][researchmap]] 
+
+* News and Future Events
+#+BEGIN_HTML
+<div align="center">
+<img width="500px" src="xcsp18-result-light.jpg">
+</div>
+#+END_HTML
+- Joined XCSP18 (an international CSP solver competition) with a
+  SAT-based solver [[./sCOP/][sCOP]] and won first places in 2 categories (CSP
+  sequential/paralle)!!!
+  - http://www.cril.univ-artois.fr/XCSP18/files/resultsXCSP3-18.pdf
+- From September 2017 to September 2018, I will stay in CRIL (Centre
+  de Recherche en Informatique de Lens), France as a guest researcher
+  of CNRS (Centre national de la recherche scientifique). 
+# Recently, we particularly focus on the [[./scarab/][Scarab]] system, which is a
+# prototyping tool for SAT-based systems.
+
+* Research Interests
+  - Boolean Satisfiability and Constraint Programming
+  - Knowledge Discovery for Systems Biology
+
+* Employment
+  - {{{date(2012 Apr. - present)}}} {{{item(Assistant Professor\, Information Science and Technology Center\, Kobe University)}}}
+  - {{{date(2017 Sep. - 2018 Sep.)}}} {{{item(Visiting Researcher\, Centre national de la recherche scientifique; CNRS\, France)}}}
+  - {{{date(2011 Oct. - 2012 Mar.)}}} {{{item(Project Researcher\, Transdisciplinary Research Integration Center (TRIC))}}}
+  - {{{date(2010 Apr. - 2011 Sep.)}}} {{{item(Research Fellow\, Japan Society for the Promotion of Science (JSPS))}}}
+  - {{{date(2008 Apr. - 2010 Sep.)}}} {{{item(Research Assistant\, National Institute of Informatics)}}}
+  - {{{date(2006 Apr. - 2008 Mar.)}}} {{{item(work @ Information Systems Department\, Suntory Limited)}}}
+
+* Education
+  - {{{date(2011 Sep.)}}} {{{item(Ph.D.\, Dapartment of Informatics\, The Graduate University for Advanced Studies (Sokendai))}}}
+  - {{{date(2006 Mar.)}}} {{{item(M.S. Engineering\, Graduate School of Science and Technology\, Kobe University)}}}
+  - {{{date(2004 Mar.)}}} {{{item(B.S. Engineering\, Department of Engineering, Kobe University)}}}
+
+#     Award of International CSP Solver Competition (http://www.cril.univ-artois.fr/XCSP18/)
+* Award
+** {{{date(2018 Sep.)}}} {{{item(Specially Selected Paper --- Journal of Information Processing\, IPSJ)}}}
+*** (URL) http://www.ipsj.or.jp/award/ssp_award.html
+
+** {{{date(2018 Aug.)}}} {{{item(XCSP18 Sequential CSP Solver 1st place\, Parallel CSP Solver 1st place)}}}
+*** (URL) http://www.cril.univ-artois.fr/XCSP18/
+
+** {{{date(2017 Mar.)}}} {{{item(PPL 2017 Presentation Award --- The presentation award of the 19th workshop of programming and programming language (PPL 2017).)}}}
+*** (URL) https://ppl2017.ipl-e.ai.kyutech.ac.jp/#winning
+
+** {{{date(2015 Sep.)}}} {{{item(2015 Best Research Paper Award --- Japan Society for Software Science and Technology)}}}
+*** (URL) https://www.jssst.or.jp/award/detail/ronbunsho_list.html
+
+** {{{date(2015 Aug.)}}} {{{item(The 1st place at algorithm design contest of DA symposium 2015,)}}}
+*** (URL) http://www.sig-sldm.org/DC2015/ADC2015results2.pdf
+
+#    - {{{others(iSugar+GlueMiniSat\, Tatsuya Sako\, Masahiro Kawahara\, Naoyuki Tamura\, Mutsunori Banbara\, Takehide Soh\, and Hidetomo Nabeshima.)}}}
+** {{{date(2014 Nov.)}}} {{{item(Takahashi Award for the best presentation and paper)}}}
+*** (URL) https://www.jssst.or.jp/award/detail/takahashi_list.html
+
+#    - {{{others(The 31st Conference of Japan Society for Software Science and Technology (JSSST 2014))}}}
+** {{{date(2014 Aug.)}}} {{{item(The 1st place at algorithm design contest of DA symposium 2014,)}}}
+*** (URL) http://www.sig-sldm.org/DC2014/results.html
+#    - {{{others(Sugar+GlueMiniSat\, Naoyuki Tamura\, Mutsunori Banbara\, Takehide Soh\, and Hidetomo Nabeshima.)}}}
+** {{{date(2010 Apr.)}}} {{{item(The SOKENDAI President's Award.)}}}
+*** (URL) https://www.soken.ac.jp/education/dispatch/scientistaward/fsaward/winners/
+
+** {{{date(2009 Sep.)}}} {{{item(The 2009 JSAI Convention Award.)}}}
+*** (URL) https://www.ai-gakkai.or.jp/about/award/jsai_award-conf/
+
+* Language
+  - Japanese (Native), English (TOEIC 905)
+
+* Grant, Competitive Research Funds (as Pricipal Investigator)
+*as Pricipal Investigator (PI)*
+** {{{date(2016/04 - 2019/03)}}}
+*** (*PI*) {{{item(High Performance SAT-based Constraint Programming System using Hybrid Encoding)}}} {{{going}}}
+*** {{{others(JSPS Grants-in-Aid for Young Scientists (B)\, No. 16K16036)}}}
+*** (KAKEN) https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16K16036/
+
+** {{{date(2013/04 - 2016/03)}}} 
+*** (*PI*) {{{item(Research and Development of Constraint Programming Systems for Pathway Analysis)}}}                   
+*** {{{others(JSPS Grants-in-Aid for Young Scientists (B)\, No. 25730042)}}}
+*** (KAKEN) https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-25730042/
+** {{{date(2014/04 - 2015/03)}}} 
+*** (*PI*) {{{item(Research on High-performance Educational Timetabling Systems using SAT Technology)}}} 
+*** {{{others(2014 NII Collaborative Research Grants)}}} 
+** {{{date(2013/04 - 2014/03)}}} 
+*** (*PI*) {{{item(Research on High-performance and Hi-level Constraint ASP Solvers Using Incremental Solving)}}}         
+*** {{{others(2013 NII Collaborative Research Grants)}}}
+** {{{date(2011/11 - 2012/03)}}} 
+*** (*PI*) {{{item(Knowledge Discovery on Global Regulation Networks Based on Inference with Causal Relations)}}}
+*** {{{others(The 2nd Transdisciplinary Seeds Research)}}} 
+** {{{date(2010/04 - 2012/03)}}} 
+*** (*PI*) {{{item(Solving Constraint Satisfaction Problem via SAT Encoding and its Application to Systems Biology)}}} 
+*** {{{others(JSPS Research grant (Grant-in-Aid for JSPS Fellows) for Doctoral Course Students (DC2))}}}
+*** (KAKEN) https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-10J02321/
+
+* Grant, Competitive Research Funds (as Co-Investigator (COI) JSPS Kakenhi)
+*as Co-Investigator JSPS Kakenhi (COI-JSPS)*
+** {{{date(2018/04 - 2021/03)}}}
+*** (COI-JSPS) {{{item(先進的な知識表現および推論技術を基盤とした多目的最適化ソルバーの研究開発)}}} {{{going}}}                                
+*** {{{others(Grants-in-Aid for Scientific Research (C)\, No.18K11242)}}} 
+*** {{{others(Principal Investigator: Prof. Mutsunori Banbara (Nagoya University))}}} 
+*** (KAKEN) https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-18K11242/
+** {{{date(2016/04 - 2019/03)}}} 
+*** (COI-JSPS) {{{item(Research and Development of a New Constraint Programming System based on SAT)}}} {{{going}}}
+*** {{{others(Grants-in-Aid for Scientific Research (B)\, No. 16H02803)}}}
+*** {{{others(Principal Investigator: Prof. Naoyuki Tamura (Kobe University)}}}                                                         
+*** (KAKEN) https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16H02803/
+*** [[http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/][CSPSAT3]]                                                                                                          
+** {{{date(2015/04 - 2018/03)}}}  
+*** (COI-JSPS) {{{item(Research and Development on Constraint Answer Set Programming Using SAT Encoding)}}}                             
+*** {{{others(Grants-in-Aid for Scientific Research (C)\, No.15K00099)}}}
+*** {{{others(Principal Investigator: Prof. Mutsunori Banbara (Kobe University))}}}                                                     
+*** (KAKEN) https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-15K00099/
+** {{{date(2012/04 - 2015/03)}}} 
+*** (COI-JSPS) {{{item(Realization of High-Performance and Flexible Constraint Programming Systems Using Propositional Inference Techniques)}}}
+*** {{{others(Grants-in-Aid for Scientific Research (B)\, No.24300007)}}} 
+*** {{{others(Principal Investigator: Prof. Naoyuki Tamura (Kobe University)}}}                                                         
+*** (KAKEN) https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-24300007/
+*** [[http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/cspsat2.html][CSPSAT2]]                                                                                                        
+
+* Grant, Competitive Research Funds (as Co-Investigator NII Collaborative Research)
+*as Co-Investigator NII Collaborative Research (COI)*
+** {{{date(2018/04 - 2019/03)}}} 
+*** (COI) {{{item(背景理論付き解集合プログラミングに関する研究開発)}}} {{{going}}}                                             
+*** {{{others(2018 NII Collaborative Research Grants)}}}                                                                       
+*** {{{others(Principal Investigator: Prof. Mutsunori Banbara (Kobe University, Nagoya University))}}}                         
+** {{{date(2017/04 - 2018/03)}}} 
+*** (COI) {{{item(Multi-objective optimization in Answer Set Programming)}}}                                                  
+*** {{{others(2017 NII Collaborative Research Grants)}}} 
+*** {{{others(Principal Investigator: Prof. Mutsunori Banbara (Kobe University))}}} 
+** {{{date(2015 Apr. - 2016 Mar.)}}}
+*** (COI) {{{item(Solving Optimal Software Component Deployment Problem in Cloud)}}} 
+*** {{{others(2014 NII Collaborative Research Grants)}}}
+*** {{{others(Co-Investigator)}}} 
+** {{{date(2015 Apr. - 2016 Mar.)}}}
+*** (COI) {{{item(ASP-based System Verification)}}}
+*** {{{others(2014 NII Collaborative Research Grants)}}}
+*** {{{others(Co-Investigator)}}} 
+** {{{date(2012 Apr. - 2013 Mar.)}}} 
+*** (COI) {{{item(Research on Constraint Answer Set Programming Using SAT Techniques)}}}                                     
+*** {{{others(2012 NII Collaborative Research Grants)}}}                                                                      
+*** {{{others(Co-Investigator)}}}                                                                           
+** {{{date(2011 Apr. - 2012 Mar.)}}}
+*** (COI) {{{item(Research on Constraint Answer Set Programming Using SAT Techniques)}}}                                       
+*** {{{others(2011 NII Collaborative Research Grants)}}}                                                                       
+*** {{{others((No.35; Co-Investigator) Principal Investigator: Prof. Mutsunori Banbara (Kobe University))}}}                   
+** {{{date(2010 Apr. - 2011 Mar.)}}} 
+*** (COI) {{{item(Research on New SAT Encoding Methods\, New SAT Solvers\, and Their Application to Hard Problems)}}}         
+*** {{{others(2010 NII Collaborative Research Grants)}}}                                                                       
+*** {{{others((No.3; Co-Investigator) Principal Investigator: Prof. Mutsunori Banbara (Kobe University))}}}                
+** {{{date(2009 Apr. - 2010 Mar.)}}} 
+*** (COI) {{{item(Research on Solving Methods for Hard Constraint Optimization Problems by Enhancing SAT Encoding Techniques)}}}
+*** {{{others(2009 NII Collaborative Research Grants)}}}                                                                        
+*** {{{others((No.1; Co-Investigator), Principal Investigator: Prof. Naoyuki Tamura (Kobe University))}}}                      
+** {{{date(2008 Apr. - 2009 Mar.)}}} 
+*** (COI) {{{item(Research on Solving Hard Constraint Optimization Problems by Using SAT Encoding)}}}                         
+*** {{{others(2008 NII Collaborative Research Grants)}}}                                                                       
+*** {{{others((No.1; Co-Investigator), Principal Investigator: Prof. Naoyuki Tamura (Kobe University))}}}                      
+** {{{date(2005 Apr. - 2006 Mar.)}}} 
+*** (COI) {{{item(Research on Design and Realization of Distributed SAT Algorithm)}}}                                           
+*** {{{others(2005 NII Collaborative Research Grants)}}}                                                                        
+*** {{{others((No. 7; Co-Investigator), Principal Investigator: Prof. Katsumi Inoue (National Institute of Informatics))}}}     
+** {{{date(2004 Apr. - 2005 Mar.)}}}  
+*** (COI) {{{item(Research on Foundations and Realization of Distributed Intelligent Systems)}}}                               
+*** {{{others(2004 NII Collaborative Research Grants)}}}                                                                       
+*** {{{others((No. 26; Co-Investigator), Principal Investigator: Prof. Katsumi Inoue (National Institute of Informatics))}}}  
+
+* (International) Professional Activities
+** {{{date(2018/07/09-12)}}} {{{item(International Conference on Theory and Applications of Satisfiability Testing (SAT 2018))}}}
+*** {{{pc}}}
+*** (URL) https://sat2018.azurewebsites.net/organization/
+** {{{date(2017/08/28)}}} {{{item(International Workshop of Pragmatics of Constraint Reasoning (PoCR 2017))}}}
+*** {{{pc}}}
+*** (URL) http://www.pragmaticsofsat.org/2017/
+** {{{date(2017/08/28)}}} {{{item(CP/ICLP/SAT Doctoral Program 2017)}}}
+*** {{{pc}}}
+*** (URL) http://cp2017.a4cp.org/doctoral_program/
+** {{{date(2016/07/05-08)}}} {{{item(International Conference on Theory and Applications of Satisfiability Testing (SAT 2016))}}}
+*** {{{pc}}}
+*** (URL) http://sat2016.labri.fr
+** {{{date(2016/10/18)}}} {{{item(12th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2016))}}}
+*** {{{pc}}}
+*** (URL) http://dc-iclp16.cs.bath.ac.uk/organisation/
+** {{{date(2015/09/23)}}} {{{item(International Workshop of Pragmatics of SAT 2015 (PoS 2015))}}}                                     
+*** {{{pc}}}
+*** (URL) http://www.pragmaticsofsat.org/2015/
+** {{{date(2015/08/31)}}} {{{item(11th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2015))}}}
+*** {{{pc}}}
+** {{{date(2014/07/21)}}}  {{{item(10th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2014))}}}
+*** {{{pc}}}
+** {{{date(2014/06/04-06)}}} {{{item(12th International Symposium on Functional and Logic Programming (FLOPS 2014))}}}
+*** {{{pc}}}
+*** (URL) http://www.jaist.ac.jp/flops2014/organization.html
+** {{{date(2012/05/23-25)}}} {{{item(11th International Symposium on Functional and Logic Programming (FLOPS 2012)\, Kobe Japan.)}}}
+*** {{{others(Local Committee Member)}}}
+*** (URL) http://www.org.kobe-u.ac.jp/flops2012/committees.html
+** {{{date(2011/11/13-17)}}} {{{item(International Symposium on Symbolic Systems Biology (ISSSB' 11)\, Hayama Japan.)}}}
+*** {{{others(Local Organizer)}}}
+*** (URL) http://www.cs.bris.ac.uk/~oray/ISSSB11/
+** {{{date(2009/09/21-25)}}} {{{item(3rd Franco-Japanese Symposium on Knowledge Discovery in Systems Biology (FJ'09)\, Corsica France)}}}
+*** {{{others(Program Committee Chair)}}}
+*** (URL) http://research.nii.ac.jp/il/fj/3rd_ws/
+** {{{date(2008/10/30-11/03)}}} {{{item(2nd Franco-Japanese Symposium on Knowledge Discovery in Systems Biology (FJ'08)\, Takayama Japan)}}}
+*** {{{others(Local Committee Member)}}}
+*** (URL) http://research.nii.ac.jp/il/fj/2nd_ws/
+
+* (Domestic) Professional Activities
+** {{{date(2017/03/08-10)}}} {{{item(19th Workshop of Programming and Programming Languages (PPL 2017))}}}
+*** {{{pc}}}
+*** (URL) https://ppl2017.ipl-e.ai.kyutech.ac.jp
+** {{{date(2016/06/06-09)}}} {{{item(Organized Session "Theory\, Implementation\, and Applications of SAT Technology"))}}}
+*** {{{others(The 30th Annual Conference of Japanese Society for Artificial Intelligence (JSAI2016))}}}
+*** {{{org}}}
+*** (URL) http://www.ai-gakkai.or.jp/jsai2016/os/#os-2
+** {{{date(2015/05/31-06/02)}}} {{{item(Organized Session "Theory\, Implementation\, and Applications of SAT Technology"))}}}
+*** {{{others(The 29th Annual Conference of Japanese Society for Artificial Intelligence (JSAI2015))}}}
+*** {{{org}}}
+*** (URL) http://www.ai-gakkai.or.jp/jsai2015/os/#os-3
+** {{{date(2015/03/04-06)}}} {{{item(17th Workshop of Programming and Programming Languages (PPL 2015))}}}
+*** {{{pc}}}
+*** (URL) http://www-kb.is.s.u-tokyo.ac.jp/ppl2015/
+** {{{date(2014/05/12)}}} {{{item(Organized Session "Theory\, Implementation\, and Applications of SAT Technology")}}}
+*** {{{others(The 28th Annual Conference of Japanese Society for Artificial Intelligence (JSAI2014))}}}
+*** {{{org}}}
+*** (URL) http://www.ai-gakkai.or.jp/jsai2014/os/#os-11
+** {{{date(2013/06/05)}}} {{{item(Organized Session "Theory\, Implementation\, and Applications of SAT Technology")}}}
+*** {{{others(The 27th Annual Conference of Japanese Society for Artificial Intelligence (JSAI2013))}}}
+*** {{{org}}}
+*** (URL) http://2013.conf.ai-gakkai.or.jp/os#os-9
+
+  # - Program Commitee Members
+  #   - July 21, 2014
+  #   - 11th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2015)
+  # - Co-Organizer 
+  #   - May 31 - June 2, 2015
+  #   - Organized Session "Theory, Implementation, and Applications of SAT Technology", The 29th Annual Conference of Japanese Society for Artificial Intelligence (JSAI2015)
+  # - Program Commitee Members
+  #   - July 21, 2014
+  #   - 10th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2014)
+  # - Co-Organizer 
+  #   - May 12, 2014
+  #   - Organized Session "Theory, Implementation, and Applications of SAT Technology", The 28th Annual Conference of Japanese Society for Artificial Intelligence (JSAI2014)
+  # - Program Commitee Members
+  #   - June 4 - 6, 2014
+  #   - Twelfth International Symposium on Functional and Logic Programming (FLOPS 2014)
+  # - Co-Organizer 
+  #   - June 5, 2013
+  #   - Organized Session "Theory, Implementation, and Applications of SAT Technology", The 27th Annual Conference of Japanese Society for Artificial Intelligence (JSAI2013)
+  # - Local Committee Members
+  #   - May 23 - 25, 2012
+  #   - Eleventh International Symposium on Functional and Logic Programming (FLOPS 2012), Kobe Japan.
+  # - Local Organizer
+  #   - November  13 - 17, 2011
+  #   - International Symposium on Symbolic Systems Biology (ISSSB' 11), Hayama Japan.
+  # - Program Chair
+  #   - September 21 - 25, 2009
+  #   - The 3rd Franco-Japanese Symposium on Knowledge Discovery in Systems Biology (FJ'09), Corsica France.
+  # - Local Organizing Committee Member
+  #   - October 30 - November 3, 2008
+  #   - The 2nd Franco-Japanese Symposium on Knowledge Discovery in Systems Biology (FJ'08), Takayama Japan.
