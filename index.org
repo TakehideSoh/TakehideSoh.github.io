@@ -118,12 +118,12 @@
 * Grant, Competitive Research Funds (as Pricipal Investigator)
 *as Pricipal Investigator (PI)*
 ** {{{date(2019/04 - 2020/03)}}} 
-*** (*PI*) {{{item(Research and Development of a New SAT-based Parallel CSP Solver using Multiple Constraint Modelings and SAT Encodings)}}}
+*** (*PI*) {{{item(Research and Development of a New SAT-based Parallel CSP Solver using Multiple Constraint Modelings and SAT Encodings)}}} {{{going}}}                                             
 *** {{{others(2019 NII Collaborative Research Grants)}}} 
 
 ** {{{date(2019/08 - 2021/07)}}} 
 *** (*PI*) {{{item(Computing Attractors in Asynchronous Automata Networks using SAT Technology)}}} 
-*** {{{others(JSPS Bilateral Programs (Joint Research Projects) Joint Research Projects with FRANCE (MEAE-MESRI) ``SAKURA Program'')}}} 
+*** {{{others(JSPS Bilateral Programs (Joint Research Projects) Joint Research Projects with FRANCE (MEAE-MESRI) ``SAKURA Program'')}}} {{{going}}}                                             
 
 ** {{{date(2016/04 - 2019/03)}}}
 *** (*PI*) {{{item(High Performance SAT-based Constraint Programming System using Hybrid Encoding)}}} 
@@ -176,7 +176,7 @@
 * Grant, Competitive Research Funds (as Co-Investigator NII Collaborative Research)
 *as Co-Investigator NII Collaborative Research (COI)*
 ** {{{date(2018/04 - 2019/03)}}} 
-*** (COI) {{{item(背景理論付き解集合プログラミングに関する研究開発)}}} {{{going}}}                                             
+*** (COI) {{{item(背景理論付き解集合プログラミングに関する研究開発)}}} 
 *** {{{others(2018 NII Collaborative Research Grants)}}}                                                                       
 *** {{{others(Principal Investigator: Prof. Mutsunori Banbara (Kobe University, Nagoya University))}}}                         
 ** {{{date(2017/04 - 2018/03)}}} 
