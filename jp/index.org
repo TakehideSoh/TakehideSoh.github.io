@@ -44,6 +44,9 @@
 #+INCLUDE: "top-jp.html"
 
 * プロフィールページ
+  - IDs
+    - (ORCID ID) https://orcid.org/0000-0001-5897-9192
+    - (Web of Science ResearcherID) H-2159-2017
   - [[https://scholar.google.co.jp/citations?user=N10uw7YAAAAJ&hl=en][Google Scholar]]
   - [[https://dblp.org/pers/hd/s/Soh:Takehide][DBLP]]
   - [[https://dl.acm.org/author_page.cfm?id=81324493968][ACM Digital Library]]

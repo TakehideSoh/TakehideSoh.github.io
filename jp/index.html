@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-04-01 月 18:26 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title></title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Takehide Soh" />
+<!-- 2019-04-19 金 13:24 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Takehide Soh" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -53,13 +53,98 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -76,6 +161,19 @@
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -92,6 +190,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -108,7 +207,7 @@ gtag('config', 'UA-6313627-5');
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -152,51 +251,71 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<style type="text/css">
+<div class="HTML">
+<p>
+&lt;style type=&ldquo;text/css&rdquo;&gt;
 #tb1 td   { width:100px }
 #tb1 td+td   { width:700px }
-</style>
-
-
-<table>
-<tbody>
-<tr>
-<td class="pic" rowspan="3" align="center"><img border="0" padding="0" width="160px" src="./soh2013.png"><br>@Helsinki
-</td>
-<td width="740px" align="center"><h1>SOH, Takehide<br>宋 剛秀</h1>
-<img width="150px" src="soh.png">
-</td>
-</tr>
-<tr>
-<td align="center" height="20px"><a href="../index.html">English Page</a> | Japanese Page</td>
-</tr>
-<tr>
-<td align="center" height="20px">
-<a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/">Tamura Lab</a> | 
-<a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/en/index.html">CSPSAT</a> |
-<a href="http://kix.istc.kobe-u.ac.jp/~soh/scarab/">Scarab</a>
-</td>
-</tr>
-</tbody>
-</table>
+&lt;/style&gt;
+</p>
 
 </div>
-<table class="menu" border="0" cellspacing="0" cellpadding="20" width="1000px">
-<tr >
-<td class="menu" bgcolor="#3B5998"><a href="index.html">経歴・実績</a></td>
-<td class="menu" bgcolor="#3B5998"><a href="publications.html">業績</a></td>
-<td class="menu" bgcolor="#3B5998"><a href="software.html">ソフトウェア</a></td>
-<td class="menu" bgcolor="#3B5998"><a href="links.html">リンク</a></td>
-<td class="menu" bgcolor="#3B5998"><a href="memo.html">メモ</a></td>
-<td class="menu" bgcolor="#3B5998"><a></a></td>
-</tr>
-</table>
-<div id="content">
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1"><span class="section-number-2">1</span> プロフィールページ</h2>
+<div class="HTML">
+<p>
+
+</p>
+
+<p>
+&lt;table&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&ldquo;pic&rdquo; rowspan=&ldquo;3&rdquo; align=&ldquo;center&rdquo;&gt;&lt;img border=&ldquo;0&rdquo; padding=&ldquo;0&rdquo; width=&ldquo;160px&rdquo; src=&ldquo;./soh2013.png&rdquo;&gt;&lt;br&gt;@Helsinki
+&lt;/td&gt;
+&lt;td width=&ldquo;740px&rdquo; align=&ldquo;center&rdquo;&gt;&lt;h1&gt;SOH, Takehide&lt;br&gt;宋 剛秀&lt;/h1&gt;
+&lt;img width=&ldquo;150px&rdquo; src=&ldquo;soh.png&rdquo;&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&ldquo;center&rdquo; height=&ldquo;20px&rdquo;&gt;&lt;a href=&ldquo;../index.html&rdquo;&gt;English Page&lt;/a&gt; | Japanese Page&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&ldquo;center&rdquo; height=&ldquo;20px&rdquo;&gt;
+&lt;a href=&ldquo;<a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/">http://www.edu.kobe-u.ac.jp/istc-tamlab/</a>&rdquo;&gt;Tamura Lab&lt;/a&gt; | 
+&lt;a href=&ldquo;<a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/en/index.html">http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/en/index.html</a>&rdquo;&gt;CSPSAT&lt;/a&gt; |
+&lt;a href=&ldquo;<a href="http://kix.istc.kobe-u.ac.jp/~soh/scarab/">http://kix.istc.kobe-u.ac.jp/~soh/scarab/</a>&rdquo;&gt;Scarab&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</p>
+
+<p>
+&lt;/div&gt;
+&lt;table class=&ldquo;menu&rdquo; border=&ldquo;0&rdquo; cellspacing=&ldquo;0&rdquo; cellpadding=&ldquo;20&rdquo; width=&ldquo;1000px&rdquo;&gt;
+&lt;tr &gt;
+&lt;td class=&ldquo;menu&rdquo; bgcolor=&ldquo;#3B5998&rdquo;&gt;&lt;a href=&ldquo;index.html&rdquo;&gt;経歴・実績&lt;/a&gt;&lt;/td&gt;
+&lt;td class=&ldquo;menu&rdquo; bgcolor=&ldquo;#3B5998&rdquo;&gt;&lt;a href=&ldquo;publications.html&rdquo;&gt;業績&lt;/a&gt;&lt;/td&gt;
+&lt;td class=&ldquo;menu&rdquo; bgcolor=&ldquo;#3B5998&rdquo;&gt;&lt;a href=&ldquo;software.html&rdquo;&gt;ソフトウェア&lt;/a&gt;&lt;/td&gt;
+&lt;td class=&ldquo;menu&rdquo; bgcolor=&ldquo;#3B5998&rdquo;&gt;&lt;a href=&ldquo;links.html&rdquo;&gt;リンク&lt;/a&gt;&lt;/td&gt;
+&lt;td class=&ldquo;menu&rdquo; bgcolor=&ldquo;#3B5998&rdquo;&gt;&lt;a href=&ldquo;memo.html&rdquo;&gt;メモ&lt;/a&gt;&lt;/td&gt;
+&lt;td class=&ldquo;menu&rdquo; bgcolor=&ldquo;#3B5998&rdquo;&gt;&lt;a&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;div id=&ldquo;content&rdquo;&gt;
+</p>
+
+</div>
+
+<div id="outline-container-orgd408cc2" class="outline-2">
+<h2 id="orgd408cc2"><span class="section-number-2">1</span> プロフィールページ</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
+<li>IDs
+<ul class="org-ul">
+<li>(ORCID ID) <a href="https://orcid.org/0000-0001-5897-9192">https://orcid.org/0000-0001-5897-9192</a></li>
+<li>(Web of Science ResearcherID) H-2159-2017</li>
+</ul></li>
 <li><a href="https://scholar.google.co.jp/citations?user=N10uw7YAAAAJ&amp;hl=en">Google Scholar</a></li>
 <li><a href="https://dblp.org/pers/hd/s/Soh:Takehide">DBLP</a></li>
 <li><a href="https://dl.acm.org/author_page.cfm?id=81324493968">ACM Digital Library</a></li>
@@ -205,11 +324,16 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2"><span class="section-number-2">2</span> 最近の出来事と今後の予定</h2>
+<div id="outline-container-org75421f6" class="outline-2">
+<h2 id="org75421f6"><span class="section-number-2">2</span> 最近の出来事と今後の予定</h2>
 <div class="outline-text-2" id="text-2">
-<div align="center">
-<img width="500px" src="../xcsp18-result-light.jpg">
+<div class="HTML">
+<p>
+&lt;div align=&ldquo;center&rdquo;&gt;
+&lt;img width=&ldquo;500px&rdquo; src=&ldquo;../xcsp18-result-light.jpg&rdquo;&gt;
+&lt;/div&gt;
+</p>
+
 </div>
 <ul class="org-ul">
 <li><span class="timestamp-wrapper"><span class="timestamp">&lt;2018-08-28 火&gt; </span></span> <span class="prize">受賞</span>
@@ -275,8 +399,8 @@ CRIL (Centre de Recherche en Informatique de Lens) に研究滞在し
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3"><span class="section-number-2">3</span> 興味のある研究</h2>
+<div id="outline-container-org5cd470e" class="outline-2">
+<h2 id="org5cd470e"><span class="section-number-2">3</span> 興味のある研究</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li>SATやCSPとその応用
@@ -290,8 +414,8 @@ CRIL (Centre de Recherche en Informatique de Lens) に研究滞在し
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4"><span class="section-number-2">4</span> 職歴</h2>
+<div id="outline-container-orga7bc443" class="outline-2">
+<h2 id="orga7bc443"><span class="section-number-2">4</span> 職歴</h2>
 <div class="outline-text-2" id="text-4">
 <ul class="org-ul">
 <li><span class="date">2019/04 - 現在</span> <span class="item">神戸大学 情報基盤センター 准教授</span></li>
@@ -305,9 +429,8 @@ CRIL (Centre de Recherche en Informatique de Lens) に研究滞在し
 </div>
 </div>
 
-
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5"><span class="section-number-2">5</span> 学歴</h2>
+<div id="outline-container-org3aed25a" class="outline-2">
+<h2 id="org3aed25a"><span class="section-number-2">5</span> 学歴</h2>
 <div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li><span class="date">2011/09</span>  <span class="item">博士(情報学), 総合研究大学院大学 複合科学研究科 情報学専攻</span></li>
@@ -316,28 +439,84 @@ CRIL (Centre de Recherche en Informatique de Lens) に研究滞在し
 </ul>
 </div>
 </div>
-
-
-<div id="outline-container-orgheadline24" class="outline-2">
-<h2 id="orgheadline24"><span class="section-number-2">6</span> 受賞歴</h2>
+<div id="outline-container-org73709b7" class="outline-2">
+<h2 id="org73709b7"><span class="section-number-2">6</span> 受賞歴</h2>
 <div class="outline-text-2" id="text-6">
-</div><ol class="org-ol"><li><a id="orgheadline7"></a><span class="date">2018/09</span> <span class="item">情報処理学会 2018 年度特選論文</span><br  /><ul class="org-ul"><li><a id="orgheadline6"></a>(URL) <a href="http://www.ipsj.or.jp/award/ssp_award.html">http://www.ipsj.or.jp/award/ssp_award.html</a><br  /></li></ul></li>
-<li><a id="orgheadline9"></a><span class="date">2018/08</span> <span class="item">XCSP18 逐次CSPソルバー部門1位, 並列CSPソルバー部門1位</span><br  /><ul class="org-ul"><li><a id="orgheadline8"></a>(URL) <a href="http://www.cril.univ-artois.fr/XCSP18/">http://www.cril.univ-artois.fr/XCSP18/</a><br  /></li></ul></li>
-<li><a id="orgheadline11"></a><span class="date">2017/03</span> <span class="item">PPL2017発表賞（一般の部） (日本ソフトウェア科学会 第19回プログラミングおよびプログラミング言語ワークショップ)</span><br  /><ul class="org-ul"><li><a id="orgheadline10"></a>(URL) <a href="https://ppl2017.ipl-e.ai.kyutech.ac.jp/#winning">https://ppl2017.ipl-e.ai.kyutech.ac.jp/#winning</a><br  /></li></ul></li>
+</div>
+<ol class="org-ol">
+<li><a id="orgae2e1b7"></a><span class="date">2018/09</span> <span class="item">情報処理学会 2018 年度特選論文</span><br />
+<ul class="org-ul">
+<li><a id="org6a3697b"></a>(URL) <a href="http://www.ipsj.or.jp/award/ssp_award.html">http://www.ipsj.or.jp/award/ssp_award.html</a><br />
+<div class="outline-text-4" id="text-org6a3697b">
+</div>
+</li>
+</ul>
+</li>
+<li><a id="org5e12df0"></a><span class="date">2018/08</span> <span class="item">XCSP18 逐次CSPソルバー部門1位, 並列CSPソルバー部門1位</span><br />
+<ul class="org-ul">
+<li><a id="org0765157"></a>(URL) <a href="http://www.cril.univ-artois.fr/XCSP18/">http://www.cril.univ-artois.fr/XCSP18/</a><br />
+<div class="outline-text-4" id="text-org0765157">
+</div>
+</li>
+</ul>
+</li>
+<li><a id="orgfc438e7"></a><span class="date">2017/03</span> <span class="item">PPL2017発表賞（一般の部） (日本ソフトウェア科学会 第19回プログラミングおよびプログラミング言語ワークショップ)</span><br />
+<ul class="org-ul">
+<li><a id="orgf43e005"></a>(URL) <a href="https://ppl2017.ipl-e.ai.kyutech.ac.jp/#winning">https://ppl2017.ipl-e.ai.kyutech.ac.jp/#winning</a><br /></li>
+</ul>
+</li>
 
-<li><a id="orgheadline13"></a><span class="date">2016/03</span> <span class="item">日本ソフトウェア科学会 第20回研究論文賞</span><br  /><ul class="org-ul"><li><a id="orgheadline12"></a>(URL) <a href="https://www.jssst.or.jp/award/detail/ronbunsho_list.html">https://www.jssst.or.jp/award/detail/ronbunsho_list.html</a><br  /></li></ul></li>
+<li><a id="orga21614d"></a><span class="date">2016/03</span> <span class="item">日本ソフトウェア科学会 第20回研究論文賞</span><br />
+<ul class="org-ul">
+<li><a id="org808280c"></a>(URL) <a href="https://www.jssst.or.jp/award/detail/ronbunsho_list.html">https://www.jssst.or.jp/award/detail/ronbunsho_list.html</a><br />
+<div class="outline-text-4" id="text-org808280c">
+</div>
+</li>
+</ul>
+</li>
 
-<li><a id="orgheadline15"></a><span class="date">2015/08</span> <span class="item">アルゴリズムデザインコンテスト2015 最優秀賞 (DAシンポジウム2015)</span> (<a href="http://techon.nikkeibp.co.jp/atcl/news/15/102300875/">日経オンラインテクノロジー記事</a>)<br  /><ul class="org-ul"><li><a id="orgheadline14"></a>(URL)  <a href="http://www.sig-sldm.org/DC2015/ADC2015results2.pdf">http://www.sig-sldm.org/DC2015/ADC2015results2.pdf</a><br  /></li></ul></li>
-<li><a id="orgheadline17"></a><span class="date">2014/11</span> <span class="item">日本ソフトウェア科学会 第31回大会高橋奨励賞 (2014)</span><br  /><ul class="org-ul"><li><a id="orgheadline16"></a>(URL)  <a href="https://www.jssst.or.jp/award/detail/takahashi_list.html">https://www.jssst.or.jp/award/detail/takahashi_list.html</a><br  /></li></ul></li>
+<li><a id="org84cd2b5"></a><span class="date">2015/08</span> <span class="item">アルゴリズムデザインコンテスト2015 最優秀賞 (DAシンポジウム2015)</span> (<a href="http://techon.nikkeibp.co.jp/atcl/news/15/102300875/">日経オンラインテクノロジー記事</a>)<br />
+<ul class="org-ul">
+<li><a id="orgb62a678"></a>(URL)  <a href="http://www.sig-sldm.org/DC2015/ADC2015results2.pdf">http://www.sig-sldm.org/DC2015/ADC2015results2.pdf</a><br />
+<div class="outline-text-4" id="text-orgb62a678">
+</div>
+</li>
+</ul>
+</li>
 
-<li><a id="orgheadline19"></a><span class="date">2014/08</span> <span class="item">アルゴリズムデザインコンテスト2014 最優秀賞 (DAシンポジウム2014・SWEST16)</span>  <a href="http://techon.nikkeibp.co.jp/article/NEWS/20141218/395212/">(日経テクノロジーオンライン記事)</a><br  /><ul class="org-ul"><li><a id="orgheadline18"></a>(URL)  <a href="http://www.sig-sldm.org/DC2014/results.html">http://www.sig-sldm.org/DC2014/results.html</a><br  /></li></ul></li>
-<li><a id="orgheadline21"></a><span class="date">2010/04</span> <span class="item">2010年度 総合研究大学院大学学長賞</span><br  /><ul class="org-ul"><li><a id="orgheadline20"></a>(URL)  <a href="https://www.soken.ac.jp/education/dispatch/scientistaward/fsaward/winners/">https://www.soken.ac.jp/education/dispatch/scientistaward/fsaward/winners/</a><br  /></li></ul></li>
+<li><a id="org08644de"></a><span class="date">2014/11</span> <span class="item">日本ソフトウェア科学会 第31回大会高橋奨励賞 (2014)</span><br />
+<ul class="org-ul">
+<li><a id="org44cfbbc"></a>(URL)  <a href="https://www.jssst.or.jp/award/detail/takahashi_list.html">https://www.jssst.or.jp/award/detail/takahashi_list.html</a><br /></li>
+</ul>
+</li>
 
-<li><a id="orgheadline23"></a><span class="date">2009/10</span> <span class="item">人工知能学会 2009年度全国大会優秀賞</span><br  /><ul class="org-ul"><li><a id="orgheadline22"></a>(URL)  <a href="https://www.ai-gakkai.or.jp/about/award/jsai_award-conf/">https://www.ai-gakkai.or.jp/about/award/jsai_award-conf/</a><br  /></li></ul></li></ol>
+<li><a id="orgccc8b0c"></a><span class="date">2014/08</span> <span class="item">アルゴリズムデザインコンテスト2014 最優秀賞 (DAシンポジウム2014・SWEST16)</span>  <a href="http://techon.nikkeibp.co.jp/article/NEWS/20141218/395212/">(日経テクノロジーオンライン記事)</a><br />
+<ul class="org-ul">
+<li><a id="org56d2892"></a>(URL)  <a href="http://www.sig-sldm.org/DC2014/results.html">http://www.sig-sldm.org/DC2014/results.html</a><br />
+<div class="outline-text-4" id="text-org56d2892">
+</div>
+</li>
+</ul>
+</li>
+<li><a id="orgdbb6677"></a><span class="date">2010/04</span> <span class="item">2010年度 総合研究大学院大学学長賞</span><br />
+<ul class="org-ul">
+<li><a id="orgf1a3c1e"></a>(URL)  <a href="https://www.soken.ac.jp/education/dispatch/scientistaward/fsaward/winners/">https://www.soken.ac.jp/education/dispatch/scientistaward/fsaward/winners/</a><br /></li>
+</ul>
+</li>
+
+<li><a id="org37fd632"></a><span class="date">2009/10</span> <span class="item">人工知能学会 2009年度全国大会優秀賞</span><br />
+<ul class="org-ul">
+<li><a id="org058a51a"></a>(URL)  <a href="https://www.ai-gakkai.or.jp/about/award/jsai_award-conf/">https://www.ai-gakkai.or.jp/about/award/jsai_award-conf/</a><br />
+<div class="outline-text-4" id="text-org058a51a">
+</div>
+</li>
+</ul>
+</li>
+</ol>
 </div>
 
-<div id="outline-container-orgheadline25" class="outline-2">
-<h2 id="orgheadline25"><span class="section-number-2">7</span> 招待講演</h2>
+<div id="outline-container-org43ccf4d" class="outline-2">
+<h2 id="org43ccf4d"><span class="section-number-2">7</span> 招待講演</h2>
 <div class="outline-text-2" id="text-7">
 <ul class="org-ul">
 <li><span class="date">2015/12/14</span> <span class="item">SATソルバーとそのアプリケーション開発について (SAT型制約ソルバー).</span> 宋剛秀. 第9回AIツール入門講座, 国立情報学研究所, 19階会議室1901,1902,1903.</li>
@@ -345,8 +524,8 @@ CRIL (Centre de Recherche en Informatique de Lens) に研究滞在し
 </div>
 </div>
 
-<div id="outline-container-orgheadline26" class="outline-2">
-<h2 id="orgheadline26"><span class="section-number-2">8</span> 言語</h2>
+<div id="outline-container-orgc0d9651" class="outline-2">
+<h2 id="orgc0d9651"><span class="section-number-2">8</span> 言語</h2>
 <div class="outline-text-2" id="text-8">
 <ul class="org-ul">
 <li>日本語 (ネイティブ), 英語 (TOEIC 905)</li>
@@ -354,164 +533,351 @@ CRIL (Centre de Recherche en Informatique de Lens) に研究滞在し
 </div>
 </div>
 
-<div id="outline-container-orgheadline55" class="outline-2">
-<h2 id="orgheadline55"><span class="section-number-2">9</span> 研究奨励金，競争的研究資金の獲得実績 (代表者)</h2>
+<div id="outline-container-org99f528c" class="outline-2">
+<h2 id="org99f528c"><span class="section-number-2">9</span> 研究奨励金，競争的研究資金の獲得実績 (代表者)</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 <b>(代表者)</b>
 </p>
 </div>
-<ol class="org-ol"><li><a id="orgheadline29"></a><span class="date">2019/08 - 2021/07</span><br  /><ul class="org-ul"><li><a id="orgheadline27"></a>(<b>研究代表者</b>) <span class="item">SAT技術を用いた非同期なオートマタネットワークにおけるアトラクタの計算</span> <span class="prize">進行中</span><br  /></li>
-<li><a id="orgheadline28"></a><span class="others">JSPS 二国間交流事業(共同研究) フランスとの共同研究(MEAE-MESRI) ``SAKURAプログラム''></span><br  /></li></ul></li>
+<ol class="org-ol">
+<li><a id="org1c9a994"></a><span class="date">2019/08 - 2021/07</span><br />
+<ul class="org-ul">
+<li><a id="orgf296400"></a>(<b>研究代表者</b>) <span class="item">SAT技術を用いた非同期なオートマタネットワークにおけるアトラクタの計算</span> <span class="prize">進行中</span><br /></li>
+<li><a id="org64e83e3"></a><span class="others">JSPS 二国間交流事業(共同研究) フランスとの共同研究(MEAE-MESRI) ``SAKURAプログラム''></span><br /></li>
+</ul>
+</li>
 
-<li><a id="orgheadline32"></a><span class="date">2019/04 - 2020/03</span><br  /><ul class="org-ul"><li><a id="orgheadline30"></a>(<b>研究代表者</b>) <span class="item">複数の制約モデリングとSAT符号化を用いた新しいSAT型並列CSPソルバーの研究開発</span> <span class="prize">進行中</span><br  /></li>
-<li><a id="orgheadline31"></a><span class="others">平成31年度国立情報学研究所共同研究一般研究公募型</span><br  /></li></ul></li>
+<li><a id="org4108291"></a><span class="date">2019/04 - 2020/03</span><br />
+<ul class="org-ul">
+<li><a id="orgd56473f"></a>(<b>研究代表者</b>) <span class="item">複数の制約モデリングとSAT符号化を用いた新しいSAT型並列CSPソルバーの研究開発</span> <span class="prize">進行中</span><br /></li>
+<li><a id="org470477d"></a><span class="others">平成31年度国立情報学研究所共同研究一般研究公募型</span><br /></li>
+</ul>
+</li>
 
-<li><a id="orgheadline36"></a><span class="date">2016/04 - 2019/03</span><br  /><ul class="org-ul"><li><a id="orgheadline33"></a>(<b>研究代表者</b>) <span class="item">ハイブリッド符号化を用いた高性能なSAT型制約プログラミングシステム</span><br  /></li>
-<li><a id="orgheadline34"></a><span class="others">JSPS 科学研究費補助金若手研究(B) (No. 16K16036)</span><br  /></li>
-<li><a id="orgheadline35"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16K16036/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16K16036/</a><br  /></li></ul></li>
-<li><a id="orgheadline40"></a><span class="date">2013/04 - 2016/03</span><br  /><ul class="org-ul"><li><a id="orgheadline37"></a>(<b>研究代表者</b>) <span class="item">代謝パスウェイ解析のための制約プログラミングシステムの研究開発</span><br  /></li>
-<li><a id="orgheadline38"></a><span class="others">JSPS 科学研究費補助金若手研究(B) (No. 25730042)</span><br  /></li>
-<li><a id="orgheadline39"></a>(KAKEN)  <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-25730042/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-25730042/</a><br  /></li></ul></li>
-<li><a id="orgheadline43"></a><span class="date">2014/04 - 2015/03</span><br  /><ul class="org-ul"><li><a id="orgheadline41"></a>(<b>研究代表者</b>) <span class="item">SAT技術を用いた教育機関のための高速な時間割システムの実現</span><br  /></li>
-<li><a id="orgheadline42"></a><span class="others">平成26年度国立情報学研究所共同研究一般研究公募型</span><br  /></li></ul></li>
-<li><a id="orgheadline46"></a><span class="date">2013/04 - 2014/03</span><br  /><ul class="org-ul"><li><a id="orgheadline44"></a>(<b>研究代表者</b>) <span class="item">インクリメンタル解法を用いた高性能かつ高機能な制約 ASP ソルバーに関する研究</span><br  /></li>
-<li><a id="orgheadline45"></a><span class="others">平成25年度国立情報学研究所共同研究一般研究公募型</span><br  /></li></ul></li>
-<li><a id="orgheadline49"></a><span class="date">2011/11 - 2012/03</span><br  /><ul class="org-ul"><li><a id="orgheadline47"></a>(<b>研究代表者</b>) <span class="item">グローバル調節ネットワークにおける因果関係と推論を用いた知識発見</span><br  /></li>
-<li><a id="orgheadline48"></a><span class="others">融合研究シーズ探索</span><br  /></li></ul></li>
-<li><a id="orgheadline54"></a><span class="date">2010/04 - 2012/03</span><br  /><ul class="org-ul"><li><a id="orgheadline50"></a>(<b>研究代表者</b>) <span class="item">SAT変換を用いた制約充足問題の解法とシステム生物学への応用</span><br  /></li>
-<li><a id="orgheadline51"></a><span class="others">JSPS 特別研究員（DC2）-- 科学研究費補助金（特別研究員奨励金）</span><br  /></li>
-<li><a id="orgheadline52"></a><span class="others">2011年10月より所属機関変更・継続</span><br  /></li>
-<li><a id="orgheadline53"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-10J02321/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-10J02321/</a><br  /></li></ul></li></ol>
+<li><a id="org8ab02bd"></a><span class="date">2016/04 - 2019/03</span><br />
+<ul class="org-ul">
+<li><a id="org69d79b9"></a>(<b>研究代表者</b>) <span class="item">ハイブリッド符号化を用いた高性能なSAT型制約プログラミングシステム</span><br /></li>
+<li><a id="orgab0314f"></a><span class="others">JSPS 科学研究費補助金若手研究(B) (No. 16K16036)</span><br /></li>
+<li><a id="org4711570"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16K16036/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16K16036/</a><br /></li>
+</ul>
+</li>
+<li><a id="orge3c0150"></a><span class="date">2013/04 - 2016/03</span><br />
+<ul class="org-ul">
+<li><a id="org25f800c"></a>(<b>研究代表者</b>) <span class="item">代謝パスウェイ解析のための制約プログラミングシステムの研究開発</span><br /></li>
+<li><a id="orgcc865bf"></a><span class="others">JSPS 科学研究費補助金若手研究(B) (No. 25730042)</span><br /></li>
+<li><a id="org8e019a1"></a>(KAKEN)  <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-25730042/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-25730042/</a><br /></li>
+</ul>
+</li>
+<li><a id="orga034dcd"></a><span class="date">2014/04 - 2015/03</span><br />
+<ul class="org-ul">
+<li><a id="org8ef7283"></a>(<b>研究代表者</b>) <span class="item">SAT技術を用いた教育機関のための高速な時間割システムの実現</span><br /></li>
+<li><a id="orgfa6f44a"></a><span class="others">平成26年度国立情報学研究所共同研究一般研究公募型</span><br /></li>
+</ul>
+</li>
+<li><a id="orgc451991"></a><span class="date">2013/04 - 2014/03</span><br />
+<ul class="org-ul">
+<li><a id="org4ea0ed7"></a>(<b>研究代表者</b>) <span class="item">インクリメンタル解法を用いた高性能かつ高機能な制約 ASP ソルバーに関する研究</span><br /></li>
+<li><a id="org6475413"></a><span class="others">平成25年度国立情報学研究所共同研究一般研究公募型</span><br /></li>
+</ul>
+</li>
+<li><a id="orgf590121"></a><span class="date">2011/11 - 2012/03</span><br />
+<ul class="org-ul">
+<li><a id="orga3978c1"></a>(<b>研究代表者</b>) <span class="item">グローバル調節ネットワークにおける因果関係と推論を用いた知識発見</span><br /></li>
+<li><a id="org4e98187"></a><span class="others">融合研究シーズ探索</span><br /></li>
+</ul>
+</li>
+<li><a id="org5ecad48"></a><span class="date">2010/04 - 2012/03</span><br />
+<ul class="org-ul">
+<li><a id="orge2b5387"></a>(<b>研究代表者</b>) <span class="item">SAT変換を用いた制約充足問題の解法とシステム生物学への応用</span><br /></li>
+<li><a id="org5afb137"></a><span class="others">JSPS 特別研究員（DC2）-- 科学研究費補助金（特別研究員奨励金）</span><br /></li>
+<li><a id="orga7e8d51"></a><span class="others">2011年10月より所属機関変更・継続</span><br /></li>
+<li><a id="orgd0caee6"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-10J02321/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-10J02321/</a><br /></li>
+</ul>
+</li>
+</ol>
 </div>
 
-<div id="outline-container-orgheadline74" class="outline-2">
-<h2 id="orgheadline74"><span class="section-number-2">10</span> 研究奨励金，競争的研究資金の獲得実績 (共同研究者・分担者 (科研費)))</h2>
+<div id="outline-container-orgbd58666" class="outline-2">
+<h2 id="orgbd58666"><span class="section-number-2">10</span> 研究奨励金，競争的研究資金の獲得実績 (共同研究者・分担者 (科研費)))</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 <b>(共同研究者・分担者 (科研費))</b>
 </p>
 </div>
-<ol class="org-ol"><li><a id="orgheadline59"></a><span class="date">2018/04 - 2021/03</span><br  /><ul class="org-ul"><li><a id="orgheadline56"></a>(研究分担者) <span class="item">先進的な知識表現および推論技術を基盤とした多目的最適化ソルバーの研究開発</span> <span class="prize">進行中</span><br  /></li>
-<li><a id="orgheadline57"></a><span class="others">JSPS 科学研究費補助金基盤研究(C) (No.18K11242; 研究代表者：名古屋大学・番原睦則教授</span><br  /></li>
-<li><a id="orgheadline58"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-18K11242/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-18K11242/</a><br  /></li></ul></li>
+<ol class="org-ol">
+<li><a id="org9e79b3b"></a><span class="date">2018/04 - 2021/03</span><br />
+<ul class="org-ul">
+<li><a id="org0eb50bc"></a>(研究分担者) <span class="item">先進的な知識表現および推論技術を基盤とした多目的最適化ソルバーの研究開発</span> <span class="prize">進行中</span><br /></li>
+<li><a id="org473178b"></a><span class="others">JSPS 科学研究費補助金基盤研究(C) (No.18K11242; 研究代表者：名古屋大学・番原睦則教授</span><br /></li>
+<li><a id="org7ce11bc"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-18K11242/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-18K11242/</a><br /></li>
+</ul>
+</li>
 
-<li><a id="orgheadline64"></a><span class="date">2016/04 - 2019/03</span><br  /><ul class="org-ul"><li><a id="orgheadline60"></a>(研究分担者) <span class="item">SATを基盤とした新しい制約プログラミングシステムの研究開発</span><br  /></li>
-<li><a id="orgheadline61"></a><span class="others">JSPS 科学研究費補助金基盤研究(B) (No. 16H02803)，研究代表者：神戸大学・田村直之教授</span><br  /></li>
-<li><a id="orgheadline62"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16H02803/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16H02803/</a><br  /></li>
+<li><a id="org2d7cb1c"></a><span class="date">2016/04 - 2019/03</span><br />
+<ul class="org-ul">
+<li><a id="orgb281990"></a>(研究分担者) <span class="item">SATを基盤とした新しい制約プログラミングシステムの研究開発</span><br /></li>
+<li><a id="org8b9c032"></a><span class="others">JSPS 科学研究費補助金基盤研究(B) (No. 16H02803)，研究代表者：神戸大学・田村直之教授</span><br /></li>
+<li><a id="orgf30ec17"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16H02803/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-16H02803/</a><br /></li>
 
-<li><a id="orgheadline63"></a><a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/">CSPSAT3</a><br  /></li></ul></li>
-<li><a id="orgheadline68"></a><span class="date">2015/04 - 2018/03</span><br  /><ul class="org-ul"><li><a id="orgheadline65"></a>(研究分担者) <span class="item">SAT符号化を用いた制約解集合プログラミングに関する研究開発</span><br  /></li>
-<li><a id="orgheadline66"></a><span class="others">JSPS 科学研究費補助金基盤研究(C) (No.15K00099; 研究代表者：神戸大学・番原睦則准教授</span><br  /></li>
-<li><a id="orgheadline67"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-15K00099/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-15K00099/</a><br  /></li></ul></li>
-<li><a id="orgheadline73"></a><span class="date">2012/04 - 2015/03</span><br  /><ul class="org-ul"><li><a id="orgheadline69"></a>(研究分担者) <span class="item">命題論理の推論技術を用いた高性能かつ柔軟な制約プログラミングシステムの実現</span><br  /></li>
-<li><a id="orgheadline70"></a><span class="others">JSPS 科学研究費補助金基盤研究(B) (No.24300007)，研究代表者：神戸大学・田村直之教授</span><br  /></li>
-<li><a id="orgheadline71"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-24300007/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-24300007/</a><br  /></li>
-<li><a id="orgheadline72"></a><a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/cspsat2.html">CSPSAT2</a><br  /></li></ul></li></ol>
+<li><a id="org3be6b23"></a><a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/">CSPSAT3</a><br /></li>
+</ul>
+</li>
+<li><a id="orga01ae9a"></a><span class="date">2015/04 - 2018/03</span><br />
+<ul class="org-ul">
+<li><a id="org996d8c5"></a>(研究分担者) <span class="item">SAT符号化を用いた制約解集合プログラミングに関する研究開発</span><br /></li>
+<li><a id="orgc0dda0d"></a><span class="others">JSPS 科学研究費補助金基盤研究(C) (No.15K00099; 研究代表者：神戸大学・番原睦則准教授</span><br /></li>
+<li><a id="org7db7fe7"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-15K00099/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-15K00099/</a><br /></li>
+</ul>
+</li>
+<li><a id="org1789693"></a><span class="date">2012/04 - 2015/03</span><br />
+<ul class="org-ul">
+<li><a id="orgf388e71"></a>(研究分担者) <span class="item">命題論理の推論技術を用いた高性能かつ柔軟な制約プログラミングシステムの実現</span><br /></li>
+<li><a id="orga004211"></a><span class="others">JSPS 科学研究費補助金基盤研究(B) (No.24300007)，研究代表者：神戸大学・田村直之教授</span><br /></li>
+<li><a id="org975a05b"></a>(KAKEN) <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-24300007/">https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-24300007/</a><br /></li>
+<li><a id="org641af28"></a><a href="http://www.edu.kobe-u.ac.jp/istc-tamlab/cspsat/cspsat2.html">CSPSAT2</a><br /></li>
+</ul>
+</li>
+</ol>
 </div>
 
-<div id="outline-container-orgheadline119" class="outline-2">
-<h2 id="orgheadline119"><span class="section-number-2">11</span> 研究奨励金，競争的研究資金の獲得実績 (共同研究者・分担者 (NII共同研究))</h2>
+<div id="outline-container-org808944e" class="outline-2">
+<h2 id="org808944e"><span class="section-number-2">11</span> 研究奨励金，競争的研究資金の獲得実績 (共同研究者・分担者 (NII共同研究))</h2>
 <div class="outline-text-2" id="text-11">
 <p>
 <b>(共同研究者・分担者 (NII共同研究))</b>
 </p>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline78"></a><span class="date">2018/04 - 2019/03</span><br  /><ul class="org-ul"><li><a id="orgheadline75"></a>(共同研究者) <span class="item">背景理論付き解集合プログラミングに関する研究開発</span><br  /></li>
-<li><a id="orgheadline76"></a><span class="others">平成30年度国立情報学研究所共同研究戦略研究公募型 研究代表者：名古屋大学・番原睦則教授</span><br  /></li>
-<li><a id="orgheadline77"></a><span class="others">番原睦則, 井上克巳, 田村直之, 沖本天太, 宋剛秀, 坡山直樹, SCHAUB Torsten</span><br  /></li></ul></li>
-<li><a id="orgheadline82"></a><span class="date">2017/04 - 2018/03</span><br  /><ul class="org-ul"><li><a id="orgheadline79"></a>(共同研究者) <span class="item">背景理論付き解集合プログラミングに関する研究開発</span><br  /></li>
-<li><a id="orgheadline80"></a><span class="others">平成29年度国立情報学研究所共同研究戦略研究公募型 研究代表者：神戸大学・番原睦則准教授</span><br  /></li>
-<li><a id="orgheadline81"></a><span class="others">番原睦則, 井上克巳, 田村直之, 沖本天太, 宋剛秀, 坡山直樹, SCHAUB Torsten</span><br  /></li></ul></li>
-<li><a id="orgheadline86"></a><span class="date">2015/04 - 2016/03</span><br  /><ul class="org-ul"><li><a id="orgheadline83"></a>(共同研究者) <span class="item">クラウド上のソフトウェア最適配置問題の解法</span><br  /></li>
-<li><a id="orgheadline84"></a><span class="others">平成27年度国立情報学研究所共同研究戦略研究公募型 研究代表者：神戸大学・田村直之教授</span><br  /></li>
-<li><a id="orgheadline85"></a><span class="others">田村直之, 井上克巳, 鍋島英知, 番原睦則, 宋剛秀, 川原正広, 迫龍哉, Le BERRE Daniel, Di COSMO Roberto</span><br  /></li></ul></li>
-<li><a id="orgheadline90"></a><span class="date">2015/04 - 2016/03</span><br  /><ul class="org-ul"><li><a id="orgheadline87"></a>(共同研究者) <span class="item">解集合プログラミングによるシステム検証</span><br  /></li>
-<li><a id="orgheadline88"></a><span class="others">平成27年度国立情報学研究所共同研究自由提案公募型 研究代表者：神戸大学・番原睦則准教授</span><br  /></li>
-<li><a id="orgheadline89"></a><span class="others">番原睦則, 井上克巳, 田村直之, 宋剛秀, SCHAUB Torsten</span><br  /></li></ul></li>
-<li><a id="orgheadline94"></a><span class="date">2012/04 - 2013/03</span><br  /><ul class="org-ul"><li><a id="orgheadline91"></a>(共同研究者) <span class="item">SAT技術を用いた制約解集合プログラミングに関する研究</span><br  /></li>
-<li><a id="orgheadline92"></a><span class="others">平成24年度国立情報学研究所共同研究一般研究公募型 研究代表者：神戸大学・番原睦則准教授</span><br  /></li>
-<li><a id="orgheadline93"></a><span class="others">番原睦則, 井上克巳, 田村直之, 宋剛秀, 丹生智也</span><br  /></li></ul></li>
-<li><a id="orgheadline98"></a><span class="date">2011/04 - 2012/03</span><br  /><ul class="org-ul"><li><a id="orgheadline95"></a>(共同研究者) <span class="item">SAT技術を用いた制約解集合プログラミングに関する研究</span><br  /></li>
-<li><a id="orgheadline96"></a><span class="others">平成23年度国立情報学研究所共同研究一般研究公募型 研究代表者：神戸大学・番原睦則准教授</span><br  /></li>
-<li><a id="orgheadline97"></a><span class="others">番原睦則, 井上克巳, 田村直之, 宋剛秀, 丹生智也</span><br  /></li></ul></li>
-<li><a id="orgheadline102"></a><span class="date">2010/04 - 2011/03</span><br  /><ul class="org-ul"><li><a id="orgheadline99"></a>(共同研究者) <span class="item">新しいSAT符号化法，新しいSATソルバー， 及び求解困難な問題への応用に関する研究</span><br  /></li>
-<li><a id="orgheadline100"></a><span class="others">平成22年度国立情報学研究所共同研究公募型 研究代表者：神戸大学・番原睦則准教授</span><br  /></li>
-<li><a id="orgheadline101"></a><span class="others">番原睦則, 井上克巳, 田村直之, 鍋島英知, 越村三幸, 宋剛秀, 丹生智也</span><br  /></li></ul></li>
-<li><a id="orgheadline106"></a><span class="date">2009/04 - 2010/03</span><br  /><ul class="org-ul"><li><a id="orgheadline103"></a>(共同研究者) <span class="item">SAT変換技術の拡張による求解困難な制約最適化問題の解法に関する研究</span><br  /></li>
-<li><a id="orgheadline104"></a><span class="others">平成21年度国立情報学研究所共同研究公募型 研究代表者：神戸大学・田村直之教授</span><br  /></li>
-<li><a id="orgheadline105"></a><span class="others">田村直之, 井上克巳, 番原睦則, 鍋島英知, 越村三幸, 宋剛秀, 丹生智也</span><br  /></li></ul></li>
-<li><a id="orgheadline110"></a><span class="date">2008/04 - 2009/03</span><br  /><ul class="org-ul"><li><a id="orgheadline107"></a>(共同研究者) <span class="item">求解困難な制約最適化問題のSAT変換による解決に関する研究</span><br  /></li>
-<li><a id="orgheadline108"></a><span class="others">平成20年度国立情報学研究所共同研究公募型 研究代表者：神戸大学・田村直之教授</span><br  /></li>
-<li><a id="orgheadline109"></a><span class="others">田村直之, 井上克巳, 番原睦則, 平山勝敏, 岩沼宏治, 鍋島英知, 越村三幸, 宋剛秀</span><br  /></li></ul></li>
-<li><a id="orgheadline114"></a><span class="date">2005/04 - 2006/03</span><br  /><ul class="org-ul"><li><a id="orgheadline111"></a>(共同研究者) <span class="item">分散協調SATアルゴリズムの設計と実現に関する研究</span><br  /></li>
-<li><a id="orgheadline112"></a><span class="others">平成17年度国立情報学研究所共同研究企画型 研究代表者：国立情報学研究所・井上克巳教授</span><br  /></li>
-<li><a id="orgheadline113"></a><span class="others">井上克巳, 田村直之, 番原睦則, 平山勝敏, 宋剛秀</span><br  /></li></ul></li>
-<li><a id="orgheadline118"></a><span class="date">2004/04 - 2005/03</span><br  /><ul class="org-ul"><li><a id="orgheadline115"></a>(共同研究者) <span class="item">分散知能システムの基礎および実現に関する研究</span><br  /></li>
-<li><a id="orgheadline116"></a><span class="others">平成16年度国立情報学研究所共同研究企画型 研究代表者：国立情報学研究所・井上克巳教授</span><br  /></li>
-<li><a id="orgheadline117"></a><span class="others">井上克巳, 和田修, 田川聖治, 岩内英二, 岡本孝之, 山本秦生, 宋剛秀</span><br  /></li></ul></li></ol>
+<ol class="org-ol">
+<li><a id="orgd162bfe"></a><span class="date">2018/04 - 2019/03</span><br />
+<ul class="org-ul">
+<li><a id="org0a38e7b"></a>(共同研究者) <span class="item">背景理論付き解集合プログラミングに関する研究開発</span><br /></li>
+<li><a id="orge2af48f"></a><span class="others">平成30年度国立情報学研究所共同研究戦略研究公募型 研究代表者：名古屋大学・番原睦則教授</span><br /></li>
+<li><a id="org1c086be"></a><span class="others">番原睦則, 井上克巳, 田村直之, 沖本天太, 宋剛秀, 坡山直樹, SCHAUB Torsten</span><br /></li>
+</ul>
+</li>
+<li><a id="org07f84b0"></a><span class="date">2017/04 - 2018/03</span><br />
+<ul class="org-ul">
+<li><a id="org0526209"></a>(共同研究者) <span class="item">背景理論付き解集合プログラミングに関する研究開発</span><br /></li>
+<li><a id="org3265d28"></a><span class="others">平成29年度国立情報学研究所共同研究戦略研究公募型 研究代表者：神戸大学・番原睦則准教授</span><br /></li>
+<li><a id="org58ac42f"></a><span class="others">番原睦則, 井上克巳, 田村直之, 沖本天太, 宋剛秀, 坡山直樹, SCHAUB Torsten</span><br /></li>
+</ul>
+</li>
+<li><a id="org24a2c08"></a><span class="date">2015/04 - 2016/03</span><br />
+<ul class="org-ul">
+<li><a id="org0d27a54"></a>(共同研究者) <span class="item">クラウド上のソフトウェア最適配置問題の解法</span><br /></li>
+<li><a id="org4e78701"></a><span class="others">平成27年度国立情報学研究所共同研究戦略研究公募型 研究代表者：神戸大学・田村直之教授</span><br /></li>
+<li><a id="org0dc146c"></a><span class="others">田村直之, 井上克巳, 鍋島英知, 番原睦則, 宋剛秀, 川原正広, 迫龍哉, Le BERRE Daniel, Di COSMO Roberto</span><br /></li>
+</ul>
+</li>
+<li><a id="org24d333f"></a><span class="date">2015/04 - 2016/03</span><br />
+<ul class="org-ul">
+<li><a id="org87c5342"></a>(共同研究者) <span class="item">解集合プログラミングによるシステム検証</span><br /></li>
+<li><a id="org272409e"></a><span class="others">平成27年度国立情報学研究所共同研究自由提案公募型 研究代表者：神戸大学・番原睦則准教授</span><br /></li>
+<li><a id="org8893bdf"></a><span class="others">番原睦則, 井上克巳, 田村直之, 宋剛秀, SCHAUB Torsten</span><br /></li>
+</ul>
+</li>
+<li><a id="org8ddab9b"></a><span class="date">2012/04 - 2013/03</span><br />
+<ul class="org-ul">
+<li><a id="orgca2cdf2"></a>(共同研究者) <span class="item">SAT技術を用いた制約解集合プログラミングに関する研究</span><br /></li>
+<li><a id="org2afd11b"></a><span class="others">平成24年度国立情報学研究所共同研究一般研究公募型 研究代表者：神戸大学・番原睦則准教授</span><br /></li>
+<li><a id="orgc6b0a67"></a><span class="others">番原睦則, 井上克巳, 田村直之, 宋剛秀, 丹生智也</span><br /></li>
+</ul>
+</li>
+<li><a id="orgf7f57db"></a><span class="date">2011/04 - 2012/03</span><br />
+<ul class="org-ul">
+<li><a id="orgaa4457d"></a>(共同研究者) <span class="item">SAT技術を用いた制約解集合プログラミングに関する研究</span><br /></li>
+<li><a id="orgd4f9e19"></a><span class="others">平成23年度国立情報学研究所共同研究一般研究公募型 研究代表者：神戸大学・番原睦則准教授</span><br /></li>
+<li><a id="orgb1e4bc4"></a><span class="others">番原睦則, 井上克巳, 田村直之, 宋剛秀, 丹生智也</span><br /></li>
+</ul>
+</li>
+<li><a id="org24a8d6c"></a><span class="date">2010/04 - 2011/03</span><br />
+<ul class="org-ul">
+<li><a id="orgd3105e3"></a>(共同研究者) <span class="item">新しいSAT符号化法，新しいSATソルバー， 及び求解困難な問題への応用に関する研究</span><br /></li>
+<li><a id="org59d7b35"></a><span class="others">平成22年度国立情報学研究所共同研究公募型 研究代表者：神戸大学・番原睦則准教授</span><br /></li>
+<li><a id="org9041ad9"></a><span class="others">番原睦則, 井上克巳, 田村直之, 鍋島英知, 越村三幸, 宋剛秀, 丹生智也</span><br /></li>
+</ul>
+</li>
+<li><a id="orgf66dd3c"></a><span class="date">2009/04 - 2010/03</span><br />
+<ul class="org-ul">
+<li><a id="orgc4f3c04"></a>(共同研究者) <span class="item">SAT変換技術の拡張による求解困難な制約最適化問題の解法に関する研究</span><br /></li>
+<li><a id="orgb8437fe"></a><span class="others">平成21年度国立情報学研究所共同研究公募型 研究代表者：神戸大学・田村直之教授</span><br /></li>
+<li><a id="org7b7940b"></a><span class="others">田村直之, 井上克巳, 番原睦則, 鍋島英知, 越村三幸, 宋剛秀, 丹生智也</span><br /></li>
+</ul>
+</li>
+<li><a id="org4caf44b"></a><span class="date">2008/04 - 2009/03</span><br />
+<ul class="org-ul">
+<li><a id="org4692a0d"></a>(共同研究者) <span class="item">求解困難な制約最適化問題のSAT変換による解決に関する研究</span><br /></li>
+<li><a id="orga2ce40e"></a><span class="others">平成20年度国立情報学研究所共同研究公募型 研究代表者：神戸大学・田村直之教授</span><br /></li>
+<li><a id="orgd6cbc84"></a><span class="others">田村直之, 井上克巳, 番原睦則, 平山勝敏, 岩沼宏治, 鍋島英知, 越村三幸, 宋剛秀</span><br /></li>
+</ul>
+</li>
+<li><a id="orgebad406"></a><span class="date">2005/04 - 2006/03</span><br />
+<ul class="org-ul">
+<li><a id="org8a40872"></a>(共同研究者) <span class="item">分散協調SATアルゴリズムの設計と実現に関する研究</span><br /></li>
+<li><a id="orgd9cbb4f"></a><span class="others">平成17年度国立情報学研究所共同研究企画型 研究代表者：国立情報学研究所・井上克巳教授</span><br /></li>
+<li><a id="org569cd9d"></a><span class="others">井上克巳, 田村直之, 番原睦則, 平山勝敏, 宋剛秀</span><br /></li>
+</ul>
+</li>
+<li><a id="orgaa25bb2"></a><span class="date">2004/04 - 2005/03</span><br />
+<ul class="org-ul">
+<li><a id="org466fb22"></a>(共同研究者) <span class="item">分散知能システムの基礎および実現に関する研究</span><br /></li>
+<li><a id="orgebffa94"></a><span class="others">平成16年度国立情報学研究所共同研究企画型 研究代表者：国立情報学研究所・井上克巳教授</span><br /></li>
+<li><a id="orgf94ee6f"></a><span class="others">井上克巳, 和田修, 田川聖治, 岩内英二, 岡本孝之, 山本秦生, 宋剛秀</span><br />
+<div class="outline-text-4" id="text-orgf94ee6f">
+</div>
+</li>
+</ul>
+</li>
+</ol>
 </div>
 
-<div id="outline-container-orgheadline157" class="outline-2">
-<h2 id="orgheadline157"><span class="section-number-2">12</span> (国際) 学会ならびに社会における活動</h2>
+<div id="outline-container-org013b6dc" class="outline-2">
+<h2 id="org013b6dc"><span class="section-number-2">12</span> (国際) 学会ならびに社会における活動</h2>
 <div class="outline-text-2" id="text-12">
-</div><ol class="org-ol"><li><a id="orgheadline122"></a><span class="date">2018/07/09-12</span> <span class="item">International Conference on Theory and Applications of Satisfiability Testing (SAT 2018)</span><br  /><ul class="org-ul"><li><a id="orgheadline120"></a><span class="others">プログラム委員</span><br  /></li>
-<li><a id="orgheadline121"></a>(URL) <a href="https://sat2018.azurewebsites.net/organization/">https://sat2018.azurewebsites.net/organization/</a><br  /></li></ul></li>
-<li><a id="orgheadline125"></a><span class="date">2017/08/28</span> <span class="item">International Workshop of Pragmatics of Constraint Reasoning (PoCR 2017)</span><br  /><ul class="org-ul"><li><a id="orgheadline123"></a><span class="others">プログラム委員</span><br  /></li>
-<li><a id="orgheadline124"></a>(URL) <a href="http://www.pragmaticsofsat.org/2017/">http://www.pragmaticsofsat.org/2017/</a><br  /></li></ul></li>
-<li><a id="orgheadline128"></a><span class="date">2017/08/28</span> <span class="item">CP/ICLP/SAT Doctoral Program 2017</span><br  /><ul class="org-ul"><li><a id="orgheadline126"></a><span class="others">プログラム委員</span><br  /></li>
-<li><a id="orgheadline127"></a>(URL) <a href="http://cp2017.a4cp.org/doctoral_program/">http://cp2017.a4cp.org/doctoral_program/</a><br  /></li></ul></li>
-<li><a id="orgheadline131"></a><span class="date">2016/07/05-08</span> <span class="item">International Conference on Theory and Applications of Satisfiability Testing (SAT 2016)</span><br  /><ul class="org-ul"><li><a id="orgheadline129"></a><span class="others">プログラム委員</span><br  /></li>
-<li><a id="orgheadline130"></a>(URL) <a href="http://sat2016.labri.fr">http://sat2016.labri.fr</a><br  /></li></ul></li>
-<li><a id="orgheadline134"></a><span class="date">2016/10/18</span> <span class="item">12th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2016)</span><br  /><ul class="org-ul"><li><a id="orgheadline132"></a><span class="others">プログラム委員</span><br  /></li>
-<li><a id="orgheadline133"></a>(URL) <a href="http://dc-iclp16.cs.bath.ac.uk/organisation/">http://dc-iclp16.cs.bath.ac.uk/organisation/</a><br  /></li></ul></li>
-<li><a id="orgheadline137"></a><span class="date">2015/09/23</span> <span class="item">International Workshop of Pragmatics of SAT 2015 (PoS 2015)</span><br  /><ul class="org-ul"><li><a id="orgheadline135"></a><span class="others">プログラム委員</span><br  /></li>
-<li><a id="orgheadline136"></a>(URL) <a href="http://www.pragmaticsofsat.org/2015/">http://www.pragmaticsofsat.org/2015/</a><br  /></li></ul></li>
-<li><a id="orgheadline139"></a><span class="date">2015/08/31</span> <span class="item">11th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2015)</span><br  /><ul class="org-ul"><li><a id="orgheadline138"></a><span class="others">プログラム委員</span><br  /></li></ul></li>
-<li><a id="orgheadline141"></a><span class="date">2014/07/21</span>  <span class="item">10th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2014)</span><br  /><ul class="org-ul"><li><a id="orgheadline140"></a><span class="others">プログラム委員</span><br  /></li></ul></li>
-<li><a id="orgheadline144"></a><span class="date">2014/06/04-06</span> <span class="item">12th International Symposium on Functional and Logic Programming (FLOPS 2014)</span><br  /><ul class="org-ul"><li><a id="orgheadline142"></a><span class="others">プログラム委員</span><br  /></li>
-<li><a id="orgheadline143"></a>(URL) <a href="http://www.jaist.ac.jp/flops2014/organization.html">http://www.jaist.ac.jp/flops2014/organization.html</a><br  /></li></ul></li>
-<li><a id="orgheadline147"></a><span class="date">2012/05/23-25</span> <span class="item">11th International Symposium on Functional and Logic Programming (FLOPS 2012), Kobe Japan.</span><br  /><ul class="org-ul"><li><a id="orgheadline145"></a><span class="others">Local Committee Member</span><br  /></li>
-<li><a id="orgheadline146"></a>(URL) <a href="http://www.org.kobe-u.ac.jp/flops2012/committees.html">http://www.org.kobe-u.ac.jp/flops2012/committees.html</a><br  /></li></ul></li>
-<li><a id="orgheadline150"></a><span class="date">2011/11/13-17</span> <span class="item">International Symposium on Symbolic Systems Biology (ISSSB' 11), Hayama Japan.</span><br  /><ul class="org-ul"><li><a id="orgheadline148"></a><span class="others">Local Organizer</span><br  /></li>
-<li><a id="orgheadline149"></a>(URL) <a href="http://www.cs.bris.ac.uk/~oray/ISSSB11/">http://www.cs.bris.ac.uk/~oray/ISSSB11/</a><br  /></li></ul></li>
-<li><a id="orgheadline153"></a><span class="date">2009/09/21-25</span> <span class="item">3rd Franco-Japanese Symposium on Knowledge Discovery in Systems Biology (FJ'09), Corsica France</span><br  /><ul class="org-ul"><li><a id="orgheadline151"></a><span class="others">Program Committee Chair</span><br  /></li>
-<li><a id="orgheadline152"></a>(URL) <a href="http://research.nii.ac.jp/il/fj/3rd_ws/">http://research.nii.ac.jp/il/fj/3rd_ws/</a><br  /></li></ul></li>
-<li><a id="orgheadline156"></a><span class="date">2008/10/30-11/03</span> <span class="item">2nd Franco-Japanese Symposium on Knowledge Discovery in Systems Biology (FJ'08), Takayama Japan</span><br  /><ul class="org-ul"><li><a id="orgheadline154"></a><span class="others">Local Committee Member</span><br  /></li>
-<li><a id="orgheadline155"></a>(URL) <a href="http://research.nii.ac.jp/il/fj/2nd_ws/">http://research.nii.ac.jp/il/fj/2nd_ws/</a><br  /></li></ul></li></ol>
+</div>
+<ol class="org-ol">
+<li><a id="org285710b"></a><span class="date">2018/07/09-12</span> <span class="item">International Conference on Theory and Applications of Satisfiability Testing (SAT 2018)</span><br />
+<ul class="org-ul">
+<li><a id="org4f83d72"></a><span class="others">プログラム委員</span><br /></li>
+<li><a id="org31b7cc8"></a>(URL) <a href="https://sat2018.azurewebsites.net/organization/">https://sat2018.azurewebsites.net/organization/</a><br /></li>
+</ul>
+</li>
+<li><a id="orgd1dc1ed"></a><span class="date">2017/08/28</span> <span class="item">International Workshop of Pragmatics of Constraint Reasoning (PoCR 2017)</span><br />
+<ul class="org-ul">
+<li><a id="org89adfd3"></a><span class="others">プログラム委員</span><br /></li>
+<li><a id="orgb608643"></a>(URL) <a href="http://www.pragmaticsofsat.org/2017/">http://www.pragmaticsofsat.org/2017/</a><br /></li>
+</ul>
+</li>
+<li><a id="orgf4b2903"></a><span class="date">2017/08/28</span> <span class="item">CP/ICLP/SAT Doctoral Program 2017</span><br />
+<ul class="org-ul">
+<li><a id="orgbb726ac"></a><span class="others">プログラム委員</span><br /></li>
+<li><a id="org259c3ab"></a>(URL) <a href="http://cp2017.a4cp.org/doctoral_program/">http://cp2017.a4cp.org/doctoral_program/</a><br /></li>
+</ul>
+</li>
+<li><a id="org177fc5f"></a><span class="date">2016/07/05-08</span> <span class="item">International Conference on Theory and Applications of Satisfiability Testing (SAT 2016)</span><br />
+<ul class="org-ul">
+<li><a id="org77907e2"></a><span class="others">プログラム委員</span><br /></li>
+<li><a id="orgf56c612"></a>(URL) <a href="http://sat2016.labri.fr">http://sat2016.labri.fr</a><br /></li>
+</ul>
+</li>
+<li><a id="orgbf15577"></a><span class="date">2016/10/18</span> <span class="item">12th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2016)</span><br />
+<ul class="org-ul">
+<li><a id="org383b6a9"></a><span class="others">プログラム委員</span><br /></li>
+<li><a id="org3add265"></a>(URL) <a href="http://dc-iclp16.cs.bath.ac.uk/organisation/">http://dc-iclp16.cs.bath.ac.uk/organisation/</a><br /></li>
+</ul>
+</li>
+<li><a id="orgc62b2c2"></a><span class="date">2015/09/23</span> <span class="item">International Workshop of Pragmatics of SAT 2015 (PoS 2015)</span><br />
+<ul class="org-ul">
+<li><a id="orgac0a93a"></a><span class="others">プログラム委員</span><br /></li>
+<li><a id="orgc736f8d"></a>(URL) <a href="http://www.pragmaticsofsat.org/2015/">http://www.pragmaticsofsat.org/2015/</a><br /></li>
+</ul>
+</li>
+<li><a id="orgd1c309c"></a><span class="date">2015/08/31</span> <span class="item">11th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2015)</span><br />
+<ul class="org-ul">
+<li><a id="org85c29bc"></a><span class="others">プログラム委員</span><br /></li>
+</ul>
+</li>
+<li><a id="org9c79e2d"></a><span class="date">2014/07/21</span>  <span class="item">10th Doctoral Consortium of International Conference on Logic Programming (ICLP-DC 2014)</span><br />
+<ul class="org-ul">
+<li><a id="org80ab86c"></a><span class="others">プログラム委員</span><br /></li>
+</ul>
+</li>
+<li><a id="org6b5c047"></a><span class="date">2014/06/04-06</span> <span class="item">12th International Symposium on Functional and Logic Programming (FLOPS 2014)</span><br />
+<ul class="org-ul">
+<li><a id="orgfbec87c"></a><span class="others">プログラム委員</span><br /></li>
+<li><a id="org3b84f92"></a>(URL) <a href="http://www.jaist.ac.jp/flops2014/organization.html">http://www.jaist.ac.jp/flops2014/organization.html</a><br /></li>
+</ul>
+</li>
+<li><a id="org6ba775e"></a><span class="date">2012/05/23-25</span> <span class="item">11th International Symposium on Functional and Logic Programming (FLOPS 2012), Kobe Japan.</span><br />
+<ul class="org-ul">
+<li><a id="orgcda5672"></a><span class="others">Local Committee Member</span><br /></li>
+<li><a id="org4399c50"></a>(URL) <a href="http://www.org.kobe-u.ac.jp/flops2012/committees.html">http://www.org.kobe-u.ac.jp/flops2012/committees.html</a><br /></li>
+</ul>
+</li>
+<li><a id="org34ce7c4"></a><span class="date">2011/11/13-17</span> <span class="item">International Symposium on Symbolic Systems Biology (ISSSB' 11), Hayama Japan.</span><br />
+<ul class="org-ul">
+<li><a id="org59cafdb"></a><span class="others">Local Organizer</span><br /></li>
+<li><a id="org996e271"></a>(URL) <a href="http://www.cs.bris.ac.uk/~oray/ISSSB11/">http://www.cs.bris.ac.uk/~oray/ISSSB11/</a><br /></li>
+</ul>
+</li>
+<li><a id="org9adb8c9"></a><span class="date">2009/09/21-25</span> <span class="item">3rd Franco-Japanese Symposium on Knowledge Discovery in Systems Biology (FJ'09), Corsica France</span><br />
+<ul class="org-ul">
+<li><a id="org67f5d47"></a><span class="others">Program Committee Chair</span><br /></li>
+<li><a id="org8e0c4f4"></a>(URL) <a href="http://research.nii.ac.jp/il/fj/3rd_ws/">http://research.nii.ac.jp/il/fj/3rd_ws/</a><br /></li>
+</ul>
+</li>
+<li><a id="orge96e816"></a><span class="date">2008/10/30-11/03</span> <span class="item">2nd Franco-Japanese Symposium on Knowledge Discovery in Systems Biology (FJ'08), Takayama Japan</span><br />
+<ul class="org-ul">
+<li><a id="org6bcc891"></a><span class="others">Local Committee Member</span><br /></li>
+<li><a id="org15afbfb"></a>(URL) <a href="http://research.nii.ac.jp/il/fj/2nd_ws/">http://research.nii.ac.jp/il/fj/2nd_ws/</a><br /></li>
+</ul>
+</li>
+</ol>
 </div>
 
 
-<div id="outline-container-orgheadline183" class="outline-2">
-<h2 id="orgheadline183"><span class="section-number-2">13</span> (国内) 学会ならびに社会における活動</h2>
+<div id="outline-container-org1c6a24a" class="outline-2">
+<h2 id="org1c6a24a"><span class="section-number-2">13</span> (国内) 学会ならびに社会における活動</h2>
 <div class="outline-text-2" id="text-13">
-</div><ol class="org-ol"><li><a id="orgheadline160"></a><span class="date">2017/03/08-10</span> <span class="item">第19回プログラミングおよびプログラミング言語ワークショップ (PPL 2017)</span><br  /><ul class="org-ul"><li><a id="orgheadline158"></a><span class="others">プログラム委員</span><br  /></li>
-<li><a id="orgheadline159"></a>(URL) <a href="https://ppl2017.ipl-e.ai.kyutech.ac.jp">https://ppl2017.ipl-e.ai.kyutech.ac.jp</a><br  /></li></ul></li>
-<li><a id="orgheadline164"></a><span class="date">2016/06/06-06/07</span> <span class="item">オーガナイズドセッション SAT技術の理論，実装，応用</span><br  /><ul class="org-ul"><li><a id="orgheadline161"></a><span class="others">第30回人工知能学会全国大会 (JSAI2016)</span><br  /></li>
-<li><a id="orgheadline162"></a><span class="others">オーガナイザ</span><br  /></li>
-<li><a id="orgheadline163"></a>(URL) <a href="http://www.ai-gakkai.or.jp/jsai2016/os/#os-2">http://www.ai-gakkai.or.jp/jsai2016/os/#os-2</a><br  /></li></ul></li>
-<li><a id="orgheadline167"></a><span class="date">2016/04 - 2019/03</span> <span class="item">人工知能学会 人工知能基本問題研究会</span><br  /><ul class="org-ul"><li><a id="orgheadline165"></a><span class="others">オーガナイザ</span><br  /></li>
-<li><a id="orgheadline166"></a><a href="http://sig-fpai.org">http://sig-fpai.org</a><br  /></li></ul></li>
-<li><a id="orgheadline171"></a><span class="date">2015/05/31-06/02</span> <span class="item">オーガナイズドセッション SAT技術の理論，実装，応用</span><br  /><ul class="org-ul"><li><a id="orgheadline168"></a><span class="others">第29回人工知能学会全国大会 (JSAI2015)</span><br  /></li>
-<li><a id="orgheadline169"></a><span class="others">オーガナイザ</span><br  /></li>
-<li><a id="orgheadline170"></a>(URL) <a href="http://www.ai-gakkai.or.jp/jsai2015/os/#os-3">http://www.ai-gakkai.or.jp/jsai2015/os/#os-3</a><br  /></li></ul></li>
+</div>
+<ol class="org-ol">
+<li><a id="orgce8ffed"></a><span class="date">2017/03/08-10</span> <span class="item">第19回プログラミングおよびプログラミング言語ワークショップ (PPL 2017)</span><br />
+<ul class="org-ul">
+<li><a id="orgc232eb2"></a><span class="others">プログラム委員</span><br /></li>
+<li><a id="org022d35d"></a>(URL) <a href="https://ppl2017.ipl-e.ai.kyutech.ac.jp">https://ppl2017.ipl-e.ai.kyutech.ac.jp</a><br /></li>
+</ul>
+</li>
+<li><a id="org662ed4f"></a><span class="date">2016/06/06-06/07</span> <span class="item">オーガナイズドセッション SAT技術の理論，実装，応用</span><br />
+<ul class="org-ul">
+<li><a id="org0b82f0a"></a><span class="others">第30回人工知能学会全国大会 (JSAI2016)</span><br /></li>
+<li><a id="orgee18f19"></a><span class="others">オーガナイザ</span><br /></li>
+<li><a id="orgb1b80a2"></a>(URL) <a href="http://www.ai-gakkai.or.jp/jsai2016/os/#os-2">http://www.ai-gakkai.or.jp/jsai2016/os/#os-2</a><br /></li>
+</ul>
+</li>
+<li><a id="org9dcd2fa"></a><span class="date">2016/04 - 2019/03</span> <span class="item">人工知能学会 人工知能基本問題研究会</span><br />
+<ul class="org-ul">
+<li><a id="org7ea85c6"></a><span class="others">オーガナイザ</span><br /></li>
+<li><a id="org055ee12"></a><a href="http://sig-fpai.org">http://sig-fpai.org</a><br /></li>
+</ul>
+</li>
+<li><a id="org3c0341e"></a><span class="date">2015/05/31-06/02</span> <span class="item">オーガナイズドセッション SAT技術の理論，実装，応用</span><br />
+<ul class="org-ul">
+<li><a id="orgb76dd03"></a><span class="others">第29回人工知能学会全国大会 (JSAI2015)</span><br /></li>
+<li><a id="org8334b14"></a><span class="others">オーガナイザ</span><br /></li>
+<li><a id="org69f9160"></a>(URL) <a href="http://www.ai-gakkai.or.jp/jsai2015/os/#os-3">http://www.ai-gakkai.or.jp/jsai2015/os/#os-3</a><br /></li>
+</ul>
+</li>
 
-<li><a id="orgheadline174"></a><span class="date">2015/03/04-06</span> <span class="item">第17回プログラミングおよびプログラミング言語ワークショップ (PPL 2015)</span><br  /><ul class="org-ul"><li><a id="orgheadline172"></a><span class="others">プログラム委員</span><br  /></li>
-<li><a id="orgheadline173"></a>(URL) <a href="http://www-kb.is.s.u-tokyo.ac.jp/ppl2015/">http://www-kb.is.s.u-tokyo.ac.jp/ppl2015/</a><br  /></li></ul></li>
+<li><a id="org0afb542"></a><span class="date">2015/03/04-06</span> <span class="item">第17回プログラミングおよびプログラミング言語ワークショップ (PPL 2015)</span><br />
+<ul class="org-ul">
+<li><a id="org0e409af"></a><span class="others">プログラム委員</span><br /></li>
+<li><a id="org430fb28"></a>(URL) <a href="http://www-kb.is.s.u-tokyo.ac.jp/ppl2015/">http://www-kb.is.s.u-tokyo.ac.jp/ppl2015/</a><br /></li>
+</ul>
+</li>
 
-<li><a id="orgheadline178"></a><span class="date">2014/05/12</span> <span class="item">オーガナイズドセッション SAT技術の理論，実装，応用</span><br  /><ul class="org-ul"><li><a id="orgheadline175"></a><span class="others">第28回人工知能学会全国大会 (JSAI2014)</span><br  /></li>
-<li><a id="orgheadline176"></a><span class="others">オーガナイザ</span><br  /></li>
-<li><a id="orgheadline177"></a>(URL) <a href="http://www.ai-gakkai.or.jp/jsai2014/os/#os-11">http://www.ai-gakkai.or.jp/jsai2014/os/#os-11</a><br  /></li></ul></li>
+<li><a id="orgcade579"></a><span class="date">2014/05/12</span> <span class="item">オーガナイズドセッション SAT技術の理論，実装，応用</span><br />
+<ul class="org-ul">
+<li><a id="orge170182"></a><span class="others">第28回人工知能学会全国大会 (JSAI2014)</span><br /></li>
+<li><a id="org8c8ead2"></a><span class="others">オーガナイザ</span><br /></li>
+<li><a id="orgc13d728"></a>(URL) <a href="http://www.ai-gakkai.or.jp/jsai2014/os/#os-11">http://www.ai-gakkai.or.jp/jsai2014/os/#os-11</a><br /></li>
+</ul>
+</li>
 
-<li><a id="orgheadline182"></a><span class="date">2013/06/05</span> <span class="item">オーガナイズドセッション SAT技術の理論，実装，応用</span><br  /><ul class="org-ul"><li><a id="orgheadline179"></a><span class="others">第27回人工知能学会全国大会 (JSAI2013)</span><br  /></li>
-<li><a id="orgheadline180"></a><span class="others">オーガナイザ</span><br  /></li>
-<li><a id="orgheadline181"></a>(URL) <a href="http://2013.conf.ai-gakkai.or.jp/os#os-9">http://2013.conf.ai-gakkai.or.jp/os#os-9</a><br  /></li></ul></li></ol>
+<li><a id="org4b3590b"></a><span class="date">2013/06/05</span> <span class="item">オーガナイズドセッション SAT技術の理論，実装，応用</span><br />
+<ul class="org-ul">
+<li><a id="org0977348"></a><span class="others">第27回人工知能学会全国大会 (JSAI2013)</span><br /></li>
+<li><a id="orga8bb205"></a><span class="others">オーガナイザ</span><br /></li>
+<li><a id="orgf9ad808"></a>(URL) <a href="http://2013.conf.ai-gakkai.or.jp/os#os-9">http://2013.conf.ai-gakkai.or.jp/os#os-9</a><br /></li>
+</ul>
+</li>
+</ol>
 </div>
 
 
-<div id="outline-container-orgheadline184" class="outline-2">
-<h2 id="orgheadline184"><span class="section-number-2">14</span> これまでに担当した授業</h2>
+<div id="outline-container-orgceb6f7c" class="outline-2">
+<h2 id="orgceb6f7c"><span class="section-number-2">14</span> これまでに担当した授業</h2>
 <div class="outline-text-2" id="text-14">
 <ul class="org-ul">
 <li>情報基礎 (神戸大学・学部)</li>
@@ -527,7 +893,7 @@ CRIL (Centre de Recherche en Informatique de Lens) に研究滞在し
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Takehide Soh</p>
-<p class="date">Created: 2019-04-01 月 18:26</p>
+<p class="date">Created: 2019-04-19 金 13:24</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
