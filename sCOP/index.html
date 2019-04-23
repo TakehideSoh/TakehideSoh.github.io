@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-10-15 月 17:15 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2019-04-23 火 09:22 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>sCOP: a SAT-based CP System</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Takehide Soh" />
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Takehide Soh" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -53,13 +53,98 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -76,6 +161,19 @@
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -92,6 +190,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -108,7 +207,7 @@ gtag('config', 'UA-6313627-5');
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -154,9 +253,9 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">sCOP: a SAT-based CP System</h1>
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1">Overview of sCOP</h2>
-<div class="outline-text-2" id="text-orgheadline1">
+<div id="outline-container-org8a56eef" class="outline-2">
+<h2 id="org8a56eef">Overview of sCOP</h2>
+<div class="outline-text-2" id="text-org8a56eef">
 <ul class="org-ul">
 <li>sCOP is a Sat-based COnstraint Programming system written in Scala 2.12.</li>
 <li>It works as follows:
@@ -170,29 +269,29 @@ XCSP3 instance.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2">Reference</h2>
-<div class="outline-text-2" id="text-orgheadline2">
+<div id="outline-container-org0050512" class="outline-2">
+<h2 id="org0050512">Reference</h2>
+<div class="outline-text-2" id="text-org0050512">
 <ul class="org-ul">
 <li>sCOP: SAT-based Constraint Programming System. Takehide Soh,
-Daniel Le Berre, Mutsunori Banbara, Naoyuki Tamura. Solver
-Descriptions of XCSP3 Competition 2018 (XCSP18), 2 pages, 2018. <a href="http://www.cril.univ-artois.fr/XCSP18/files/scop.pdf">http://www.cril.univ-artois.fr/XCSP18/files/scop.pdf</a></li>
+Daniel Le Berre, Mutsunori Banbara, Naoyuki Tamura. 
+In Proceedings of XCSP3 Competition 2018, 93&#x2013;94, 2018. <a href="http://www.cril.univ-artois.fr/XCSP18/files/XCSP3_2018_Proceedings.pdf">http://www.cril.univ-artois.fr/XCSP18/files/XCSP3_2018_Proceedings.pdf</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3">Download</h2>
-<div class="outline-text-2" id="text-orgheadline3">
+<div id="outline-container-orgf3b0e03" class="outline-2">
+<h2 id="orgf3b0e03">Download</h2>
+<div class="outline-text-2" id="text-orgf3b0e03">
 <ul class="org-ul">
 <li><a href="scop-for-xcsp18-180731.tar.gz">the version submitted to XCSP18</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4">Components of sCOP</h2>
-<div class="outline-text-2" id="text-orgheadline4">
+<div id="outline-container-org1049660" class="outline-2">
+<h2 id="org1049660">Components of sCOP</h2>
+<div class="outline-text-2" id="text-org1049660">
 <ul class="org-ul">
 <li>scop.jar
 <ul class="org-ul">
@@ -231,9 +330,9 @@ URL.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5">Requirements for sCOP</h2>
-<div class="outline-text-2" id="text-orgheadline5">
+<div id="outline-container-orgcacbbbb" class="outline-2">
+<h2 id="orgcacbbbb">Requirements for sCOP</h2>
+<div class="outline-text-2" id="text-orgcacbbbb">
 <ul class="org-ul">
 <li>Java 8</li>
 <li>(Note) Scala 2.12 is not necessary since scop.jar is a fat jar
@@ -242,9 +341,9 @@ containing scala standard libraries.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6">Notations in the following</h2>
-<div class="outline-text-2" id="text-orgheadline6">
+<div id="outline-container-orgd93cf96" class="outline-2">
+<h2 id="orgd93cf96">Notations in the following</h2>
+<div class="outline-text-2" id="text-orgd93cf96">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -283,20 +382,19 @@ containing scala standard libraries.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7">How to install</h2>
-<div class="outline-text-2" id="text-orgheadline7">
+<div id="outline-container-org2f4de13" class="outline-2">
+<h2 id="org2f4de13">How to install</h2>
+<div class="outline-text-2" id="text-org2f4de13">
 <ul class="org-ul">
 <li>We need to compile 2 SAT solvers respectively for sequential
 solving and parallel solving.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-3">
-<h3 id="orgheadline8">(Sequential CSP) MapleCOMSPS</h3>
-<div class="outline-text-3" id="text-orgheadline8">
+<div id="outline-container-org6e48b51" class="outline-3">
+<h3 id="org6e48b51">(Sequential CSP) MapleCOMSPS</h3>
+<div class="outline-text-3" id="text-org6e48b51">
 <div class="org-src-container">
-
 <pre class="src src-sh"><span style="color: #483d8b;">cd</span> DIR/MapleCOMSPS
 <span style="color: #483d8b;">export</span> <span style="color: #a0522d;">MROOT</span>=<span style="color: #ff00ff;">`pwd`</span>
 <span style="color: #483d8b;">cd</span> simp
@@ -307,11 +405,10 @@ make r
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-3">
-<h3 id="orgheadline9">(Parallel CSP) glucose-syrup</h3>
-<div class="outline-text-3" id="text-orgheadline9">
+<div id="outline-container-org2cc4be6" class="outline-3">
+<h3 id="org2cc4be6">(Parallel CSP) glucose-syrup</h3>
+<div class="outline-text-3" id="text-org2cc4be6">
 <div class="org-src-container">
-
 <pre class="src src-sh"><span style="color: #483d8b;">cd</span> DIR/syrup
 make clean
 make
@@ -320,9 +417,9 @@ make
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-3">
-<h3 id="orgheadline10">lzma (os command)</h3>
-<div class="outline-text-3" id="text-orgheadline10">
+<div id="outline-container-org0815bb7" class="outline-3">
+<h3 id="org0815bb7">lzma (os command)</h3>
+<div class="outline-text-3" id="text-org0815bb7">
 <ul class="org-ul">
 <li>we assume an os command &rsquo;lzma&rsquo; is available for decomposing *.xml.lzma instances.</li>
 <li>If there is not &rsquo;lzma&rsquo; then simply give *.xml to scop.</li>
@@ -331,9 +428,9 @@ make
 </div>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-2">
-<h2 id="orgheadline11">How to run</h2>
-<div class="outline-text-2" id="text-orgheadline11">
+<div id="outline-container-org0f9e492" class="outline-2">
+<h2 id="org0f9e492">How to run</h2>
+<div class="outline-text-2" id="text-org0f9e492">
 <ul class="org-ul">
 <li>(NOTE) we here assume 11GB/22GB can be allocated to JVM. This is
 XCSP18 competition setting but larger heap size is better in
@@ -343,7 +440,6 @@ principal.</li>
 <b>(Sequential CSP) with -both option</b>
 </p>
 <div class="org-src-container">
-
 <pre class="src src-sh">DIR/scop.sh 11g DIR/scop.jar -both DIR/MapleCOMSPS/simp/minisat_release default TMPDIR BENCHNAME
 </pre>
 </div></li>
@@ -351,7 +447,6 @@ principal.</li>
 <b>(Sequential CSP) with -order option</b>
 </p>
 <div class="org-src-container">
-
 <pre class="src src-sh">DIR/scop.sh 11g DIR/scop.jar -order DIR/MapleCOMSPS/simp/minisat_release default TMPDIR BENCHNAME
 </pre>
 </div></li>
@@ -359,7 +454,6 @@ principal.</li>
 <b>(Parallel CSP) with -both option</b>
 </p>
 <div class="org-src-container">
-
 <pre class="src src-sh">DIR/scop.sh 22g DIR/scop.jar -both DIR/syrup/bin/glucose-syrup -model:-nthreads=NBCORE:-maxmemory=20000 TMPDIR BENCHNAME
 </pre>
 </div></li>
@@ -367,7 +461,6 @@ principal.</li>
 <b>(Parallel CSP) with -order option</b>
 </p>
 <div class="org-src-container">
-
 <pre class="src src-sh">DIR/scop.sh 22g DIR/scop.jar -order DIR/syrup/bin/glucose-syrup -model:-nthreads=NBCORE:-maxmemory=20000 TMPDIR BENCHNAME
 </pre>
 </div></li>
@@ -375,9 +468,9 @@ principal.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-2">
-<h2 id="orgheadline12">Example (please refer <a href="http://xcsp.org/series">http://xcsp.org/series</a> for example XCSP3 instances)</h2>
-<div class="outline-text-2" id="text-orgheadline12">
+<div id="outline-container-orgefe656d" class="outline-2">
+<h2 id="orgefe656d">Example (please refer <a href="http://xcsp.org/series">http://xcsp.org/series</a> for example XCSP3 instances)</h2>
+<div class="outline-text-2" id="text-orgefe656d">
 <ul class="org-ul">
 <li>(NOTE) we here assume 11GB/24GB can be allocated to JVM. This is
 XCSP18 competition setting but if possible larger size is
@@ -385,34 +478,33 @@ preferred.</li>
 <li>assume that the following command is executed in the &rsquo;scop-for-xcsp18&rsquo; directory.</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-sh">./scop.sh 16g scop.jar -both MapleCOMSPS/simp/minisat_release default /tmp examples/AllInterval-007.xml
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline13" class="outline-2">
-<h2 id="orgheadline13">License</h2>
-<div class="outline-text-2" id="text-orgheadline13">
+<div id="outline-container-org3033bf5" class="outline-2">
+<h2 id="org3033bf5">License</h2>
+<div class="outline-text-2" id="text-org3033bf5">
 <ul class="org-ul">
 <li>see <a href="LICENSE.txt">LICENSE.txt</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline14" class="outline-2">
-<h2 id="orgheadline14">Contact</h2>
-<div class="outline-text-2" id="text-orgheadline14">
+<div id="outline-container-orgebc4576" class="outline-2">
+<h2 id="orgebc4576">Contact</h2>
+<div class="outline-text-2" id="text-orgebc4576">
 <ul class="org-ul">
 <li>please e-mail to <a href="http://kix.istc.kobe-u.ac.jp/~soh/">Takehide Soh</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-2">
-<h2 id="orgheadline15">Links for Related Tool</h2>
-<div class="outline-text-2" id="text-orgheadline15">
+<div id="outline-container-orgab0b652" class="outline-2">
+<h2 id="orgab0b652">Links for Related Tool</h2>
+<div class="outline-text-2" id="text-orgab0b652">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -433,7 +525,7 @@ preferred.</li>
 </tr>
 
 <tr>
-<td class="org-left"><a href="http://www.sat4j.org/">Sat4j</a></td>
+<td class="org-left"><a href="http://www.sat4j.org">Sat4j</a></td>
 <td class="org-left">SAT solver in Java, which Scarab adopts!</td>
 </tr>
 
@@ -503,7 +595,7 @@ preferred.</li>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Takehide Soh</p>
-<p class="date">Created: 2018-10-15 月 17:15</p>
+<p class="date">Created: 2019-04-23 火 09:22</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
