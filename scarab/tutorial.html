@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-03-08 金 16:37 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2019-04-24 水 21:35 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scarab チュートリアル</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Takehide Soh" />
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Takehide Soh" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -53,13 +53,98 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -76,6 +161,19 @@
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -92,8 +190,15 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
 <script>
@@ -118,7 +223,7 @@ gtag('config', 'UA-6313627-5');
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -159,7 +264,28 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="content">
@@ -168,42 +294,43 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">1. 参考資料</a></li>
-<li><a href="#orgheadline2">2. インストール</a></li>
-<li><a href="#orgheadline3">3. 実行の方法</a></li>
-<li><a href="#orgheadline6">4. REPL による対話的な実行方法</a>
+<li><a href="#orga1941e4">1. 参考資料</a></li>
+<li><a href="#org3b26b6f">2. インストール</a></li>
+<li><a href="#orgc6b0552">3. 実行の方法</a></li>
+<li><a href="#org65950a0">4. REPL による対話的な実行方法</a>
 <ul>
-<li><a href="#orgheadline4">4.1. CSP の定義</a></li>
-<li><a href="#orgheadline5">4.2. 解の探索</a></li>
+<li><a href="#org6e39dff">4.1. CSP の定義</a></li>
+<li><a href="#org3aab963">4.2. 解の探索</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline8">5. スクリプトファイルの読み込み</a>
+<li><a href="#orgc5b5ee4">5. スクリプトファイルの読み込み</a>
 <ul>
-<li><a href="#orgheadline7">5.1. 練習問題</a></li>
+<li><a href="#orga09145c">5.1. 練習問題</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline15">6. 簡単な例題</a>
+<li><a href="#orgaffcfec">6. 簡単な例題</a>
 <ul>
-<li><a href="#orgheadline10">6.1. 部分和問題</a></li>
-<li><a href="#orgheadline12">6.2. 魔方陣</a></li>
-<li><a href="#orgheadline13">6.3. 正方形矩形パッキング</a></li>
-<li><a href="#orgheadline14">6.4. その他の例題</a></li>
+<li><a href="#orgb9ca35c">6.1. 部分和問題</a></li>
+<li><a href="#orgf38d09a">6.2. 魔方陣</a></li>
+<li><a href="#org3ea0140">6.3. 正方形矩形パッキング</a></li>
+<li><a href="#orgc46ea4a">6.4. その他の例題</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline31">7. その他 Scarab の説明クラスとメソッドの簡単なまとめ</a>
+<li><a href="#orga88019b">7. その他 Scarab の説明クラスとメソッドの簡単なまとめ</a>
 <ul>
-<li><a href="#orgheadline16">7.1. jar ファイルとソースコード</a></li>
-<li><a href="#orgheadline17">7.2. Scarab DSL の制約記述に関する構文 (BNF記法)</a></li>
-<li><a href="#orgheadline20">7.3. Scarab のクラス図</a></li>
-<li><a href="#orgheadline30">7.4. プログラムの簡単なまとめ</a></li>
+<li><a href="#orgc1fa9cc">7.1. jar ファイルとソースコード</a></li>
+<li><a href="#org45dec2f">7.2. Scarab のクラスについて</a></li>
+<li><a href="#org399f39e">7.3. Scarab DSL について</a></li>
+<li><a href="#org2cf6ab8">7.4. Scarab DSL の制約記述に関する構文 (BNF記法)</a></li>
+<li><a href="#org38fd376">7.5. プログラムの簡単なまとめ</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1"><span class="section-number-2">1</span> 参考資料</h2>
+<div id="outline-container-orga1941e4" class="outline-2">
+<h2 id="orga1941e4"><span class="section-number-2">1</span> 参考資料</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li>Scarab 資料
@@ -229,8 +356,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2"><span class="section-number-2">2</span> インストール</h2>
+<div id="outline-container-org3b26b6f" class="outline-2">
+<h2 id="org3b26b6f"><span class="section-number-2">2</span> インストール</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li><a href="https://www.scala-sbt.org/1.x/docs/ja/Setup.html">sbt 本家</a> のインストールマニュアルをみて，sbt のインストールを行う.
@@ -254,27 +381,24 @@ sbt-scarab のディレクトリに入って sbt を実行すれば必要なラ�
 がかかる)．
 </p>
 <div class="org-src-container">
-
-<pre class="src src-sh">[sbt-scarab]$ sbt
+<pre class="src src-sh">[sbt-scarab]$ sbt 
 </pre>
 </div></li>
 <li><p>
 以下のように sbt:Scarab&gt; というプロンプトが出てくる. 
 </p>
 <div class="org-src-container">
-
 <pre class="src src-sh">[sbt-scarab]$ sbt
 [info] Loading settings from assembly.sbt ...
 ... &#20013;&#30053; ...
 [info] sbt server started at 127.0.0.1:4891
-sbt:Scarab&gt;
+sbt:Scarab&gt; 
 </pre>
 </div></li>
 <li><p>
 以下のように console を実行する (初回は結構時間がかかる). 
 </p>
 <div class="org-src-container">
-
 <pre class="src src-sh">sbt:Scarab&gt; console
 </pre>
 </div></li>
@@ -283,25 +407,23 @@ sbt:Scarab&gt;
 のインストール完了．
 </p>
 <div class="org-src-container">
-
-<pre class="src src-sh">scala&gt;
+<pre class="src src-sh">scala&gt; 
 </pre>
 </div></li>
 <li><p>
 :quit で終了できる．
 </p>
 <div class="org-src-container">
-
 <pre class="src src-sh">scala&gt; :quit
-[sbt-scarab]$
+[sbt-scarab]$ 
 </pre>
 </div></li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3"><span class="section-number-2">3</span> 実行の方法</h2>
+<div id="outline-container-orgc6b0552" class="outline-2">
+<h2 id="orgc6b0552"><span class="section-number-2">3</span> 実行の方法</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li>Scarab の制約記述言語は Scala 上のドメイン特化言語として実装されている． <a href="ref.html">Scala の説明</a></li>
@@ -316,8 +438,8 @@ sbt:Scarab&gt;
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6"><span class="section-number-2">4</span> REPL による対話的な実行方法</h2>
+<div id="outline-container-org65950a0" class="outline-2">
+<h2 id="org65950a0"><span class="section-number-2">4</span> REPL による対話的な実行方法</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 簡単な例題を通して, Scala の REPL (対話的実行環境) を用いた scarab の利用方法を理解しよう.
@@ -330,7 +452,7 @@ sbt:Scarab&gt;
 <p>
 この問題は以下のように制約充足問題 (CSP) として定義できる．
 </p>
-<blockquote>
+<blockquote id="test">
 <p>
 <code>=</code> 切手の問題の CSP による定義 <code>=</code>
 </p>
@@ -351,33 +473,31 @@ sbt:Scarab&gt;
 </blockquote>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4"><span class="section-number-3">4.1</span> CSP の定義</h3>
+<div id="outline-container-org6e39dff" class="outline-3">
+<h3 id="org6e39dff"><span class="section-number-3">4.1</span> CSP の定義</h3>
 <div class="outline-text-3" id="text-4-1">
 <ul class="org-ul">
 <li>上記のCSPに対応するScarabプログラムは以下になる</li>
 </ul>
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span> , dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._ , dsl._
+int(<span style="color: #8b2252;">'a</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+int(<span style="color: #8b2252;">'b</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+int(<span style="color: #8b2252;">'c</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+int(<span style="color: #8b2252;">'d</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
 
-int('a, 0, 10)
-int('b, 0, 10)
-int('c, 0, 10)
-int('d, 0, 10)
-
-add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
+add(<span style="color: #8b2252;">'a</span> * <span style="color: #008b8b;">12</span> + <span style="color: #8b2252;">'b</span> * <span style="color: #008b8b;">16</span> + <span style="color: #8b2252;">'c</span> * <span style="color: #008b8b;">20</span> + <span style="color: #8b2252;">'d</span> * <span style="color: #008b8b;">27</span> === <span style="color: #008b8b;">90</span>)
 </pre>
 </div>
 <ul class="org-ul">
 <li>このプログラムを REPL (対話的な実行方法) で記述実行するために, sbt-scarab ディレクトリで sbt コマンド実行後に, console を実行する. すると最終的に scala&gt; というコンソールが立ち上げる.</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-sh">[sbt-scarab]$ sbt
 sbt:Scarab&gt; console
 ... &#12513;&#12483;&#12475;&#12540;&#12472;&#30465;&#30053; ...
-scala&gt;
+scala&gt; 
 </pre>
 </div>
 <ul class="org-ul">
@@ -385,10 +505,9 @@ scala&gt;
 <li>次に scarab のクラスをインポートする.</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">import</span> jp.kobe_u.scarab._ , dsl._
-<span style="color: #a020f0;">import</span> jp.kobe_u.scarab._
-<span style="color: #a020f0;">import</span> dsl._
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span> , dsl.<span style="color: #a020f0;">_</span>
+<span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>
+<span style="color: #a020f0;">import</span> dsl.<span style="color: #a020f0;">_</span>
 </pre>
 </div>
 <ul class="org-ul">
@@ -396,18 +515,17 @@ scala&gt;
 <li>整数変数を定義する.</li>
 </ul>
 <div class="org-src-container">
+<pre class="src src-scala">scala&gt; int(<span style="color: #8b2252;">'a</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+res0<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> a
 
-<pre class="src src-scala">scala&gt; int('a, 0, 10)
-res0: jp.kobe_u.scarab.Var = a
+scala&gt; int(<span style="color: #8b2252;">'b</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+res1<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> b
 
-scala&gt; int('b, 0, 10)
-res1: jp.kobe_u.scarab.Var = b
+scala&gt; int(<span style="color: #8b2252;">'c</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+res2<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> c
 
-scala&gt; int('c, 0, 10)
-res2: jp.kobe_u.scarab.Var = c
-
-scala&gt; int('d, 0, 10)
-res3: jp.kobe_u.scarab.Var = d
+scala&gt; int(<span style="color: #8b2252;">'d</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+res3<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> d      
 </pre>
 </div>
 <ul class="org-ul">
@@ -415,9 +533,8 @@ res3: jp.kobe_u.scarab.Var = d
 <li>制約を定義する.</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
-res4: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
+<pre class="src src-scala">scala&gt; add(<span style="color: #8b2252;">'a</span> * <span style="color: #008b8b;">12</span> + <span style="color: #8b2252;">'b</span> * <span style="color: #008b8b;">16</span> + <span style="color: #8b2252;">'c</span> * <span style="color: #008b8b;">20</span> + <span style="color: #8b2252;">'d</span> * <span style="color: #008b8b;">27</span> === <span style="color: #008b8b;">90</span>)
+res4<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Constraint</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">EqZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">-90</span>+<span style="color: #008b8b;">12</span>*a+<span style="color: #008b8b;">16</span>*b+<span style="color: #008b8b;">20</span>*c+<span style="color: #008b8b;">27</span>*d))
 </pre>
 </div>
 <ul class="org-ul">
@@ -430,9 +547,8 @@ res4: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 <li>定義したCSPオブジェクトは変数cspとして参照できる.</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; csp
-res8: jp.kobe_u.scarab.CSP = CSP(Vector(a, b, c, d),Vector(),Map(..),Vector(..))
+res8<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">CSP</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">CSP</span>(<span style="color: #008b8b;">Vector</span>(a, b, c, d),<span style="color: #008b8b;">Vector</span>(),<span style="color: #008b8b;">Map</span>(..),<span style="color: #008b8b;">Vector</span>(..))
 </pre>
 </div>
 <ul class="org-ul">
@@ -441,25 +557,23 @@ res8: jp.kobe_u.scarab.CSP = CSP(Vector(a, b, c, d),Vector(),Map(..),Vector(..))
 <li>以下のように csp オブジェクトから参照できる.</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; csp.variables
-res5: IndexedSeq[jp.kobe_u.scarab.Var] = Vector(a, b, c, d)
+res5<span style="color: #a020f0;">:</span> <span style="color: #228b22;">IndexedSeq</span>[jp.kobe_u.scarab.<span style="color: #008b8b;">Var</span>] <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Vector</span>(a, b, c, d)
 
 scala&gt; csp.constraints
-res6: IndexedSeq[jp.kobe_u.scarab.Constraint] = Vector(EqZero(Sum(-90+12*a+16*b+20*c+27*d)))
+res6<span style="color: #a020f0;">:</span> <span style="color: #228b22;">IndexedSeq</span>[jp.kobe_u.scarab.<span style="color: #008b8b;">Constraint</span>] <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Vector</span>(<span style="color: #008b8b;">EqZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">-90</span>+<span style="color: #008b8b;">12</span>*a+<span style="color: #008b8b;">16</span>*b+<span style="color: #008b8b;">20</span>*c+<span style="color: #008b8b;">27</span>*d)))
 </pre>
 </div>
 <ul class="org-ul">
 <li>show メソッドでも表示できる．</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; csp.show
-int(a,Domain(0 to 10))
-int(b,Domain(0 to 10))
-int(c,Domain(0 to 10))
-int(d,Domain(0 to 10))
-EqZero(Sum(-90+12*a+16*b+20*c+27*d))
+int(a,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">0</span> to <span style="color: #008b8b;">10</span>))
+int(b,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">0</span> to <span style="color: #008b8b;">10</span>))
+int(c,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">0</span> to <span style="color: #008b8b;">10</span>))
+int(d,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">0</span> to <span style="color: #008b8b;">10</span>))
+<span style="color: #008b8b;">EqZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">-90</span>+<span style="color: #008b8b;">12</span>*a+<span style="color: #008b8b;">16</span>*b+<span style="color: #008b8b;">20</span>*c+<span style="color: #008b8b;">27</span>*d))      
 </pre>
 </div>
 <ul class="org-ul">
@@ -468,67 +582,62 @@ EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5"><span class="section-number-3">4.2</span> 解の探索</h3>
+<div id="outline-container-org3aab963" class="outline-3">
+<h3 id="org3aab963"><span class="section-number-3">4.2</span> 解の探索</h3>
 <div class="outline-text-3" id="text-4-2">
 <ul class="org-ul">
 <li>最初の解の探索は find で行う．</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; find
-res9: Boolean = <span style="color: #008b8b;">true</span>
+res9<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Boolean</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">true</span>
 </pre>
 </div>
 <ul class="org-ul">
 <li>結果の true は，解が存在することを表す． CSPの解は，solution 変数に代入されている．</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; solution
-res10: jp.kobe_u.scarab.Assignment = Assignment(Map(a -&gt; 3, b -&gt; 0, c -&gt; 0, d -&gt; 2),Map())
+res10<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Assignment</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Assignment</span>(<span style="color: #008b8b;">Map</span>(a -&gt; <span style="color: #008b8b;">3</span>, b -&gt; <span style="color: #008b8b;">0</span>, c -&gt; <span style="color: #008b8b;">0</span>, d -&gt; <span style="color: #008b8b;">2</span>),<span style="color: #008b8b;">Map</span>())
 </pre>
 </div>
 <ul class="org-ul">
 <li>Solutionオブジェクトは，整数変数 (Varオブジェクト)に対する値割当てを表すマップと ブール変数 (Boolオブジェクト)に対する値割当てを表すマップから構成される．</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; solution.intMap
-res11: Map[jp.kobe_u.scarab.Var,Int] = Map(a -&gt; 3, b -&gt; 0, c -&gt; 0, d -&gt; 2)
+res11<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Map</span>[jp.kobe_u.scarab.<span style="color: #008b8b;">Var</span>,<span style="color: #008b8b;">Int</span>] <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Map</span>(a -&gt; <span style="color: #008b8b;">3</span>, b -&gt; <span style="color: #008b8b;">0</span>, c -&gt; <span style="color: #008b8b;">0</span>, d -&gt; <span style="color: #008b8b;">2</span>)
 
 scala&gt; solution.boolMap
-res12: Map[jp.kobe_u.scarab.Bool,Boolean] = Map()
+res12<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Map</span>[jp.kobe_u.scarab.<span style="color: #008b8b;">Bool</span>,<span style="color: #008b8b;">Boolean</span>] <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Map</span>()
 </pre>
 </div>
 <ul class="org-ul">
 <li>解における各変数の値は solution メソッドで得ることができる．</li>
 </ul>
 <div class="org-src-container">
+<pre class="src src-scala">scala&gt; solution(<span style="color: #8b2252;">'a</span>)
+res13<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">3</span>
 
-<pre class="src src-scala">scala&gt; solution('a)
-res13: Int = 3
+scala&gt; solution(<span style="color: #8b2252;">'b</span>)
+res14<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">0</span>
 
-scala&gt; solution('b)
-res14: Int = 0
+scala&gt; solution(<span style="color: #8b2252;">'c</span>)
+res15<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">0</span>
 
-scala&gt; solution('c)
-res15: Int = 0
-
-scala&gt; solution('d)
-res16: Int = 2
+scala&gt; solution(<span style="color: #8b2252;">'d</span>)
+res16<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">2</span>     
 </pre>
 </div>
 <ul class="org-ul">
 <li>次の解の探索は findNext で行う．</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; findNext
-res17: Boolean = <span style="color: #008b8b;">true</span>
+res17<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Boolean</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">true</span>
 
 scala&gt; solution
-res18: jp.kobe_u.scarab.Assignment = Assignment(Map(a -&gt; 0, b -&gt; 1, c -&gt; 1, d -&gt; 2),Map())
+res18<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Assignment</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Assignment</span>(<span style="color: #008b8b;">Map</span>(a -&gt; <span style="color: #008b8b;">0</span>, b -&gt; <span style="color: #008b8b;">1</span>, c -&gt; <span style="color: #008b8b;">1</span>, d -&gt; <span style="color: #008b8b;">2</span>),<span style="color: #008b8b;">Map</span>())
 </pre>
 </div>
 <ul class="org-ul">
@@ -536,14 +645,13 @@ res18: jp.kobe_u.scarab.Assignment = Assignment(Map(a -&gt; 0, b -&gt; 1, c -&gt
 <li>show メソッドを実行すると，制約が追加されていることが分かる．</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">int(a,Domain(0 to 10))
-int(b,Domain(0 to 10))
-int(c,Domain(0 to 10))
-int(d,Domain(0 to 10))
-LeZero(Sum(-90+12*a+16*b+20*c+27*d))
-LeZero(Sum(90-12*a-16*b-20*c-27*d))
-Or(LeZero(Sum(-2+a)),LeZero(Sum(4-a)),LeZero(Sum(1+b)),LeZero(Sum(1-b)),LeZero(Sum(1+c)),LeZero(Sum(1-c)),LeZero(Sum(-1+d)),LeZero(Sum(3-d)))
+<pre class="src src-scala">int(a,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">0</span> to <span style="color: #008b8b;">10</span>))
+int(b,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">0</span> to <span style="color: #008b8b;">10</span>))
+int(c,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">0</span> to <span style="color: #008b8b;">10</span>))
+int(d,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">0</span> to <span style="color: #008b8b;">10</span>))
+<span style="color: #008b8b;">LeZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">-90</span>+<span style="color: #008b8b;">12</span>*a+<span style="color: #008b8b;">16</span>*b+<span style="color: #008b8b;">20</span>*c+<span style="color: #008b8b;">27</span>*d))
+<span style="color: #008b8b;">LeZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">90-12</span>*a-16*b-20*c-27*d))
+<span style="color: #008b8b;">Or</span>(<span style="color: #008b8b;">LeZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">-2</span>+a)),<span style="color: #008b8b;">LeZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">4</span>-a)),<span style="color: #008b8b;">LeZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">1</span>+b)),<span style="color: #008b8b;">LeZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">1</span>-b)),<span style="color: #008b8b;">LeZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">1</span>+c)),<span style="color: #008b8b;">LeZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">1</span>-c)),<span style="color: #008b8b;">LeZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">-1</span>+d)),<span style="color: #008b8b;">LeZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">3</span>-d)))     
 </pre>
 </div>
 <ul class="org-ul">
@@ -552,26 +660,24 @@ Or(LeZero(Sum(-2+a)),LeZero(Sum(4-a)),LeZero(Sum(1+b)),LeZero(Sum(1-b)),LeZero(S
 <li>もう一度 findNext を呼ぶと false が返る．</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; findNext
-res22: Boolean = <span style="color: #008b8b;">false</span>
+res22<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Boolean</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">false</span>     
 </pre>
 </div>
 <ul class="org-ul">
 <li>結果の false は，解が存在しないことを表す． この場合，変数 solution は null になっている．</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; solution
-res23: jp.kobe_u.scarab.Assignment = <span style="color: #008b8b;">null</span>
+res23<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Assignment</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">null</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-2">
-<h2 id="orgheadline8"><span class="section-number-2">5</span> スクリプトファイルの読み込み</h2>
+<div id="outline-container-orgc5b5ee4" class="outline-2">
+<h2 id="orgc5b5ee4"><span class="section-number-2">5</span> スクリプトファイルの読み込み</h2>
 <div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li>CSPをScalaのスクリプトファイルとして定義することもできる．</li>
@@ -581,14 +687,13 @@ res23: jp.kobe_u.scarab.Assignment = <span style="color: #008b8b;">null</span>
 </ul></li>
 </ul>
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span> , dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._ , dsl._
-
-int('a, 0, 10)
-int('b, 0, 10)
-int('c, 0, 10)
-int('d, 0, 10)
-add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
+int(<span style="color: #8b2252;">'a</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+int(<span style="color: #8b2252;">'b</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+int(<span style="color: #8b2252;">'c</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+int(<span style="color: #8b2252;">'d</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+add(<span style="color: #8b2252;">'a</span> * <span style="color: #008b8b;">12</span> + <span style="color: #8b2252;">'b</span> * <span style="color: #008b8b;">16</span> + <span style="color: #8b2252;">'c</span> * <span style="color: #008b8b;">20</span> + <span style="color: #8b2252;">'d</span> * <span style="color: #008b8b;">27</span> === <span style="color: #008b8b;">90</span>)
 </pre>
 </div>
 <ul class="org-ul">
@@ -598,14 +703,13 @@ add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 </ul></li>
 </ul>
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span> , dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._ , dsl._
-
-int('a, 0, 10)
-int('b, 0, 10)
-int('c, 0, 10)
-int('d, 0, 10)
-add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
+int(<span style="color: #8b2252;">'a</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+int(<span style="color: #8b2252;">'b</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+int(<span style="color: #8b2252;">'c</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+int(<span style="color: #8b2252;">'d</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+add(<span style="color: #8b2252;">'a</span> * <span style="color: #008b8b;">12</span> + <span style="color: #8b2252;">'b</span> * <span style="color: #008b8b;">16</span> + <span style="color: #8b2252;">'c</span> * <span style="color: #008b8b;">20</span> + <span style="color: #8b2252;">'d</span> * <span style="color: #008b8b;">27</span> === <span style="color: #008b8b;">90</span>)
 
 <span style="color: #a020f0;">if</span> (find) println(solution)
 </pre>
@@ -616,16 +720,15 @@ add('a * 12 + 'b * 16 + 'c * 20 + 'd * 27 === 90)
 み込む (カレントディレクトリにファイルがあるものとする)．</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; :load ./ex-csp.sc
-Loading ./ex-csp.sc...
-<span style="color: #a020f0;">import</span> jp.kobe_u.scarab._
-<span style="color: #a020f0;">import</span> dsl._
-res0: jp.kobe_u.scarab.Var = a
-res1: jp.kobe_u.scarab.Var = b
-res2: jp.kobe_u.scarab.Var = c
-res3: jp.kobe_u.scarab.Var = d
-res4: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">:</span><span style="color: #228b22;">load</span> ./ex-csp.sc
+<span style="color: #008b8b;">Loading</span> ./ex-csp.sc...
+<span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>
+<span style="color: #a020f0;">import</span> dsl.<span style="color: #a020f0;">_</span>
+res0<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> a
+res1<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> b
+res2<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> c
+res3<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> d
+res4<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Constraint</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">EqZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">-90</span>+<span style="color: #008b8b;">12</span>*a+<span style="color: #008b8b;">16</span>*b+<span style="color: #008b8b;">20</span>*c+<span style="color: #008b8b;">27</span>*d))
 </pre>
 </div>
 <ul class="org-ul">
@@ -633,24 +736,23 @@ res4: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 </ul>
 
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; reset
 
-scala&gt; :load ./ex-csp.sc
-Loading ./ex-csp.sc...
-<span style="color: #a020f0;">import</span> jp.kobe_u.scarab._
-<span style="color: #a020f0;">import</span> dsl._
-res13: jp.kobe_u.scarab.Var = a
-res14: jp.kobe_u.scarab.Var = b
-res15: jp.kobe_u.scarab.Var = c
-res16: jp.kobe_u.scarab.Var = d
-res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
+scala&gt; <span style="color: #a020f0;">:</span><span style="color: #228b22;">load</span> ./ex-csp.sc
+<span style="color: #008b8b;">Loading</span> ./ex-csp.sc...
+<span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>
+<span style="color: #a020f0;">import</span> dsl.<span style="color: #a020f0;">_</span>
+res13<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> a
+res14<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> b
+res15<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> c
+res16<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> d
+res17<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Constraint</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">EqZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">-90</span>+<span style="color: #008b8b;">12</span>*a+<span style="color: #008b8b;">16</span>*b+<span style="color: #008b8b;">20</span>*c+<span style="color: #008b8b;">27</span>*d))
 </pre>
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7"><span class="section-number-3">5.1</span> 練習問題</h3>
+<div id="outline-container-orga09145c" class="outline-3">
+<h3 id="orga09145c"><span class="section-number-3">5.1</span> 練習問題</h3>
 <div class="outline-text-3" id="text-5-1">
 <ul class="org-ul">
 <li>89円分の切手を構成できるかテストしてみよう．</li>
@@ -659,11 +761,12 @@ res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 </div>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-2">
-<h2 id="orgheadline15"><span class="section-number-2">6</span> 簡単な例題</h2>
+<div id="outline-container-orgaffcfec" class="outline-2">
+<h2 id="orgaffcfec"><span class="section-number-2">6</span> 簡単な例題</h2>
 <div class="outline-text-2" id="text-6">
-</div><div id="outline-container-orgheadline10" class="outline-3">
-<h3 id="orgheadline10"><span class="section-number-3">6.1</span> 部分和問題</h3>
+</div>
+<div id="outline-container-orgb9ca35c" class="outline-3">
+<h3 id="orgb9ca35c"><span class="section-number-3">6.1</span> 部分和問題</h3>
 <div class="outline-text-3" id="text-6-1">
 <pre class="example">
 使いきらなければならない予算が 50 千円あります．
@@ -698,19 +801,18 @@ res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 <li>CSPを記述したファイルは以下のようになる <a href="https://tsoh.org/scarab/sample-scripts/ex-subsetsum.sc">ex-subsetsum.sc</a></li>
 </ul>
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span> , dsl.<span style="color: #a020f0;">_</span> 
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._ , dsl._ 
-
-<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">define</span>(<span style="color: #a0522d;">sum</span>: <span style="color: #228b22;">Int</span>) {
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">define</span>(sum<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Int</span>) {
   reset
-  boolInt('x(2))
-  boolInt('x(3))
-  boolInt('x(5))
-  boolInt('x(8))
-  boolInt('x(13))
-  boolInt('x(21))
-  boolInt('x(34))
-  add('x(2)*2 + 'x(3)*3 + 'x(5)*5 + 'x(8)*8 + 'x(13)*13 + 'x(21)*21 + 'x(34)*34 === sum)
+  boolInt(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>))
+  boolInt(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">3</span>))
+  boolInt(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">5</span>))
+  boolInt(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">8</span>))
+  boolInt(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">13</span>))
+  boolInt(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">21</span>))
+  boolInt(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">34</span>))
+  add(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>)*<span style="color: #008b8b;">2</span> + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">3</span>)*<span style="color: #008b8b;">3</span> + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">5</span>)*<span style="color: #008b8b;">5</span> + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">8</span>)*<span style="color: #008b8b;">8</span> + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">13</span>)*<span style="color: #008b8b;">13</span> + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">21</span>)*<span style="color: #008b8b;">21</span> + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">34</span>)*<span style="color: #008b8b;">34</span> === sum)
 }
 </pre>
 </div>
@@ -720,35 +822,33 @@ res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 <li>また上記プログラムでは，直接CSPを記述するのではなく， 関数 define(sum: Int) で和を与えられるようにしている． この場合，利用方法は以下のようになる．</li>
 </ul>
 <div class="org-src-container">
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">:</span><span style="color: #228b22;">load</span> ./ex-subsetsum.sc
+<span style="color: #008b8b;">Loading</span> ./ex-subsetsum.sc...
+<span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>
+<span style="color: #a020f0;">import</span> dsl.<span style="color: #a020f0;">_</span>
+define<span style="color: #a020f0;">:</span> (sum<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Int</span>)<span style="color: #008b8b;">Unit</span>
 
-<pre class="src src-scala">scala&gt; :load ./ex-subsetsum.sc
-Loading ./ex-subsetsum.sc...
-<span style="color: #a020f0;">import</span> jp.kobe_u.scarab._
-<span style="color: #a020f0;">import</span> dsl._
-define: (sum: Int)Unit
-
-scala&gt; define(50)
+scala&gt; define(<span style="color: #008b8b;">50</span>)
 
 scala&gt; find
-res1: Boolean = <span style="color: #008b8b;">true</span>
+res1<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Boolean</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">true</span>
 
 scala&gt; solution
-res2: jp.kobe_u.scarab.Assignment = Assignment(Map(x(8) -&gt; 1, x(21) -&gt; 1, x(3) -&gt; 1, x(13) -&gt; 1, x(2) -&gt; 0, x(34) -&gt; 0, x(5) -&gt; 1),Map())
+res2<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Assignment</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Assignment</span>(<span style="color: #008b8b;">Map</span>(x(<span style="color: #008b8b;">8</span>) -&gt; <span style="color: #008b8b;">1</span>, x(<span style="color: #008b8b;">21</span>) -&gt; <span style="color: #008b8b;">1</span>, x(<span style="color: #008b8b;">3</span>) -&gt; <span style="color: #008b8b;">1</span>, x(<span style="color: #008b8b;">13</span>) -&gt; <span style="color: #008b8b;">1</span>, x(<span style="color: #008b8b;">2</span>) -&gt; <span style="color: #008b8b;">0</span>, x(<span style="color: #008b8b;">34</span>) -&gt; <span style="color: #008b8b;">0</span>, x(<span style="color: #008b8b;">5</span>) -&gt; <span style="color: #008b8b;">1</span>),<span style="color: #008b8b;">Map</span>())
 </pre>
 </div>
 <ul class="org-ul">
 <li>解が見にくいが，以下のようにすれば見やすくなる．</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (x &lt;- csp.variables) println(s<span style="color: #8b2252;">"$x ${solution(x)}"</span>)
-x(2) 0
-x(3) 1
-x(5) 1
-x(8) 1
-x(13) 1
-x(21) 1
-x(34) 0
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">for</span> (x <span style="color: #a020f0;">&lt;-</span> csp.variables) println(s<span style="color: #8b2252;">"</span><span style="color: #a0522d;">$x</span><span style="color: #8b2252;"> </span><span style="color: #a0522d;">${solution(x)}</span><span style="color: #8b2252;">"</span>)
+x(<span style="color: #008b8b;">2</span>) <span style="color: #008b8b;">0</span>
+x(<span style="color: #008b8b;">3</span>) <span style="color: #008b8b;">1</span>
+x(<span style="color: #008b8b;">5</span>) <span style="color: #008b8b;">1</span>
+x(<span style="color: #008b8b;">8</span>) <span style="color: #008b8b;">1</span>
+x(<span style="color: #008b8b;">13</span>) <span style="color: #008b8b;">1</span>
+x(<span style="color: #008b8b;">21</span>) <span style="color: #008b8b;">1</span>
+x(<span style="color: #008b8b;">34</span>) <span style="color: #008b8b;">0</span>
 </pre>
 </div>
 <ul class="org-ul">
@@ -756,37 +856,40 @@ x(34) 0
 <li>34 千円の品物が入った解が欲しい場合は，以下のように制約を追加して解を求めれば良い．</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; add('x(34) === 1)
-res6: jp.kobe_u.scarab.Constraint = EqZero(Sum(-1+x(34)))
+<pre class="src src-scala">scala&gt; add(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">34</span>) === <span style="color: #008b8b;">1</span>)
+res6<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Constraint</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">EqZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">-1</span>+x(<span style="color: #008b8b;">34</span>)))
 
 scala&gt; find
-res7: Boolean = <span style="color: #008b8b;">true</span>
+res7<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Boolean</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">true</span>
 
 scala&gt; solution
-res8: jp.kobe_u.scarab.Assignment = Assignment(Map(x(8) -&gt; 0, x(21) -&gt; 0, x(3) -&gt; 1, x(13) -&gt; 1, x(2) -&gt; 0, x(34) -&gt; 1, x(5) -&gt; 0),Map())
+res8<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Assignment</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Assignment</span>(<span style="color: #008b8b;">Map</span>(x(<span style="color: #008b8b;">8</span>) -&gt; <span style="color: #008b8b;">0</span>, x(<span style="color: #008b8b;">21</span>) -&gt; <span style="color: #008b8b;">0</span>, x(<span style="color: #008b8b;">3</span>) -&gt; <span style="color: #008b8b;">1</span>, x(<span style="color: #008b8b;">13</span>) -&gt; <span style="color: #008b8b;">1</span>, x(<span style="color: #008b8b;">2</span>) -&gt; <span style="color: #008b8b;">0</span>, x(<span style="color: #008b8b;">34</span>) -&gt; <span style="color: #008b8b;">1</span>, x(<span style="color: #008b8b;">5</span>) -&gt; <span style="color: #008b8b;">0</span>),<span style="color: #008b8b;">Map</span>())
 
-scala&gt; <span style="color: #a020f0;">for</span> (x &lt;- csp.variables) println(s<span style="color: #8b2252;">"$x ${solution(x)}"</span>)
-x(2) 0
-x(3) 1
-x(5) 0
-x(8) 0
-x(13) 1
-x(21) 0
-x(34) 1
+scala&gt; <span style="color: #a020f0;">for</span> (x <span style="color: #a020f0;">&lt;-</span> csp.variables) println(s<span style="color: #8b2252;">"</span><span style="color: #a0522d;">$x</span><span style="color: #8b2252;"> </span><span style="color: #a0522d;">${solution(x)}</span><span style="color: #8b2252;">"</span>)
+x(<span style="color: #008b8b;">2</span>) <span style="color: #008b8b;">0</span>
+x(<span style="color: #008b8b;">3</span>) <span style="color: #008b8b;">1</span>
+x(<span style="color: #008b8b;">5</span>) <span style="color: #008b8b;">0</span>
+x(<span style="color: #008b8b;">8</span>) <span style="color: #008b8b;">0</span>
+x(<span style="color: #008b8b;">13</span>) <span style="color: #008b8b;">1</span>
+x(<span style="color: #008b8b;">21</span>) <span style="color: #008b8b;">0</span>
+x(<span style="color: #008b8b;">34</span>) <span style="color: #008b8b;">1</span>
 </pre>
 </div>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline9"></a>練習問題<br  /><div class="outline-text-4" id="text-6-1-1">
+<ol class="org-ol">
+<li><a id="orgec08c63"></a>練習問題<br />
+<div class="outline-text-4" id="text-6-1-1">
 <ul class="org-ul">
 <li>和が40の場合はどうなるか?</li>
 </ul>
-</div></li></ol>
+</div>
+</li>
+</ol>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12"><span class="section-number-3">6.2</span> 魔方陣</h3>
+<div id="outline-container-orgf38d09a" class="outline-3">
+<h3 id="orgf38d09a"><span class="section-number-3">6.2</span> 魔方陣</h3>
 <div class="outline-text-3" id="text-6-2">
 <pre class="example">
 1から9の数字を 3×3 に配置し， 各行，各列，各対角線の和がいずれも15になるようにせよ．
@@ -824,26 +927,25 @@ x(34) 1
 <li>CSPを記述したファイルは以下のようになる <a href="hoge/files/ex-magicsq.sc">ex-magicsq.sc</a></li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._ , dsl._
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span> , dsl.<span style="color: #a020f0;">_</span>
 
 reset
-int('x(0,0), 1, 9); int('x(0,1), 1, 9); int('x(0,2), 1, 9)
-int('x(1,0), 1, 9); int('x(1,1), 1, 9); int('x(1,2), 1, 9)
-int('x(2,0), 1, 9); int('x(2,1), 1, 9); int('x(2,2), 1, 9)
+int(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">0</span>), <span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">9</span>); int(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">1</span>), <span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">9</span>); int(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">2</span>), <span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">9</span>)
+int(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">0</span>), <span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">9</span>); int(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">1</span>), <span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">9</span>); int(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>), <span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">9</span>)
+int(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">0</span>), <span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">9</span>); int(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">1</span>), <span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">9</span>); int(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">2</span>), <span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">9</span>)
 add(alldiff(
-  'x(0,0), 'x(0,1), 'x(0,2),
-  'x(1,0), 'x(1,1), 'x(1,2),
-  'x(2,0), 'x(2,1), 'x(2,2)
+  <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">0</span>), <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">1</span>), <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">2</span>),
+  <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">0</span>), <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">1</span>), <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>),
+  <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">0</span>), <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">1</span>), <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">2</span>)
 ))
-add('x(0,0) + 'x(0,1) + 'x(0,2) === 15)
-add('x(1,0) + 'x(1,1) + 'x(1,2) === 15)
-add('x(2,0) + 'x(2,1) + 'x(2,2) === 15)
-add('x(0,0) + 'x(1,0) + 'x(2,0) === 15)
-add('x(0,1) + 'x(1,1) + 'x(2,1) === 15)
-add('x(0,2) + 'x(1,2) + 'x(2,2) === 15)
-add('x(0,0) + 'x(1,1) + 'x(2,2) === 15)
-add('x(0,2) + 'x(1,1) + 'x(2,0) === 15)
+add(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">0</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">1</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">2</span>) === <span style="color: #008b8b;">15</span>)
+add(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">0</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">1</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>) === <span style="color: #008b8b;">15</span>)
+add(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">0</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">1</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">2</span>) === <span style="color: #008b8b;">15</span>)
+add(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">0</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">0</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">0</span>) === <span style="color: #008b8b;">15</span>)
+add(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">1</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">1</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">1</span>) === <span style="color: #008b8b;">15</span>)
+add(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">2</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">2</span>) === <span style="color: #008b8b;">15</span>)
+add(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">0</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">1</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">2</span>) === <span style="color: #008b8b;">15</span>)
+add(<span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">2</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">1</span>) + <span style="color: #8b2252;">'x</span>(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">0</span>) === <span style="color: #008b8b;">15</span>)
 </pre>
 </div>
 
@@ -852,33 +954,35 @@ add('x(0,2) + 'x(1,1) + 'x(2,0) === 15)
 <li>Scala の制御構造やクラスを利用すればもっと以下のように簡潔に記述できる．</li>
 </ul>
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
-
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">xs</span> = <span style="color: #a020f0;">for</span> (i &lt;- 1 to 3; j &lt;- 1 to 3) <span style="color: #a020f0;">yield</span> int('x(i,j), 1, 9)
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">xs</span> <span style="color: #a020f0;">=</span> <span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>; j <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>) <span style="color: #a020f0;">yield</span> int(<span style="color: #8b2252;">'x</span>(i,j), <span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">9</span>)
 add(alldiff(xs))
 
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to 3)
-  add(Sum((1 to 3).map(j =&gt; 'x(i,j))) === 15)
-<span style="color: #a020f0;">for</span> (j &lt;- 1 to 3)
-  add(Sum((1 to 3).map(i =&gt; 'x(i,j))) === 15)
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>)
+  add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>).map(j <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'x</span>(i,j))) === <span style="color: #008b8b;">15</span>)
+<span style="color: #a020f0;">for</span> (j <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>)
+  add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>).map(i <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'x</span>(i,j))) === <span style="color: #008b8b;">15</span>)
 
-add(Sum((1 to 3).map(i =&gt; 'x(i,i))) === 15)
-add(Sum((1 to 3).map(i =&gt; 'x(i,4-i))) === 15)
+add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>).map(i <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'x</span>(i,i))) === <span style="color: #008b8b;">15</span>)
+add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>).map(i <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'x</span>(i,<span style="color: #008b8b;">4</span>-i))) === <span style="color: #008b8b;">15</span>)
 </pre>
 </div>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline11"></a>練習問題<br  /><div class="outline-text-4" id="text-6-2-1">
+<ol class="org-ol">
+<li><a id="orgfc6fa82"></a>練習問題<br />
+<div class="outline-text-4" id="text-6-2-1">
 <ul class="org-ul">
 <li>n x n の魔方陣を記述してみよう．</li>
 </ul>
-</div></li></ol>
+</div>
+</li>
+</ol>
 </div>
 
-
-<div id="outline-container-orgheadline13" class="outline-3">
-<h3 id="orgheadline13"><span class="section-number-3">6.3</span> 正方形矩形パッキング</h3>
+<div id="outline-container-org3ea0140" class="outline-3">
+<h3 id="org3ea0140"><span class="section-number-3">6.3</span> 正方形矩形パッキング</h3>
 <div class="outline-text-3" id="text-6-3">
 <pre class="example">
 正方形詰込み問題 SP(n,s) は一辺の長さ 1 から n まで1ずつ増加する正方形の集合を
@@ -901,30 +1005,29 @@ add(Sum((1 to 3).map(i =&gt; 'x(i,4-i))) === 15)
 </ul>
 
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span> , dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._ , dsl._
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">15</span>
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">s</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">100</span>
 
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 15
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">s</span> = 100
+<span style="color: #a020f0;">var</span> <span style="color: #ff0000; font-weight: bold;">lb</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">15</span>
+<span style="color: #a020f0;">var</span> <span style="color: #ff0000; font-weight: bold;">ub</span> <span style="color: #a020f0;">=</span> s
+int(<span style="color: #8b2252;">'m</span>, lb, ub)
 
-<span style="color: #a020f0;">var</span> <span style="color: #a0522d;">lb</span> = 15
-<span style="color: #a020f0;">var</span> <span style="color: #a0522d;">ub</span> = s
-int('m, lb, ub)
-
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to n) { 
-  int('x(i),0,s-i) 
-  int('y(i),0,s-i) 
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n) { 
+  int(<span style="color: #8b2252;">'x</span>(i),<span style="color: #008b8b;">0</span>,s-i) 
+  int(<span style="color: #8b2252;">'y</span>(i),<span style="color: #008b8b;">0</span>,s-i) 
 }
 
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to n)
-  add(('x(i)+i &lt;= 'm) &amp;&amp; ('y(i)+i &lt;= 'm)) 
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n)
+  add((<span style="color: #8b2252;">'x</span>(i)+i &lt;= <span style="color: #8b2252;">'m</span>) &amp;&amp; (<span style="color: #8b2252;">'y</span>(i)+i &lt;= <span style="color: #8b2252;">'m</span>)) 
 
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to n; j &lt;- i+1 to n) 
-  add(('x(i)+i&lt;='x(j)) || ('x(j)+j&lt;='x(i)) || ('y(i)+i&lt;='y(j)) || ('y(j)+j&lt;='y(i)))
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n; j <span style="color: #a020f0;">&lt;-</span> i+<span style="color: #008b8b;">1</span> to n) 
+  add((<span style="color: #8b2252;">'x</span>(i)+i&lt;=<span style="color: #8b2252;">'x</span>(j)) || (<span style="color: #8b2252;">'x</span>(j)+j&lt;=<span style="color: #8b2252;">'x</span>(i)) || (<span style="color: #8b2252;">'y</span>(i)+i&lt;=<span style="color: #8b2252;">'y</span>(j)) || (<span style="color: #8b2252;">'y</span>(j)+j&lt;=<span style="color: #8b2252;">'y</span>(i)))
 
-<span style="color: #a020f0;">while</span>(lb &lt;= ub &amp;&amp; find('m &lt;= ub)) {
-  add('m &lt;= ub)
-  ub -= 1
+<span style="color: #a020f0;">while</span>(lb &lt;= ub &amp;&amp; find(<span style="color: #8b2252;">'m</span> &lt;= ub)) {
+  add(<span style="color: #8b2252;">'m</span> &lt;= ub)
+  ub -= <span style="color: #008b8b;">1</span>
   println(ub)
 }
 </pre>
@@ -935,8 +1038,8 @@ int('m, lb, ub)
 </div>
 </div>
 
-<div id="outline-container-orgheadline14" class="outline-3">
-<h3 id="orgheadline14"><span class="section-number-3">6.4</span> その他の例題</h3>
+<div id="outline-container-orgc46ea4a" class="outline-3">
+<h3 id="orgc46ea4a"><span class="section-number-3">6.4</span> その他の例題</h3>
 <div class="outline-text-3" id="text-6-4">
 <ul class="org-ul">
 <li><a href="http://www.csplib.org/Problems/prob024/">ラングフォード・ペアリング</a></li>
@@ -946,11 +1049,12 @@ int('m, lb, ub)
 </div>
 </div>
 
-<div id="outline-container-orgheadline31" class="outline-2">
-<h2 id="orgheadline31"><span class="section-number-2">7</span> その他 Scarab の説明クラスとメソッドの簡単なまとめ</h2>
+<div id="outline-container-orga88019b" class="outline-2">
+<h2 id="orga88019b"><span class="section-number-2">7</span> その他 Scarab の説明クラスとメソッドの簡単なまとめ</h2>
 <div class="outline-text-2" id="text-7">
-</div><div id="outline-container-orgheadline16" class="outline-3">
-<h3 id="orgheadline16"><span class="section-number-3">7.1</span> jar ファイルとソースコード</h3>
+</div>
+<div id="outline-container-orgc1fa9cc" class="outline-3">
+<h3 id="orgc1fa9cc"><span class="section-number-3">7.1</span> jar ファイルとソースコード</h3>
 <div class="outline-text-3" id="text-7-1">
 <ul class="org-ul">
 <li>scarab を jar ファイルにまとめたものです</li>
@@ -968,13 +1072,287 @@ int('m, lb, ub)
 </div>
 </div>
 
-<div id="outline-container-orgheadline17" class="outline-3">
-<h3 id="orgheadline17"><span class="section-number-3">7.2</span> Scarab DSL の制約記述に関する構文 (BNF記法)</h3>
+<div id="outline-container-org45dec2f" class="outline-3">
+<h3 id="org45dec2f"><span class="section-number-3">7.2</span> Scarab のクラスについて</h3>
 <div class="outline-text-3" id="text-7-2">
+<ul class="org-ul">
+<li>Scarab のクラスについては scaladoc によって生成された <a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/">API</a> に詳し
+い.</li>
+<li><p>
+代表的なものを以下に記述する．
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">クラス名</th>
+<th scope="col" class="org-left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/CSP.html">CSP</a></td>
+<td class="org-left">制約充足問題 (CSP) のクラス</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Assignment.html">Assignment</a></td>
+<td class="org-left">CSP への値割当てのクラス</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Solver.html">Solver</a></td>
+<td class="org-left">CSP ソルバーのクラス</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Term.html">Term</a></td>
+<td class="org-left">制約を構成する項を表す抽象クラス</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Var.html">Var</a></td>
+<td class="org-left">Term を継承する整数変数のクラス</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Sum.html">Sum</a></td>
+<td class="org-left">Term を継承する項の和のクラス</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Constraint.html">Constraint</a></td>
+<td class="org-left">制約を表す抽象クラス</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/And.html">And</a></td>
+<td class="org-left">Constraint を継承するリテラルの連言のクラス</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Or.html">Or</a></td>
+<td class="org-left">Constraint を継承するリテラルの選言のクラス</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Literal.html">Literal</a></td>
+<td class="org-left">Constraint を継承するリテラルのクラス</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Bool.html">Bool</a></td>
+<td class="org-left">Literal を継承するブール変数のクラス</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Not.html">Not</a></td>
+<td class="org-left">Literal を継承するブール変数の否定のクラス</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/LeZero.html">LeZero</a></td>
+<td class="org-left">Literal を継承する線形比較 \(b + \sum_i a_ix_i \le 0\) のクラス</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/GeZero.html">GeZero</a></td>
+<td class="org-left">Literal を継承する線形比較 \(b + \sum_i a_ix_i \ge 0\) のクラス</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/EqZero.html">EqZero</a></td>
+<td class="org-left">Literal を継承する線形比較 \(b + \sum_i a_ix_i = 0\) のクラス</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/NeZero.html">NeZero</a></td>
+<td class="org-left">Literal を継承する線形比較 \(b + \sum_i a_ix_i \ne 0\) のクラス</td>
+</tr>
+</tbody>
+</table></li>
+<li>これらのクラスに加えて, Scarab DSL でグローバル制約 alldiff を利
+用できるように以下のメソッドとして提供している (DSL ではトップレ
+ベルで利用できる). 
+<ul class="org-ul">
+<li>def alldiff(xs: Iterable[Term]): And</li>
+<li>def alldiff(xs: Term*): And</li>
+</ul></li>
+</ul>
+</div>
+
+<ol class="org-ol">
+<li><a id="orgd7bedb0"></a>CSPに関係するクラス図<br />
+<div class="outline-text-4" id="text-7-2-1">
+<center>
+
+<div class="figure">
+<p><img src="figs/class_diagram_csp.png" alt="class_diagram_csp.png" />
+</p>
+</div>
+</center>
+</div>
+</li>
+
+<li><a id="org9dc3b02"></a>制約ソルバーに関係するクラス図<br />
+<div class="outline-text-4" id="text-7-2-2">
+<center>
+
+<div class="figure">
+<p><img src="figs/class_diagram_solver.png" alt="class_diagram_solver.png" />
+</p>
+</div>
+</center>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org399f39e" class="outline-3">
+<h3 id="org399f39e"><span class="section-number-3">7.3</span> Scarab DSL について</h3>
+<div class="outline-text-3" id="text-7-3">
+</div>
+<ol class="org-ol">
+<li><a id="orgf30182c"></a>CSP について<br />
+<div class="outline-text-4" id="text-7-3-1">
+<ul class="org-ul">
+<li>Scarab DSL を呼んだ状態, すなわち以下のように import 文を書いた
+場合には, csp という名前のデフォルトの csp オブジェクトが定義さ
+れている.</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>この csp オブジェクトは以下のメソッドで編集できる.
+<ul class="org-ul">
+<li>整数変数の追加
+<ul class="org-ul">
+<li>def int(x: Var, a: Int, b: Int): Var</li>
+<li>def int(x: Var, d: Seq[Int]): Var</li>
+</ul></li>
+<li>制約の追加
+<ul class="org-ul">
+<li>def add(c: Constraint): Constraint</li>
+</ul></li>
+</ul></li>
+<li>これらのメソッドを呼ぶと, 暗黙的にデフォルトのオブジェクト csp
+に対する操作になる</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-scala">scala&gt; int(<span style="color: #8b2252;">'x</span>, <span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">5</span>)
+res<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> x
+
+scala&gt; int(<span style="color: #8b2252;">'y</span>, <span style="color: #008b8b;">Seq</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">3</span>,<span style="color: #008b8b;">5</span>))
+res<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> y
+
+scala&gt; add(<span style="color: #8b2252;">'x</span> + <span style="color: #8b2252;">'y</span> &gt;= <span style="color: #008b8b;">3</span>)
+res<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Constraint</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">GeZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">-3</span>+x+y))
+
+scala&gt; csp
+res<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">CSP</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">CSP</span>(<span style="color: #008b8b;">Vector</span>(x, y),<span style="color: #008b8b;">Vector</span>(),<span style="color: #008b8b;">Map</span>(x -&gt; <span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">5</span>), y -&gt; <span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">3</span>,<span style="color: #008b8b;">5</span>)),<span style="color: #008b8b;">Vector</span>(<span style="color: #008b8b;">GeZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">-3</span>+x+y))))
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgbc63331"></a>CSP における整数変数の定義について<br />
+<div class="outline-text-4" id="text-7-3-2">
+<ul class="org-ul">
+<li>Scarab DSL では, 整数変数の定義が簡単に行えるようにシンボルの暗
+黙変換 (implicit conversion) を定義している.</li>
+<li>以下は, 整数変数を通常の手続きで定義する方法である.</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
+<span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>
+<span style="color: #a020f0;">import</span> dsl.<span style="color: #a020f0;">_</span>
+
+scala&gt; <span style="color: #008b8b;">Var</span>(<span style="color: #8b2252;">"x"</span>,<span style="color: #8b2252;">"1"</span>,<span style="color: #8b2252;">"2"</span>)
+res<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> x(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>)
+</pre>
+</div>
+<ul class="org-ul">
+<li>ここで, x(1,2) はこの整数変数の変数名になる (変数名は重複があっ
+てはならない).</li>
+<li>Scala のシンボルはシングルクォーテーションを使って以下のように定
+義される.</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-scala">scala&gt; <span style="color: #8b2252;">'s</span>
+res0<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Symbol</span> <span style="color: #a020f0;">=</span> <span style="color: #8b2252;">'s</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>暗黙変換は, オブジェクトをシンボルと解釈すると, エラーになるが,
+CSPの整数変数と解釈するとうまくいく時に行われる.</li>
+<li>以下は, そのような例である.</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-scala">scala&gt; <span style="color: #8b2252;">'s</span>(<span style="color: #008b8b;">1</span>)
+res1<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> s(<span style="color: #008b8b;">1</span>)
+</pre>
+</div>
+<ul class="org-ul">
+<li>ここで「&rsquo;s(1)」の &rsquo;s をシンボルと解釈すると, シンボルは apply メ
+ソッド (Scala ではメソッド呼び出しの際に apply というメソッド名
+を省略可能) を持たないため，エラーとなる.</li>
+<li>しかし, Scarab DSL において, シンボルから整数変数オブジェクトへ
+の暗黙変換が定義されているため, &rsquo;s を整数変数として解釈すること
+が試みられる．</li>
+<li>結果として, 整数変数クラス (Var) が, apply メソッドを持ち, かつ
+Int 型の引数を取ることが出来るため (実際はより幅広く任意個の Any
+型を引数に取れる), &rsquo;s は Var 型のオブジェクトと解釈され, &rsquo;s(1)
+は Var 型のオブジェクトのメソッド apply を引数 1 に対して呼んだ
+と解釈される.</li>
+<li>Var 型の apply メソッドは, &rsquo;s に引数1を追加した新しい Var 型のオ
+ブジェクトを生成するファクトリメソッドになっているので, 最終的に
+s(1) という名前の整数変数が返される.</li>
+<li>以下は, Var 型オブジェクトを生成するいくつかの方法である.</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-scala">scala&gt; <span style="color: #8b2252;">'s</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>)
+res2<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> s(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>)
+
+scala&gt; <span style="color: #8b2252;">'s</span>(<span style="color: #008b8b;">1</span>)(<span style="color: #008b8b;">2</span>)
+res3<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> s(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>)
+
+scala&gt; <span style="color: #8b2252;">'s</span>(<span style="color: #008b8b;">1</span>)(<span style="color: #008b8b;">2</span>)(<span style="color: #008b8b;">3</span>)
+res4<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> s(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">3</span>)
+
+scala&gt; <span style="color: #8b2252;">'s</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">3</span>)
+res5<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> s(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">3</span>)
+</pre>
+</div>
+<ul class="org-ul">
+<li>&rsquo;s(1,2) と &rsquo;s(1)(2) の結果は同じになる．
+<ul class="org-ul">
+<li>&rsquo;s(1,2) は, apply メソッドを2個の引数で呼んでいる</li>
+<li>&rsquo;s(1)(2) は, &rsquo;s(1) で生成されるオブジェクトに対してさらに apply
+メソッドを呼んでいる.</li>
+</ul></li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org2cf6ab8" class="outline-3">
+<h3 id="org2cf6ab8"><span class="section-number-3">7.4</span> Scarab DSL の制約記述に関する構文 (BNF記法)</h3>
+<div class="outline-text-3" id="text-7-4">
 <ul class="org-ul">
 <li><b>V</b>, <b>T</b>, <b>C</b>, <b>B</b> を <b>Var</b> (整数変数), <b>Term</b> (項), <b>Constraint</b> (制約), <b>Bool</b> (ブール変数) に対応するScarabオブジェクトとする.</li>
 <li>Int, String, Any は Scala のオブジェクトとする．</li>
-<li>制約に関する Scarab DSL の構文は以下のように定義される．</li>
+<li>制約に関する Scarab DSL の構文は BNF 記法を用いて以下のように定義される．</li>
 </ul>
 <pre class="example">
 T  ::= V | -T | T + Int | T + T | T - Int | T - T | T * Int | Sum(V, ...) | Sum(Seq(V, ...))  
@@ -987,196 +1365,178 @@ B  ::= Bool(String, String, ...) | B(Any, ...)
 </div>
 </div>
 
-<div id="outline-container-orgheadline20" class="outline-3">
-<h3 id="orgheadline20"><span class="section-number-3">7.3</span> Scarab のクラス図</h3>
-<div class="outline-text-3" id="text-7-3">
-</div><ol class="org-ol"><li><a id="orgheadline18"></a>CSPに関係するクラス図<br  /><div class="outline-text-4" id="text-7-3-1">
-<center>
-
-<div class="figure">
-<p><img src="figs/class_diagram_csp.png" alt="class_diagram_csp.png" />
-</p>
+<div id="outline-container-org38fd376" class="outline-3">
+<h3 id="org38fd376"><span class="section-number-3">7.5</span> プログラムの簡単なまとめ</h3>
+<div class="outline-text-3" id="text-7-5">
 </div>
-</center>
-</div></li>
-
-<li><a id="orgheadline19"></a>制約ソルバーに関係するクラス図<br  /><div class="outline-text-4" id="text-7-3-2">
-<center>
-
-<div class="figure">
-<p><img src="figs/class_diagram_solver.png" alt="class_diagram_solver.png" />
-</p>
-</div>
-</center>
-</div></li></ol>
-</div>
-
-
-<div id="outline-container-orgheadline30" class="outline-3">
-<h3 id="orgheadline30"><span class="section-number-3">7.4</span> プログラムの簡単なまとめ</h3>
-<div class="outline-text-3" id="text-7-4">
-</div><ol class="org-ol"><li><a id="orgheadline23"></a>項オブジェクト (Termオブジェクト)<br  /><ol class="org-ol"><li><a id="orgheadline21"></a>整数変数オブジェクト (Varオブジェクト)<br  /><div class="outline-text-5" id="text-7-4-1-1">
+<ol class="org-ol">
+<li><a id="org2be3385"></a>項オブジェクト (Termオブジェクト)<br />
+<ol class="org-ol">
+<li><a id="org1d24c81"></a>整数変数オブジェクト (Varオブジェクト)<br />
+<div class="outline-text-5" id="text-7-5-1-1">
 <ul class="org-ul">
 <li>整数変数オプジェクトは Var で生成する． 引数にはその名前を与える．</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">x</span> = Var(<span style="color: #8b2252;">"x"</span>)
-x: jp.kobe_u.scarab.Var = x
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">x</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Var</span>(<span style="color: #8b2252;">"x"</span>)
+x<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> x
 </pre>
 </div>
 <ul class="org-ul">
 <li>名前がない場合は，新しい匿名変数オブジェクトが生成される．</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">z</span> = Var()
-z: jp.kobe_u.scarab.Var = TMP_I_1
+<pre class="src src-scala">scala&gt; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">z</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Var</span>()
+z<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">TMP_I_1</span>
 </pre>
 </div>
 <ul class="org-ul">
 <li>Varオブジェクトに添字を与えることで，新しいVarオブジェクトを生成できる． 添字には整数や文字列を使用でき，また複数与えても良い． ただし，添字にScarabの整数変数を用いることはできない．</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; x(<span style="color: #8b2252;">"book"</span>, <span style="color: #8b2252;">"apple"</span>, 300)
-res16: jp.kobe_u.scarab.Var = x(book,apple,300)
+<pre class="src src-scala">scala&gt; x(<span style="color: #8b2252;">"book"</span>, <span style="color: #8b2252;">"apple"</span>, <span style="color: #008b8b;">300</span>)
+res16<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> x(book,apple,<span style="color: #008b8b;">300</span>)
 </pre>
 </div>
 <ul class="org-ul">
 <li>Scala の Symbol は，Varオブジェクトに暗黙変換される．</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; 'abc(2)
-res19: jp.kobe_u.scarab.Var = abc(2)
+<pre class="src src-scala">pscala&gt; <span style="color: #8b2252;">'abc</span>(<span style="color: #008b8b;">2</span>)
+res19<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> abc(<span style="color: #008b8b;">2</span>)
 </pre>
 </div>
 <ul class="org-ul">
 <li>Varオブジェクトは後述の項 (Term) オブジェクトの一種である．</li>
 </ul>
-</div></li>
+</div>
+</li>
 
-<li><a id="orgheadline22"></a>和算オブジェクト (Sumオブジェクト)<br  /><div class="outline-text-5" id="text-7-4-1-2">
+<li><a id="org7ebea3f"></a>加算オブジェクト (Sumオブジェクト)<br />
+<div class="outline-text-5" id="text-7-5-1-2">
 <ul class="org-ul">
-<li>Sumオブジェクトは整数変数の加算 (\(+\))，減算 (\(-\)) を表す．</li>
+<li>Sumオブジェクトは整数変数 (項も) の加算 (\(+\))，減算 (\(-\)) を表す．</li>
 </ul>
 <div class="org-src-container">
+<pre class="src src-scala">scala&gt; <span style="color: #008b8b;">Sum</span>(<span style="color: #8b2252;">'x</span> + <span style="color: #8b2252;">'y</span>)
+res21<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Sum</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Sum</span>(+x+y)
 
-<pre class="src src-scala">scala&gt; Sum('x + 'y)
-res21: jp.kobe_u.scarab.Sum = Sum(+x+y)
+scala&gt; <span style="color: #008b8b;">Sum</span>(- <span style="color: #8b2252;">'x</span> - <span style="color: #8b2252;">'y</span>)
+res22<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Sum</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Sum</span>(-x-y)
 
-scala&gt; Sum(- 'x - 'y)
-res22: jp.kobe_u.scarab.Sum = Sum(-x-y)
-
-scala&gt; - Sum(- 'x - 'y)
-res23: jp.kobe_u.scarab.Sum = Sum(+x+y)
+scala&gt; - <span style="color: #008b8b;">Sum</span>(- <span style="color: #8b2252;">'x</span> - <span style="color: #8b2252;">'y</span>)
+res23<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Sum</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Sum</span>(+x+y)
 </pre>
 </div>
-</div></li></ol></li>
+</div>
+</li>
+</ol>
+</li>
 
-<li><a id="orgheadline24"></a>制約オブジェクト<br  /><div class="outline-text-4" id="text-7-4-2">
+<li><a id="orgb1200a2"></a>制約オブジェクト<br />
+<div class="outline-text-4" id="text-7-5-2">
 <ul class="org-ul">
 <li>Termオブジェクトと比較演算子 &lt;= (\(\le\)), &lt;, &gt;= (\(\ge\)), &gt;, <code>=</code> (\(=\)),　!== (\(\ne\)) の組合せで構成される．</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; Sum('x - 'y) &lt;= 3
-res25: jp.kobe_u.scarab.Constraint = LeZero(Sum(-3+x-y))
+<pre class="src src-scala">scala&gt; <span style="color: #008b8b;">Sum</span>(<span style="color: #8b2252;">'x</span> - <span style="color: #8b2252;">'y</span>) &lt;= <span style="color: #008b8b;">3</span>
+res25<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Constraint</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">LeZero</span>(<span style="color: #008b8b;">Sum</span>(<span style="color: #008b8b;">-3</span>+x-y))
 </pre>
 </div>
 <ul class="org-ul">
 <li>宣言されると同時に &lt;= 0 の形に正規化される．</li>
 </ul>
-</div></li>
+</div>
+</li>
 
-<li><a id="orgheadline27"></a>CSPオブジェクト<br  /><div class="outline-text-4" id="text-7-4-3">
+<li><a id="org828cd5e"></a>CSPオブジェクト<br />
+<div class="outline-text-4" id="text-7-5-3">
 <ul class="org-ul">
 <li>CSPオブジェクトは，制約充足問題を表すオブジェクトである． jp.kobe_u.scarab.dsl._ を import した場合， デフォールトのCSPオブジェクトを変数 csp として参照できる．</li>
 </ul>
 </div>
-<ol class="org-ol"><li><a id="orgheadline25"></a>整数変数の宣言 (CSPへ整数変数を追加)<br  /><div class="outline-text-5" id="text-7-4-3-1">
+<ol class="org-ol">
+<li><a id="org483646d"></a>整数変数の宣言 (CSPへ整数変数を追加)<br />
+<div class="outline-text-5" id="text-7-5-3-1">
 <ul class="org-ul">
 <li>整数変数は int メソッドで宣言する． 通常は，下限値と上限値を与える．</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; int('x, 0, 10)
-res27: jp.kobe_u.scarab.Var = x
+<pre class="src src-scala">scala&gt; int(<span style="color: #8b2252;">'x</span>, <span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>)
+res27<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> x
 </pre>
 </div>
 <ul class="org-ul">
 <li>飛び飛びのドメインも利用できる．</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; int('y, Seq(1,3,5))
-res28: jp.kobe_u.scarab.Var = y
+<pre class="src src-scala">scala&gt; int(<span style="color: #8b2252;">'y</span>, <span style="color: #008b8b;">Seq</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">3</span>,<span style="color: #008b8b;">5</span>))
+res28<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Var</span> <span style="color: #a020f0;">=</span> y
 </pre>
 </div>
 <ul class="org-ul">
 <li>変数のドメインは，csp.dom メソッドで確認できる．</li>
 </ul>
 <div class="org-src-container">
+<pre class="src src-scala">scala&gt; csp.dom(<span style="color: #8b2252;">'x</span>)
+res29<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Domain</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">0</span> to <span style="color: #008b8b;">10</span>)
 
-<pre class="src src-scala">scala&gt; csp.dom('x)
-res29: jp.kobe_u.scarab.Domain = Domain(0 to 10)
-
-scala&gt; csp.dom('y)
-res30: jp.kobe_u.scarab.Domain = Domain(1,3,5)
+scala&gt; csp.dom(<span style="color: #8b2252;">'y</span>)
+res30<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Domain</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">3</span>,<span style="color: #008b8b;">5</span>)
 </pre>
 </div>
-</div></li>
+</div>
+</li>
 
-<li><a id="orgheadline26"></a>制約の追加<br  /><div class="outline-text-5" id="text-7-4-3-2">
+<li><a id="org6787c1b"></a>制約の追加<br />
+<div class="outline-text-5" id="text-7-5-3-2">
 <ul class="org-ul">
 <li>制約の追加は add メソッドで宣言する．</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; add('x === 'y * 2)
-res31: jp.kobe_u.scarab.Constraint = EqZero(Sum(+x-2*y))
+<pre class="src src-scala">scala&gt; add(<span style="color: #8b2252;">'x</span> === <span style="color: #8b2252;">'y</span> * <span style="color: #008b8b;">2</span>)
+res31<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Constraint</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">EqZero</span>(<span style="color: #008b8b;">Sum</span>(+x-2*y))
 </pre>
 </div>
 <ul class="org-ul">
 <li>現時点での変数宣言と制約は show で確認できる．</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; show
-int(x,Domain(0 to 10))
-int(y,Domain(1,3,5))
-EqZero(Sum(+x-2*y))
+int(x,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">0</span> to <span style="color: #008b8b;">10</span>))
+int(y,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">3</span>,<span style="color: #008b8b;">5</span>))
+<span style="color: #008b8b;">EqZero</span>(<span style="color: #008b8b;">Sum</span>(+x-2*y))
 </pre>
 </div>
-</div></li></ol></li>
+</div>
+</li>
+</ol>
+</li>
 
-<li><a id="orgheadline28"></a>解の探索<br  /><div class="outline-text-4" id="text-7-4-4">
+<li><a id="orgcbbcba5"></a>解の探索<br />
+<div class="outline-text-4" id="text-7-5-4">
 <ul class="org-ul">
 <li>最初の解の探索は find で行う．</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; find
-res34: Boolean = <span style="color: #008b8b;">true</span>
+res34<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Boolean</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">true</span>
 </pre>
 </div>
 <ul class="org-ul">
 <li>結果が true なら解が存在し，false なら存在しない． 見つかった解は solution で表示される．</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; solution
-res35: jp.kobe_u.scarab.Assignment = Assignment(Map(x -&gt; 10, y -&gt; 5),Map())
+res35<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Assignment</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Assignment</span>(<span style="color: #008b8b;">Map</span>(x -&gt; <span style="color: #008b8b;">10</span>, y -&gt; <span style="color: #008b8b;">5</span>),<span style="color: #008b8b;">Map</span>())
 </pre>
 </div>
 <ul class="org-ul">
 <li>変数を solution への引数として与えれば，値が得られる．</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">scala&gt; solution('x)
-res37: Int = 10
+<pre class="src src-scala">scala&gt; solution(<span style="color: #8b2252;">'x</span>)
+res37<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">10</span>
 </pre>
 </div>
 <ul class="org-ul">
@@ -1189,12 +1549,11 @@ res37: Int = 10
 <li>次の解は findNext で求める．</li>
 </ul>
 <div class="org-src-container">
-
 <pre class="src src-scala">scala&gt; findNext
-res38: Boolean = <span style="color: #008b8b;">true</span>
+res38<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Boolean</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">true</span>
 
 scala&gt; solution
-res39: jp.kobe_u.scarab.Assignment = Assignment(Map(x -&gt; 6, y -&gt; 3),Map())
+res39<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span>.kobe_u.scarab.<span style="color: #008b8b;">Assignment</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Assignment</span>(<span style="color: #008b8b;">Map</span>(x -&gt; <span style="color: #008b8b;">6</span>, y -&gt; <span style="color: #008b8b;">3</span>),<span style="color: #008b8b;">Map</span>())
 </pre>
 </div>
 <ul class="org-ul">
@@ -1205,16 +1564,17 @@ res39: jp.kobe_u.scarab.Assignment = Assignment(Map(x -&gt; 6, y -&gt; 3),Map())
 <li>SATソルバーの発見した解をCSPの解に復号化</li>
 </ul></li>
 </ul>
-</div></li>
+</div>
+</li>
 
-<li><a id="orgheadline29"></a>その他<br  /><div class="outline-text-4" id="text-7-4-5">
+<li><a id="org9dbe5be"></a>その他<br />
+<div class="outline-text-4" id="text-7-5-5">
 <ul class="org-ul">
 <li>SATソルバーを切り替えるには以下のようにする</li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">use(<span style="color: #a020f0;">new</span> Sat4jPB)
-use(<span style="color: #a020f0;">new</span> ExtSatSolver(<span style="color: #8b2252;">"minisat"</span>))
+<pre class="src src-scala">use(<span style="color: #a020f0;">new</span> <span style="color: #228b22;">Sat4jPB</span>)
+use(<span style="color: #a020f0;">new</span> <span style="color: #228b22;">ExtSatSolver</span>(<span style="color: #8b2252;">"minisat"</span>))
 </pre>
 </div>
 <ul class="org-ul">
@@ -1225,9 +1585,8 @@ use(<span style="color: #a020f0;">new</span> ExtSatSolver(<span style="color: #8
 </ul></li>
 </ul>
 <div class="org-src-container">
-
-<pre class="src src-scala">use(<span style="color: #a020f0;">new</span> NativePBEncoder(csp, satSolver))
-use(<span style="color: #a020f0;">new</span> LogEncoder(csp, satSolver))
+<pre class="src src-scala">use(<span style="color: #a020f0;">new</span> <span style="color: #228b22;">NativePBEncoder</span>(csp, satSolver))
+use(<span style="color: #a020f0;">new</span> <span style="color: #228b22;">LogEncoder</span>(csp, satSolver))
 </pre>
 </div>
 <ul class="org-ul">
@@ -1298,13 +1657,15 @@ use(<span style="color: #a020f0;">new</span> LogEncoder(csp, satSolver))
 </tr>
 </tbody>
 </table>
-</div></li></ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Takehide Soh</p>
-<p class="date">Created: 2019-03-08 金 16:37</p>
+<p class="date">Created: 2019-04-24 水 21:35</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

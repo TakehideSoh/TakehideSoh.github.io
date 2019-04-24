@@ -473,7 +473,6 @@ add(Sum((1 to 3).map(i => 'x(i,4-i))) === 15)
 *** 練習問題
     - n x n の魔方陣を記述してみよう．
 
-
 ** 正方形矩形パッキング
 #+BEGIN_EXAMPLE
 正方形詰込み問題 SP(n,s) は一辺の長さ 1 から n まで1ずつ増加する正方形の集合を
@@ -644,20 +643,37 @@ println("This Graph has no Hamiltonian Cycle")
    - (for Scala 2.10.*) use [[file:jars/scarab-v196-s210.jar]]
    - ソースコードは [[https://github.com/TakehideSoh/Scarab][Github ]]から入手できます．
 
-** Scarab DSL の制約記述に関する構文 (BNF記法)
-- *V*, *T*, *C*, *B* を *Var* (整数変数), *Term* (項), *Constraint* (制約), *Bool* (ブール変数) に対応するScarabオブジェクトとする.
-- Int, String, Any は Scala のオブジェクトとする．
-- 制約に関する Scarab DSL の構文は以下のように定義される．
-#+BEGIN_EXAMPLE lisp
- T  ::= V | -T | T + Int | T + T | T - Int | T - T | T * Int | Sum(V, ...) | Sum(Seq(V, ...))  
- V  ::= Var(String, String, ...) | V(Any, ...)
- C  ::= B | T op T | !C | C && C | C || C | alldiff(Seq(T, ...)) |  
-       And(C, ...) | And(Seq(C, ...)) | Or(C, ...) | Or(Seq(C, ...))
- op ::= <= | < | => | > | === | !==
- B  ::= Bool(String, String, ...) | B(Any, ...)
-#+END_EXAMPLE
+** Scarab のクラスについて
+   - Scarab のクラスについては scaladoc によって生成された [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/][API]] に詳し
+     い.
+   - 代表的なものを以下に記述する．
+     |------------+-----------------------------------------------------------------|
+     | クラス名   | 説明                                                              |
+     |------------+-----------------------------------------------------------------|
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/CSP.html][CSP]]        | 制約充足問題 (CSP) のクラス                                     |
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Assignment.html][Assignment]] | CSP への値割当てのクラス                                        |
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Solver.html][Solver]]     | CSP ソルバーのクラス                                            |
+     |------------+-----------------------------------------------------------------|
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Term.html][Term]]       | 制約を構成する項を表す抽象クラス                                |
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Var.html][Var]]        | Term を継承する整数変数のクラス                                 |
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Sum.html][Sum]]        | Term を継承する項の和のクラス                                   |
+     |------------+-----------------------------------------------------------------|
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Constraint.html][Constraint]] | 制約を表す抽象クラス                                            |
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/And.html][And]]        | Constraint を継承するリテラルの連言のクラス                     |
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Or.html][Or]]         | Constraint を継承するリテラルの選言のクラス                     |
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Literal.html][Literal]]    | Constraint を継承するリテラルのクラス                           |
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Bool.html][Bool]]       | Literal を継承するブール変数のクラス                            |
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/Not.html][Not]]        | Literal を継承するブール変数の否定のクラス                      |
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/LeZero.html][LeZero]]     | Literal を継承する線形比較 \(b + \sum_i a_ix_i \le 0\) のクラス |
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/GeZero.html][GeZero]]     | Literal を継承する線形比較 \(b + \sum_i a_ix_i \ge 0\) のクラス |
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/EqZero.html][EqZero]]     | Literal を継承する線形比較 \(b + \sum_i a_ix_i = 0\) のクラス   |
+     | [[https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/NeZero.html][NeZero]]     | Literal を継承する線形比較 \(b + \sum_i a_ix_i \ne 0\) のクラス |
+   - これらのクラスに加えて, Scarab DSL でグローバル制約 alldiff を利
+     用できるように以下のメソッドとして提供している (DSL ではトップレ
+     ベルで利用できる). 
+     - def alldiff(xs: Iterable[Term]): And
+     - def alldiff(xs: Term*): And
 
-** Scarab のクラス図
 *** CSPに関係するクラス図
 #+HTML:<center>
 [[file:figs/class_diagram_csp.png]]
@@ -668,6 +684,108 @@ println("This Graph has no Hamiltonian Cycle")
 [[file:figs/class_diagram_solver.png]]
 #+HTML:</center>
 
+** Scarab DSL について
+*** CSP について
+    - Scarab DSL を呼んだ状態, すなわち以下のように import 文を書いた
+      場合には, csp という名前のデフォルトの csp オブジェクトが定義さ
+      れている. 
+#+begin_src scala
+scala> import jp.kobe_u.scarab._, dsl._
+#+end_src
+    - この csp オブジェクトは以下のメソッドで編集できる.
+      - 整数変数の追加
+	- def int(x: Var, a: Int, b: Int): Var
+	- def int(x: Var, d: Seq[Int]): Var
+      - 制約の追加
+	- def add(c: Constraint): Constraint
+    - これらのメソッドを呼ぶと, 暗黙的にデフォルトのオブジェクト csp
+      に対する操作になる
+#+begin_src scala
+scala> int('x, 1, 5)
+res: jp.kobe_u.scarab.Var = x
+
+scala> int('y, Seq(1,3,5))
+res: jp.kobe_u.scarab.Var = y
+
+scala> add('x + 'y >= 3)
+res: jp.kobe_u.scarab.Constraint = GeZero(Sum(-3+x+y))
+
+scala> csp
+res: jp.kobe_u.scarab.CSP = CSP(Vector(x, y),Vector(),Map(x -> Domain(1 to 5), y -> Domain(1,3,5)),Vector(GeZero(Sum(-3+x+y))))
+#+end_src
+
+*** CSP における整数変数の定義について
+    - Scarab DSL では, 整数変数の定義が簡単に行えるようにシンボルの暗
+      黙変換 (implicit conversion) を定義している. 
+    - 以下は, 整数変数を通常の手続きで定義する方法である. 
+#+begin_src scala
+scala> import jp.kobe_u.scarab._, dsl._
+import jp.kobe_u.scarab._
+import dsl._
+
+scala> Var("x","1","2")
+res: jp.kobe_u.scarab.Var = x(1,2)
+#+end_src
+    - ここで, x(1,2) はこの整数変数の変数名になる (変数名は重複があっ
+      てはならない).
+    - Scala のシンボルはシングルクォーテーションを使って以下のように定
+      義される. 
+#+begin_src scala
+scala> 's
+res0: Symbol = 's
+#+end_src
+    - 暗黙変換は, オブジェクトをシンボルと解釈すると, エラーになるが,
+      CSPの整数変数と解釈するとうまくいく時に行われる.
+    - 以下は, そのような例である. 
+#+begin_src scala
+scala> 's(1)
+res1: jp.kobe_u.scarab.Var = s(1)
+#+end_src
+    - ここで「's(1)」の 's をシンボルと解釈すると, シンボルは apply メ
+      ソッド (Scala ではメソッド呼び出しの際に apply というメソッド名
+      を省略可能) を持たないため，エラーとなる.
+    - しかし, Scarab DSL において, シンボルから整数変数オブジェクトへ
+      の暗黙変換が定義されているため, 's を整数変数として解釈すること
+      が試みられる．
+    - 結果として, 整数変数クラス (Var) が, apply メソッドを持ち, かつ
+      Int 型の引数を取ることが出来るため (実際はより幅広く任意個の Any
+      型を引数に取れる), 's は Var 型のオブジェクトと解釈され, 's(1)
+      は Var 型のオブジェクトのメソッド apply を引数 1 に対して呼んだ
+      と解釈される.
+    - Var 型の apply メソッドは, 's に引数1を追加した新しい Var 型のオ
+      ブジェクトを生成するファクトリメソッドになっているので, 最終的に
+      s(1) という名前の整数変数が返される.
+    - 以下は, Var 型オブジェクトを生成するいくつかの方法である. 
+#+begin_src scala
+scala> 's(1,2)
+res2: jp.kobe_u.scarab.Var = s(1,2)
+
+scala> 's(1)(2)
+res3: jp.kobe_u.scarab.Var = s(1,2)
+
+scala> 's(1)(2)(3)
+res4: jp.kobe_u.scarab.Var = s(1,2,3)
+
+scala> 's(1,2,3)
+res5: jp.kobe_u.scarab.Var = s(1,2,3)
+   #+end_src
+   - 's(1,2) と 's(1)(2) の結果は同じになる．
+     - 's(1,2) は, apply メソッドを2個の引数で呼んでいる
+     - 's(1)(2) は, 's(1) で生成されるオブジェクトに対してさらに apply
+       メソッドを呼んでいる. 
+
+** Scarab DSL の制約記述に関する構文 (BNF記法)
+- *V*, *T*, *C*, *B* を *Var* (整数変数), *Term* (項), *Constraint* (制約), *Bool* (ブール変数) に対応するScarabオブジェクトとする.
+- Int, String, Any は Scala のオブジェクトとする．
+- 制約に関する Scarab DSL の構文は BNF 記法を用いて以下のように定義される．
+#+BEGIN_EXAMPLE lisp
+ T  ::= V | -T | T + Int | T + T | T - Int | T - T | T * Int | Sum(V, ...) | Sum(Seq(V, ...))  
+ V  ::= Var(String, String, ...) | V(Any, ...)
+ C  ::= B | T op T | !C | C && C | C || C | alldiff(Seq(T, ...)) |  
+       And(C, ...) | And(Seq(C, ...)) | Or(C, ...) | Or(Seq(C, ...))
+ op ::= <= | < | => | > | === | !==
+ B  ::= Bool(String, String, ...) | B(Any, ...)
+#+END_EXAMPLE
 
 ** プログラムの簡単なまとめ
 *** 項オブジェクト (Termオブジェクト)
@@ -689,13 +807,13 @@ res16: jp.kobe_u.scarab.Var = x(book,apple,300)
 #+END_SRC
 - Scala の Symbol は，Varオブジェクトに暗黙変換される．
 #+BEGIN_SRC scala
-scala> 'abc(2)
+pscala> 'abc(2)
 res19: jp.kobe_u.scarab.Var = abc(2)
 #+END_SRC
 - Varオブジェクトは後述の項 (Term) オブジェクトの一種である．
 
-**** 和算オブジェクト (Sumオブジェクト)
-- Sumオブジェクトは整数変数の加算 ($+$)，減算 ($-$) を表す．
+**** 加算オブジェクト (Sumオブジェクト)
+- Sumオブジェクトは整数変数 (項も) の加算 ($+$)，減算 ($-$) を表す．
 #+BEGIN_SRC scala
 scala> Sum('x + 'y)
 res21: jp.kobe_u.scarab.Sum = Sum(+x+y)
