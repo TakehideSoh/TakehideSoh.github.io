@@ -686,18 +686,18 @@ println("This Graph has no Hamiltonian Cycle")
 
 ** Scarab DSL について
 *** CSP について
-    - Scarab DSL を呼んだ状態, すなわち以下のように import 文を書いた
-      場合には, csp という名前のデフォルトの csp オブジェクトが定義さ
+    - Scarab DSL を呼んだ状態, すなわち以下のように ~import~ 文を書いた
+      場合には, ~csp~ という名前のデフォルトの ~csp~ オブジェクトが定義さ
       れている. 
 #+begin_src scala
 scala> import jp.kobe_u.scarab._, dsl._
 #+end_src
     - この csp オブジェクトは以下のメソッドで編集できる.
       - 整数変数の追加
-	- def int(x: Var, a: Int, b: Int): Var
-	- def int(x: Var, d: Seq[Int]): Var
+	- ~def int(x: Var, a: Int, b: Int): Var~
+	- ~def int(x: Var, d: Seq[Int]): Var~
       - 制約の追加
-	- def add(c: Constraint): Constraint
+	- ~def add(c: Constraint): Constraint~
     - これらのメソッドを呼ぶと, 暗黙的にデフォルトのオブジェクト csp
       に対する操作になる
 #+begin_src scala
@@ -726,7 +726,7 @@ import dsl._
 scala> Var("x","1","2")
 res: jp.kobe_u.scarab.Var = x(1,2)
 #+end_src
-    - ここで, x(1,2) はこの整数変数の変数名になる (変数名は重複があっ
+    - ここで, ~x(1,2)~ はこの整数変数の変数名になる (変数名は重複があっ
       てはならない).
     - Scala のシンボルはシングルクォーテーションを使って以下のように定
       義される. 
@@ -741,20 +741,20 @@ res0: Symbol = 's
 scala> 's(1)
 res1: jp.kobe_u.scarab.Var = s(1)
 #+end_src
-    - ここで「's(1)」の 's をシンボルと解釈すると, シンボルは apply メ
-      ソッド (Scala ではメソッド呼び出しの際に apply というメソッド名
+    - ここで ~'s(1)~ の ~'s~x をシンボルと解釈すると, シンボルは ~apply~ メ
+      ソッド (Scala ではメソッド呼び出しの際に ~apply~ というメソッド名
       を省略可能) を持たないため，エラーとなる.
     - しかし, Scarab DSL において, シンボルから整数変数オブジェクトへ
-      の暗黙変換が定義されているため, 's を整数変数として解釈すること
+      の暗黙変換が定義されているため, ~'s~ を整数変数として解釈すること
       が試みられる．
-    - 結果として, 整数変数クラス (Var) が, apply メソッドを持ち, かつ
+    - 結果として, 整数変数クラス (Var) が, ~apply~ メソッドを持ち, かつ
       Int 型の引数を取ることが出来るため (実際はより幅広く任意個の Any
-      型を引数に取れる), 's は Var 型のオブジェクトと解釈され, 's(1)
-      は Var 型のオブジェクトのメソッド apply を引数 1 に対して呼んだ
+      型を引数に取れる), ~'s~ は Var 型のオブジェクトと解釈され, ~'s(1)~
+      は Var 型のオブジェクトのメソッド ~apply~ を引数 1 に対して呼んだ
       と解釈される.
-    - Var 型の apply メソッドは, 's に引数1を追加した新しい Var 型のオ
+    - Var 型の ~apply~ メソッドは, 's に引数1を追加した新しい Var 型のオ
       ブジェクトを生成するファクトリメソッドになっているので, 最終的に
-      s(1) という名前の整数変数が返される.
+      ~s(1)~ という名前の整数変数が返される.
     - 以下は, Var 型オブジェクトを生成するいくつかの方法である. 
 #+begin_src scala
 scala> 's(1,2)
