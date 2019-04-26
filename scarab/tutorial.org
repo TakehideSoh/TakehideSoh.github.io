@@ -43,7 +43,7 @@
       - [[https://tsoh.org/scarab/talks/ai-tool-soh-2.pdf][alldiffrent制約を例に用いた制約の拡張]]
     - [[https://tsoh.org/scarab/talks/talk-jp-ppl2017.pdf][SATソルバーの最新動向と利用技術 (日本語) @ PPL 2017]]
 
-* インストール
+* インストール (sbt)
 1. [[https://www.scala-sbt.org/1.x/docs/ja/Setup.html][sbt 本家]] のインストールマニュアルをみて，sbt のインストールを行う.
    以下の環境へのインストール方法が記載されている. 
    - [[https://www.scala-sbt.org/1.x/docs/ja/Installing-sbt-on-Mac.html][Mac へのインストール方法]]
@@ -90,6 +90,9 @@
     - REPL (Read Eval Print Loop) による対話的な実行方法
     - スクリプトによるコンパイル不要な実行方法
     - scalac で実行形式にコンパイルしてから実行する方法
+    - [[https://almond.sh/][Almond]] Scala カーネル上の [[http://jupyter.org/][jupyter notebook]] で実行する
+      - 環境設定無しで, ブラウザだけで実行できます.
+      - [[https://mybinder.org/v2/gh/TakehideSoh/Scarab4Binder/master?urlpath=lab/tree/index.ipynb][ここ]] をクリックしてもらうだけで，少し待つと実行環境が表示されます．
   - 本チュートリアルでは REPL による対話的な実行方法を通して scarab を説明する．
 
 * REPL による対話的な実行方法

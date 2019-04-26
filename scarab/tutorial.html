@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-04-25 木 00:13 -->
+<!-- 2019-04-26 金 14:32 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scarab チュートリアル</title>
@@ -294,43 +294,43 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgad2564f">1. 参考資料</a></li>
-<li><a href="#orgd241258">2. インストール</a></li>
-<li><a href="#orgd381acf">3. 実行の方法</a></li>
-<li><a href="#orgf151fcd">4. REPL による対話的な実行方法</a>
+<li><a href="#org88189cd">1. 参考資料</a></li>
+<li><a href="#org7b8a5d4">2. インストール (sbt)</a></li>
+<li><a href="#orgff7b420">3. 実行の方法</a></li>
+<li><a href="#org6249ac8">4. REPL による対話的な実行方法</a>
 <ul>
-<li><a href="#orgadfccd2">4.1. CSP の定義</a></li>
-<li><a href="#org2bad2ca">4.2. 解の探索</a></li>
+<li><a href="#org03f1837">4.1. CSP の定義</a></li>
+<li><a href="#org176c22c">4.2. 解の探索</a></li>
 </ul>
 </li>
-<li><a href="#org93b2ebf">5. スクリプトファイルの読み込み</a>
+<li><a href="#orgfb05dc0">5. スクリプトファイルの読み込み</a>
 <ul>
-<li><a href="#orgff94feb">5.1. 練習問題</a></li>
+<li><a href="#orgb56e71a">5.1. 練習問題</a></li>
 </ul>
 </li>
-<li><a href="#orgc95a559">6. 簡単な例題</a>
+<li><a href="#orgd1f6df1">6. 簡単な例題</a>
 <ul>
-<li><a href="#orgfaf9463">6.1. 部分和問題</a></li>
-<li><a href="#org00bdbb1">6.2. 魔方陣</a></li>
-<li><a href="#org2742deb">6.3. 正方形矩形パッキング</a></li>
-<li><a href="#org598780d">6.4. その他の例題</a></li>
+<li><a href="#orgd262e04">6.1. 部分和問題</a></li>
+<li><a href="#orgad5e6e9">6.2. 魔方陣</a></li>
+<li><a href="#org0c8eb9c">6.3. 正方形矩形パッキング</a></li>
+<li><a href="#org0f7a55f">6.4. その他の例題</a></li>
 </ul>
 </li>
-<li><a href="#orgf591d0b">7. その他 Scarab の説明クラスとメソッドの簡単なまとめ</a>
+<li><a href="#orge3f4ad9">7. その他 Scarab の説明クラスとメソッドの簡単なまとめ</a>
 <ul>
-<li><a href="#orgd1fd5f1">7.1. jar ファイルとソースコード</a></li>
-<li><a href="#orga275d3e">7.2. Scarab のクラスについて</a></li>
-<li><a href="#org0e75339">7.3. Scarab DSL について</a></li>
-<li><a href="#orgb8519c0">7.4. Scarab DSL の制約記述に関する構文 (BNF記法)</a></li>
-<li><a href="#org4616914">7.5. プログラムの簡単なまとめ</a></li>
+<li><a href="#orgc01db61">7.1. jar ファイルとソースコード</a></li>
+<li><a href="#orgda479fe">7.2. Scarab のクラスについて</a></li>
+<li><a href="#org5be2710">7.3. Scarab DSL について</a></li>
+<li><a href="#org37a4d3e">7.4. Scarab DSL の制約記述に関する構文 (BNF記法)</a></li>
+<li><a href="#org8a2d1ed">7.5. プログラムの簡単なまとめ</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgad2564f" class="outline-2">
-<h2 id="orgad2564f"><span class="section-number-2">1</span> 参考資料</h2>
+<div id="outline-container-org88189cd" class="outline-2">
+<h2 id="org88189cd"><span class="section-number-2">1</span> 参考資料</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li>Scarab 資料
@@ -356,8 +356,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgd241258" class="outline-2">
-<h2 id="orgd241258"><span class="section-number-2">2</span> インストール</h2>
+<div id="outline-container-org7b8a5d4" class="outline-2">
+<h2 id="org7b8a5d4"><span class="section-number-2">2</span> インストール (sbt)</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li><a href="https://www.scala-sbt.org/1.x/docs/ja/Setup.html">sbt 本家</a> のインストールマニュアルをみて，sbt のインストールを行う.
@@ -422,8 +422,8 @@ sbt:Scarab&gt;
 </div>
 </div>
 
-<div id="outline-container-orgd381acf" class="outline-2">
-<h2 id="orgd381acf"><span class="section-number-2">3</span> 実行の方法</h2>
+<div id="outline-container-orgff7b420" class="outline-2">
+<h2 id="orgff7b420"><span class="section-number-2">3</span> 実行の方法</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li>Scarab の制約記述言語は Scala 上のドメイン特化言語として実装されている． <a href="ref.html">Scala の説明</a></li>
@@ -432,14 +432,19 @@ sbt:Scarab&gt;
 <li>REPL (Read Eval Print Loop) による対話的な実行方法</li>
 <li>スクリプトによるコンパイル不要な実行方法</li>
 <li>scalac で実行形式にコンパイルしてから実行する方法</li>
+<li><a href="https://almond.sh/">Almond</a> Scala カーネル上の <a href="http://jupyter.org/">jupyter notebook</a> で実行する
+<ul class="org-ul">
+<li>環境設定無しで, ブラウザだけで実行できます.</li>
+<li><a href="https://mybinder.org/v2/gh/TakehideSoh/Scarab4Binder/master?urlpath=lab/tree/index.ipynb">ここ</a> をクリックしてもらうだけで，少し待つと実行環境が表示されます．</li>
+</ul></li>
 </ul></li>
 <li>本チュートリアルでは REPL による対話的な実行方法を通して scarab を説明する．</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgf151fcd" class="outline-2">
-<h2 id="orgf151fcd"><span class="section-number-2">4</span> REPL による対話的な実行方法</h2>
+<div id="outline-container-org6249ac8" class="outline-2">
+<h2 id="org6249ac8"><span class="section-number-2">4</span> REPL による対話的な実行方法</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 簡単な例題を通して, Scala の REPL (対話的実行環境) を用いた scarab の利用方法を理解しよう.
@@ -473,8 +478,8 @@ sbt:Scarab&gt;
 </blockquote>
 </div>
 
-<div id="outline-container-orgadfccd2" class="outline-3">
-<h3 id="orgadfccd2"><span class="section-number-3">4.1</span> CSP の定義</h3>
+<div id="outline-container-org03f1837" class="outline-3">
+<h3 id="org03f1837"><span class="section-number-3">4.1</span> CSP の定義</h3>
 <div class="outline-text-3" id="text-4-1">
 <ul class="org-ul">
 <li>上記のCSPに対応するScarabプログラムは以下になる</li>
@@ -582,8 +587,8 @@ int(d,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">
 </div>
 </div>
 
-<div id="outline-container-org2bad2ca" class="outline-3">
-<h3 id="org2bad2ca"><span class="section-number-3">4.2</span> 解の探索</h3>
+<div id="outline-container-org176c22c" class="outline-3">
+<h3 id="org176c22c"><span class="section-number-3">4.2</span> 解の探索</h3>
 <div class="outline-text-3" id="text-4-2">
 <ul class="org-ul">
 <li>最初の解の探索は find で行う．</li>
@@ -676,8 +681,8 @@ res23<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </div>
 
-<div id="outline-container-org93b2ebf" class="outline-2">
-<h2 id="org93b2ebf"><span class="section-number-2">5</span> スクリプトファイルの読み込み</h2>
+<div id="outline-container-orgfb05dc0" class="outline-2">
+<h2 id="orgfb05dc0"><span class="section-number-2">5</span> スクリプトファイルの読み込み</h2>
 <div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li>CSPをScalaのスクリプトファイルとして定義することもできる．</li>
@@ -751,8 +756,8 @@ res17<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </div>
 
-<div id="outline-container-orgff94feb" class="outline-3">
-<h3 id="orgff94feb"><span class="section-number-3">5.1</span> 練習問題</h3>
+<div id="outline-container-orgb56e71a" class="outline-3">
+<h3 id="orgb56e71a"><span class="section-number-3">5.1</span> 練習問題</h3>
 <div class="outline-text-3" id="text-5-1">
 <ul class="org-ul">
 <li>89円分の切手を構成できるかテストしてみよう．</li>
@@ -761,12 +766,12 @@ res17<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </div>
 
-<div id="outline-container-orgc95a559" class="outline-2">
-<h2 id="orgc95a559"><span class="section-number-2">6</span> 簡単な例題</h2>
+<div id="outline-container-orgd1f6df1" class="outline-2">
+<h2 id="orgd1f6df1"><span class="section-number-2">6</span> 簡単な例題</h2>
 <div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-orgfaf9463" class="outline-3">
-<h3 id="orgfaf9463"><span class="section-number-3">6.1</span> 部分和問題</h3>
+<div id="outline-container-orgd262e04" class="outline-3">
+<h3 id="orgd262e04"><span class="section-number-3">6.1</span> 部分和問題</h3>
 <div class="outline-text-3" id="text-6-1">
 <pre class="example">
 使いきらなければならない予算が 50 千円あります．
@@ -878,7 +883,7 @@ x(<span style="color: #008b8b;">34</span>) <span style="color: #008b8b;">1</span
 </div>
 
 <ol class="org-ol">
-<li><a id="org3c6a03b"></a>練習問題<br />
+<li><a id="org0e8236a"></a>練習問題<br />
 <div class="outline-text-4" id="text-6-1-1">
 <ul class="org-ul">
 <li>和が40の場合はどうなるか?</li>
@@ -888,8 +893,8 @@ x(<span style="color: #008b8b;">34</span>) <span style="color: #008b8b;">1</span
 </ol>
 </div>
 
-<div id="outline-container-org00bdbb1" class="outline-3">
-<h3 id="org00bdbb1"><span class="section-number-3">6.2</span> 魔方陣</h3>
+<div id="outline-container-orgad5e6e9" class="outline-3">
+<h3 id="orgad5e6e9"><span class="section-number-3">6.2</span> 魔方陣</h3>
 <div class="outline-text-3" id="text-6-2">
 <pre class="example">
 1から9の数字を 3×3 に配置し， 各行，各列，各対角線の和がいずれも15になるようにせよ．
@@ -971,7 +976,7 @@ add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</s
 </div>
 
 <ol class="org-ol">
-<li><a id="org2ab9df4"></a>練習問題<br />
+<li><a id="org1541355"></a>練習問題<br />
 <div class="outline-text-4" id="text-6-2-1">
 <ul class="org-ul">
 <li>n x n の魔方陣を記述してみよう．</li>
@@ -981,8 +986,8 @@ add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</s
 </ol>
 </div>
 
-<div id="outline-container-org2742deb" class="outline-3">
-<h3 id="org2742deb"><span class="section-number-3">6.3</span> 正方形矩形パッキング</h3>
+<div id="outline-container-org0c8eb9c" class="outline-3">
+<h3 id="org0c8eb9c"><span class="section-number-3">6.3</span> 正方形矩形パッキング</h3>
 <div class="outline-text-3" id="text-6-3">
 <pre class="example">
 正方形詰込み問題 SP(n,s) は一辺の長さ 1 から n まで1ずつ増加する正方形の集合を
@@ -1038,8 +1043,8 @@ int(<span style="color: #8b2252;">'m</span>, lb, ub)
 </div>
 </div>
 
-<div id="outline-container-org598780d" class="outline-3">
-<h3 id="org598780d"><span class="section-number-3">6.4</span> その他の例題</h3>
+<div id="outline-container-org0f7a55f" class="outline-3">
+<h3 id="org0f7a55f"><span class="section-number-3">6.4</span> その他の例題</h3>
 <div class="outline-text-3" id="text-6-4">
 <ul class="org-ul">
 <li><a href="http://www.csplib.org/Problems/prob024/">ラングフォード・ペアリング</a></li>
@@ -1049,12 +1054,12 @@ int(<span style="color: #8b2252;">'m</span>, lb, ub)
 </div>
 </div>
 
-<div id="outline-container-orgf591d0b" class="outline-2">
-<h2 id="orgf591d0b"><span class="section-number-2">7</span> その他 Scarab の説明クラスとメソッドの簡単なまとめ</h2>
+<div id="outline-container-orge3f4ad9" class="outline-2">
+<h2 id="orge3f4ad9"><span class="section-number-2">7</span> その他 Scarab の説明クラスとメソッドの簡単なまとめ</h2>
 <div class="outline-text-2" id="text-7">
 </div>
-<div id="outline-container-orgd1fd5f1" class="outline-3">
-<h3 id="orgd1fd5f1"><span class="section-number-3">7.1</span> jar ファイルとソースコード</h3>
+<div id="outline-container-orgc01db61" class="outline-3">
+<h3 id="orgc01db61"><span class="section-number-3">7.1</span> jar ファイルとソースコード</h3>
 <div class="outline-text-3" id="text-7-1">
 <ul class="org-ul">
 <li>scarab を jar ファイルにまとめたものです</li>
@@ -1072,8 +1077,8 @@ int(<span style="color: #8b2252;">'m</span>, lb, ub)
 </div>
 </div>
 
-<div id="outline-container-orga275d3e" class="outline-3">
-<h3 id="orga275d3e"><span class="section-number-3">7.2</span> Scarab のクラスについて</h3>
+<div id="outline-container-orgda479fe" class="outline-3">
+<h3 id="orgda479fe"><span class="section-number-3">7.2</span> Scarab のクラスについて</h3>
 <div class="outline-text-3" id="text-7-2">
 <ul class="org-ul">
 <li>Scarab のクラスについては scaladoc によって生成された <a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/">API</a> に詳し
@@ -1190,7 +1195,7 @@ int(<span style="color: #8b2252;">'m</span>, lb, ub)
 </div>
 
 <ol class="org-ol">
-<li><a id="org29aeb62"></a>CSPに関係するクラス図<br />
+<li><a id="org9e755c7"></a>CSPに関係するクラス図<br />
 <div class="outline-text-4" id="text-7-2-1">
 <center>
 
@@ -1202,7 +1207,7 @@ int(<span style="color: #8b2252;">'m</span>, lb, ub)
 </div>
 </li>
 
-<li><a id="org1040fc4"></a>制約ソルバーに関係するクラス図<br />
+<li><a id="org6355ca3"></a>制約ソルバーに関係するクラス図<br />
 <div class="outline-text-4" id="text-7-2-2">
 <center>
 
@@ -1216,12 +1221,12 @@ int(<span style="color: #8b2252;">'m</span>, lb, ub)
 </ol>
 </div>
 
-<div id="outline-container-org0e75339" class="outline-3">
-<h3 id="org0e75339"><span class="section-number-3">7.3</span> Scarab DSL について</h3>
+<div id="outline-container-org5be2710" class="outline-3">
+<h3 id="org5be2710"><span class="section-number-3">7.3</span> Scarab DSL について</h3>
 <div class="outline-text-3" id="text-7-3">
 </div>
 <ol class="org-ol">
-<li><a id="org2c65af0"></a>CSP について<br />
+<li><a id="org5c0e671"></a>CSP について<br />
 <div class="outline-text-4" id="text-7-3-1">
 <ul class="org-ul">
 <li>Scarab DSL を呼んだ状態, すなわち以下のように <code>import</code> 文を書いた
@@ -1265,7 +1270,7 @@ res<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span
 </div>
 </li>
 
-<li><a id="orgf60711c"></a>CSP における整数変数の定義について<br />
+<li><a id="org004c9b4"></a>CSP における整数変数の定義について<br />
 <div class="outline-text-4" id="text-7-3-2">
 <ul class="org-ul">
 <li>Scarab DSL では, 整数変数の定義が簡単に行えるようにシンボルの暗
@@ -1346,8 +1351,8 @@ res5<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</spa
 </ol>
 </div>
 
-<div id="outline-container-orgb8519c0" class="outline-3">
-<h3 id="orgb8519c0"><span class="section-number-3">7.4</span> Scarab DSL の制約記述に関する構文 (BNF記法)</h3>
+<div id="outline-container-org37a4d3e" class="outline-3">
+<h3 id="org37a4d3e"><span class="section-number-3">7.4</span> Scarab DSL の制約記述に関する構文 (BNF記法)</h3>
 <div class="outline-text-3" id="text-7-4">
 <ul class="org-ul">
 <li><b>V</b>, <b>T</b>, <b>C</b>, <b>B</b> を <b>Var</b> (整数変数), <b>Term</b> (項), <b>Constraint</b> (制約), <b>Bool</b> (ブール変数) に対応するScarabオブジェクトとする.</li>
@@ -1365,14 +1370,14 @@ B  ::= Bool(String, String, ...) | B(Any, ...)
 </div>
 </div>
 
-<div id="outline-container-org4616914" class="outline-3">
-<h3 id="org4616914"><span class="section-number-3">7.5</span> プログラムの簡単なまとめ</h3>
+<div id="outline-container-org8a2d1ed" class="outline-3">
+<h3 id="org8a2d1ed"><span class="section-number-3">7.5</span> プログラムの簡単なまとめ</h3>
 <div class="outline-text-3" id="text-7-5">
 </div>
 <ol class="org-ol">
-<li><a id="orge5d8ee6"></a>項オブジェクト (Termオブジェクト)<br />
+<li><a id="org4cba4ed"></a>項オブジェクト (Termオブジェクト)<br />
 <ol class="org-ol">
-<li><a id="org16e44d4"></a>整数変数オブジェクト (Varオブジェクト)<br />
+<li><a id="orgbb2d96a"></a>整数変数オブジェクト (Varオブジェクト)<br />
 <div class="outline-text-5" id="text-7-5-1-1">
 <ul class="org-ul">
 <li>整数変数オプジェクトは Var で生成する． 引数にはその名前を与える．</li>
@@ -1412,7 +1417,7 @@ res19<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </li>
 
-<li><a id="org612b1a0"></a>加算オブジェクト (Sumオブジェクト)<br />
+<li><a id="orgf8c8a33"></a>加算オブジェクト (Sumオブジェクト)<br />
 <div class="outline-text-5" id="text-7-5-1-2">
 <ul class="org-ul">
 <li>Sumオブジェクトは整数変数 (項も) の加算 (\(+\))，減算 (\(-\)) を表す．</li>
@@ -1433,7 +1438,7 @@ res23<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </ol>
 </li>
 
-<li><a id="org7568eab"></a>制約オブジェクト<br />
+<li><a id="org8ebaa1f"></a>制約オブジェクト<br />
 <div class="outline-text-4" id="text-7-5-2">
 <ul class="org-ul">
 <li>Termオブジェクトと比較演算子 &lt;= (\(\le\)), &lt;, &gt;= (\(\ge\)), &gt;, <code>=</code> (\(=\)),　!== (\(\ne\)) の組合せで構成される．</li>
@@ -1449,14 +1454,14 @@ res25<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </li>
 
-<li><a id="orgdb7a69c"></a>CSPオブジェクト<br />
+<li><a id="orgd3bd876"></a>CSPオブジェクト<br />
 <div class="outline-text-4" id="text-7-5-3">
 <ul class="org-ul">
 <li>CSPオブジェクトは，制約充足問題を表すオブジェクトである． jp.kobe_u.scarab.dsl._ を import した場合， デフォールトのCSPオブジェクトを変数 csp として参照できる．</li>
 </ul>
 </div>
 <ol class="org-ol">
-<li><a id="org8982b16"></a>整数変数の宣言 (CSPへ整数変数を追加)<br />
+<li><a id="org37be7e8"></a>整数変数の宣言 (CSPへ整数変数を追加)<br />
 <div class="outline-text-5" id="text-7-5-3-1">
 <ul class="org-ul">
 <li>整数変数は int メソッドで宣言する． 通常は，下限値と上限値を与える．</li>
@@ -1488,7 +1493,7 @@ res30<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </li>
 
-<li><a id="org98d9653"></a>制約の追加<br />
+<li><a id="org0e4a5ee"></a>制約の追加<br />
 <div class="outline-text-5" id="text-7-5-3-2">
 <ul class="org-ul">
 <li>制約の追加は add メソッドで宣言する．</li>
@@ -1513,7 +1518,7 @@ int(y,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">
 </ol>
 </li>
 
-<li><a id="org1eccf8a"></a>解の探索<br />
+<li><a id="orga4869ec"></a>解の探索<br />
 <div class="outline-text-4" id="text-7-5-4">
 <ul class="org-ul">
 <li>最初の解の探索は find で行う．</li>
@@ -1567,7 +1572,7 @@ res39<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </li>
 
-<li><a id="orga129a16"></a>その他<br />
+<li><a id="org1fba731"></a>その他<br />
 <div class="outline-text-4" id="text-7-5-5">
 <ul class="org-ul">
 <li>SATソルバーを切り替えるには以下のようにする</li>
@@ -1665,7 +1670,7 @@ use(<span style="color: #a020f0;">new</span> <span style="color: #228b22;">LogEn
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Takehide Soh</p>
-<p class="date">Created: 2019-04-25 木 00:13</p>
+<p class="date">Created: 2019-04-26 金 14:32</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
