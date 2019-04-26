@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-04-26 金 17:20 -->
+<!-- 2019-04-26 金 17:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>sCOP: a SAT-based CP System</title>
@@ -253,17 +253,17 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">sCOP: a SAT-based CP System</h1>
 
-<div id="outline-container-org58337f5" class="outline-2">
-<h2 id="org58337f5">Overview of sCOP</h2>
-<div class="outline-text-2" id="text-org58337f5">
+<div id="outline-container-org9d0e8ca" class="outline-2">
+<h2 id="org9d0e8ca">Overview of sCOP</h2>
+<div class="outline-text-2" id="text-org9d0e8ca">
 <ul class="org-ul">
 <li>sCOP is a Sat-based COnstraint Programming system written in Scala
 2.12.</li>
 <li>sCOP aims to be a re-implementation of <a href="http://bach.istc.kobe-u.ac.jp/sugar/">Sugar</a> (Tamura et al.)
 written in Java. Currently, main differences are as follows: 
 <ul class="org-ul">
-<li>(I think) <a href="http://bach.istc.kobe-u.ac.jp/sugar/">Sugar</a> is well written but sCOP is not well written.</li>
 <li>Encoding of extensional constraints is different between the two systems.</li>
+<li>Some of encoding heuristics is different between the two systems.</li>
 </ul></li>
 <li>It works as follows:
 <ol class="org-ol">
@@ -276,9 +276,9 @@ XCSP3 instance.</li>
 </div>
 </div>
 
-<div id="outline-container-org983b32c" class="outline-2">
-<h2 id="org983b32c">Reference</h2>
-<div class="outline-text-2" id="text-org983b32c">
+<div id="outline-container-org2811162" class="outline-2">
+<h2 id="org2811162">Reference</h2>
+<div class="outline-text-2" id="text-org2811162">
 <ul class="org-ul">
 <li>sCOP: SAT-based Constraint Programming System. Takehide Soh,
 Daniel Le Berre, Mutsunori Banbara, Naoyuki Tamura. 
@@ -287,18 +287,18 @@ In Proceedings of XCSP3 Competition 2018, 93&#x2013;94, 2018. <a href="http://ww
 </div>
 </div>
 
-<div id="outline-container-org8d4edef" class="outline-2">
-<h2 id="org8d4edef">Download</h2>
-<div class="outline-text-2" id="text-org8d4edef">
+<div id="outline-container-org8fbbcff" class="outline-2">
+<h2 id="org8fbbcff">Download</h2>
+<div class="outline-text-2" id="text-org8fbbcff">
 <ul class="org-ul">
 <li><a href="scop-for-xcsp18-180731.tar.gz">the version submitted to XCSP18</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgf1d9de6" class="outline-2">
-<h2 id="orgf1d9de6">Components of sCOP</h2>
-<div class="outline-text-2" id="text-orgf1d9de6">
+<div id="outline-container-orgc0bce17" class="outline-2">
+<h2 id="orgc0bce17">Components of sCOP</h2>
+<div class="outline-text-2" id="text-orgc0bce17">
 <ul class="org-ul">
 <li>scop.jar
 <ul class="org-ul">
@@ -337,9 +337,9 @@ URL.</li>
 </div>
 </div>
 
-<div id="outline-container-org6f66e70" class="outline-2">
-<h2 id="org6f66e70">Requirements for sCOP</h2>
-<div class="outline-text-2" id="text-org6f66e70">
+<div id="outline-container-org640fd3c" class="outline-2">
+<h2 id="org640fd3c">Requirements for sCOP</h2>
+<div class="outline-text-2" id="text-org640fd3c">
 <ul class="org-ul">
 <li>Java 8</li>
 <li>(Note) Scala 2.12 is not necessary since scop.jar is a fat jar
@@ -348,9 +348,9 @@ containing scala standard libraries.</li>
 </div>
 </div>
 
-<div id="outline-container-orgf87b61f" class="outline-2">
-<h2 id="orgf87b61f">Notations in the following</h2>
-<div class="outline-text-2" id="text-orgf87b61f">
+<div id="outline-container-orgc743d35" class="outline-2">
+<h2 id="orgc743d35">Notations in the following</h2>
+<div class="outline-text-2" id="text-orgc743d35">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -389,18 +389,18 @@ containing scala standard libraries.</li>
 </div>
 </div>
 
-<div id="outline-container-orgf2273de" class="outline-2">
-<h2 id="orgf2273de">How to install</h2>
-<div class="outline-text-2" id="text-orgf2273de">
+<div id="outline-container-orgec55171" class="outline-2">
+<h2 id="orgec55171">How to install</h2>
+<div class="outline-text-2" id="text-orgec55171">
 <ul class="org-ul">
 <li>We need to compile 2 SAT solvers respectively for sequential
 solving and parallel solving.</li>
 </ul>
 </div>
 
-<div id="outline-container-org5b03ed0" class="outline-3">
-<h3 id="org5b03ed0">(Sequential CSP) MapleCOMSPS</h3>
-<div class="outline-text-3" id="text-org5b03ed0">
+<div id="outline-container-org421969a" class="outline-3">
+<h3 id="org421969a">(Sequential CSP) MapleCOMSPS</h3>
+<div class="outline-text-3" id="text-org421969a">
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #483d8b;">cd</span> DIR/MapleCOMSPS
 <span style="color: #483d8b;">export</span> <span style="color: #a0522d;">MROOT</span>=<span style="color: #ff00ff;">`pwd`</span>
@@ -412,9 +412,9 @@ make r
 </div>
 </div>
 
-<div id="outline-container-org6c02585" class="outline-3">
-<h3 id="org6c02585">(Parallel CSP) glucose-syrup</h3>
-<div class="outline-text-3" id="text-org6c02585">
+<div id="outline-container-org5ad864d" class="outline-3">
+<h3 id="org5ad864d">(Parallel CSP) glucose-syrup</h3>
+<div class="outline-text-3" id="text-org5ad864d">
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #483d8b;">cd</span> DIR/syrup
 make clean
@@ -424,9 +424,9 @@ make
 </div>
 </div>
 
-<div id="outline-container-org131f9be" class="outline-3">
-<h3 id="org131f9be">lzma (os command)</h3>
-<div class="outline-text-3" id="text-org131f9be">
+<div id="outline-container-orge35a585" class="outline-3">
+<h3 id="orge35a585">lzma (os command)</h3>
+<div class="outline-text-3" id="text-orge35a585">
 <ul class="org-ul">
 <li>we assume an os command &rsquo;lzma&rsquo; is available for decomposing *.xml.lzma instances.</li>
 <li>If there is not &rsquo;lzma&rsquo; then simply give *.xml to scop.</li>
@@ -435,9 +435,9 @@ make
 </div>
 </div>
 
-<div id="outline-container-org789e4eb" class="outline-2">
-<h2 id="org789e4eb">How to run</h2>
-<div class="outline-text-2" id="text-org789e4eb">
+<div id="outline-container-org71786d0" class="outline-2">
+<h2 id="org71786d0">How to run</h2>
+<div class="outline-text-2" id="text-org71786d0">
 <ul class="org-ul">
 <li>(NOTE) we here assume 11GB/22GB can be allocated to JVM. This is
 XCSP18 competition setting but larger heap size is better in
@@ -475,9 +475,9 @@ principal.</li>
 </div>
 </div>
 
-<div id="outline-container-org224c99f" class="outline-2">
-<h2 id="org224c99f">Example (please refer <a href="http://xcsp.org/series">http://xcsp.org/series</a> for example XCSP3 instances)</h2>
-<div class="outline-text-2" id="text-org224c99f">
+<div id="outline-container-orgaa0e5a3" class="outline-2">
+<h2 id="orgaa0e5a3">Example (please refer <a href="http://xcsp.org/series">http://xcsp.org/series</a> for example XCSP3 instances)</h2>
+<div class="outline-text-2" id="text-orgaa0e5a3">
 <ul class="org-ul">
 <li>(NOTE) we here assume 11GB/24GB can be allocated to JVM. This is
 XCSP18 competition setting but if possible larger size is
@@ -491,27 +491,27 @@ preferred.</li>
 </div>
 </div>
 
-<div id="outline-container-org781e0a1" class="outline-2">
-<h2 id="org781e0a1">License</h2>
-<div class="outline-text-2" id="text-org781e0a1">
+<div id="outline-container-org1aa5243" class="outline-2">
+<h2 id="org1aa5243">License</h2>
+<div class="outline-text-2" id="text-org1aa5243">
 <ul class="org-ul">
 <li>see <a href="LICENSE.txt">LICENSE.txt</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org06103cb" class="outline-2">
-<h2 id="org06103cb">Contact</h2>
-<div class="outline-text-2" id="text-org06103cb">
+<div id="outline-container-orga0f3745" class="outline-2">
+<h2 id="orga0f3745">Contact</h2>
+<div class="outline-text-2" id="text-orga0f3745">
 <ul class="org-ul">
 <li>please e-mail to <a href="http://kix.istc.kobe-u.ac.jp/~soh/">Takehide Soh</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org134b536" class="outline-2">
-<h2 id="org134b536">Links for Related Tool</h2>
-<div class="outline-text-2" id="text-org134b536">
+<div id="outline-container-orga5b2c55" class="outline-2">
+<h2 id="orga5b2c55">Links for Related Tool</h2>
+<div class="outline-text-2" id="text-orga5b2c55">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -602,7 +602,7 @@ preferred.</li>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Takehide Soh</p>
-<p class="date">Created: 2019-04-26 金 17:20</p>
+<p class="date">Created: 2019-04-26 金 17:41</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

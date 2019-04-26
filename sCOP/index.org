@@ -24,8 +24,8 @@
     2.12.
   - sCOP aims to be a re-implementation of [[http://bach.istc.kobe-u.ac.jp/sugar/][Sugar]] (Tamura et al.)
     written in Java. Currently, main differences are as follows: 
-    - (I think) [[http://bach.istc.kobe-u.ac.jp/sugar/][Sugar]] is well written but sCOP is not well written.
     - Encoding of extensional constraints is different between the two systems.
+    - Some of encoding heuristics is different between the two systems.
   - It works as follows:
     1. encode a XCSP3 file into a DIMACS CNF file.
     2. launch a SAT solver to solve the encoded CNF file.
