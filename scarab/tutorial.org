@@ -94,14 +94,11 @@
       - [[https://mybinder.org/v2/gh/TakehideSoh/Scarab4Binder/master?urlpath=lab/tree/index.ipynb][ここ]] をクリックしてもらうだけで，少し待つと [[http://jupyter.org/][Jupyter]] notebooks
         上の実行環境が表示されます．
       - 環境設定無しで, ブラウザだけで実行できます.
-      - この仕組みは以下2つのリポジトリのフォーク (コピーです) である
-        [[https://github.com/TakehideSoh/Scarab4Binder][Scarab4Binder]] で提供されます.
+      - この仕組みは以下のリポジトリの binder/postBuild のフォーク (コピーで
+        す) を利用した [[https://github.com/TakehideSoh/Scarab4Binder][Scarab4Binder]] で提供されます.
 	- [[https://github.com/almond-sh/examples][Almond Example]]
 	  - A collection of [[http://jupyter.org/][Jupyter]] notebooks showing what you can do with
 	    the [[https://almond.sh/][Almond]] Scala kernel.
-	- [[https://github.com/tamura70/copris-examples][Copris Example]]
-	  - Example [[http://jupyter.org/][Jupyter]] notebooks of [[http://bach.istc.kobe-u.ac.jp/copris/][Copris]] running on [[https://almond.sh/][Almond]] Scala
-	    kernel.
   - 本チュートリアルでは REPL による対話的な実行方法を通して scarab を説明する．
 
 * REPL による対話的な実行方法
