@@ -91,10 +91,11 @@
     - スクリプトによるコンパイル不要な実行方法
     - scalac で実行形式にコンパイルしてから実行する方法
     - ブラウザで実行する
-      - [[https://mybinder.org/v2/gh/TakehideSoh/Scarab4Binder/master?urlpath=lab/tree/index.ipynb][ここ]] をクリックしてもらうだけで，少し待つと実行環境が表示されます．
+      - [[https://mybinder.org/v2/gh/TakehideSoh/Scarab4Binder/master?urlpath=lab/tree/index.ipynb][ここ]] をクリックしてもらうだけで，少し待つと [[http://jupyter.org/][Jupyter]] notebooks
+        上の実行環境が表示されます．
       - 環境設定無しで, ブラウザだけで実行できます.
-      - この仕組みは以下2つのリポジトリのフォークである [[https://github.com/TakehideSoh/Scarab4Binder][Scarab4Binder]] 
-        で提供されます. 
+      - この仕組みは以下2つのリポジトリのフォーク (コピーです) である
+        [[https://github.com/TakehideSoh/Scarab4Binder][Scarab4Binder]] で提供されます.
 	- [[https://github.com/almond-sh/examples][Almond Example]]
 	  - A collection of [[http://jupyter.org/][Jupyter]] notebooks showing what you can do with
 	    the [[https://almond.sh/][Almond]] Scala kernel.
