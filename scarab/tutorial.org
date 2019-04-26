@@ -85,14 +85,22 @@
    #+END_SRC
 
 * 実行の方法
-  - Scarab の制約記述言語は Scala 上のドメイン特化言語として実装されている． [[file:ref.html][Scala の説明]]
+  - Scarab の制約記述言語は Scala 上のドメイン特化言語として実装されている．[[file:ref.html][Scala の説明]]
   - Scala と同じく3つの方法でプログラムを記述し，実行できる．
     - REPL (Read Eval Print Loop) による対話的な実行方法
     - スクリプトによるコンパイル不要な実行方法
     - scalac で実行形式にコンパイルしてから実行する方法
-    - [[https://almond.sh/][Almond]] Scala カーネル上の [[http://jupyter.org/][jupyter notebook]] で実行する
-      - 環境設定無しで, ブラウザだけで実行できます.
+    - ブラウザで実行する
       - [[https://mybinder.org/v2/gh/TakehideSoh/Scarab4Binder/master?urlpath=lab/tree/index.ipynb][ここ]] をクリックしてもらうだけで，少し待つと実行環境が表示されます．
+      - 環境設定無しで, ブラウザだけで実行できます.
+      - この仕組みは以下2つのリポジトリのフォークである [[https://github.com/TakehideSoh/Scarab4Binder][Scarab4Binder]] 
+        で提供されます. 
+	- [[https://github.com/almond-sh/examples][Almond Example]]
+	  - A collection of [[http://jupyter.org/][Jupyter]] notebooks showing what you can do with
+	    the [[https://almond.sh/][Almond]] Scala kernel.
+	- [[https://github.com/tamura70/copris-examples][Copris Example]]
+	  - Example [[http://jupyter.org/][Jupyter]] notebooks of [[http://bach.istc.kobe-u.ac.jp/copris/][Copris]] running on [[https://almond.sh/][Almond]] Scala
+	    kernel.
   - 本チュートリアルでは REPL による対話的な実行方法を通して scarab を説明する．
 
 * REPL による対話的な実行方法
@@ -316,7 +324,6 @@ res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 
 ** 練習問題
 - 89円分の切手を構成できるかテストしてみよう．
-
 * 簡単な例題
 ** 部分和問題
 #+BEGIN_EXAMPLE html
@@ -522,117 +529,6 @@ while(lb <= ub && find('m <= ub)) {
 ** その他の例題
    - [[http://www.csplib.org/Problems/prob024/][ラングフォード・ペアリング]]
    - プログラム例は [[http://tsoh.org/scarab/examples.html][Scarab の Example]] ページにある．
-
-* COMMENT CEGARを用いたハミルトン閉路問題の解法
-#+BEGIN_EXAMPLE
-与えられたグラフについて，全ての頂点を一度だけ通る閉路が存在するかどうか調べる問題である．
-#+END_EXAMPLE
-
-- 問題サンプル
-  - [[file:sample/myciel7.col][myciel7.col]]
-  - [[file:sample/myciel3.col][myciel3.col]]
-
-- CEGAR を使った Scarab コードは以下になる．
-#+BEGIN_SRC scala
-import jp.kobe_u.scarab._ , dsl._
-import scala.io.Source
-
-case class Graph(var nodes: Set[Int] = Set.empty, var edges: Set[(Int, Int)] = Set.empty) {
-
-  def edge(n1: Int, n2: Int) = if (n1 < n2) (n1, n2) else (n2, n1)
-
-  private var adjacentMap: Map[Int, Set[Int]] = Map.empty
-  private def addAdjacent(n1: Int, n2: Int) =
-    adjacentMap += n1 -> (adjacentMap.getOrElse(n1, Set.empty) + n2)
-
-  def addNode(n1: Int) = nodes += n1
-  def addEdge(n1: Int, n2: Int) =
-    if (n1 != n2) {
-      edges += edge(n1, n2)
-      addAdjacent(n1, n2)
-      addAdjacent(n2, n1)
-    }
-  def adjacent(n: Int) = adjacentMap(n)
-  def adjacentEdge(n: Int) = adjacent(n).map(n2 => edge(n, n2))
-}
-
-object Graph {
-  def parse(source: Source): Graph = {
-    val graph = Graph()
-    val re = """e\s+(\d+)\s+(\d+)""".r
-    for (line <- source.getLines.map(_.trim)) {
-      line match {
-        case re(s1, s2) => {
-          val n1 = s1.toInt; graph.addNode(n1)
-          val n2 = s2.toInt; graph.addNode(n2)
-          graph.addEdge(n1, n2)
-        }
-        case _ =>
-      }
-    }
-    graph
-  }
-}
-
-def getCycle(node: Int, initial: Int, cycle: List[Int]): List[Int] = {
-  val node2: Int = graph.adjacent(node).find(node2 => solver.solution('arc(node, node2)) > 0).get
-  if (node2 == initial) node2 :: cycle
-  else getCycle(node2, initial, node2 :: cycle)
-}
-
-def getCycles: Set[List[Int]] = {
-  var cycles: Set[List[Int]] = Set.empty
-  var nodes = graph.nodes
-  while (!nodes.isEmpty) {
-    val node = nodes.head
-    val cycle = getCycle(node, node, List(node))
-    cycles += cycle
-    nodes --= cycle
-  }
-  cycles
-}
-
-def define = {
-  for ((n1, n2) <- graph.edges) {
-    int('arc(n1, n2), 0, 1)
-    int('arc(n2, n1), 0, 1)
-    add('arc(n1, n2) + 'arc(n2, n1) <= 1)
-  }
-  for (n1 <- graph.nodes) {
-    val nodes = graph.adjacent(n1).toSeq
-    add(Sum(nodes.map(i => 'arc(i, n1))) === 1)
-    add(Sum(nodes.map(i => 'arc(n1, i))) === 1)
-  }
-}
-
-def addBlockingClauses(cycle: List[Int]) {
-  val ceArcs = for (edge <- cycle.sliding(2).toList) 
-             yield (edge(0), edge(1))
-  add(Or(ceArcs.map(i => 'arc(i._1, i._2) <= 0)))
-  add(Or(ceArcs.map(i => 'arc(i._2, i._1) <= 0)))
-}
-
-val graph = Graph.parse(Source.fromFile(args(0)))
-
-use(new Sat4j("Glucose21"))
-use(new NativePBEncoder(csp, satSolver))
-
-define
-
-while (solver.find) {
-  val cycles: Set[List[Int]] = getCycles
-  if (cycles.size == 1) {
-    println("A Hamiltonian Cycle is Found")
-	  println(Some(cycles.head).get.mkString(" "))
-    System.exit(0)
-  } else
-    for (cycle <- cycles)
-      addBlockingClauses(cycle)
-}
-println("This Graph has no Hamiltonian Cycle")
-#+END_SRC
-
-
 
 * その他 Scarab の説明クラスとメソッドの簡単なまとめ
 ** jar ファイルとソースコード
@@ -929,4 +825,115 @@ use(new LogEncoder(csp, satSolver))
 | 仮説                | o     | o       | x         |
 | 極小非充足コア      | o     | x       | x         |
 |---------------------+-------+---------+-----------|
+
+* COMMENT CEGARを用いたハミルトン閉路問題の解法
+#+BEGIN_EXAMPLE
+与えられたグラフについて，全ての頂点を一度だけ通る閉路が存在するかどうか調べる問題である．
+#+END_EXAMPLE
+
+- 問題サンプル
+  - [[file:sample/myciel7.col][myciel7.col]]
+  - [[file:sample/myciel3.col][myciel3.col]]
+
+- CEGAR を使った Scarab コードは以下になる．
+#+BEGIN_SRC scala
+import jp.kobe_u.scarab._ , dsl._
+import scala.io.Source
+
+case class Graph(var nodes: Set[Int] = Set.empty, var edges: Set[(Int, Int)] = Set.empty) {
+
+  def edge(n1: Int, n2: Int) = if (n1 < n2) (n1, n2) else (n2, n1)
+
+  private var adjacentMap: Map[Int, Set[Int]] = Map.empty
+  private def addAdjacent(n1: Int, n2: Int) =
+    adjacentMap += n1 -> (adjacentMap.getOrElse(n1, Set.empty) + n2)
+
+  def addNode(n1: Int) = nodes += n1
+  def addEdge(n1: Int, n2: Int) =
+    if (n1 != n2) {
+      edges += edge(n1, n2)
+      addAdjacent(n1, n2)
+      addAdjacent(n2, n1)
+    }
+  def adjacent(n: Int) = adjacentMap(n)
+  def adjacentEdge(n: Int) = adjacent(n).map(n2 => edge(n, n2))
+}
+
+object Graph {
+  def parse(source: Source): Graph = {
+    val graph = Graph()
+    val re = """e\s+(\d+)\s+(\d+)""".r
+    for (line <- source.getLines.map(_.trim)) {
+      line match {
+        case re(s1, s2) => {
+          val n1 = s1.toInt; graph.addNode(n1)
+          val n2 = s2.toInt; graph.addNode(n2)
+          graph.addEdge(n1, n2)
+        }
+        case _ =>
+      }
+    }
+    graph
+  }
+}
+
+def getCycle(node: Int, initial: Int, cycle: List[Int]): List[Int] = {
+  val node2: Int = graph.adjacent(node).find(node2 => solver.solution('arc(node, node2)) > 0).get
+  if (node2 == initial) node2 :: cycle
+  else getCycle(node2, initial, node2 :: cycle)
+}
+
+def getCycles: Set[List[Int]] = {
+  var cycles: Set[List[Int]] = Set.empty
+  var nodes = graph.nodes
+  while (!nodes.isEmpty) {
+    val node = nodes.head
+    val cycle = getCycle(node, node, List(node))
+    cycles += cycle
+    nodes --= cycle
+  }
+  cycles
+}
+
+def define = {
+  for ((n1, n2) <- graph.edges) {
+    int('arc(n1, n2), 0, 1)
+    int('arc(n2, n1), 0, 1)
+    add('arc(n1, n2) + 'arc(n2, n1) <= 1)
+  }
+  for (n1 <- graph.nodes) {
+    val nodes = graph.adjacent(n1).toSeq
+    add(Sum(nodes.map(i => 'arc(i, n1))) === 1)
+    add(Sum(nodes.map(i => 'arc(n1, i))) === 1)
+  }
+}
+
+def addBlockingClauses(cycle: List[Int]) {
+  val ceArcs = for (edge <- cycle.sliding(2).toList) 
+             yield (edge(0), edge(1))
+  add(Or(ceArcs.map(i => 'arc(i._1, i._2) <= 0)))
+  add(Or(ceArcs.map(i => 'arc(i._2, i._1) <= 0)))
+}
+
+val graph = Graph.parse(Source.fromFile(args(0)))
+
+use(new Sat4j("Glucose21"))
+use(new NativePBEncoder(csp, satSolver))
+
+define
+
+while (solver.find) {
+  val cycles: Set[List[Int]] = getCycles
+  if (cycles.size == 1) {
+    println("A Hamiltonian Cycle is Found")
+	  println(Some(cycles.head).get.mkString(" "))
+    System.exit(0)
+  } else
+    for (cycle <- cycles)
+      addBlockingClauses(cycle)
+}
+println("This Graph has no Hamiltonian Cycle")
+#+END_SRC
+
+
 
