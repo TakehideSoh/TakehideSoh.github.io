@@ -22,10 +22,15 @@
 * Overview of sCOP
   - sCOP is a Sat-based COnstraint Programming system written in Scala
     2.12.
-  - sCOP aims to be a re-implementation of [[http://bach.istc.kobe-u.ac.jp/sugar/][Sugar]] (Tamura et al.)
-    written in Java. Currently, main differences are as follows: 
+  - sCOP aims to be a re-implementation of [[http://bach.istc.kobe-u.ac.jp/sugar/][Sugar]] (Tamura et al.) 
+    written in Java. Many things are imported from [[http://bach.istc.kobe-u.ac.jp/sugar/][Sugar]] (software 
+    design, normalization, and encoding). Currently, main differences
+    are as follows: 
+    - [[http://xcsp.org][XCSP3]] instances is accepted as input in sCOP. 
     - Encoding of extensional constraints is different between the two systems.
     - Some of encoding heuristics is different between the two systems.
+    - Log encoding (from CSP into SAT) is implemented by using the BDD
+      encoding ([[https://satassociation.org/jsat/index.php/jsat/article/view/18][Een and Sorensson]]). 
   - It works as follows:
     1. encode a XCSP3 file into a DIMACS CNF file.
     2. launch a SAT solver to solve the encoded CNF file.
