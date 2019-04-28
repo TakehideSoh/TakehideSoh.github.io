@@ -169,7 +169,7 @@
 *** (*PI*) {{{item(Research and Development of a New SAT-based Parallel CSP Solver using Multiple Constraint Modelings and SAT Encodings)}}} {{{going}}}                                             
 *** {{{others(2019 NII Collaborative Research Grants)}}} 
 
-** {{{date(2019/08 - 2021/07)}}} 
+** COMMENT {{{date(2019/08 - 2021/07)}}} 
 *** (*PI*) {{{item(Computing Attractors in Asynchronous Automata Networks using SAT Technology)}}} 
 *** {{{others(JSPS Bilateral Programs (Joint Research Projects) Joint Research Projects with FRANCE (MEAE-MESRI) ``SAKURA Program'')}}} {{{going}}}                                             
 
