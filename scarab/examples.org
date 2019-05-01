@@ -10,14 +10,17 @@
 import jp.kobe_u.scarab._, dsl._
 
 var n: Int = 5
-for (i <- 1 to n; j <- 1 to n)  int('x(i,j),1,n) 
-for (i <- 1 to n) {
-  add(alldiff((1 to n).map(j => 'x(i,j))))
-  add(alldiff((1 to n).map(j => 'x(j,i))))
-  add(alldiff((1 to n).map(j => 'x(j,(i+j-1)%n+1))))
-  add(alldiff((1 to n).map(j => 'x(j,(i+(j-1)*(n-1))%n+1))))}
+for (i <- 0 until n; j <- 0 until n) int('x (i, j), 1, n)
+for (i <- 0 until n) {
+  add(alldiff((0 until n).map(j => 'x (i, j))))
+  add(alldiff((0 until n).map(j => 'x (j, i))))
+  add(alldiff((0 until n).map(j => 'x (j, (i + j) % n))))
+  add(alldiff((0 until n).map(j => 'x (j, ((n - 1 + i - j)) % n))))
+}
 
-if (find)  println(solution)
+if (find)
+  for (i <- 0 until n)
+    println((0 until n).map { j => solution.intMap('x (i, j)) }.mkString(" "))
  #+END_SRC
 *** (Lines 1 to 3) import Scarab classes
 *** (Line 6) declare integer variables

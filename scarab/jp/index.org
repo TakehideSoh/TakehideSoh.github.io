@@ -55,23 +55,34 @@
         れる．
 #+HTML: <br style="clear:both;" />
  #+BEGIN_SRC scala
-import jp.kobe_u.scarab._ ; import dsl._ 
+import jp.kobe_u.scarab._, dsl._
 
 var n: Int = 5
-for (i <- 1 to n; j <- 1 to n)  int('x(i,j),1,n) 
-for (i <- 1 to n) {
-  add(alldiff((1 to n).map(j => 'x(i,j))))
-  add(alldiff((1 to n).map(j => 'x(j,i))))
-  add(alldiff((1 to n).map(j => 'x(j,(i+j-1)%n+1))))
-  add(alldiff((1 to n).map(j => 'x(j,(i+(j-1)*(n-1))%n+1))))}
+for (i <- 0 until n; j <- 0 until n) int('x (i, j), 1, n)
+for (i <- 0 until n) {
+  add(alldiff((0 until n).map(j => 'x (i, j))))
+  add(alldiff((0 until n).map(j => 'x (j, i))))
+  add(alldiff((0 until n).map(j => 'x (j, (i + j) % n))))
+  add(alldiff((0 until n).map(j => 'x (j, ((n - 1 + i - j)) % n))))
+}
 
-if (find)  println(solution.intMap)
+if (find)
+  for (i <- 0 until n)
+    println((0 until n).map { j => solution.intMap('x (i, j)) }.mkString(" "))
  #+END_SRC
   - 上記のプログラム *pls.sc* として保存してください．
   - *pls.sc* を実行するには以下のコマンドを実行するだけです!
   #+BEGIN_SRC sh
    scala -cp scarab<$version>.jar pls.sc
   #+END_SRC
+  - 実行後，以下が出力されるはずです．
+  #+begin_src sh
+3 4 5 1 2
+5 1 2 3 4
+2 3 4 5 1
+4 5 1 2 3
+1 2 3 4 5
+  #+end_src
 
 # Scarab package (lib/scarab-<version>.jar) includes [[http://www.sat4j.org][Sat4j]] package and
 # [[http://bach.istc.kobe-u.ac.jp/sugar/][Sugar]] for the ease of use.

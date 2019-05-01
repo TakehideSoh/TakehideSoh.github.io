@@ -47,24 +47,37 @@ Features of Scarab are follows:
     - such that each number is occurring exactly once
     - for each row, column, diagonally down right, and diagonally up right.
 #+HTML: <br style="clear:both;" />
- #+BEGIN_SRC scala
-import jp.kobe_u.scarab._ ; import dsl._ 
+
+#+begin_src scala
+import jp.kobe_u.scarab._, dsl._
 
 var n: Int = 5
-for (i <- 1 to n; j <- 1 to n)  int('x(i,j),1,n) 
-for (i <- 1 to n) {
-  add(alldiff((1 to n).map(j => 'x(i,j))))
-  add(alldiff((1 to n).map(j => 'x(j,i))))
-  add(alldiff((1 to n).map(j => 'x(j,(i+j-1)%n+1))))
-  add(alldiff((1 to n).map(j => 'x(j,(i+(j-1)*(n-1))%n+1))))}
+for (i <- 0 until n; j <- 0 until n) int('x (i, j), 1, n)
+for (i <- 0 until n) {
+  add(alldiff((0 until n).map(j => 'x (i, j))))
+  add(alldiff((0 until n).map(j => 'x (j, i))))
+  add(alldiff((0 until n).map(j => 'x (j, (i + j) % n))))
+  add(alldiff((0 until n).map(j => 'x (j, ((n - 1 + i - j)) % n))))
+}
 
-if (find)  println(solution.intMap)
- #+END_SRC
+if (find)
+  for (i <- 0 until n)
+    println((0 until n).map { j => solution.intMap('x (i, j)) }.mkString(" "))
+#+end_src
   - Sava this program as *pls.sc*.
   - To run *pls.sc*, just execute it as follows, that's all ! 
   #+BEGIN_SRC sh
    scala -cp scarab<$version>.jar pls.sc
   #+END_SRC
+  - It will print the followings:
+  #+begin_src sh
+3 4 5 1 2
+5 1 2 3 4
+2 3 4 5 1
+4 5 1 2 3
+1 2 3 4 5
+  #+end_src
+
 
 
 # Scarab package (lib/scarab-<version>.jar) includes [[http://www.sat4j.org][Sat4j]] package and

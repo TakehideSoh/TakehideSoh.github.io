@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-02-11 月 15:24 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2019-05-01 水 14:15 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scarab: Program Examples</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="[[http://kix.istc.kobe-u.ac.jp/~soh/][Takehide Soh]]Takehide Soh" />
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://kix.istc.kobe-u.ac.jp/~soh/][Takehide Soh]]Takehide Soh" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -53,13 +53,98 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -76,6 +161,19 @@
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -92,6 +190,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="../myhome.css" />
@@ -100,7 +199,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -141,312 +240,362 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="content">
 <h1 class="title">Scarab: Program Examples</h1>
 <blockquote>
-<script type="text/javascript">
+<div class="HTML">
+<p>
+&lt;script type=&ldquo;text/javascript&rdquo;&gt;
+</p>
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-6313627-2']);
-  _gaq.push(['_trackPageview']);
+<p>
+var _gaq = _gaq || [];
+_gaq.push([&rsquo;_setAccount&rsquo;, &rsquo;UA-6313627-2&rsquo;]);
+_gaq.push([&rsquo;_trackPageview&rsquo;]);
+</p>
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+<p>
+(function() {
+  var ga = document.createElement(&rsquo;script&rsquo;); ga.type = &rsquo;text/javascript&rsquo;; ga.async = true;
+  ga.src = (&rsquo;https:&rsquo; == document.location.protocol ? &rsquo;https://ssl&rsquo; : &rsquo;http://www&rsquo;) + &rsquo;.google-analytics.com/ga.js&rsquo;;
+  var s = document.getElementsByTagName(&rsquo;script&rsquo;)[0]; s.parentNode.insertBefore(ga, s);
+})();
+</p>
 
-</script>
+<p>
+&lt;/script&gt;
+&lt;/div&gt;
+</p>
+
+<p>
+&lt;table class=&ldquo;menu&rdquo; border=&ldquo;0&rdquo; cellspacing=&ldquo;0&rdquo; cellpadding=&ldquo;20&rdquo; width=&ldquo;900px&rdquo;&gt;
+&lt;tr&gt;
+&lt;td class=&ldquo;menu&rdquo; bgcolor=&ldquo;#3B5998&rdquo;&gt;&lt;a href=&ldquo;index.html&rdquo;&gt;Home&lt;/a&gt;&lt;/td&gt;
+&lt;td class=&ldquo;menu&rdquo; bgcolor=&ldquo;#3B5998&rdquo;&gt;&lt;a href=&ldquo;examples.html&rdquo;&gt;Examples&lt;/a&gt;&lt;/td&gt;
+&lt;td class=&ldquo;menu&rdquo; bgcolor=&ldquo;#3B5998&rdquo;&gt;&lt;a href=&ldquo;doc.html&rdquo;&gt;Documents&lt;/a&gt;&lt;/td&gt;
+&lt;td class=&ldquo;menu&rdquo; bgcolor=&ldquo;#3B5998&rdquo;&gt;&lt;a href=&ldquo;advanced.html&rdquo;&gt;Advanced Usage&lt;/a&gt;&lt;/td&gt;
+&lt;td class=&ldquo;menu&rdquo; bgcolor=&ldquo;#3B5998&rdquo;&gt;&lt;a href=&ldquo;tutorial.html&rdquo;&gt;Tutorial&lt;/a&gt;&lt;/td&gt;
+&lt;td class=&ldquo;menu&rdquo; bgcolor=&ldquo;#3B5998&rdquo;&gt;&lt;a href=&ldquo;apps.html&rdquo;&gt;Apps&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+</p>
+
+<p>
+&lt;div id=&ldquo;content&rdquo;&gt;
+</p>
+
 </div>
-
-<table class="menu" border="0" cellspacing="0" cellpadding="20" width="900px">
-<tr>
-<td class="menu" bgcolor="#3B5998"><a href="index.html">Home</a></td>
-<td class="menu" bgcolor="#3B5998"><a href="examples.html">Examples</a></td>
-<td class="menu" bgcolor="#3B5998"><a href="doc.html">Documents</a></td>
-<td class="menu" bgcolor="#3B5998"><a href="advanced.html">Advanced Usage</a></td>
-<td class="menu" bgcolor="#3B5998"><a href="tutorial.html">Tutorial</a></td>
-<td class="menu" bgcolor="#3B5998"><a href="apps.html">Apps</a></td>
-</tr>
-</table>
-
-<div id="content">
 </blockquote>
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1">Latin Square</h2>
-<div class="outline-text-2" id="text-orgheadline1">
+<div id="outline-container-org256f238" class="outline-2">
+<h2 id="org256f238">Latin Square</h2>
+<div class="outline-text-2" id="text-org256f238">
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+<span style="color: #a020f0;">var</span> <span style="color: #ff0000; font-weight: bold;">n</span><span style="color: #a020f0;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">5</span>
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until n; j <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until n) int(<span style="color: #8b2252;">'x</span> (i, j), <span style="color: #008b8b;">1</span>, n)
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until n) {
+  add(alldiff((<span style="color: #008b8b;">0</span> until n).map(j <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'x</span> (i, j))))
+  add(alldiff((<span style="color: #008b8b;">0</span> until n).map(j <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'x</span> (j, i))))
+  add(alldiff((<span style="color: #008b8b;">0</span> until n).map(j <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'x</span> (j, (i + j) % n))))
+  add(alldiff((<span style="color: #008b8b;">0</span> until n).map(j <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'x</span> (j, ((n - <span style="color: #008b8b;">1</span> + i - j)) % n))))
+}
 
-<span style="color: #a020f0;">var</span> <span style="color: #a0522d;">n</span>: <span style="color: #228b22;">Int </span>= 5
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to n; j &lt;- 1 to n)  int('x(i,j),1,n) 
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to n) {
-  add(alldiff((1 to n).map(j =&gt; 'x(i,j))))
-  add(alldiff((1 to n).map(j =&gt; 'x(j,i))))
-  add(alldiff((1 to n).map(j =&gt; 'x(j,(i+j-1)%n+1))))
-  add(alldiff((1 to n).map(j =&gt; 'x(j,(i+(j-1)*(n-1))%n+1))))}
-
-<span style="color: #a020f0;">if</span> (find)  println(solution)
+<span style="color: #a020f0;">if</span> (find)
+  <span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until n)
+    println((<span style="color: #008b8b;">0</span> until n).map { j <span style="color: #a020f0;">=&gt;</span> solution.intMap(<span style="color: #8b2252;">'x</span> (i, j)) }.mkString(<span style="color: #8b2252;">" "</span>))
 </pre>
 </div>
 </div>
-<ul class="org-ul"><li><a id="orgheadline2"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
-<li><a id="orgheadline3"></a>(Line 6) declare integer variables<br  /></li>
-<li><a id="orgheadline4"></a>(Lines 8 to 11) add alldifferenct constraints for each row, column, and diagonal<br  /></li>
-<li><a id="orgheadline5"></a>(Line 12) print found solution if it exists<br  /></li></ul>
+<ul class="org-ul">
+<li><a id="org5943bdb"></a>(Lines 1 to 3) import Scarab classes<br /></li>
+<li><a id="org25f24ab"></a>(Line 6) declare integer variables<br /></li>
+<li><a id="org7a02e07"></a>(Lines 8 to 11) add alldifferenct constraints for each row, column, and diagonal<br /></li>
+<li><a id="orgc0f4e3f"></a>(Line 12) print found solution if it exists<br /></li>
+</ul>
 </div>
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6">Square Packing</h2>
-<div class="outline-text-2" id="text-orgheadline6">
+<div id="outline-container-org2082c6d" class="outline-2">
+<h2 id="org2082c6d">Square Packing</h2>
+<div class="outline-text-2" id="text-org2082c6d">
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">15</span>; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">s</span> <span style="color: #a020f0;">=</span><span style="color: #008b8b;">36</span> 
 
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 15; <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">s</span> =36 
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n)  { int(<span style="color: #8b2252;">'x</span>(i),<span style="color: #008b8b;">0</span>,s-i) ; int(<span style="color: #8b2252;">'y</span>(i),<span style="color: #008b8b;">0</span>,s-i) }
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n; j <span style="color: #a020f0;">&lt;-</span> i+<span style="color: #008b8b;">1</span> to n) 
+  add((<span style="color: #8b2252;">'x</span>(i)+i &lt;=<span style="color: #8b2252;">'x</span>(j)) || (<span style="color: #8b2252;">'x</span>(j)+j&lt;=<span style="color: #8b2252;">'x</span>(i)) || (<span style="color: #8b2252;">'y</span>(i)+i&lt;=<span style="color: #8b2252;">'y</span>(j)) || (<span style="color: #8b2252;">'y</span>(j)+j&lt;=<span style="color: #8b2252;">'y</span>(i)))
 
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to n)  { int('x(i),0,s-i) ; int('y(i),0,s-i) }
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to n; j &lt;- i+1 to n) 
-  add(('x(i)+i &lt;='x(j)) || ('x(j)+j&lt;='x(i)) || ('y(i)+i&lt;='y(j)) || ('y(j)+j&lt;='y(i)))
-
-<span style="color: #a020f0;">if</span> (find) println(solution.intMap)
+<span style="color: #a020f0;">if</span> (find) println(solution.intMap) 
 </pre>
 </div>
 </div>
-<ul class="org-ul"><li><a id="orgheadline7"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
-<li><a id="orgheadline8"></a>(Line 7) declare integer variables<br  /></li>
-<li><a id="orgheadline9"></a>(Lines 8 and 9) add non-overlaping constraints<br  /></li>
-<li><a id="orgheadline10"></a>(Line 11) print found solution if it exists<br  /></li></ul>
+<ul class="org-ul">
+<li><a id="org7371524"></a>(Lines 1 to 3) import Scarab classes<br /></li>
+<li><a id="orge953fee"></a>(Line 7) declare integer variables<br /></li>
+<li><a id="org5e14c2c"></a>(Lines 8 and 9) add non-overlaping constraints<br /></li>
+<li><a id="org09fe16f"></a>(Line 11) print found solution if it exists<br />
+<div class="outline-text-4" id="text-org09fe16f">
 </div>
-
-<div id="outline-container-orgheadline11" class="outline-2">
-<h2 id="orgheadline11">Langford Pairing</h2>
-<div class="outline-text-2" id="text-orgheadline11">
+</li>
+</ul>
+</div>
+<div id="outline-container-org4da1fef" class="outline-2">
+<h2 id="org4da1fef">Langford Pairing</h2>
+<div class="outline-text-2" id="text-org4da1fef">
 <p>
-#When \(2n\) numbers \(\{1, 1, 2, 2, \ldots, n, n\}\) are given, (see also <a href="http://www.csplib.org/">http://www.csplib.org/</a>)
+#When \(2n\) numbers \(\{1, 1, 2, 2, \ldots, n, n\}\) are given, (see also <a href="http://www.csplib.org">http://www.csplib.org</a>)
 </p>
 </div>
-<div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12">Model 1</h3>
-<div class="outline-text-3" id="text-orgheadline12">
+<div id="outline-container-orge19d358" class="outline-3">
+<h3 id="orge19d358">Model 1</h3>
+<div class="outline-text-3" id="text-orge19d358">
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">4</span>
 
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 4
-
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to 2*n) int('x(i),1,n)
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to n) 
-  add(Or(<span style="color: #a020f0;">for</span> (j &lt;- 1 to 2*n-i-1) <span style="color: #a020f0;">yield</span> And(('x(j) === 'x(j+i+1)), ('x(j) === i))))
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">2</span>*n) int(<span style="color: #8b2252;">'x</span>(i),<span style="color: #008b8b;">1</span>,n)
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n) 
+  add(<span style="color: #008b8b;">Or</span>(<span style="color: #a020f0;">for</span> (j <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">2</span>*n-i-1) <span style="color: #a020f0;">yield</span> <span style="color: #008b8b;">And</span>((<span style="color: #8b2252;">'x</span>(j) === <span style="color: #8b2252;">'x</span>(j+i+<span style="color: #008b8b;">1</span>)), (<span style="color: #8b2252;">'x</span>(j) === i))))
 
 <span style="color: #a020f0;">if</span>(find) println(solution)
 </pre>
 </div>
 </div>
-<ul class="org-ul"><li><a id="orgheadline13"></a>(Line 7) declare integer variables representing each of \(2n\) positions has which number.<br  /></li></ul>
+<ul class="org-ul">
+<li><a id="org35bf634"></a>(Line 7) declare integer variables representing each of \(2n\) positions has which number.<br /></li>
+</ul>
 </div>
-<div id="outline-container-orgheadline14" class="outline-3">
-<h3 id="orgheadline14">Model 2 (with position variable)</h3>
-<div class="outline-text-3" id="text-orgheadline14">
+<div id="outline-container-orgc912390" class="outline-3">
+<h3 id="orgc912390">Model 2 (with position variable)</h3>
+<div class="outline-text-3" id="text-orgc912390">
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">4</span>
 
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = 4
-
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to n) { 
-  int('l(i),1,2*n-i-1)
-  int('r(i),1,2*n) 
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n) { 
+  int(<span style="color: #8b2252;">'l</span>(i),<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>*n-i-1)
+  int(<span style="color: #8b2252;">'r</span>(i),<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>*n) 
 }
 
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to n)  add('l(i) === 'r(i)-i-1)
-add(alldiff((1 to n).map(i =&gt; 'l(i))))
-add(alldiff((1 to n).map(i =&gt; 'r(i))))
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n)  add(<span style="color: #8b2252;">'l</span>(i) === <span style="color: #8b2252;">'r</span>(i)-i-1)
+add(alldiff((<span style="color: #008b8b;">1</span> to n).map(i <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'l</span>(i))))
+add(alldiff((<span style="color: #008b8b;">1</span> to n).map(i <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'r</span>(i))))
 
 <span style="color: #a020f0;">if</span>(find) println(solution)
 </pre>
 </div>
 </div>
-<ul class="org-ul"><li><a id="orgheadline15"></a>(Lines 7 to 10) declare integer variables representing each pairs of \(n\) numbers are placed to which positions.<br  /></li></ul>
+<ul class="org-ul">
+<li><a id="org2791672"></a>(Lines 7 to 10) declare integer variables representing each pairs of \(n\) numbers are placed to which positions.<br /></li>
+</ul>
 </div>
 </div>
-<div id="outline-container-orgheadline16" class="outline-2">
-<h2 id="orgheadline16">Graph Coloring</h2>
-<div class="outline-text-2" id="text-orgheadline16">
+<div id="outline-container-org221e33d" class="outline-2">
+<h2 id="org221e33d">Graph Coloring</h2>
+<div class="outline-text-2" id="text-org221e33d">
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">nodes</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Seq</span>(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">3</span>,<span style="color: #008b8b;">4</span>,<span style="color: #008b8b;">5</span>)
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">edges</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Seq</span>((<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">2</span>),(<span style="color: #008b8b;">1</span>,<span style="color: #008b8b;">5</span>),(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">3</span>),(<span style="color: #008b8b;">2</span>,<span style="color: #008b8b;">4</span>),(<span style="color: #008b8b;">3</span>,<span style="color: #008b8b;">4</span>),(<span style="color: #008b8b;">4</span>,<span style="color: #008b8b;">5</span>))
+<span style="color: #a020f0;">var</span> <span style="color: #ff0000; font-weight: bold;">maxColor</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">4</span>;
 
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">nodes</span> = Seq(1,2,3,4,5)
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">edges</span> = Seq((1,2),(1,5),(2,3),(2,4),(3,4),(4,5))
-<span style="color: #a020f0;">var</span> <span style="color: #a0522d;">maxColor</span> = 4;
+int(<span style="color: #8b2252;">'color</span>,<span style="color: #008b8b;">1</span>,maxColor)
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> nodes) int(<span style="color: #8b2252;">'n</span>(i),<span style="color: #008b8b;">1</span>,maxColor)
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> nodes) add(<span style="color: #8b2252;">'n</span>(i) &lt;= <span style="color: #8b2252;">'color</span>)
+<span style="color: #a020f0;">for</span> ((i,j) <span style="color: #a020f0;">&lt;-</span> edges)  add(<span style="color: #8b2252;">'n</span>(i) !== <span style="color: #8b2252;">'n</span>(j))
 
-int('color,1,maxColor)
-<span style="color: #a020f0;">for</span> (i &lt;- nodes) int('n(i),1,maxColor)
-<span style="color: #a020f0;">for</span> (i &lt;- nodes) add('n(i) &lt;= 'color)
-<span style="color: #a020f0;">for</span> ((i,j) &lt;- edges)  add('n(i) !== 'n(j))
-
-<span style="color: #a020f0;">while</span> (find('color &lt;= maxColor)) {
+<span style="color: #a020f0;">while</span> (find(<span style="color: #8b2252;">'color</span> &lt;= maxColor)) {
   println(solution)
-  maxColor -= 1
+  maxColor -= <span style="color: #008b8b;">1</span>
 }
 </pre>
 </div>
 </div>
-<ul class="org-ul"><li><a id="orgheadline17"></a>(Lines 5 to 7) declare graph structure.<br  /></li>
-<li><a id="orgheadline18"></a>(Lines 9 and 10) declare integer variables representing available colors and each node of the given graph.<br  /></li>
-<li><a id="orgheadline19"></a>(Lines 11 and 12) declare constraints that limit available colors and adjacent nodes have different color.<br  /></li>
-<li><a id="orgheadline20"></a>(Lines 14 to 17) minimizing number of colors.<br  /></li></ul>
+<ul class="org-ul">
+<li><a id="orgad47868"></a>(Lines 5 to 7) declare graph structure.<br /></li>
+<li><a id="org7733686"></a>(Lines 9 and 10) declare integer variables representing available colors and each node of the given graph.<br /></li>
+<li><a id="orgbf91a90"></a>(Lines 11 and 12) declare constraints that limit available colors and adjacent nodes have different color.<br /></li>
+<li><a id="orgd32cc7e"></a>(Lines 14 to 17) minimizing number of colors.<br /></li>
+</ul>
 </div>
-<div id="outline-container-orgheadline21" class="outline-2">
-<h2 id="orgheadline21">Magic Square</h2>
-<div class="outline-text-2" id="text-orgheadline21">
+<div id="outline-container-orgc4db3c4" class="outline-2">
+<h2 id="orgc4db3c4">Magic Square</h2>
+<div class="outline-text-2" id="text-orgc4db3c4">
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
-
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">xs</span> = <span style="color: #a020f0;">for</span> (i &lt;- 1 to 3; j &lt;- 1 to 3) <span style="color: #a020f0;">yield</span> csp.int('x(i,j), 1, 9)
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">xs</span> <span style="color: #a020f0;">=</span> <span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>; j <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>) <span style="color: #a020f0;">yield</span> csp.int(<span style="color: #8b2252;">'x</span>(i,j), <span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">9</span>)
   add(alldiff(xs))
 
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to 3)
-  add(Sum((1 to 3).map(j =&gt; 'x(i,j))) === 15)
-<span style="color: #a020f0;">for</span> (j &lt;- 1 to 3)
-  add(Sum((1 to 3).map(i =&gt; 'x(i,j))) === 15)
-add(Sum((1 to 3).map(i =&gt; 'x(i,i))) === 15)
-add(Sum((1 to 3).map(i =&gt; 'x(i,4-i))) === 15)
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>)
+  add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>).map(j <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'x</span>(i,j))) === <span style="color: #008b8b;">15</span>)
+<span style="color: #a020f0;">for</span> (j <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>)
+  add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>).map(i <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'x</span>(i,j))) === <span style="color: #008b8b;">15</span>)
+add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>).map(i <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'x</span>(i,i))) === <span style="color: #008b8b;">15</span>)
+add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</span> to <span style="color: #008b8b;">3</span>).map(i <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'x</span>(i,<span style="color: #008b8b;">4</span>-i))) === <span style="color: #008b8b;">15</span>)
 
 <span style="color: #a020f0;">if</span> (find) println(solution)
 </pre>
 </div>
 </div>
-<ul class="org-ul"><li><a id="orgheadline22"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
-<li><a id="orgheadline23"></a>(Line 5) declare integer variables and puts them to xs<br  /></li>
-<li><a id="orgheadline24"></a>(Line 6) declare alldiff for the variables<br  /></li>
-<li><a id="orgheadline25"></a>(Lines 8 and 11) add constraints such that the sum for each row and column become 15<br  /></li>
-<li><a id="orgheadline26"></a>(Line 12 and 13) add constraints such that the sum for each main diagonal become 15<br  /></li>
-<li><a id="orgheadline27"></a>(Line 15) print found solution if it exists<br  /></li></ul>
+<ul class="org-ul">
+<li><a id="org87ded10"></a>(Lines 1 to 3) import Scarab classes<br /></li>
+<li><a id="orgb9d54c5"></a>(Line 5) declare integer variables and puts them to xs<br /></li>
+<li><a id="org33a8147"></a>(Line 6) declare alldiff for the variables<br /></li>
+<li><a id="org9fb7792"></a>(Lines 8 and 11) add constraints such that the sum for each row and column become 15<br /></li>
+<li><a id="orgc37055a"></a>(Line 12 and 13) add constraints such that the sum for each main diagonal become 15<br /></li>
+<li><a id="org5f008e0"></a>(Line 15) print found solution if it exists<br />
+<div class="outline-text-4" id="text-org5f008e0">
 </div>
-
-<div id="outline-container-orgheadline28" class="outline-2">
-<h2 id="orgheadline28">Alphametic Problem <b>SAT + IS + FUN = TRUE</b></h2>
-<div class="outline-text-2" id="text-orgheadline28">
+</li>
+</ul>
+</div>
+<div id="outline-container-org779cfd4" class="outline-2">
+<h2 id="org779cfd4">Alphametic Problem <b>SAT + IS + FUN = TRUE</b></h2>
+<div class="outline-text-2" id="text-org779cfd4">
 <p>
 \(S*100 + A*10 + T + I*10 + S + F*100 + U*10 + N = T*1000 + R*100 + U*10 + E\)
 </p>
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">base</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">10</span>
 
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">base</span> = 10
+<span style="color: #a020f0;">for</span> (v <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">Seq</span>(<span style="color: #8b2252;">'s</span>,<span style="color: #8b2252;">'i</span>,<span style="color: #8b2252;">'f</span>,<span style="color: #8b2252;">'t</span>)) <span style="color: #a020f0;">yield</span> int(v,<span style="color: #008b8b;">1</span>,base-1)     <span style="color: #b22222;">// </span><span style="color: #b22222;">S, I, F and T are not zero</span>
+<span style="color: #a020f0;">for</span> (v <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">Seq</span>(<span style="color: #8b2252;">'a</span>,<span style="color: #8b2252;">'u</span>,<span style="color: #8b2252;">'n</span>,<span style="color: #8b2252;">'r</span>,<span style="color: #8b2252;">'e</span>)) <span style="color: #a020f0;">yield</span> int(v,<span style="color: #008b8b;">0</span>,base-1)  <span style="color: #b22222;">// </span><span style="color: #b22222;">others can be zero</span>
+<span style="color: #a020f0;">for</span> (v <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">Seq</span>(<span style="color: #8b2252;">'c1</span>,<span style="color: #8b2252;">'c2</span>,<span style="color: #8b2252;">'c3</span>)) <span style="color: #a020f0;">yield</span> int(v,<span style="color: #008b8b;">0</span>,<span style="color: #008b8b;">2</span>)          <span style="color: #b22222;">// </span><span style="color: #b22222;">carries</span>
 
-<span style="color: #a020f0;">for</span> (v &lt;- Seq('s,'i,'f,'t)) <span style="color: #a020f0;">yield</span> int(v,1,base-1)     <span style="color: #b22222;">// </span><span style="color: #b22222;">S, I, F and T are not zero</span>
-<span style="color: #a020f0;">for</span> (v &lt;- Seq('a,'u,'n,'r,'e)) <span style="color: #a020f0;">yield</span> int(v,0,base-1)  <span style="color: #b22222;">// </span><span style="color: #b22222;">others can be zero</span>
-<span style="color: #a020f0;">for</span> (v &lt;- Seq('c1,'c2,'c3)) <span style="color: #a020f0;">yield</span> int(v,0,2)          <span style="color: #b22222;">// </span><span style="color: #b22222;">carries</span>
+add(<span style="color: #8b2252;">'t</span> + <span style="color: #8b2252;">'s</span> + <span style="color: #8b2252;">'n</span>       === <span style="color: #8b2252;">'e</span> + <span style="color: #8b2252;">'c1</span>*base)
+add(<span style="color: #8b2252;">'a</span> + <span style="color: #8b2252;">'i</span> + <span style="color: #8b2252;">'u</span> + <span style="color: #8b2252;">'c1</span> === <span style="color: #8b2252;">'u</span> + <span style="color: #8b2252;">'c2</span>*base)
+add(<span style="color: #8b2252;">'s</span> +      <span style="color: #8b2252;">'f</span> + <span style="color: #8b2252;">'c2</span> === <span style="color: #8b2252;">'r</span> + <span style="color: #8b2252;">'c3</span>*base)
+add(               <span style="color: #8b2252;">'c3</span> === <span style="color: #8b2252;">'t</span>)
 
-add('t + 's + 'n       === 'e + 'c1*base)
-add('a + 'i + 'u + 'c1 === 'u + 'c2*base)
-add('s +      'f + 'c2 === 'r + 'c3*base)
-add(               'c3 === 't)
-
-add(alldiff(Seq('s,'i,'f,'t,'a,'u,'n,'r,'e)))
+add(alldiff(<span style="color: #008b8b;">Seq</span>(<span style="color: #8b2252;">'s</span>,<span style="color: #8b2252;">'i</span>,<span style="color: #8b2252;">'f</span>,<span style="color: #8b2252;">'t</span>,<span style="color: #8b2252;">'a</span>,<span style="color: #8b2252;">'u</span>,<span style="color: #8b2252;">'n</span>,<span style="color: #8b2252;">'r</span>,<span style="color: #8b2252;">'e</span>)))
 
 <span style="color: #a020f0;">if</span> (find)  println(solution.intMap)
 </pre>
 </div>
 </div>
-<ul class="org-ul"><li><a id="orgheadline29"></a>(Lines 11 to 14) constraint model considering each digit and carry, which takes around 1 second;)<br  /></li></ul>
+<ul class="org-ul">
+<li><a id="orgc3a0e4e"></a>(Lines 11 to 14) constraint model considering each digit and carry, which takes around 1 second;)<br /></li>
+</ul>
 </div>
-<div id="outline-container-orgheadline30" class="outline-2">
-<h2 id="orgheadline30">Open-shop Scheduling</h2>
-<div class="outline-text-2" id="text-orgheadline30">
+<div id="outline-container-orgf730454" class="outline-2">
+<h2 id="orgf730454">Open-shop Scheduling</h2>
+<div class="outline-text-2" id="text-orgf730454">
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+use(<span style="color: #a020f0;">new</span> <span style="color: #228b22;">Sat4j</span>(<span style="color: #8b2252;">"glucose"</span>))
 
-use(<span style="color: #a020f0;">new</span> Sat4j(<span style="color: #8b2252;">"glucose"</span>))
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">pt</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Seq</span>(
+  <span style="color: #008b8b;">Seq</span>(<span style="color: #008b8b;">661</span>,   <span style="color: #008b8b;">6</span>, <span style="color: #008b8b;">333</span>),
+  <span style="color: #008b8b;">Seq</span>(<span style="color: #008b8b;">168</span>, <span style="color: #008b8b;">489</span>, <span style="color: #008b8b;">343</span>),
+  <span style="color: #008b8b;">Seq</span>(<span style="color: #008b8b;">171</span>, <span style="color: #008b8b;">505</span>, <span style="color: #008b8b;">324</span>))
 
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">pt</span> = Seq(
-  Seq(661,   6, 333),
-  Seq(168, 489, 343),
-  Seq(171, 505, 324))
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> <span style="color: #a020f0;">=</span> pt.size
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">lb</span> <span style="color: #a020f0;">=</span> pt.map(<span style="color: #a020f0;">_</span>.sum).max
+<span style="color: #a020f0;">var</span> <span style="color: #ff0000; font-weight: bold;">ub</span> <span style="color: #a020f0;">=</span> (<span style="color: #008b8b;">0</span> until n).map(k <span style="color: #a020f0;">=&gt;</span> (<span style="color: #008b8b;">0</span> until n).map(i <span style="color: #a020f0;">=&gt;</span> pt(i)((i + k) % n)).max).sum
 
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = pt.size
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">lb</span> = pt.map(_.sum).max
-<span style="color: #a020f0;">var</span> <span style="color: #a0522d;">ub</span> = (0 until n).map(k =&gt; (0 until n).map(i =&gt; pt(i)((i + k) % n)).max).sum
+int(<span style="color: #8b2252;">'makespan</span>, lb, ub)
 
-int('makespan, lb, ub)
-
-<span style="color: #a020f0;">for</span> (i &lt;- 0 until n; j &lt;- 0 until n) {
-  int('s(i,j), 0, ub)
-  add('s(i,j) + pt(i)(j) &lt;= 'makespan)
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until n; j <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until n) {
+  int(<span style="color: #8b2252;">'s</span>(i,j), <span style="color: #008b8b;">0</span>, ub)
+  add(<span style="color: #8b2252;">'s</span>(i,j) + pt(i)(j) &lt;= <span style="color: #8b2252;">'makespan</span>)
 }
-<span style="color: #a020f0;">for</span> (i &lt;- 0 until n) {
-  <span style="color: #a020f0;">for</span> (j &lt;- 0 until n; l &lt;- j+1 until n)
-    add('s(i,j) + pt(i)(j) &lt;= 's(i,l) ||
-        's(i,l) + pt(i)(l) &lt;= 's(i,j))
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until n) {
+  <span style="color: #a020f0;">for</span> (j <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until n; l <span style="color: #a020f0;">&lt;-</span> j+<span style="color: #008b8b;">1</span> until n)
+    add(<span style="color: #8b2252;">'s</span>(i,j) + pt(i)(j) &lt;= <span style="color: #8b2252;">'s</span>(i,l) ||
+        <span style="color: #8b2252;">'s</span>(i,l) + pt(i)(l) &lt;= <span style="color: #8b2252;">'s</span>(i,j))
 }
-<span style="color: #a020f0;">for</span> (j &lt;- 0 until n) {
-  <span style="color: #a020f0;">for</span> (i &lt;- 0 until n; k &lt;- i+1 until n)
-    add('s(i,j) + pt(i)(j) &lt;= 's(k,j) ||
-        's(k,j) + pt(k)(j) &lt;= 's(i,j))
+<span style="color: #a020f0;">for</span> (j <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until n) {
+  <span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until n; k <span style="color: #a020f0;">&lt;-</span> i+<span style="color: #008b8b;">1</span> until n)
+    add(<span style="color: #8b2252;">'s</span>(i,j) + pt(i)(j) &lt;= <span style="color: #8b2252;">'s</span>(k,j) ||
+        <span style="color: #8b2252;">'s</span>(k,j) + pt(k)(j) &lt;= <span style="color: #8b2252;">'s</span>(i,j))
 }
 
-<span style="color: #a020f0;">while</span> (find('makespan &lt;= ub)) {
+<span style="color: #a020f0;">while</span> (find(<span style="color: #8b2252;">'makespan</span> &lt;= ub)) {
   println(solution)
-  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">end</span> = (<span style="color: #a020f0;">for</span>(i &lt;- 0 until n; j &lt;- 0 until n) 
-             <span style="color: #a020f0;">yield</span> solution.intMap('s(i,j))+pt(i)(j)).max
-  ub = end - 1
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">end</span> <span style="color: #a020f0;">=</span> (<span style="color: #a020f0;">for</span>(i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until n; j <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until n) 
+             <span style="color: #a020f0;">yield</span> solution.intMap(<span style="color: #8b2252;">'s</span>(i,j))+pt(i)(j)).max
+  ub <span style="color: #a020f0;">=</span> end - <span style="color: #008b8b;">1</span>
   println(ub)
 }
 </pre>
 </div>
 </div>
-<ul class="org-ul"><li><a id="orgheadline31"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
-<li><a id="orgheadline32"></a>(Lines 7 to 10) declare an instance<br  /></li>
-<li><a id="orgheadline33"></a>(Lines 12 to 14) compute size, lower and upper bounds of the instance<br  /></li>
-<li><a id="orgheadline34"></a>(Line 16) declares an integer variable representing current makespan<br  /></li>
-<li><a id="orgheadline35"></a>(Lines 18 to 21) forces all operations are ended before makespan<br  /></li>
-<li><a id="orgheadline36"></a>(Lines 22 to 26) forces for operations in the same job do not overlap each other<br  /></li>
-<li><a id="orgheadline37"></a>(Lines 27 to 31) forces for operations sharing same resource do not overlap each other<br  /></li>
-<li><a id="orgheadline38"></a>(Lines 33 to 38) coumputes optimum solution<br  /></li></ul>
+<ul class="org-ul">
+<li><a id="org0004bde"></a>(Lines 1 to 3) import Scarab classes<br /></li>
+<li><a id="orgafa456c"></a>(Lines 7 to 10) declare an instance<br /></li>
+<li><a id="orgecf7cce"></a>(Lines 12 to 14) compute size, lower and upper bounds of the instance<br /></li>
+<li><a id="org4a139a9"></a>(Line 16) declares an integer variable representing current makespan<br /></li>
+<li><a id="orgb94567e"></a>(Lines 18 to 21) forces all operations are ended before makespan<br /></li>
+<li><a id="org32d9c8f"></a>(Lines 22 to 26) forces for operations in the same job do not overlap each other<br /></li>
+<li><a id="org416f441"></a>(Lines 27 to 31) forces for operations sharing same resource do not overlap each other<br /></li>
+<li><a id="orge2655a1"></a>(Lines 33 to 38) coumputes optimum solution<br /></li>
+</ul>
 </div>
-<div id="outline-container-orgheadline39" class="outline-2">
-<h2 id="orgheadline39">Colored N Queen</h2>
-<div class="outline-text-2" id="text-orgheadline39">
+<div id="outline-container-org0937c41" class="outline-2">
+<h2 id="org0937c41">Colored N Queen</h2>
+<div class="outline-text-2" id="text-org0937c41">
 <div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
-<pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab._, dsl._
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> <span style="color: #a020f0;">=</span> args(<span style="color: #008b8b;">0</span>).toInt
+<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">c</span> <span style="color: #a020f0;">=</span> n
 
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> = args(0).toInt
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">c</span> = n
+use(<span style="color: #a020f0;">new</span> <span style="color: #228b22;">Sat4j</span>(<span style="color: #8b2252;">"glucose"</span>))
 
-use(<span style="color: #a020f0;">new</span> Sat4j(<span style="color: #8b2252;">"glucose"</span>))
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n; color <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to c)
+  int(<span style="color: #8b2252;">'q</span>(i,color), <span style="color: #008b8b;">1</span>, c)
 
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to n; color &lt;- 1 to c)
-  int('q(i,color), 1, c)
-
-<span style="color: #a020f0;">for</span> (color &lt;- 1 to c) {
-  add(alldiff((1 to n).map(i =&gt; 'q(i,color))))
-  add(alldiff((1 to n).map(i =&gt; 'q(i,color)+i)))
-  add(alldiff((1 to n).map(i =&gt; 'q(i,color)-i)))
+<span style="color: #a020f0;">for</span> (color <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to c) {
+  add(alldiff((<span style="color: #008b8b;">1</span> to n).map(i <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'q</span>(i,color))))
+  add(alldiff((<span style="color: #008b8b;">1</span> to n).map(i <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'q</span>(i,color)+i)))
+  add(alldiff((<span style="color: #008b8b;">1</span> to n).map(i <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'q</span>(i,color)-i)))
 }
 
-<span style="color: #a020f0;">for</span> (i &lt;- 1 to n)
-  add(alldiff((1 to c).map(color =&gt; 'q(i,color))))
+<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n)
+  add(alldiff((<span style="color: #008b8b;">1</span> to c).map(color <span style="color: #a020f0;">=&gt;</span> <span style="color: #8b2252;">'q</span>(i,color))))
 
 <span style="color: #a020f0;">if</span> (find) {
-  <span style="color: #a020f0;">for</span> (color &lt;- 1 to c) {
-    <span style="color: #a020f0;">for</span> (row &lt;- 1 to n) {
-      <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">seq</span>: <span style="color: #228b22;">Seq[Int]</span> = Seq.empty
-      <span style="color: #a020f0;">for</span> (column &lt;- 1 to n)
-  <span style="color: #a020f0;">if</span> (encoder.decode('q(row,color)) == column)
-    seq = seq :+ color
-  <span style="color: #a020f0;">else</span>
-    seq = seq :+ 0
+  <span style="color: #a020f0;">for</span> (color <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to c) {
+    <span style="color: #a020f0;">for</span> (row <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n) {
+      <span style="color: #a020f0;">var</span> <span style="color: #ff0000; font-weight: bold;">seq</span><span style="color: #a020f0;">:</span> <span style="color: #228b22;">Seq</span>[<span style="color: #008b8b;">Int</span>] <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Seq</span>.empty
+      <span style="color: #a020f0;">for</span> (column <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n)
+        <span style="color: #a020f0;">if</span> (encoder.decode(<span style="color: #8b2252;">'q</span>(row,color)) == column)
+          seq <span style="color: #a020f0;">=</span> seq :+ color
+        <span style="color: #a020f0;">else</span>
+          seq <span style="color: #a020f0;">=</span> seq :+ <span style="color: #008b8b;">0</span>
       println(seq.mkString(<span style="color: #8b2252;">" "</span>))
     }
     println(<span style="color: #8b2252;">"-----------------"</span>)
@@ -455,18 +604,20 @@ use(<span style="color: #a020f0;">new</span> Sat4j(<span style="color: #8b2252;"
 </pre>
 </div>
 </div>
-<ul class="org-ul"><li><a id="orgheadline40"></a>(Lines 1 to 3) import Scarab classes<br  /></li>
-<li><a id="orgheadline41"></a>(Lines 5 to 6) size is given from command line<br  /></li>
-<li><a id="orgheadline42"></a>(Lines 8) declares the use of Sat4j of Glucose setting.<br  /></li>
-<li><a id="orgheadline43"></a>(Lines 10 to 11) declares integer variables representing queens<br  /></li>
-<li><a id="orgheadline44"></a>(Lines 13 to 17) representing N-Queen constraints for each color<br  /></li>
-<li><a id="orgheadline45"></a>(Lines 19 to 20) forces that Queens of each color do no overlap<br  /></li>
-<li><a id="orgheadline46"></a>(Lines 22 to 35) compute solutions and show the obtained placement<br  /></li></ul>
+<ul class="org-ul">
+<li><a id="orgbc7c8bd"></a>(Lines 1 to 3) import Scarab classes<br /></li>
+<li><a id="org8cdd206"></a>(Lines 5 to 6) size is given from command line<br /></li>
+<li><a id="orgc071094"></a>(Lines 8) declares the use of Sat4j of Glucose setting.<br /></li>
+<li><a id="orgbe1a162"></a>(Lines 10 to 11) declares integer variables representing queens<br /></li>
+<li><a id="org38a3812"></a>(Lines 13 to 17) representing N-Queen constraints for each color<br /></li>
+<li><a id="org5cd8b7d"></a>(Lines 19 to 20) forces that Queens of each color do no overlap<br /></li>
+<li><a id="orgdf49a6f"></a>(Lines 22 to 35) compute solutions and show the obtained placement<br /></li>
+</ul>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: <a href="http://kix.istc.kobe-u.ac.jp/~soh/">Takehide Soh</a></p>
-<p class="date">Created: 2019-02-11 月 15:24</p>
+<p class="date">Created: 2019-05-01 水 14:15</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
