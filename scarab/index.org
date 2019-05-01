@@ -3,19 +3,6 @@
 # #+INCLUDE: "./title.html" quote
 #+OPTIONS: ^:nil toc:nil H:2 num:nil
 
-#+HTML_HEAD: <table class="menu" border="0" cellspacing="0" cellpadding="20" width="900px">
-#+HTML_HEAD: <tr>
-#+HTML_HEAD: <td class="menu" bgcolor="#3B5998"><a href="index.html">Home</a></td>
-#+HTML_HEAD: <td class="menu" bgcolor="#3B5998"><a href="examples.html">Examples</a></td>
-#+HTML_HEAD: <td class="menu" bgcolor="#3B5998"><a href="doc.html">Documents</a></td>
-#+HTML_HEAD: <td class="menu" bgcolor="#3B5998"><a href="advanced.html">Advanced Usage</a></td>
-#+HTML_HEAD: <td class="menu" bgcolor="#3B5998"><a href="tutorial.html">Tutorial</a></td>
-#+HTML_HEAD: <td class="menu" bgcolor="#3B5998"><a href="apps.html">Apps</a></td>
-#+HTML_HEAD: </tr>
-#+HTML_HEAD: </table>
-
-#+HTML_HEAD: <div id="content">
-
 #+HTML_HEAD: <!-- Global site tag (gtag.js) - Google Analytics -->
 #+HTML_HEAD: <script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
 #+HTML_HEAD: <script>
@@ -31,6 +18,21 @@
 #+STYLE: div.figure { float:left; }
 #+STYLE: /*]]>*/-->
 #+STYLE: </style>
+
+#+begin_export html
+<table class="menu" border="0" cellspacing="0" cellpadding="20" width="900px">
+<tr>
+<td class="menu" bgcolor="#3B5998"><a href="index.html">Home</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="examples.html">Examples</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="doc.html">Documents</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="advanced.html">Advanced Usage</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="tutorial.html">Tutorial</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="apps.html">Apps</a></td>
+</tr>
+</table>
+
+<div id="content">
+#+end_export
 
 日本語ページは[[./jp/index.html][こちら]]．
 

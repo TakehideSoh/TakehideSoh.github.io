@@ -3,20 +3,23 @@
 
 # #+INCLUDE: "./title.html" quote
 
-#+HTML_HEAD: <table class="menu" border="0" cellspacing="0" cellpadding="20" width="900px">
-#+HTML_HEAD: <tr>
-#+HTML_HEAD: <td class="menu" bgcolor="#3B5998"><a href="index.html">Home</a></td>
-#+HTML_HEAD: <td class="menu" bgcolor="#3B5998"><a href="examples.html">Examples</a></td>
-#+HTML_HEAD: <td class="menu" bgcolor="#3B5998"><a href="doc.html">Documents</a></td>
-#+HTML_HEAD: <td class="menu" bgcolor="#3B5998"><a href="advanced.html">Advanced Usage</a></td>
-#+HTML_HEAD: <td class="menu" bgcolor="#3B5998"><a href="tutorial.html">Tutorial</a></td>
-#+HTML_HEAD: <td class="menu" bgcolor="#3B5998"><a href="apps.html">Apps</a></td>
-#+HTML_HEAD: </tr>
-#+HTML_HEAD: </table>
-#+HTML_HEAD: <div id="content">
-
 #+OPTIONS: ^:nil toc:nil H:2 num:nil
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../myhome.css" />
+
+#+begin_export html
+<table class="menu" border="0" cellspacing="0" cellpadding="20" width="900px">
+<tr>
+<td class="menu" bgcolor="#3B5998"><a href="index.html">Home</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="examples.html">Examples</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="doc.html">Documents</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="advanced.html">Advanced Usage</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="tutorial.html">Tutorial</a></td>
+<td class="menu" bgcolor="#3B5998"><a href="apps.html">Apps</a></td>
+</tr>
+</table>
+
+<div id="content">
+#+end_export
 
 * Latin Square
  #+BEGIN_SRC scala
