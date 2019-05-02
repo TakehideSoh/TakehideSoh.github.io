@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-04-26 金 17:47 -->
+<!-- 2019-05-02 木 23:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scarab チュートリアル</title>
@@ -213,11 +213,8 @@ gtag('config', 'UA-6313627-5');
 <link rel="stylesheet" type="text/css" href="https://tsoh.org/css/htmlize.css"/>
 <link rel="stylesheet" type="text/css" href="https://tsoh.org/css/readtheorg.css"/>
 <script type="text/javascript" src="https://tsoh.org/scarab/js/readtheorg.js"></script>
-<style type="text/css">
-<!--/*--><![CDATA[/*><!--*/
-#content { max-width: 1200px; }
-/*]]>*/-->
-</style>
+<link rel="stylesheet" type="text/css" href="./soh.css"/>
+<style type="text/css"> #+HTML_HEAD: #content { max-width: 1200px; }</style>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -294,43 +291,44 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgbbc8a12">1. 参考資料</a></li>
-<li><a href="#org75df69a">2. インストール (sbt)</a></li>
-<li><a href="#org2430c3b">3. 実行の方法</a></li>
-<li><a href="#org6f394d6">4. REPL による対話的な実行方法</a>
+<li><a href="#org0925938">1. 参考資料</a></li>
+<li><a href="#orgd266bea">2. インストール (sbt)</a></li>
+<li><a href="#org810082d">3. 実行の方法</a></li>
+<li><a href="#orga147f62">4. REPL による対話的な実行方法</a>
 <ul>
-<li><a href="#orgcf0548d">4.1. CSP の定義</a></li>
-<li><a href="#org048ab3a">4.2. 解の探索</a></li>
+<li><a href="#org3bc55b2">4.1. CSP の定義</a></li>
+<li><a href="#orge089d41">4.2. 解の探索</a></li>
 </ul>
 </li>
-<li><a href="#org3d980e3">5. スクリプトファイルの読み込み</a>
+<li><a href="#org96dbd28">5. スクリプトファイルの読み込み</a>
 <ul>
-<li><a href="#org0659f7c">5.1. 練習問題</a></li>
+<li><a href="#org7746b6e">5.1. 練習問題</a></li>
 </ul>
 </li>
-<li><a href="#org2ff1b89">6. 簡単な例題</a>
+<li><a href="#org8365f8f">6. 例題集</a>
 <ul>
-<li><a href="#orgd8c06c5">6.1. 部分和問題</a></li>
-<li><a href="#orgf5d619d">6.2. 魔方陣</a></li>
-<li><a href="#org206c99f">6.3. 正方形矩形パッキング</a></li>
-<li><a href="#orgec856ef">6.4. その他の例題</a></li>
+<li><a href="#org3152aa6">6.1. 部分和問題</a></li>
+<li><a href="#orgedf5893">6.2. 魔方陣</a></li>
+<li><a href="#orgee920ae">6.3. ジョブショップスケジューリング問題</a></li>
+<li><a href="#orgfb4bdb3">6.4. 正方形矩形パッキング</a></li>
+<li><a href="#orgda55b3e">6.5. その他の例題</a></li>
 </ul>
 </li>
-<li><a href="#org2e84a26">7. その他 Scarab の説明クラスとメソッドの簡単なまとめ</a>
+<li><a href="#orgef00d71">7. その他 Scarab の説明とクラスとメソッドの簡単なまとめ</a>
 <ul>
-<li><a href="#org04ec107">7.1. jar ファイルとソースコード</a></li>
-<li><a href="#orgebf3e93">7.2. Scarab のクラスについて</a></li>
-<li><a href="#org4e2ab26">7.3. Scarab DSL について</a></li>
-<li><a href="#org25ea91f">7.4. Scarab DSL の制約記述に関する構文 (BNF記法)</a></li>
-<li><a href="#org29de7a7">7.5. プログラムの簡単なまとめ</a></li>
+<li><a href="#org90967e7">7.1. jar ファイルとソースコード</a></li>
+<li><a href="#orga2c5e07">7.2. Scarab のクラスについて</a></li>
+<li><a href="#org9675af6">7.3. Scarab DSL について</a></li>
+<li><a href="#org81ab59a">7.4. Scarab DSL の制約記述に関する構文 (BNF記法)</a></li>
+<li><a href="#orgaa333a3">7.5. プログラムの簡単なまとめ</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgbbc8a12" class="outline-2">
-<h2 id="orgbbc8a12"><span class="section-number-2">1</span> 参考資料</h2>
+<div id="outline-container-org0925938" class="outline-2">
+<h2 id="org0925938"><span class="section-number-2">1</span> 参考資料</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li>Scarab 資料
@@ -352,12 +350,17 @@ for the JavaScript code in this tag.
 </ul></li>
 <li><a href="https://tsoh.org/scarab/talks/talk-jp-ppl2017.pdf">SATソルバーの最新動向と利用技術 (日本語) @ PPL 2017</a></li>
 </ul></li>
+<li>参考資料
+<ul class="org-ul">
+<li><a href="http://bach.istc.kobe-u.ac.jp/copris/docs/intro-ja.html">Copris による制約プログラミング入門</a> (本チュートリアルはこのペー
+ジを参考にして作成しました).</li>
+</ul></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org75df69a" class="outline-2">
-<h2 id="org75df69a"><span class="section-number-2">2</span> インストール (sbt)</h2>
+<div id="outline-container-orgd266bea" class="outline-2">
+<h2 id="orgd266bea"><span class="section-number-2">2</span> インストール (sbt)</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li><a href="https://www.scala-sbt.org/1.x/docs/ja/Setup.html">sbt 本家</a> のインストールマニュアルをみて，sbt のインストールを行う.
@@ -422,8 +425,8 @@ sbt:Scarab&gt;
 </div>
 </div>
 
-<div id="outline-container-org2430c3b" class="outline-2">
-<h2 id="org2430c3b"><span class="section-number-2">3</span> 実行の方法</h2>
+<div id="outline-container-org810082d" class="outline-2">
+<h2 id="org810082d"><span class="section-number-2">3</span> 実行の方法</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li>Scarab の制約記述言語は Scala 上のドメイン特化言語として実装されている．<a href="ref.html">Scala の説明</a></li>
@@ -453,23 +456,28 @@ the <a href="https://almond.sh/">Almond</a> Scala kernel.</li>
 </div>
 </div>
 
-<div id="outline-container-org6f394d6" class="outline-2">
-<h2 id="org6f394d6"><span class="section-number-2">4</span> REPL による対話的な実行方法</h2>
+<div id="outline-container-orga147f62" class="outline-2">
+<h2 id="orga147f62"><span class="section-number-2">4</span> REPL による対話的な実行方法</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 簡単な例題を通して, Scala の REPL (対話的実行環境) を用いた scarab の利用方法を理解しよう.
 </p>
-<pre class="example">
-=== 問題 ===
-12セント，16セント，20セント，27セントの切手をそれぞれ10枚持っている．
-この時に90セント分の切手を構成できるか?
-</pre>
+
+<blockquote id="problem">
+<p>
+<b>問題の記述</b><br>
+</p>
+<ul class="org-ul">
+<li>12セント，16セント，20セント，27セントの切手をそれぞれ10枚持っている．</li>
+<li>この時に90セント分の切手を構成できるか?</li>
+</ul>
+</blockquote>
 <p>
 この問題は以下のように制約充足問題 (CSP) として定義できる．
 </p>
-<blockquote id="test">
+<blockquote id="csp">
 <p>
-<code>=</code> 切手の問題の CSP による定義 <code>=</code>
+<b>切手の問題の CSP による定義</b><br>
 </p>
 <ul class="org-ul">
 <li>変数の集合 \(X = \{a, b, c, d\}\)</li>
@@ -488,8 +496,8 @@ the <a href="https://almond.sh/">Almond</a> Scala kernel.</li>
 </blockquote>
 </div>
 
-<div id="outline-container-orgcf0548d" class="outline-3">
-<h3 id="orgcf0548d"><span class="section-number-3">4.1</span> CSP の定義</h3>
+<div id="outline-container-org3bc55b2" class="outline-3">
+<h3 id="org3bc55b2"><span class="section-number-3">4.1</span> CSP の定義</h3>
 <div class="outline-text-3" id="text-4-1">
 <ul class="org-ul">
 <li>上記のCSPに対応するScarabプログラムは以下になる</li>
@@ -597,8 +605,8 @@ int(d,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">
 </div>
 </div>
 
-<div id="outline-container-org048ab3a" class="outline-3">
-<h3 id="org048ab3a"><span class="section-number-3">4.2</span> 解の探索</h3>
+<div id="outline-container-orge089d41" class="outline-3">
+<h3 id="orge089d41"><span class="section-number-3">4.2</span> 解の探索</h3>
 <div class="outline-text-3" id="text-4-2">
 <ul class="org-ul">
 <li>最初の解の探索は find で行う．</li>
@@ -691,8 +699,8 @@ res23<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </div>
 
-<div id="outline-container-org3d980e3" class="outline-2">
-<h2 id="org3d980e3"><span class="section-number-2">5</span> スクリプトファイルの読み込み</h2>
+<div id="outline-container-org96dbd28" class="outline-2">
+<h2 id="org96dbd28"><span class="section-number-2">5</span> スクリプトファイルの読み込み</h2>
 <div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li>CSPをScalaのスクリプトファイルとして定義することもできる．</li>
@@ -766,8 +774,8 @@ res17<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </div>
 
-<div id="outline-container-org0659f7c" class="outline-3">
-<h3 id="org0659f7c"><span class="section-number-3">5.1</span> 練習問題</h3>
+<div id="outline-container-org7746b6e" class="outline-3">
+<h3 id="org7746b6e"><span class="section-number-3">5.1</span> 練習問題</h3>
 <div class="outline-text-3" id="text-5-1">
 <ul class="org-ul">
 <li>89円分の切手を構成できるかテストしてみよう．</li>
@@ -775,24 +783,26 @@ res17<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </div>
 </div>
-<div id="outline-container-org2ff1b89" class="outline-2">
-<h2 id="org2ff1b89"><span class="section-number-2">6</span> 簡単な例題</h2>
+<div id="outline-container-org8365f8f" class="outline-2">
+<h2 id="org8365f8f"><span class="section-number-2">6</span> 例題集</h2>
 <div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-orgd8c06c5" class="outline-3">
-<h3 id="orgd8c06c5"><span class="section-number-3">6.1</span> 部分和問題</h3>
+<div id="outline-container-org3152aa6" class="outline-3">
+<h3 id="org3152aa6"><span class="section-number-3">6.1</span> 部分和問題</h3>
 <div class="outline-text-3" id="text-6-1">
-<pre class="example">
+<blockquote id="problem">
+<p>
 使いきらなければならない予算が 50 千円あります．
 購入できる品物は 2, 3, 5, 8, 13, 21, 34 (単位: 千円) が1つずつです．
 ちょうど予算を使い切るような組合せはあるか?
-</pre>
+</p>
+</blockquote>
 
 <ul class="org-ul">
 <li>この問題は 部分和問題 (Subset sum problem)として知られている問題の例である． 部分和問題はNP-完全である (<a href="https://ja.wikipedia.org/wiki/%E9%83%A8%E5%88%86%E5%92%8C%E5%95%8F%E9%A1%8C">Wikipedia:部分和問題</a>)．</li>
 <li>これは，以下の制約充足問題として定式化できる．</li>
 </ul>
-<blockquote>
+<blockquote id="csp">
 <ul class="org-ul">
 <li>\(X = \{x_2, x_3, x_5, x_8, x_{13}, x_{21}, x_{34}\}\)</li>
 <li>\(Dom\)
@@ -811,6 +821,7 @@ res17<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </ul></li>
 </ul>
 </blockquote>
+
 <ul class="org-ul">
 <li>CSPを記述したファイルは以下のようになる <a href="https://tsoh.org/scarab/sample-scripts/ex-subsetsum.sc">ex-subsetsum.sc</a></li>
 </ul>
@@ -892,7 +903,7 @@ x(<span style="color: #008b8b;">34</span>) <span style="color: #008b8b;">1</span
 </div>
 
 <ol class="org-ol">
-<li><a id="orgb266b2f"></a>練習問題<br />
+<li><a id="orgbfe0a25"></a>練習問題<br />
 <div class="outline-text-4" id="text-6-1-1">
 <ul class="org-ul">
 <li>和が40の場合はどうなるか?</li>
@@ -902,19 +913,21 @@ x(<span style="color: #008b8b;">34</span>) <span style="color: #008b8b;">1</span
 </ol>
 </div>
 
-<div id="outline-container-orgf5d619d" class="outline-3">
-<h3 id="orgf5d619d"><span class="section-number-3">6.2</span> 魔方陣</h3>
+<div id="outline-container-orgedf5893" class="outline-3">
+<h3 id="orgedf5893"><span class="section-number-3">6.2</span> 魔方陣</h3>
 <div class="outline-text-3" id="text-6-2">
-<pre class="example">
-1から9の数字を 3×3 に配置し， 各行，各列，各対角線の和がいずれも15になるようにせよ．
-</pre>
+<blockquote id="problem">
+<p>
+1から9の数字を 3×3 に配置し， 各行，各列，各対角線の和がいずれも15になるようにせよ．  
+</p>
+</blockquote>
 
 <ul class="org-ul">
 <li>このような配置は魔方陣 (Magic square)と呼ばれる (<a href="http://ja.wikipedia.org/wiki/%E9%AD%94%E6%96%B9%E9%99%A3">Wikipedia:魔方陣</a>)．</li>
 <li>以下のようにCSPとして定式化できる．</li>
 </ul>
 
-<blockquote>
+<blockquote id="csp">
 <ul class="org-ul">
 <li>\(X = \cup_{0 \le i,j \le 2} x_{i,j} \)
 <ul class="org-ul">
@@ -985,7 +998,7 @@ add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</s
 </div>
 
 <ol class="org-ol">
-<li><a id="orgaaa44dd"></a>練習問題<br />
+<li><a id="orgd3c5b54"></a>練習問題<br />
 <div class="outline-text-4" id="text-6-2-1">
 <ul class="org-ul">
 <li>n x n の魔方陣を記述してみよう．</li>
@@ -995,14 +1008,293 @@ add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</s
 </ol>
 </div>
 
-<div id="outline-container-org206c99f" class="outline-3">
-<h3 id="org206c99f"><span class="section-number-3">6.3</span> 正方形矩形パッキング</h3>
+<div id="outline-container-orgee920ae" class="outline-3">
+<h3 id="orgee920ae"><span class="section-number-3">6.3</span> ジョブショップスケジューリング問題</h3>
 <div class="outline-text-3" id="text-6-3">
-<pre class="example">
+<blockquote id="problem">
+<ul class="org-ul">
+<li>この問題は <a href="http://people.brunel.ac.uk/~mastjjb/jeb/orlib/files/jobshop1.txt">Fisher and Thompson 6x6 instance (ft06)</a> からの引用です.
+<ul class="org-ul">
+<li>H. Fisher, G.L. Thompson (1963)</li>
+</ul></li>
+<li>6つの製品 A, B, C, D, E, F をそれぞれ6つの工程 (オペレーション) を経
+て作る必要があります.</li>
+<li>工程は使用する機械と処理時間で構成されます. 例えば製品Aは以下6つの工
+程を経て作られます. 
+<ul class="org-ul">
+<li>工程1 (O1): 機械2を使って1時間</li>
+<li>工程2 (O2): 機械0を使って3時間</li>
+<li>工程3 (O3): 機械1を使って6時間</li>
+<li>工程4 (O4): 機械3を使って7時間</li>
+<li>工程5 (O5): 機械5を使って3時間</li>
+<li>工程6 (O6): 機械4を使って6時間</li>
+</ul></li>
+<li>各機械は同時に1つの製品しか処理することができません.</li>
+<li>いま6つの製品 A, B, C, D, E, F の工程が以下のように与えられるとき,
+全ての製品を作るために必要な最小の時間は何時間でしょうか?</li>
+</ul>
+</blockquote>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">製品</th>
+<th scope="col" class="org-right">O1</th>
+<th scope="col" class="org-right">&#xa0;</th>
+<th scope="col" class="org-right">O2</th>
+<th scope="col" class="org-right">&#xa0;</th>
+<th scope="col" class="org-right">O3</th>
+<th scope="col" class="org-right">&#xa0;</th>
+<th scope="col" class="org-right">O4</th>
+<th scope="col" class="org-right">&#xa0;</th>
+<th scope="col" class="org-right">O5</th>
+<th scope="col" class="org-right">&#xa0;</th>
+<th scope="col" class="org-right">O6</th>
+<th scope="col" class="org-right">&#xa0;</th>
+</tr>
+
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-right">機械</th>
+<th scope="col" class="org-right">時間</th>
+<th scope="col" class="org-right">機械</th>
+<th scope="col" class="org-right">時間</th>
+<th scope="col" class="org-right">機械</th>
+<th scope="col" class="org-right">時間</th>
+<th scope="col" class="org-right">機械</th>
+<th scope="col" class="org-right">時間</th>
+<th scope="col" class="org-right">機械</th>
+<th scope="col" class="org-right">時間</th>
+<th scope="col" class="org-right">機械</th>
+<th scope="col" class="org-right">時間</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">A</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">3</td>
+<td class="org-right">1</td>
+<td class="org-right">6</td>
+<td class="org-right">3</td>
+<td class="org-right">7</td>
+<td class="org-right">5</td>
+<td class="org-right">3</td>
+<td class="org-right">4</td>
+<td class="org-right">6</td>
+</tr>
+
+<tr>
+<td class="org-left">B</td>
+<td class="org-right">1</td>
+<td class="org-right">8</td>
+<td class="org-right">2</td>
+<td class="org-right">5</td>
+<td class="org-right">4</td>
+<td class="org-right">10</td>
+<td class="org-right">5</td>
+<td class="org-right">10</td>
+<td class="org-right">0</td>
+<td class="org-right">10</td>
+<td class="org-right">3</td>
+<td class="org-right">4</td>
+</tr>
+
+<tr>
+<td class="org-left">C</td>
+<td class="org-right">2</td>
+<td class="org-right">5</td>
+<td class="org-right">3</td>
+<td class="org-right">4</td>
+<td class="org-right">5</td>
+<td class="org-right">8</td>
+<td class="org-right">0</td>
+<td class="org-right">9</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">4</td>
+<td class="org-right">7</td>
+</tr>
+
+<tr>
+<td class="org-left">D</td>
+<td class="org-right">1</td>
+<td class="org-right">5</td>
+<td class="org-right">0</td>
+<td class="org-right">5</td>
+<td class="org-right">2</td>
+<td class="org-right">5</td>
+<td class="org-right">3</td>
+<td class="org-right">3</td>
+<td class="org-right">4</td>
+<td class="org-right">8</td>
+<td class="org-right">5</td>
+<td class="org-right">9</td>
+</tr>
+
+<tr>
+<td class="org-left">E</td>
+<td class="org-right">2</td>
+<td class="org-right">9</td>
+<td class="org-right">1</td>
+<td class="org-right">3</td>
+<td class="org-right">4</td>
+<td class="org-right">5</td>
+<td class="org-right">5</td>
+<td class="org-right">4</td>
+<td class="org-right">0</td>
+<td class="org-right">3</td>
+<td class="org-right">3</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">F</td>
+<td class="org-right">1</td>
+<td class="org-right">3</td>
+<td class="org-right">3</td>
+<td class="org-right">3</td>
+<td class="org-right">5</td>
+<td class="org-right">9</td>
+<td class="org-right">0</td>
+<td class="org-right">10</td>
+<td class="org-right">4</td>
+<td class="org-right">4</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li>この問題を CSP で表す方法はジョブ \(i\) の工程 (オペレーション) \(j\) が
+開始される時刻を整数変数 \(stOp(i,j)\) とする方法である. 
+<ul class="org-ul">
+<li>James M. Crawford, Andrew B. Baker (1994)</li>
+</ul></li>
+<li>Scarab プログラムでは, 以下のように記述できる. ここで \(ops\) は, 上記
+の表を表している.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-scala"><span style="color: #a020f0;">object</span> <span style="color: #008b8b;">Main</span> <span style="color: #a020f0;">extends</span> <span style="color: #228b22;">App</span> {
+  <span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span> , dsl.<span style="color: #a020f0;">_</span>
+
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">&#21839;&#38988;&#12398;&#23450;&#32681; */</span>
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">noJobs</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">6</span>
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">noMachines</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">6</span>
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ops</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Seq</span>(
+    <span style="color: #008b8b;">Seq</span>((<span style="color: #008b8b;">2</span>, <span style="color: #008b8b;">1</span>), (<span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">3</span>), (<span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">6</span>), (<span style="color: #008b8b;">3</span>, <span style="color: #008b8b;">7</span>), (<span style="color: #008b8b;">5</span>, <span style="color: #008b8b;">3</span>), (<span style="color: #008b8b;">4</span>, <span style="color: #008b8b;">6</span>)),
+    <span style="color: #008b8b;">Seq</span>((<span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">8</span>), (<span style="color: #008b8b;">2</span>, <span style="color: #008b8b;">5</span>), (<span style="color: #008b8b;">4</span>, <span style="color: #008b8b;">10</span>), (<span style="color: #008b8b;">5</span>, <span style="color: #008b8b;">10</span>), (<span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>), (<span style="color: #008b8b;">3</span>, <span style="color: #008b8b;">4</span>)),
+    <span style="color: #008b8b;">Seq</span>((<span style="color: #008b8b;">2</span>, <span style="color: #008b8b;">5</span>), (<span style="color: #008b8b;">3</span>, <span style="color: #008b8b;">4</span>), (<span style="color: #008b8b;">5</span>, <span style="color: #008b8b;">8</span>), (<span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">9</span>), (<span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">1</span>), (<span style="color: #008b8b;">4</span>, <span style="color: #008b8b;">7</span>)),
+    <span style="color: #008b8b;">Seq</span>((<span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">5</span>), (<span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">5</span>), (<span style="color: #008b8b;">2</span>, <span style="color: #008b8b;">5</span>), (<span style="color: #008b8b;">3</span>, <span style="color: #008b8b;">3</span>), (<span style="color: #008b8b;">4</span>, <span style="color: #008b8b;">8</span>), (<span style="color: #008b8b;">5</span>, <span style="color: #008b8b;">9</span>)),
+    <span style="color: #008b8b;">Seq</span>((<span style="color: #008b8b;">2</span>, <span style="color: #008b8b;">9</span>), (<span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">3</span>), (<span style="color: #008b8b;">4</span>, <span style="color: #008b8b;">5</span>), (<span style="color: #008b8b;">5</span>, <span style="color: #008b8b;">4</span>), (<span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">3</span>), (<span style="color: #008b8b;">3</span>, <span style="color: #008b8b;">1</span>)),
+    <span style="color: #008b8b;">Seq</span>((<span style="color: #008b8b;">1</span>, <span style="color: #008b8b;">3</span>), (<span style="color: #008b8b;">3</span>, <span style="color: #008b8b;">3</span>), (<span style="color: #008b8b;">5</span>, <span style="color: #008b8b;">9</span>), (<span style="color: #008b8b;">0</span>, <span style="color: #008b8b;">10</span>), (<span style="color: #008b8b;">4</span>, <span style="color: #008b8b;">4</span>), (<span style="color: #008b8b;">2</span>, <span style="color: #008b8b;">1</span>)))
+
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">makespan &#12398;&#32032;&#26420;&#12394;&#19979;&#38480;&#20516; */</span>
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">lbMkSpan</span> <span style="color: #a020f0;">=</span> ops.map(job <span style="color: #a020f0;">=&gt;</span> job.map(<span style="color: #a020f0;">_</span>._2).sum).max
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">makespan &#12398;&#32032;&#26420;&#12394;&#19978;&#38480;&#20516; */</span>
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ubMkSpan</span> <span style="color: #a020f0;">=</span> {
+    <span style="color: #a020f0;">for</span> (m1 <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until noMachines) <span style="color: #a020f0;">yield</span> {
+      <span style="color: #a020f0;">for</span> (m2 <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until noMachines) <span style="color: #a020f0;">yield</span>
+        (<span style="color: #008b8b;">0</span> until noJobs).map(ops(<span style="color: #a020f0;">_</span>)(m1)).filter(<span style="color: #a020f0;">_</span>._1 == m2).map(<span style="color: #a020f0;">_</span>._2).sum
+    }.max
+  }.sum
+
+  int(<span style="color: #8b2252;">'makespan</span>,lbMkSpan,ubMkSpan)
+
+
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">&#21508;&#12458;&#12506;&#12524;&#12540;&#12471;&#12519;&#12531;&#12398;&#38283;&#22987;&#26178;&#38291;&#12434;&#34920;&#12377;&#22793;&#25968; */</span>
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">lbSt</span>(j<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Int</span>, n<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Int</span>) <span style="color: #a020f0;">=</span> ops(j).dropRight(noMachines - n).map(<span style="color: #a020f0;">_</span>._2).sum
+  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">ubSt</span>(j<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Int</span>, n<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Int</span>) <span style="color: #a020f0;">=</span> ubMkSpan - ops(j).drop(n).map(<span style="color: #a020f0;">_</span>._2).sum
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">stOp</span> <span style="color: #a020f0;">=</span>
+    <span style="color: #a020f0;">for</span> (j <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until noJobs) <span style="color: #a020f0;">yield</span>
+      <span style="color: #a020f0;">for</span> (m <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until noMachines) <span style="color: #a020f0;">yield</span> int(<span style="color: #8b2252;">'stOp</span>(j,m), lbSt(j,m), ubSt(j,m))
+
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">&#21508;&#12472;&#12519;&#12502;&#12395;&#12362;&#12369;&#12427;&#21508;&#12458;&#12506;&#12524;&#12540;&#12471;&#12519;&#12531;&#12398;&#38918;&#24207;&#38306;&#20418;&#12434;&#34920;&#12377;&#21046;&#32004; */</span>
+  <span style="color: #a020f0;">for</span> (j <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until noJobs)
+    <span style="color: #a020f0;">for</span> (m <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until noMachines - <span style="color: #008b8b;">1</span>)
+      add(stOp(j)(m) + ops(j)(m)._2 &lt;= stOp(j)(m+<span style="color: #008b8b;">1</span>))
+
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">&#21508;&#27231;&#26800;&#12395;&#12362;&#12369;&#12427;&#31478;&#21512;&#38306;&#20418;&#12434;&#34920;&#12377;&#21046;&#32004; */</span>
+  <span style="color: #a020f0;">for</span> (m <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until noMachines) {
+    <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">index4m</span> <span style="color: #a020f0;">=</span>
+      <span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until noJobs; j <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until noMachines <span style="color: #a020f0;">if</span> ops(i)(j)._1 == m)
+        <span style="color: #a020f0;">yield</span> (i,j)
+    <span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until index4m.size; j <span style="color: #a020f0;">&lt;-</span> i+<span style="color: #008b8b;">1</span> until index4m.size) {
+      <span style="color: #a020f0;">val</span> (<span style="color: #a0522d;">i0</span>,<span style="color: #a0522d;">j0</span>) <span style="color: #a020f0;">=</span> index4m(i)
+      <span style="color: #a020f0;">val</span> (<span style="color: #a0522d;">i1</span>,<span style="color: #a0522d;">j1</span>) <span style="color: #a020f0;">=</span> index4m(j)
+      add(stOp(i0)(j0) + ops(i0)(j0)._2 &lt;= stOp(i1)(j1) ||
+        stOp(i1)(j1) + ops(i1)(j1)._2 &lt;= stOp(i0)(j0))
+    }
+  }
+
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">&#21508;&#12472;&#12519;&#12502;&#12364; makespan &#20197;&#20869;&#12395;&#32066;&#20102;&#12377;&#12427;&#12371;&#12392;&#12434;&#34920;&#12377;&#21046;&#32004; */</span>
+  <span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until noJobs)
+    add(stOp(i).last + ops(i).last._2 &lt;= <span style="color: #8b2252;">'makespan</span>)
+
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">makespan &#12398;&#19978;&#38480;&#12434;&#21046;&#38480;&#12377;&#12427;&#21046;&#32004; */</span>
+  add(<span style="color: #8b2252;">'makespan</span> &lt;= ubMkSpan)
+
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">&#26368;&#36969;&#20516;&#12434;&#27714;&#12417;&#12427;&#12383;&#12417;&#12398; while &#25991; */</span>
+  <span style="color: #a020f0;">var</span> <span style="color: #ff0000; font-weight: bold;">wm</span> <span style="color: #a020f0;">=</span> ubMkSpan
+  <span style="color: #a020f0;">var</span> <span style="color: #ff0000; font-weight: bold;">sol</span><span style="color: #a020f0;">:</span> <span style="color: #228b22;">Option</span>[<span style="color: #008b8b;">Assignment</span>] <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">None</span>
+  <span style="color: #a020f0;">while</span>(find) {
+    <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">ub</span> <span style="color: #a020f0;">=</span> (<span style="color: #008b8b;">0</span> until noJobs).map{i <span style="color: #a020f0;">=&gt;</span> solution.intMap(stOp(i).last) + ops(i).last._2}.max
+    wm <span style="color: #a020f0;">=</span> ub - <span style="color: #008b8b;">1</span>
+    sol <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">Some</span>(solution)
+    add(<span style="color: #8b2252;">'makespan</span> &lt;= wm)
+  }
+
+  println(s<span style="color: #8b2252;">"optimum: </span><span style="color: #a0522d;">${wm+1}</span><span style="color: #8b2252;">"</span>)
+  <span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until noJobs)
+    println((<span style="color: #008b8b;">0</span> until noMachines).map(j <span style="color: #a020f0;">=&gt;</span> sol.get(stOp(i)(j))).mkString(<span style="color: #8b2252;">" "</span>))
+
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfb4bdb3" class="outline-3">
+<h3 id="orgfb4bdb3"><span class="section-number-3">6.4</span> 正方形矩形パッキング</h3>
+<div class="outline-text-3" id="text-6-4">
+<blockquote id="problem">
+<p>
 正方形詰込み問題 SP(n,s) は一辺の長さ 1 から n まで1ずつ増加する正方形の集合を
 一辺の長さ s の正方形の枠内に重なりなく配置する問題である．
-</pre>
-
+</p>
+</blockquote>
 
 
 <div class="figure">
@@ -1021,29 +1313,35 @@ add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</s
 <div class="org-src-container">
 <pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span> , dsl.<span style="color: #a020f0;">_</span>
 
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">15</span>
-<span style="color: #a020f0;">val</span> <span style="color: #a0522d;">s</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">100</span>
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">&#20837;&#21147;&#12392;&#12394;&#12427; (&#23567;&#12373;&#12356;) &#27491;&#26041;&#24418;&#12398;&#25968; */</span>
+  <span style="color: #a020f0;">val</span> <span style="color: #a0522d;">n</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">15</span>
 
-<span style="color: #a020f0;">var</span> <span style="color: #ff0000; font-weight: bold;">lb</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">15</span>
-<span style="color: #a020f0;">var</span> <span style="color: #ff0000; font-weight: bold;">ub</span> <span style="color: #a020f0;">=</span> s
-int(<span style="color: #8b2252;">'m</span>, lb, ub)
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">&#22823;&#12365;&#12356;&#27491;&#26041;&#24418;&#12398;&#12469;&#12452;&#12474;&#12434;&#34920;&#12377;&#22793;&#25968; */</span>
+  <span style="color: #a020f0;">var</span> <span style="color: #ff0000; font-weight: bold;">lb</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">15</span>
+  <span style="color: #a020f0;">var</span> <span style="color: #ff0000; font-weight: bold;">ub</span> <span style="color: #a020f0;">=</span> <span style="color: #008b8b;">100</span>
+  int(<span style="color: #8b2252;">'size</span>, lb, ub)
 
-<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n) { 
-  int(<span style="color: #8b2252;">'x</span>(i),<span style="color: #008b8b;">0</span>,s-i) 
-  int(<span style="color: #8b2252;">'y</span>(i),<span style="color: #008b8b;">0</span>,s-i) 
-}
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">&#21508;&#27491;&#26041;&#24418;&#12398;&#24038;&#19979;&#12398;&#24231;&#27161;&#12434;&#34920;&#12377;&#22793;&#25968; */</span>
+  <span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n) {
+    int(<span style="color: #8b2252;">'x</span>(i),<span style="color: #008b8b;">0</span>,ub-i)
+    int(<span style="color: #8b2252;">'y</span>(i),<span style="color: #008b8b;">0</span>,ub-i)
+  }
 
-<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n)
-  add((<span style="color: #8b2252;">'x</span>(i)+i &lt;= <span style="color: #8b2252;">'m</span>) &amp;&amp; (<span style="color: #8b2252;">'y</span>(i)+i &lt;= <span style="color: #8b2252;">'m</span>)) 
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">&#21508;&#27491;&#26041;&#24418;&#12364;&#22823;&#12365;&#12356;&#27491;&#26041;&#24418;&#12398;&#20869;&#20596;&#12395;&#35440;&#12417;&#36796;&#12414;&#12428;&#12427;&#12371;&#12392;&#12434;&#34920;&#12377;&#21046;&#32004; */</span>
+  <span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n)
+    add((<span style="color: #8b2252;">'x</span>(i)+i &lt;= <span style="color: #8b2252;">'size</span>) &amp;&amp; (<span style="color: #8b2252;">'y</span>(i)+i &lt;= <span style="color: #8b2252;">'size</span>))
 
-<span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n; j <span style="color: #a020f0;">&lt;-</span> i+<span style="color: #008b8b;">1</span> to n) 
-  add((<span style="color: #8b2252;">'x</span>(i)+i&lt;=<span style="color: #8b2252;">'x</span>(j)) || (<span style="color: #8b2252;">'x</span>(j)+j&lt;=<span style="color: #8b2252;">'x</span>(i)) || (<span style="color: #8b2252;">'y</span>(i)+i&lt;=<span style="color: #8b2252;">'y</span>(j)) || (<span style="color: #8b2252;">'y</span>(j)+j&lt;=<span style="color: #8b2252;">'y</span>(i)))
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">&#21508;&#27491;&#26041;&#24418;&#12364;&#37325;&#12394;&#12425;&#12394;&#12356;&#12371;&#12392;&#12434;&#34920;&#12377;&#21046;&#32004; */</span>
+  <span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">1</span> to n; j <span style="color: #a020f0;">&lt;-</span> i+<span style="color: #008b8b;">1</span> to n)
+    add((<span style="color: #8b2252;">'x</span>(i)+i&lt;=<span style="color: #8b2252;">'x</span>(j)) || (<span style="color: #8b2252;">'x</span>(j)+j&lt;=<span style="color: #8b2252;">'x</span>(i)) || (<span style="color: #8b2252;">'y</span>(i)+i&lt;=<span style="color: #8b2252;">'y</span>(j)) || (<span style="color: #8b2252;">'y</span>(j)+j&lt;=<span style="color: #8b2252;">'y</span>(i)))
 
-<span style="color: #a020f0;">while</span>(lb &lt;= ub &amp;&amp; find(<span style="color: #8b2252;">'m</span> &lt;= ub)) {
-  add(<span style="color: #8b2252;">'m</span> &lt;= ub)
-  ub -= <span style="color: #008b8b;">1</span>
-  println(ub)
-}
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">&#26368;&#36969;&#20516;&#12434;&#27714;&#12417;&#12427; while &#25991; */</span>
+  add(<span style="color: #8b2252;">'size</span> &lt;= ub)
+  <span style="color: #a020f0;">while</span>(find) {
+    ub -= <span style="color: #008b8b;">1</span>
+    add(<span style="color: #8b2252;">'m</span> &lt;= ub)
+  }
+  println(s<span style="color: #8b2252;">"optimum: </span><span style="color: #a0522d;">${ub+1}</span><span style="color: #8b2252;">"</span>)
 </pre>
 </div>
 <ul class="org-ul">
@@ -1052,9 +1350,9 @@ int(<span style="color: #8b2252;">'m</span>, lb, ub)
 </div>
 </div>
 
-<div id="outline-container-orgec856ef" class="outline-3">
-<h3 id="orgec856ef"><span class="section-number-3">6.4</span> その他の例題</h3>
-<div class="outline-text-3" id="text-6-4">
+<div id="outline-container-orgda55b3e" class="outline-3">
+<h3 id="orgda55b3e"><span class="section-number-3">6.5</span> その他の例題</h3>
+<div class="outline-text-3" id="text-6-5">
 <ul class="org-ul">
 <li><a href="http://www.csplib.org/Problems/prob024/">ラングフォード・ペアリング</a></li>
 <li>プログラム例は <a href="http://tsoh.org/scarab/examples.html">Scarab の Example</a> ページにある．</li>
@@ -1063,12 +1361,12 @@ int(<span style="color: #8b2252;">'m</span>, lb, ub)
 </div>
 </div>
 
-<div id="outline-container-org2e84a26" class="outline-2">
-<h2 id="org2e84a26"><span class="section-number-2">7</span> その他 Scarab の説明クラスとメソッドの簡単なまとめ</h2>
+<div id="outline-container-orgef00d71" class="outline-2">
+<h2 id="orgef00d71"><span class="section-number-2">7</span> その他 Scarab の説明とクラスとメソッドの簡単なまとめ</h2>
 <div class="outline-text-2" id="text-7">
 </div>
-<div id="outline-container-org04ec107" class="outline-3">
-<h3 id="org04ec107"><span class="section-number-3">7.1</span> jar ファイルとソースコード</h3>
+<div id="outline-container-org90967e7" class="outline-3">
+<h3 id="org90967e7"><span class="section-number-3">7.1</span> jar ファイルとソースコード</h3>
 <div class="outline-text-3" id="text-7-1">
 <ul class="org-ul">
 <li>scarab を jar ファイルにまとめたものです</li>
@@ -1086,8 +1384,8 @@ int(<span style="color: #8b2252;">'m</span>, lb, ub)
 </div>
 </div>
 
-<div id="outline-container-orgebf3e93" class="outline-3">
-<h3 id="orgebf3e93"><span class="section-number-3">7.2</span> Scarab のクラスについて</h3>
+<div id="outline-container-orga2c5e07" class="outline-3">
+<h3 id="orga2c5e07"><span class="section-number-3">7.2</span> Scarab のクラスについて</h3>
 <div class="outline-text-3" id="text-7-2">
 <ul class="org-ul">
 <li>Scarab のクラスについては scaladoc によって生成された <a href="https://tsoh.org/scarab/docs/scarab-api/jp/kobe_u/scarab/">API</a> に詳し
@@ -1204,7 +1502,7 @@ int(<span style="color: #8b2252;">'m</span>, lb, ub)
 </div>
 
 <ol class="org-ol">
-<li><a id="orgd5fefc1"></a>CSPに関係するクラス図<br />
+<li><a id="org4b554db"></a>CSPに関係するクラス図<br />
 <div class="outline-text-4" id="text-7-2-1">
 <center>
 
@@ -1216,7 +1514,7 @@ int(<span style="color: #8b2252;">'m</span>, lb, ub)
 </div>
 </li>
 
-<li><a id="orgad2c4b2"></a>制約ソルバーに関係するクラス図<br />
+<li><a id="org29afd75"></a>制約ソルバーに関係するクラス図<br />
 <div class="outline-text-4" id="text-7-2-2">
 <center>
 
@@ -1230,12 +1528,12 @@ int(<span style="color: #8b2252;">'m</span>, lb, ub)
 </ol>
 </div>
 
-<div id="outline-container-org4e2ab26" class="outline-3">
-<h3 id="org4e2ab26"><span class="section-number-3">7.3</span> Scarab DSL について</h3>
+<div id="outline-container-org9675af6" class="outline-3">
+<h3 id="org9675af6"><span class="section-number-3">7.3</span> Scarab DSL について</h3>
 <div class="outline-text-3" id="text-7-3">
 </div>
 <ol class="org-ol">
-<li><a id="org8cf68dc"></a>CSP について<br />
+<li><a id="orga31ff70"></a>CSP について<br />
 <div class="outline-text-4" id="text-7-3-1">
 <ul class="org-ul">
 <li>Scarab DSL を呼んだ状態, すなわち以下のように <code>import</code> 文を書いた
@@ -1279,7 +1577,7 @@ res<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</span
 </div>
 </li>
 
-<li><a id="org447a741"></a>CSP における整数変数の定義について<br />
+<li><a id="org1e30301"></a>CSP における整数変数の定義について<br />
 <div class="outline-text-4" id="text-7-3-2">
 <ul class="org-ul">
 <li>Scarab DSL では, 整数変数の定義が簡単に行えるようにシンボルの暗
@@ -1360,8 +1658,8 @@ res5<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</spa
 </ol>
 </div>
 
-<div id="outline-container-org25ea91f" class="outline-3">
-<h3 id="org25ea91f"><span class="section-number-3">7.4</span> Scarab DSL の制約記述に関する構文 (BNF記法)</h3>
+<div id="outline-container-org81ab59a" class="outline-3">
+<h3 id="org81ab59a"><span class="section-number-3">7.4</span> Scarab DSL の制約記述に関する構文 (BNF記法)</h3>
 <div class="outline-text-3" id="text-7-4">
 <ul class="org-ul">
 <li><b>V</b>, <b>T</b>, <b>C</b>, <b>B</b> を <b>Var</b> (整数変数), <b>Term</b> (項), <b>Constraint</b> (制約), <b>Bool</b> (ブール変数) に対応するScarabオブジェクトとする.</li>
@@ -1379,14 +1677,14 @@ B  ::= Bool(String, String, ...) | B(Any, ...)
 </div>
 </div>
 
-<div id="outline-container-org29de7a7" class="outline-3">
-<h3 id="org29de7a7"><span class="section-number-3">7.5</span> プログラムの簡単なまとめ</h3>
+<div id="outline-container-orgaa333a3" class="outline-3">
+<h3 id="orgaa333a3"><span class="section-number-3">7.5</span> プログラムの簡単なまとめ</h3>
 <div class="outline-text-3" id="text-7-5">
 </div>
 <ol class="org-ol">
-<li><a id="org8eb4d13"></a>項オブジェクト (Termオブジェクト)<br />
+<li><a id="orgf4a16a0"></a>項オブジェクト (Termオブジェクト)<br />
 <ol class="org-ol">
-<li><a id="org8ac9383"></a>整数変数オブジェクト (Varオブジェクト)<br />
+<li><a id="org1042a4b"></a>整数変数オブジェクト (Varオブジェクト)<br />
 <div class="outline-text-5" id="text-7-5-1-1">
 <ul class="org-ul">
 <li>整数変数オプジェクトは Var で生成する． 引数にはその名前を与える．</li>
@@ -1426,7 +1724,7 @@ res19<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </li>
 
-<li><a id="orgcd68d51"></a>加算オブジェクト (Sumオブジェクト)<br />
+<li><a id="org9c89cef"></a>加算オブジェクト (Sumオブジェクト)<br />
 <div class="outline-text-5" id="text-7-5-1-2">
 <ul class="org-ul">
 <li>Sumオブジェクトは整数変数 (項も) の加算 (\(+\))，減算 (\(-\)) を表す．</li>
@@ -1447,7 +1745,7 @@ res23<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </ol>
 </li>
 
-<li><a id="orgab7f1c4"></a>制約オブジェクト<br />
+<li><a id="orgd371ad0"></a>制約オブジェクト<br />
 <div class="outline-text-4" id="text-7-5-2">
 <ul class="org-ul">
 <li>Termオブジェクトと比較演算子 &lt;= (\(\le\)), &lt;, &gt;= (\(\ge\)), &gt;, <code>=</code> (\(=\)),　!== (\(\ne\)) の組合せで構成される．</li>
@@ -1463,14 +1761,14 @@ res25<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </li>
 
-<li><a id="org25050ca"></a>CSPオブジェクト<br />
+<li><a id="org486fead"></a>CSPオブジェクト<br />
 <div class="outline-text-4" id="text-7-5-3">
 <ul class="org-ul">
 <li>CSPオブジェクトは，制約充足問題を表すオブジェクトである． jp.kobe_u.scarab.dsl._ を import した場合， デフォールトのCSPオブジェクトを変数 csp として参照できる．</li>
 </ul>
 </div>
 <ol class="org-ol">
-<li><a id="org6abda76"></a>整数変数の宣言 (CSPへ整数変数を追加)<br />
+<li><a id="orgf8f2a0f"></a>整数変数の宣言 (CSPへ整数変数を追加)<br />
 <div class="outline-text-5" id="text-7-5-3-1">
 <ul class="org-ul">
 <li>整数変数は int メソッドで宣言する． 通常は，下限値と上限値を与える．</li>
@@ -1502,7 +1800,7 @@ res30<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </li>
 
-<li><a id="orgb01112d"></a>制約の追加<br />
+<li><a id="org57aa6d9"></a>制約の追加<br />
 <div class="outline-text-5" id="text-7-5-3-2">
 <ul class="org-ul">
 <li>制約の追加は add メソッドで宣言する．</li>
@@ -1527,7 +1825,7 @@ int(y,<span style="color: #008b8b;">Domain</span>(<span style="color: #008b8b;">
 </ol>
 </li>
 
-<li><a id="orgbf28286"></a>解の探索<br />
+<li><a id="org5c24111"></a>解の探索<br />
 <div class="outline-text-4" id="text-7-5-4">
 <ul class="org-ul">
 <li>最初の解の探索は find で行う．</li>
@@ -1581,7 +1879,7 @@ res39<span style="color: #a020f0;">:</span> <span style="color: #228b22;">jp</sp
 </div>
 </li>
 
-<li><a id="org1367c34"></a>その他<br />
+<li><a id="org9c9021b"></a>その他<br />
 <div class="outline-text-4" id="text-7-5-5">
 <ul class="org-ul">
 <li>SATソルバーを切り替えるには以下のようにする</li>
@@ -1679,7 +1977,7 @@ use(<span style="color: #a020f0;">new</span> <span style="color: #228b22;">LogEn
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Takehide Soh</p>
-<p class="date">Created: 2019-04-26 金 17:47</p>
+<p class="date">Created: 2019-05-02 木 23:35</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -20,15 +20,13 @@
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://tsoh.org/css/htmlize.css"/>
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://tsoh.org/css/readtheorg.css"/>
 #+HTML_HEAD: <script type="text/javascript" src="https://tsoh.org/scarab/js/readtheorg.js"></script>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./soh.css"/>
 
-
-#+HTML_HEAD: <style type="text/css">
-#+HTML_HEAD: <!--/*--><![CDATA[/*><!--*/
-#+HTML_HEAD: #content { max-width: 1200px; }
-#+HTML_HEAD:  /*]]>*/-->
-#+HTML_HEAD: </style>
+#+HTML_HEAD: <style type="text/css"> #+HTML_HEAD: #content { max-width: 1200px; }</style>
+# #+HTML_HEAD: <style>pre.src{background:#343131;color:white;} </style>
 
 #+MACRO: scarabJAR @@html:scarab-v196-s212.jar@@
+#+MACRO: bold @@html:<b>$1</b><br>@@
 
 * 参考資料
   - Scarab 資料
@@ -42,6 +40,9 @@
       - [[https://tsoh.org/scarab/talks/ai-tool-soh-1.pdf][SAT型制約ソルバーと Scarab]]
       - [[https://tsoh.org/scarab/talks/ai-tool-soh-2.pdf][alldiffrent制約を例に用いた制約の拡張]]
     - [[https://tsoh.org/scarab/talks/talk-jp-ppl2017.pdf][SATソルバーの最新動向と利用技術 (日本語) @ PPL 2017]]
+  - 参考資料
+    - [[http://bach.istc.kobe-u.ac.jp/copris/docs/intro-ja.html][Copris による制約プログラミング入門]] (本チュートリアルはこのペー
+      ジを参考にして作成しました).
 
 * インストール (sbt)
 1. [[https://www.scala-sbt.org/1.x/docs/ja/Setup.html][sbt 本家]] のインストールマニュアルをみて，sbt のインストールを行う.
@@ -103,15 +104,17 @@
 
 * REPL による対話的な実行方法
 簡単な例題を通して, Scala の REPL (対話的実行環境) を用いた scarab の利用方法を理解しよう.
-#+BEGIN_EXAMPLE html
-=== 問題 ===
-12セント，16セント，20セント，27セントの切手をそれぞれ10枚持っている．
-この時に90セント分の切手を構成できるか?
-#+END_EXAMPLE
+
+#+NAME: problem
+#+begin_quote 
+{{{bold(問題の記述)}}}
+- 12セント，16セント，20セント，27セントの切手をそれぞれ10枚持っている．
+- この時に90セント分の切手を構成できるか?
+#+end_quote
 この問題は以下のように制約充足問題 (CSP) として定義できる．
-#+NAME: test
+#+NAME: csp
 #+BEGIN_QUOTE html
-=== 切手の問題の CSP による定義 ===
+{{{bold(切手の問題の CSP による定義)}}}
   - 変数の集合 \(X = \{a, b, c, d\}\)
   - 変数が取り得る値の集合 (ドメイン) を表す関数 \(Dom\)
     - \(Dom(a) = \{0, \ldots, 10\}\)
@@ -322,17 +325,20 @@ res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
 
 ** 練習問題
 - 89円分の切手を構成できるかテストしてみよう．
-* 簡単な例題
+* 例題集
 ** 部分和問題
-#+BEGIN_EXAMPLE html
+#+NAME: problem
+#+begin_quote
 使いきらなければならない予算が 50 千円あります．
 購入できる品物は 2, 3, 5, 8, 13, 21, 34 (単位: 千円) が1つずつです．
 ちょうど予算を使い切るような組合せはあるか?
-#+END_EXAMPLE
+#+end_quote
+
 # 集合 {2,3,5,8,13,21,34} の部分集合で， 和が50になるものはあるか?
 - この問題は 部分和問題 (Subset sum problem)として知られている問題の例である． 部分和問題はNP-完全である ([[https://ja.wikipedia.org/wiki/%E9%83%A8%E5%88%86%E5%92%8C%E5%95%8F%E9%A1%8C][Wikipedia:部分和問題]])．
 - これは，以下の制約充足問題として定式化できる．
-#+BEGIN_QUOTE
+#+NAME: csp
+#+begin_quote
   - \(X = \{x_2, x_3, x_5, x_8, x_{13}, x_{21}, x_{34}\}\)
   - \(Dom\)
     - \(Dom(x_2) = \{0, 1\}\)
@@ -344,7 +350,8 @@ res17: jp.kobe_u.scarab.Constraint = EqZero(Sum(-90+12*a+16*b+20*c+27*d))
     - \(Dom(x_{34}) = \{0, 1\}\)
   - \(C\)
     - \(2x_2 + 3x_3 + 5x_5 + 8x_8 + 13x_{13} + 21x_{21} + 34x_{34} = 50\)
-#+END_QUOTE
+#+end_quote
+
 - CSPを記述したファイルは以下のようになる [[https://tsoh.org/scarab/sample-scripts/ex-subsetsum.sc][ex-subsetsum.sc]]
 #+BEGIN_SRC scala
 import jp.kobe_u.scarab._ , dsl._ 
@@ -416,14 +423,17 @@ x(34) 1
 - 和が40の場合はどうなるか?
 
 ** 魔方陣
-#+BEGIN_EXAMPLE
-1から9の数字を 3×3 に配置し， 各行，各列，各対角線の和がいずれも15になるようにせよ．
-#+END_EXAMPLE
+
+#+name: problem
+#+begin_quote
+1から9の数字を 3×3 に配置し， 各行，各列，各対角線の和がいずれも15になるようにせよ．  
+#+end_quote
 
 - このような配置は魔方陣 (Magic square)と呼ばれる ([[http://ja.wikipedia.org/wiki/%E9%AD%94%E6%96%B9%E9%99%A3][Wikipedia:魔方陣]])．
 - 以下のようにCSPとして定式化できる．
 
-#+BEGIN_QUOTE
+#+name: csp
+#+begin_quote
       - \(X = \cup_{0 \le i,j \le 2} x_{i,j} \)
         - \(x_{0,0}, x_{0,1}, \ldots, x_{2,2}\)
       - \(Dom\)
@@ -434,7 +444,7 @@ x(34) 1
         - \( x_{0,j} + x_{1,j} + x_{2,j} = 15 (j = 0, 1, 2) \)
         - \( x_{0,0} + x_{1,1} + x_{2,2} = 15 \)
         - \( x_{0,2} + x_{1,1} + x_{2,0} = 15 \)
-#+END_QUOTE
+#+end_quote
 
 - ここで alldiff はCSPのグローバル制約の一つ Alldifferent 制約であり，与えられた引数が互いに異なることを表す．
 - すなわち alldiff(\(x_1, x_2, \ldots, x_n\)) は \(x_i \ne x_j\) (for all  \(i < j\)) と同じである．
@@ -481,12 +491,135 @@ add(Sum((1 to 3).map(i => 'x(i,4-i))) === 15)
 *** 練習問題
     - n x n の魔方陣を記述してみよう．
 
+** ジョブショップスケジューリング問題
+ # +++++++++++++++++++++++++++++
+ # Fisher and Thompson 6x6 instance, alternate name (mt06)
+ # 6 6
+ # 2  1  0  3  1  6  3  7  5  3  4  6
+ # 1  8  2  5  4 10  5 10  0 10  3  4
+ # 2  5  3  4  5  8  0  9  1  1  4  7
+ # 1  5  0  5  2  5  3  3  4  8  5  9 
+ # 2  9  1  3  4  5  5  4  0  3  3  1
+ # 1  3  3  3  5  9  0 10  4  4  2  1
+ # +++++++++++++++++++++++++++++
+#+NAME: problem
+#+begin_quote
+- この問題は [[http://people.brunel.ac.uk/~mastjjb/jeb/orlib/files/jobshop1.txt][Fisher and Thompson 6x6 instance (ft06)]] からの引用です.
+  - H. Fisher, G.L. Thompson (1963)
+- 6つの製品 A, B, C, D, E, F をそれぞれ6つの工程 (オペレーション) を経
+  て作る必要があります. 
+- 工程は使用する機械と処理時間で構成されます. 例えば製品Aは以下6つの工
+  程を経て作られます. 
+  - 工程1 (O1): 機械2を使って1時間
+  - 工程2 (O2): 機械0を使って3時間
+  - 工程3 (O3): 機械1を使って6時間
+  - 工程4 (O4): 機械3を使って7時間
+  - 工程5 (O5): 機械5を使って3時間
+  - 工程6 (O6): 機械4を使って6時間
+- 各機械は同時に1つの製品しか処理することができません. 
+- いま6つの製品 A, B, C, D, E, F の工程が以下のように与えられるとき,
+  全ての製品を作るために必要な最小の時間は何時間でしょうか?
+#+end_quote
+|------+------+------+------+------+------+------+------+------+------+------+------+------|
+| 製品 |   O1 |      |   O2 |      |   O3 |      |   O4 |      |   O5 |      |   O6 |      |
+|      | 機械 | 時間 | 機械 | 時間 | 機械 | 時間 | 機械 | 時間 | 機械 | 時間 | 機械 | 時間 |
+|------+------+------+------+------+------+------+------+------+------+------+------+------|
+| A    |    2 |    1 |    0 |    3 |    1 |    6 |    3 |    7 |    5 |    3 |    4 |    6 |
+| B    |    1 |    8 |    2 |    5 |    4 |   10 |    5 |   10 |    0 |   10 |    3 |    4 |
+| C    |    2 |    5 |    3 |    4 |    5 |    8 |    0 |    9 |    1 |    1 |    4 |    7 |
+| D    |    1 |    5 |    0 |    5 |    2 |    5 |    3 |    3 |    4 |    8 |    5 |    9 |
+| E    |    2 |    9 |    1 |    3 |    4 |    5 |    5 |    4 |    0 |    3 |    3 |    1 |
+| F    |    1 |    3 |    3 |    3 |    5 |    9 |    0 |   10 |    4 |    4 |    2 |    1 |
+
+- この問題を CSP で表す方法はジョブ $i$ の工程 (オペレーション) $j$ が
+  開始される時刻を整数変数 $stOp(i,j)$ とする方法である. 
+  - James M. Crawford, Andrew B. Baker (1994)
+- Scarab プログラムでは, 以下のように記述できる. ここで $ops$ は, 上記
+  の表を表している. 
+
+#+begin_src scala
+object Main extends App {
+  import jp.kobe_u.scarab._ , dsl._
+
+  /* 問題の定義 */
+  val noJobs = 6
+  val noMachines = 6
+  val ops = Seq(
+    Seq((2, 1), (0, 3), (1, 6), (3, 7), (5, 3), (4, 6)),
+    Seq((1, 8), (2, 5), (4, 10), (5, 10), (0, 10), (3, 4)),
+    Seq((2, 5), (3, 4), (5, 8), (0, 9), (1, 1), (4, 7)),
+    Seq((1, 5), (0, 5), (2, 5), (3, 3), (4, 8), (5, 9)),
+    Seq((2, 9), (1, 3), (4, 5), (5, 4), (0, 3), (3, 1)),
+    Seq((1, 3), (3, 3), (5, 9), (0, 10), (4, 4), (2, 1)))
+
+  /* makespan の素朴な下限値 */
+  val lbMkSpan = ops.map(job => job.map(_._2).sum).max
+  /* makespan の素朴な上限値 */
+  val ubMkSpan = {
+    for (m1 <- 0 until noMachines) yield {
+      for (m2 <- 0 until noMachines) yield
+        (0 until noJobs).map(ops(_)(m1)).filter(_._1 == m2).map(_._2).sum
+    }.max
+  }.sum
+
+  int('makespan,lbMkSpan,ubMkSpan)
+
+
+  /* 各オペレーションの開始時間を表す変数 */
+  def lbSt(j: Int, n: Int) = ops(j).dropRight(noMachines - n).map(_._2).sum
+  def ubSt(j: Int, n: Int) = ubMkSpan - ops(j).drop(n).map(_._2).sum
+  val stOp =
+    for (j <- 0 until noJobs) yield
+      for (m <- 0 until noMachines) yield int('stOp(j,m), lbSt(j,m), ubSt(j,m))
+
+  /* 各ジョブにおける各オペレーションの順序関係を表す制約 */
+  for (j <- 0 until noJobs)
+    for (m <- 0 until noMachines - 1)
+      add(stOp(j)(m) + ops(j)(m)._2 <= stOp(j)(m+1))
+
+  /* 各機械における競合関係を表す制約 */
+  for (m <- 0 until noMachines) {
+    val index4m =
+      for (i <- 0 until noJobs; j <- 0 until noMachines if ops(i)(j)._1 == m)
+        yield (i,j)
+    for (i <- 0 until index4m.size; j <- i+1 until index4m.size) {
+      val (i0,j0) = index4m(i)
+      val (i1,j1) = index4m(j)
+      add(stOp(i0)(j0) + ops(i0)(j0)._2 <= stOp(i1)(j1) ||
+        stOp(i1)(j1) + ops(i1)(j1)._2 <= stOp(i0)(j0))
+    }
+  }
+
+  /* 各ジョブが makespan 以内に終了することを表す制約 */
+  for (i <- 0 until noJobs)
+    add(stOp(i).last + ops(i).last._2 <= 'makespan)
+
+  /* makespan の上限を制限する制約 */
+  add('makespan <= ubMkSpan)
+
+  /* 最適値を求めるための while 文 */
+  var wm = ubMkSpan
+  var sol: Option[Assignment] = None
+  while(find) {
+    val ub = (0 until noJobs).map{i => solution.intMap(stOp(i).last) + ops(i).last._2}.max
+    wm = ub - 1
+    sol = Some(solution)
+    add('makespan <= wm)
+  }
+
+  println(s"optimum: ${wm+1}")
+  for (i <- 0 until noJobs)
+    println((0 until noMachines).map(j => sol.get(stOp(i)(j))).mkString(" "))
+
+}
+#+end_src
+
 ** 正方形矩形パッキング
-#+BEGIN_EXAMPLE
+#+NAME: problem
+#+begin_quote
 正方形詰込み問題 SP(n,s) は一辺の長さ 1 から n まで1ずつ増加する正方形の集合を
 一辺の長さ s の正方形の枠内に重なりなく配置する問題である．
-#+END_EXAMPLE
-
+#+end_quote
 
 #+attr_html: :width 400px 
 [[file:figs/spp15.png]]
@@ -498,29 +631,35 @@ add(Sum((1 to 3).map(i => 'x(i,4-i))) === 15)
 #+BEGIN_SRC scala
 import jp.kobe_u.scarab._ , dsl._
 
-val n = 15
-val s = 100
+  /* 入力となる (小さい) 正方形の数 */
+  val n = 15
 
-var lb = 15
-var ub = s
-int('m, lb, ub)
+  /* 大きい正方形のサイズを表す変数 */
+  var lb = 15
+  var ub = 100
+  int('size, lb, ub)
 
-for (i <- 1 to n) { 
-  int('x(i),0,s-i) 
-  int('y(i),0,s-i) 
-}
+  /* 各正方形の左下の座標を表す変数 */
+  for (i <- 1 to n) {
+    int('x(i),0,ub-i)
+    int('y(i),0,ub-i)
+  }
 
-for (i <- 1 to n)
-  add(('x(i)+i <= 'm) && ('y(i)+i <= 'm)) 
+  /* 各正方形が大きい正方形の内側に詰め込まれることを表す制約 */
+  for (i <- 1 to n)
+    add(('x(i)+i <= 'size) && ('y(i)+i <= 'size))
 
-for (i <- 1 to n; j <- i+1 to n) 
-  add(('x(i)+i<='x(j)) || ('x(j)+j<='x(i)) || ('y(i)+i<='y(j)) || ('y(j)+j<='y(i)))
+  /* 各正方形が重ならないことを表す制約 */
+  for (i <- 1 to n; j <- i+1 to n)
+    add(('x(i)+i<='x(j)) || ('x(j)+j<='x(i)) || ('y(i)+i<='y(j)) || ('y(j)+j<='y(i)))
 
-while(lb <= ub && find('m <= ub)) {
-  add('m <= ub)
-  ub -= 1
-  println(ub)
-}
+  /* 最適値を求める while 文 */
+  add('size <= ub)
+  while(find) {
+    ub -= 1
+    add('m <= ub)
+  }
+  println(s"optimum: ${ub+1}")
 #+END_SRC
 - 最適化部分は1ずつ下げているが，もっと良い方法がある．
 
@@ -528,7 +667,7 @@ while(lb <= ub && find('m <= ub)) {
    - [[http://www.csplib.org/Problems/prob024/][ラングフォード・ペアリング]]
    - プログラム例は [[http://tsoh.org/scarab/examples.html][Scarab の Example]] ページにある．
 
-* その他 Scarab の説明クラスとメソッドの簡単なまとめ
+* その他 Scarab の説明とクラスとメソッドの簡単なまとめ
 ** jar ファイルとソースコード
 - scarab を jar ファイルにまとめたものです
 - scala -cp scarab-v196-s212.jar などどすることで, scarab を利用できま
