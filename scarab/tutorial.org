@@ -538,8 +538,7 @@ add(Sum((1 to 3).map(i => 'x(i,4-i))) === 15)
   の表を表している. 
 
 #+begin_src scala
-object Main extends App {
-  import jp.kobe_u.scarab._ , dsl._
+import jp.kobe_u.scarab._ , dsl._
 
   /* 問題の定義 */
   val noJobs = 6
@@ -610,8 +609,6 @@ object Main extends App {
   println(s"optimum: ${wm+1}")
   for (i <- 0 until noJobs)
     println((0 until noMachines).map(j => sol.get(stOp(i)(j))).mkString(" "))
-
-}
 #+end_src
 
 ** 正方形矩形パッキング
