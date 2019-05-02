@@ -504,7 +504,7 @@ add(Sum((1 to 3).map(i => 'x(i,4-i))) === 15)
  # +++++++++++++++++++++++++++++
 #+NAME: problem
 #+begin_quote
-- この問題は [[http://people.brunel.ac.uk/~mastjjb/jeb/orlib/files/jobshop1.txt][Fisher and Thompson 6x6 instance (ft06)]] からの引用です.
+- この問題は [[http://people.brunel.ac.uk/~mastjjb/jeb/orlib/files/jobshop1.txt][Fisher and Thompson 6x6 instance (ft06)]] を基に作成しました. 
   - H. Fisher, G.L. Thompson (1963)
 - 6つの製品 A, B, C, D, E, F をそれぞれ6つの工程 (オペレーション) を経
   て作る必要があります. 
