@@ -3,7 +3,6 @@
 # #+INCLUDE: "./title.html" quote
 #+OPTIONS: ^:nil toc:nil H:2 num:nil
 
-
 #+HTML_HEAD: <!-- Global site tag (gtag.js) - Google Analytics -->
 #+HTML_HEAD: <script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
 #+HTML_HEAD: <script>
@@ -21,6 +20,7 @@
 #+STYLE: /*]]>*/-->
 #+STYLE: </style>
 
+Scarab の日本語のページ. 
 
 #+begin_export html
 <table class="menu" border="0" cellspacing="0" cellpadding="20" width="900px">
@@ -33,8 +33,6 @@
 <td class="menu" bgcolor="#3B5998"><a href="../apps.html"><font size="3">アプリケーション</font></a></td>
 </tr>
 </table>
-
-<div id="content">
 #+end_export
 * 概要
 このページではSAT型システムのためのツール (SAT型制約プログラミングシステム) 
@@ -54,13 +52,13 @@
 ** 使い方
   - 使用している Scala のバージョンに応じて，以下から適切な jar を選択
     してダウンローそしてください．
-    - (for Scala 2.12.*) use [[file:jars/scarab-v196-s212.jar]]
-    - (for Scala 2.11.*) use [[file:jars/scarab-v196-s211.jar]]
-    - (for Scala 2.10.*) use [[file:jars/scarab-v196-s210.jar]]
+    - (for Scala 2.12.*) use [[https://tsoh.org/scarab/jars/scarab-v196-s212.jar][scarab-v196-s212.jar]]
+    - (for Scala 2.11.*) use [[https://tsoh.org/scarab/jars/scarab-v196-s211.jar][scarab-v196-s211.jar]]
+    - (for Scala 2.10.*) use [[https://tsoh.org/scarab/jars/scarab-v196-s210.jar][scarab-v196-s210.jar]]
   - ソース・ファイルを含む全ての情報は
     https://github.com/TakehideSoh/Scarab の以下のコミット番号を参照してください．
     - 30315e9
-    
+
 #+ATTR_HTML: :alt image :title Action! :align right
 [[../figs/latin5-diagonal.gif]]
   - Scarab プログラムを書きます．例として，汎対角線ラテン方陣 *PLS(n)*
