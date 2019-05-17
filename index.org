@@ -26,6 +26,9 @@
 #+MACRO: date @@html:<span class="date">$1</span>@@
 #+MACRO: item @@html:<span class="item">$1</span>@@
 
+#+MACRO: ed @@html:<span class="others">Editorial Committee</span>@@
+#+MACRO: un @@html:<span class="others">Steering Committee</span>@@
+
 #+MACRO: pc @@html:<span class="others">Program Committee</span>@@
 #+MACRO: org @@html:<span class="others">Organizer</span>@@
 
@@ -269,6 +272,14 @@
 *** {{{others((No. 26; Co-Investigator), Principal Investigator: Prof. Katsumi Inoue (National Institute of Informatics))}}}  
 
 * (International) Professional Activities
+** {{{date(2019/07/07-12)}}} {{{item(International Conference on Theory and Applications of Satisfiability Testing (SAT 2019))}}}
+*** {{{pc}}}
+*** (URL) http://sat2019.tecnico.ulisboa.pt
+** {{{date(2019/07/08)}}} {{{item(International Workshop of Pragmatics of SAT (PoS 2019))}}}
+*** {{{pc}}}
+*** (URL) http://www.pragmaticsofsat.org/2019/
+
+
 ** {{{date(2018/07/09-12)}}} {{{item(International Conference on Theory and Applications of Satisfiability Testing (SAT 2018))}}}
 *** {{{pc}}}
 *** (URL) https://sat2018.azurewebsites.net/organization/
@@ -308,6 +319,19 @@
 *** (URL) http://research.nii.ac.jp/il/fj/2nd_ws/
 
 * (Domestic) Professional Activities
+** {{{date(2019/04/01-)}}} {{{item(Japan Society for Software Science and Technology)}}}
+*** {{{ed}}}
+*** (URL) https://www.jssst.or.jp/info/trustee.html
+
+** {{{date(2019/04/01-)}}} {{{item(IPSJ Special Interest Group on Programming)}}}
+*** {{{un}}}
+*** (URL) https://sigpro.ipsj.or.jp/un-ei-iin/
+** {{{date(2019/04/01-)}}} {{{item(IPSJ Journal Programming)}}}
+*** {{{ed}}}
+*** (URL) https://sigpro.ipsj.or.jp/sigtra4/#8
+
+
+
 ** {{{date(2017/03/08-10)}}} {{{item(19th Workshop of Programming and Programming Languages (PPL 2017))}}}
 *** {{{pc}}}
 *** (URL) https://ppl2017.ipl-e.ai.kyutech.ac.jp

@@ -24,7 +24,9 @@
 #+MACRO: item @@html:<span class="item">$1</span>@@
 #+MACRO: item2 @@html:<span class="item2">$1</span>@@
 
+#+MACRO: un @@html:<span class="others">運営委員</span>@@
 #+MACRO: pc @@html:<span class="others">プログラム委員</span>@@
+#+MACRO: ed @@html:<span class="others">編集委員</span>@@
 #+MACRO: pcc @@html:<span class="others">プログラム委員長</span>@@
 #+MACRO: org @@html:<span class="others">オーガナイザ</span>@@
 
@@ -325,6 +327,12 @@
      # #+HTML: </font>
 
 * (国際) 学会ならびに社会における活動
+** {{{date(2019/07/07-12)}}} {{{item(International Conference on Theory and Applications of Satisfiability Testing (SAT 2019))}}}
+*** {{{pc}}}
+*** (URL) http://sat2019.tecnico.ulisboa.pt
+** {{{date(2019/07/08)}}} {{{item(International Workshop of Pragmatics of SAT (PoS 2019))}}}
+*** {{{pc}}}
+*** (URL) http://www.pragmaticsofsat.org/2019/
 ** {{{date(2018/07/09-12)}}} {{{item(International Conference on Theory and Applications of Satisfiability Testing (SAT 2018))}}}
 *** {{{pc}}}
 *** (URL) https://sat2018.azurewebsites.net/organization/
@@ -365,6 +373,16 @@
 
 
 * (国内) 学会ならびに社会における活動
+** {{{date(2019/04/01-)}}} {{{item(日本ソフトウェア科学会)}}}
+*** {{{ed}}}
+*** (URL) https://www.jssst.or.jp/info/trustee.html
+** {{{date(2019/04/01-)}}} {{{item(情報処理学会・プログラミング研究会)}}}
+*** {{{un}}}
+*** (URL) https://sigpro.ipsj.or.jp/un-ei-iin/
+** {{{date(2019/04/01-)}}} {{{item(情報処理学会・論文誌プログラミング)}}}
+*** {{{ed}}}
+*** (URL) https://sigpro.ipsj.or.jp/sigtra4/#8
+
 ** {{{date(2017/03/08-10)}}} {{{item(第19回プログラミングおよびプログラミング言語ワークショップ (PPL 2017))}}}
 *** {{{pc}}}
 *** (URL) https://ppl2017.ipl-e.ai.kyutech.ac.jp
@@ -397,7 +415,10 @@
 
 * これまでに担当した授業
   - 情報基礎 (神戸大学・学部)
+  - 言語工学 (神戸大学・学部)
   - プログラミング言語論および演習：演習前半 (神戸大学・学部)
-  - [[http://apache.cs.uni-potsdam.de/de/profs/ifi/wv/lehre/ss14/wrep-ss14][Wissensrepräsentation und -verarbeitung]] (ポツダム大学・学部/大学院)
+  - プログラミング言語特論 (神戸大学・大学院)
+  - [[http://apache.cs.uni-potsdam.de/de/profs/ifi/wv/lehre/ss14/wrep-ss14][Wissensrepräsentation und -verarbeitung]] (ポツダム大学, ドイツ・学部/大学院)
     - 日時: 2014年7月11日 12:15-13:15
     - タイトル: Incremental SAT-based Method with Native Boolean Cardinality Handling for the Hamiltonian Cycle Problem
+  - Introduction of Scala Programming Language (アルトワ大学, フランス・大学院)
