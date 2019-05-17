@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-05-01 水 14:25 -->
+<!-- 2019-05-17 金 12:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scarab: Program Examples</title>
@@ -266,6 +266,10 @@ for the JavaScript code in this tag.
 <body>
 <div id="content">
 <h1 class="title">Scarab: Program Examples</h1>
+<p>
+This page provides some example codes of Scarab. 
+</p>
+
 <table class="menu" border="0" cellspacing="0" cellpadding="20" width="900px">
 <tr>
 <td class="menu" bgcolor="#3B5998"><a href="index.html">Home</a></td>
@@ -277,11 +281,16 @@ for the JavaScript code in this tag.
 </tr>
 </table>
 
-<div id="content">
+<div id="outline-container-org60b6fb7" class="outline-2">
+<h2 id="org60b6fb7">(Pandiagonal) Latin Square</h2>
+<div class="outline-text-2" id="text-org60b6fb7">
+<ul class="org-ul">
+<li>This example is for Latin Square used in CSP Solver Comptitions (<a href="http://www.cril.univ-artois.fr/CSC09/">CSC2009</a>).</li>
+<li><p>
+Compared to a usual Latin Square (<a href="https://en.wikipedia.org/wiki/Latin_square">Latin Square in Wikipeida</a>), this
+one has additional constraints for pandiagonal lines. 
+</p>
 
-<div id="outline-container-orgb8727fa" class="outline-2">
-<h2 id="orgb8727fa">Latin Square</h2>
-<div class="outline-text-2" id="text-orgb8727fa">
 <div class="org-src-container">
 <pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
@@ -298,18 +307,42 @@ for the JavaScript code in this tag.
   <span style="color: #a020f0;">for</span> (i <span style="color: #a020f0;">&lt;-</span> <span style="color: #008b8b;">0</span> until n)
     println((<span style="color: #008b8b;">0</span> until n).map { j <span style="color: #a020f0;">=&gt;</span> solution.intMap(<span style="color: #8b2252;">'x</span> (i, j)) }.mkString(<span style="color: #8b2252;">" "</span>))
 </pre>
-</div>
-</div>
-<ul class="org-ul">
-<li><a id="org92a8967"></a>(Lines 1 to 3) import Scarab classes<br /></li>
-<li><a id="org292dfa9"></a>(Line 6) declare integer variables<br /></li>
-<li><a id="orge646f9a"></a>(Lines 8 to 11) add alldifferenct constraints for each row, column, and diagonal<br /></li>
-<li><a id="org64184b8"></a>(Line 12) print found solution if it exists<br /></li>
+</div></li>
 </ul>
 </div>
-<div id="outline-container-org4ebbf7b" class="outline-2">
-<h2 id="org4ebbf7b">Square Packing</h2>
-<div class="outline-text-2" id="text-org4ebbf7b">
+<ul class="org-ul">
+<li><a id="org75f50e7"></a>(Lines 1 to 3) import Scarab classes<br /></li>
+<li><a id="orgbfff954"></a>(Line 6) declare integer variables<br /></li>
+<li><a id="orgd8604f1"></a>(Lines 8 to 11) add alldifferenct constraints for each row, column, and diagonal<br /></li>
+<li><a id="org64d9309"></a>(Line 12) print found solution if it exists<br /></li>
+</ul>
+</div>
+<div id="outline-container-org0f105e6" class="outline-2">
+<h2 id="org0f105e6">Square Packing</h2>
+<div class="outline-text-2" id="text-org0f105e6">
+<ul class="org-ul">
+<li>Square Packing is a two dimensinal packing problem.</li>
+<li>Its goal is to pack \(n\) squares each of whose sizes are ranged
+from 1 to \(n\) into a given (larger sized) container square.</li>
+<li>The sequences of minimum sized containers for \(n=1,2,3,...,\) is
+knwon as <a href="https://oeis.org/A005842">A005842</a> of the on-line encyclopedia of integer
+sequences.</li>
+<li>Non-overrapping constraint is used to model this problem, which
+are used in several literature. 
+<ul class="org-ul">
+<li>Kim Marriott, Peter J. Stuckey, Vincent Tam, Weiqing
+He. Removing Node Overlapping in Graph Layout Using Constrained
+Optimization. Constraints, 8(2): 143&#x2013;171, 2003.</li>
+<li>Takehide Soh, Katsumi Inoue, Naoyuki Tamura, Mutsunori Banbara,
+Hidetomo Nabeshima. A SAT-based Method for Solving the
+Two-dimensional Strip Packing Problem. Fundamenta Informaticae,
+102(3&#x2013;4): 467&#x2013;487, IOS Press, 2010.</li>
+</ul></li>
+<li>See also
+<ul class="org-ul">
+<li><a href="http://www.emn.fr/x-info/sdemasse/gccat/Cdiffn.html">diffn</a> in Global Constraint Catalog.</li>
+</ul></li>
+</ul>
 <div class="org-src-container">
 <pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
@@ -324,25 +357,33 @@ for the JavaScript code in this tag.
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="org982453e"></a>(Lines 1 to 3) import Scarab classes<br /></li>
-<li><a id="orgabc9d24"></a>(Line 7) declare integer variables<br /></li>
-<li><a id="orgecbc45f"></a>(Lines 8 and 9) add non-overlaping constraints<br /></li>
-<li><a id="org8bfbe7e"></a>(Line 11) print found solution if it exists<br />
-<div class="outline-text-4" id="text-org8bfbe7e">
+<li><a id="org756ecfc"></a>(Lines 1 to 3) import Scarab classes<br /></li>
+<li><a id="org8e04316"></a>(Line 7) declare integer variables<br /></li>
+<li><a id="orgc5e1075"></a>(Lines 8 and 9) add non-overlaping constraints<br /></li>
+<li><a id="org73268a4"></a>(Line 11) print found solution if it exists<br />
+<div class="outline-text-4" id="text-org73268a4">
 </div>
 </li>
 </ul>
 </div>
-<div id="outline-container-org37b4b5e" class="outline-2">
-<h2 id="org37b4b5e">Langford Pairing</h2>
-<div class="outline-text-2" id="text-org37b4b5e">
-<p>
-#When \(2n\) numbers \(\{1, 1, 2, 2, \ldots, n, n\}\) are given, (see also <a href="http://www.csplib.org">http://www.csplib.org</a>)
-</p>
+<div id="outline-container-org8e2c68b" class="outline-2">
+<h2 id="org8e2c68b">Langford Pairing</h2>
+<div class="outline-text-2" id="text-org8e2c68b">
+<ul class="org-ul">
+<li>Langford Pairing (see also <a href="https://en.wikipedia.org/wiki/Langford_pairing">Langford Pairing in Wikipedia</a>).</li>
+<li>Langford Pairing is given as <a href="http://www.csplib.org/Problems/prob024/">Problem No.24</a> in <a href="http://www.csplib.org/Problems/">CSPLib</a>.</li>
+<li>We suppose that \(2n\) numbers \(\{1, 1, 2, 2, \ldots, n, n\}\) are
+given.</li>
+<li>Other reference: 
+<ul class="org-ul">
+<li><a href="https://github.com/MiniZinc/minizinc-benchmarks/blob/master/langford/langford.mzn">Models in MiniZinc</a></li>
+<li><a href="http://www.xcsp.org/series">Models in XCSP3</a> (XCSP series contains Langford Pairing)</li>
+</ul></li>
+</ul>
 </div>
-<div id="outline-container-org82d82d1" class="outline-3">
-<h3 id="org82d82d1">Model 1</h3>
-<div class="outline-text-3" id="text-org82d82d1">
+<div id="outline-container-org6dee16a" class="outline-3">
+<h3 id="org6dee16a">Model 1</h3>
+<div class="outline-text-3" id="text-org6dee16a">
 <div class="org-src-container">
 <pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
@@ -357,12 +398,12 @@ for the JavaScript code in this tag.
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="org76b3f03"></a>(Line 7) declare integer variables representing each of \(2n\) positions has which number.<br /></li>
+<li><a id="orgd70a85d"></a>(Line 7) declare integer variables representing each of \(2n\) positions has which number.<br /></li>
 </ul>
 </div>
-<div id="outline-container-org01c6803" class="outline-3">
-<h3 id="org01c6803">Model 2 (with position variable)</h3>
-<div class="outline-text-3" id="text-org01c6803">
+<div id="outline-container-org9dc97e7" class="outline-3">
+<h3 id="org9dc97e7">Model 2 (with position variable)</h3>
+<div class="outline-text-3" id="text-org9dc97e7">
 <div class="org-src-container">
 <pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
@@ -382,13 +423,19 @@ add(alldiff((<span style="color: #008b8b;">1</span> to n).map(i <span style="col
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="org28da66a"></a>(Lines 7 to 10) declare integer variables representing each pairs of \(n\) numbers are placed to which positions.<br /></li>
+<li><a id="orgadba8bd"></a>(Lines 7 to 10) declare integer variables representing each pairs of \(n\) numbers are placed to which positions.<br /></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org37fac9e" class="outline-2">
-<h2 id="org37fac9e">Graph Coloring</h2>
-<div class="outline-text-2" id="text-org37fac9e">
+<div id="outline-container-org5966ebd" class="outline-2">
+<h2 id="org5966ebd">Graph Coloring</h2>
+<div class="outline-text-2" id="text-org5966ebd">
+<ul class="org-ul">
+<li>Graph Coloring (see also <a href="https://en.wikipedia.org/wiki/Graph_coloring">Graph Coloring in Wikipedia</a>) is a problem
+to find a coloring for all nodes of a given graph such that
+neighbors are colored differently.</li>
+<li>You can find its instances in <a href="https://mat.tepper.cmu.edu/COLOR/instances.html">URL</a>.</li>
+</ul>
 <div class="org-src-container">
 <pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
@@ -409,15 +456,22 @@ int(<span style="color: #8b2252;">'color</span>,<span style="color: #008b8b;">1<
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="org635be4c"></a>(Lines 5 to 7) declare graph structure.<br /></li>
-<li><a id="org0973fbe"></a>(Lines 9 and 10) declare integer variables representing available colors and each node of the given graph.<br /></li>
-<li><a id="org27c3a48"></a>(Lines 11 and 12) declare constraints that limit available colors and adjacent nodes have different color.<br /></li>
-<li><a id="orgcb4c610"></a>(Lines 14 to 17) minimizing number of colors.<br /></li>
+<li><a id="orgd6855f3"></a>(Lines 5 to 7) declare graph structure.<br /></li>
+<li><a id="org4965ff8"></a>(Lines 9 and 10) declare integer variables representing available colors and each node of the given graph.<br /></li>
+<li><a id="org76a1afc"></a>(Lines 11 and 12) declare constraints that limit available colors and adjacent nodes have different color.<br /></li>
+<li><a id="org8835b1f"></a>(Lines 14 to 17) minimizing number of colors.<br /></li>
 </ul>
 </div>
-<div id="outline-container-org5d8deaf" class="outline-2">
-<h2 id="org5d8deaf">Magic Square</h2>
-<div class="outline-text-2" id="text-org5d8deaf">
+<div id="outline-container-org046296b" class="outline-2">
+<h2 id="org046296b">Magic Square</h2>
+<div class="outline-text-2" id="text-org046296b">
+<ul class="org-ul">
+<li>Magic Square (see also <a href="https://en.wikipedia.org/wiki/Magic_square">Magic Square in Wikipedia</a>) is a problem
+to place \(1\) to \(n^2\) numbers into \(n \times n\) matrix so
+that sum of each row, sum of each column, sum of each diagonal
+must be equal to \(\frac{n(n^2+1)}{2}\).</li>
+</ul>
+
 <div class="org-src-container">
 <pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
@@ -436,23 +490,31 @@ add(<span style="color: #008b8b;">Sum</span>((<span style="color: #008b8b;">1</s
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="orgb266428"></a>(Lines 1 to 3) import Scarab classes<br /></li>
-<li><a id="orgcda84a6"></a>(Line 5) declare integer variables and puts them to xs<br /></li>
-<li><a id="orge89c542"></a>(Line 6) declare alldiff for the variables<br /></li>
-<li><a id="orga829d90"></a>(Lines 8 and 11) add constraints such that the sum for each row and column become 15<br /></li>
-<li><a id="orge918eeb"></a>(Line 12 and 13) add constraints such that the sum for each main diagonal become 15<br /></li>
-<li><a id="org2fa0bde"></a>(Line 15) print found solution if it exists<br />
-<div class="outline-text-4" id="text-org2fa0bde">
+<li><a id="org8aea3a4"></a>(Lines 1 to 3) import Scarab classes<br /></li>
+<li><a id="org81479c7"></a>(Line 5) declare integer variables and puts them to xs<br /></li>
+<li><a id="orgef51d0d"></a>(Line 6) declare alldiff for the variables<br /></li>
+<li><a id="orge1e2a8b"></a>(Lines 8 and 11) add constraints such that the sum for each row and column become 15<br /></li>
+<li><a id="org0175d05"></a>(Line 12 and 13) add constraints such that the sum for each main diagonal become 15<br /></li>
+<li><a id="org8fe196d"></a>(Line 15) print found solution if it exists<br />
+<div class="outline-text-4" id="text-org8fe196d">
 </div>
 </li>
 </ul>
 </div>
-<div id="outline-container-orga231529" class="outline-2">
-<h2 id="orga231529">Alphametic Problem <b>SAT + IS + FUN = TRUE</b></h2>
-<div class="outline-text-2" id="text-orga231529">
-<p>
-\(S*100 + A*10 + T + I*10 + S + F*100 + U*10 + N = T*1000 + R*100 + U*10 + E\)
-</p>
+<div id="outline-container-orgd750bd8" class="outline-2">
+<h2 id="orgd750bd8">Alphametic Problem <b>SAT + IS + FUN = TRUE</b></h2>
+<div class="outline-text-2" id="text-orgd750bd8">
+<ul class="org-ul">
+<li>Alphametic Problem (see also <a href="https://en.wikipedia.org/wiki/Verbal_arithmetic">Verbal arithmetic in Wikipedia</a>) is
+one kind of puzzle which represent numbers by alphabets.</li>
+<li>Goal is to find hidden numbers represented in alphabets by using
+relations between given words.</li>
+<li>The following gives an instance <b>SAT + IS + FUN = TRUE</b> (by
+Prof. Daniel Le Berre) which is 
+originally from an instance <b>CP + IS + FUN = TRUE</b> used in a
+tutorial of <a href="https://developers.google.com/optimization/?hl=ja">or-tools</a>.</li>
+<li><b>SAT + IS + FUN = TRUE</b> is understood as \(S*100 + A*10 + T + I*10 + S + F*100 + U*10 + N = T*1000 + R*100 + U*10 + E\).</li>
+</ul>
 <div class="org-src-container">
 <pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
@@ -474,12 +536,26 @@ add(alldiff(<span style="color: #008b8b;">Seq</span>(<span style="color: #8b2252
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="org31ebec2"></a>(Lines 11 to 14) constraint model considering each digit and carry, which takes around 1 second;)<br /></li>
+<li><a id="org2b19db6"></a>(Lines 11 to 14) constraint model considering each digit and carry, which takes around 1 second;)<br /></li>
 </ul>
 </div>
-<div id="outline-container-orgf564167" class="outline-2">
-<h2 id="orgf564167">Open-shop Scheduling</h2>
-<div class="outline-text-2" id="text-orgf564167">
+<div id="outline-container-org0a0aefe" class="outline-2">
+<h2 id="org0a0aefe">Open-shop Scheduling</h2>
+<div class="outline-text-2" id="text-org0a0aefe">
+<ul class="org-ul">
+<li>Open-shop scheduling is a scheduling problem.</li>
+<li>The following example uses an instance ``gp03-01&rsquo;&rsquo; given by the paper:
+<ul class="org-ul">
+<li>(<a href="https://doi.org/10.1023/A:1018930613891">DOI</a>) Guéret, C., &amp; Prins, C. (1999). A new lower bound for the
+open-shop problem. Annals of Operations Research, 92, 165–183.</li>
+</ul></li>
+<li>The following model is given by the paper:
+<ul class="org-ul">
+<li>(<a href="https://doi.org/10.1007/s10601-008-9061-0">DOI</a>) Naoyuki Tamura, Akiko Taga, Satoshi Kitagawa, Mutsunori
+Banbara. Compiling finite linear CSP into SAT. Constraints,
+14:254–272, 2009.</li>
+</ul></li>
+</ul>
 <div class="org-src-container">
 <pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
@@ -522,19 +598,39 @@ int(<span style="color: #8b2252;">'makespan</span>, lb, ub)
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="org84b4dd3"></a>(Lines 1 to 3) import Scarab classes<br /></li>
-<li><a id="orgd8995c6"></a>(Lines 7 to 10) declare an instance<br /></li>
-<li><a id="org628959e"></a>(Lines 12 to 14) compute size, lower and upper bounds of the instance<br /></li>
-<li><a id="orgdb2f541"></a>(Line 16) declares an integer variable representing current makespan<br /></li>
-<li><a id="orgc5786e8"></a>(Lines 18 to 21) forces all operations are ended before makespan<br /></li>
-<li><a id="orgb303bbd"></a>(Lines 22 to 26) forces for operations in the same job do not overlap each other<br /></li>
-<li><a id="org286348e"></a>(Lines 27 to 31) forces for operations sharing same resource do not overlap each other<br /></li>
-<li><a id="orgf21de2d"></a>(Lines 33 to 38) coumputes optimum solution<br /></li>
+<li><a id="orgdfacb88"></a>(Lines 1 to 3) import Scarab classes<br /></li>
+<li><a id="orgf02b77a"></a>(Lines 7 to 10) declare an instance<br /></li>
+<li><a id="org3c82661"></a>(Lines 12 to 14) compute size, lower and upper bounds of the instance<br /></li>
+<li><a id="org6d57ef6"></a>(Line 16) declares an integer variable representing current makespan<br /></li>
+<li><a id="orgd647f6c"></a>(Lines 18 to 21) forces all operations are ended before makespan<br /></li>
+<li><a id="org140f451"></a>(Lines 22 to 26) forces for operations in the same job do not overlap each other<br /></li>
+<li><a id="orgd8640cd"></a>(Lines 27 to 31) forces for operations sharing same resource do not overlap each other<br /></li>
+<li><a id="orgad3bdae"></a>(Lines 33 to 38) coumputes optimum solution<br /></li>
 </ul>
 </div>
-<div id="outline-container-org0d73383" class="outline-2">
-<h2 id="org0d73383">Colored N Queen</h2>
-<div class="outline-text-2" id="text-org0d73383">
+<div id="outline-container-orga94b43d" class="outline-2">
+<h2 id="orga94b43d">Colored N Queen</h2>
+<div class="outline-text-2" id="text-orga94b43d">
+<ul class="org-ul">
+<li>Colored N Queen (aka. Queen graph coloring problem) is a problem
+to place \(n\) queens of \(n\) coloring groups to \(n \times n\)
+chess board so that \(n\) queens belonging to the same coloring
+group cannot be threaten each other.</li>
+<li>This problem is picked up in several places:
+<ul class="org-ul">
+<li>keynote talk by Donald E. Knuth, at the SAT 2012 Conference in
+Trento, Italy (<a href="https://www-cs-faculty.stanford.edu/~knuth/sat2012.pdf">slides</a>)</li>
+<li><a href="http://vivi.dyndns.org/tech/puzzle/NQueen.html">http://vivi.dyndns.org/tech/puzzle/NQueen.html</a></li>
+<li><a href="http://www.nqueens.de/sub/WorldRecord.en.html">http://www.nqueens.de/sub/WorldRecord.en.html</a></li>
+<li><a href="http://deepgreen.game.coocan.jp/NQueens(GPU)/GI27-07.pdf">http://deepgreen.game.coocan.jp/NQueens(GPU)/GI27-07.pdf</a></li>
+<li><a href="http://demonstrations.wolfram.com/The12x12QueensProblem/">http://demonstrations.wolfram.com/The12x12QueensProblem/</a></li>
+<li>(<a href="https://doi.org/10.1007/978-3-319-78825-8_20">DOI</a>) Michel Vasquez and Yannick Vimont. On Solving the Queen
+Graph Coloring Problem. International Workshop on Combinatorial
+Algorithms (IWOCA 2017): Combinatorial Algorithms, pp
+244-251, 2018.</li>
+</ul></li>
+</ul>
+
 <div class="org-src-container">
 <pre class="src src-scala"><span style="color: #a020f0;">import</span> jp.kobe_u.scarab.<span style="color: #a020f0;">_</span>, dsl.<span style="color: #a020f0;">_</span>
 
@@ -573,19 +669,19 @@ use(<span style="color: #a020f0;">new</span> <span style="color: #228b22;">Sat4j
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="org6089879"></a>(Lines 1 to 3) import Scarab classes<br /></li>
-<li><a id="org0add327"></a>(Lines 5 to 6) size is given from command line<br /></li>
-<li><a id="org5aeb096"></a>(Lines 8) declares the use of Sat4j of Glucose setting.<br /></li>
-<li><a id="org0c00d7b"></a>(Lines 10 to 11) declares integer variables representing queens<br /></li>
-<li><a id="org229836f"></a>(Lines 13 to 17) representing N-Queen constraints for each color<br /></li>
-<li><a id="orgfed7767"></a>(Lines 19 to 20) forces that Queens of each color do no overlap<br /></li>
-<li><a id="org2caea34"></a>(Lines 22 to 35) compute solutions and show the obtained placement<br /></li>
+<li><a id="orgbcd4666"></a>(Lines 1 to 3) import Scarab classes<br /></li>
+<li><a id="org00a93c8"></a>(Lines 5 to 6) size is given from command line<br /></li>
+<li><a id="orgee2a588"></a>(Lines 8) declares the use of Sat4j of Glucose setting.<br /></li>
+<li><a id="orgae4b4cf"></a>(Lines 10 to 11) declares integer variables representing queens<br /></li>
+<li><a id="orgc4bdc44"></a>(Lines 13 to 17) representing N-Queen constraints for each color<br /></li>
+<li><a id="orge145a45"></a>(Lines 19 to 20) forces that Queens of each color do no overlap<br /></li>
+<li><a id="org5acdd58"></a>(Lines 22 to 35) compute solutions and show the obtained placement<br /></li>
 </ul>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: <a href="http://kix.istc.kobe-u.ac.jp/~soh/">Takehide Soh</a></p>
-<p class="date">Created: 2019-05-01 水 14:25</p>
+<p class="date">Created: 2019-05-17 金 12:35</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

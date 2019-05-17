@@ -6,6 +6,8 @@
 #+OPTIONS: ^:nil toc:nil H:2 num:nil
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../myhome.css" />
 
+This page provides some example codes of Scarab. 
+
 #+begin_export html
 <table class="menu" border="0" cellspacing="0" cellpadding="20" width="900px">
 <tr>
@@ -17,11 +19,13 @@
 <td class="menu" bgcolor="#3B5998"><a href="apps.html">Apps</a></td>
 </tr>
 </table>
-
-<div id="content">
 #+end_export
 
-* Latin Square
+* (Pandiagonal) Latin Square
+- This example is for Latin Square used in CSP Solver Comptitions ([[http://www.cril.univ-artois.fr/CSC09/][CSC2009]]).
+- Compared to a usual Latin Square ([[https://en.wikipedia.org/wiki/Latin_square][Latin Square in Wikipeida]]), this
+  one has additional constraints for pandiagonal lines. 
+
  #+BEGIN_SRC scala
 import jp.kobe_u.scarab._, dsl._
 
@@ -43,6 +47,23 @@ if (find)
 *** (Lines 8 to 11) add alldifferenct constraints for each row, column, and diagonal
 *** (Line 12) print found solution if it exists
 * Square Packing
+  - Square Packing is a two dimensinal packing problem.
+  - Its goal is to pack \(n\) squares each of whose sizes are ranged
+    from 1 to \(n\) into a given (larger sized) container square. 
+  - The sequences of minimum sized containers for \(n=1,2,3,...,\) is
+    knwon as [[https://oeis.org/A005842][A005842]] of the on-line encyclopedia of integer
+    sequences.
+  - Non-overrapping constraint is used to model this problem, which
+    are used in several literature. 
+    - Kim Marriott, Peter J. Stuckey, Vincent Tam, Weiqing
+      He. Removing Node Overlapping in Graph Layout Using Constrained
+      Optimization. Constraints, 8(2): 143--171, 2003.
+    - Takehide Soh, Katsumi Inoue, Naoyuki Tamura, Mutsunori Banbara,
+      Hidetomo Nabeshima. A SAT-based Method for Solving the
+      Two-dimensional Strip Packing Problem. Fundamenta Informaticae,
+      102(3--4): 467--487, IOS Press, 2010. 
+  - See also
+    - [[http://www.emn.fr/x-info/sdemasse/gccat/Cdiffn.html][diffn]] in Global Constraint Catalog. 
   #+BEGIN_SRC scala
 import jp.kobe_u.scarab._, dsl._
 
@@ -80,7 +101,13 @@ if (find) println(solution.intMap)
 # *** (Lines 7 to 10) add constraints so that each sum for each row, column, and diagonal become 15
 # *** (Line 12) print found solution if it exists
 * Langford Pairing
-#When $2n$ numbers $\{1, 1, 2, 2, \ldots, n, n\}$ are given, (see also http://www.csplib.org)
+  - Langford Pairing (see also [[https://en.wikipedia.org/wiki/Langford_pairing][Langford Pairing in Wikipedia]]). 
+  - Langford Pairing is given as [[http://www.csplib.org/Problems/prob024/][Problem No.24]] in [[http://www.csplib.org/Problems/][CSPLib]].
+  - We suppose that $2n$ numbers $\{1, 1, 2, 2, \ldots, n, n\}$ are
+    given.
+  - Other reference: 
+    - [[https://github.com/MiniZinc/minizinc-benchmarks/blob/master/langford/langford.mzn][Models in MiniZinc]]
+    - [[http://www.xcsp.org/series][Models in XCSP3]] (XCSP series contains Langford Pairing)
 ** Model 1
 #+BEGIN_SRC scala
 import jp.kobe_u.scarab._, dsl._
@@ -113,6 +140,10 @@ if(find) println(solution)
 #+END_SRC
 *** (Lines 7 to 10) declare integer variables representing each pairs of $n$ numbers are placed to which positions.
 * Graph Coloring
+  - Graph Coloring (see also [[https://en.wikipedia.org/wiki/Graph_coloring][Graph Coloring in Wikipedia]]) is a problem
+    to find a coloring for all nodes of a given graph such that
+    neighbors are colored differently.
+  - You can find its instances in [[https://mat.tepper.cmu.edu/COLOR/instances.html][URL]].
 #+BEGIN_SRC scala
 import jp.kobe_u.scarab._, dsl._
 
@@ -135,6 +166,11 @@ while (find('color <= maxColor)) {
 *** (Lines 11 and 12) declare constraints that limit available colors and adjacent nodes have different color.
 *** (Lines 14 to 17) minimizing number of colors.
 * Magic Square
+  - Magic Square (see also [[https://en.wikipedia.org/wiki/Magic_square][Magic Square in Wikipedia]]) is a problem
+    to place \(1\) to \(n^2\) numbers into \(n \times n\) matrix so
+    that sum of each row, sum of each column, sum of each diagonal
+    must be equal to \(\frac{n(n^2+1)}{2}\).
+
   #+BEGIN_SRC scala
 import jp.kobe_u.scarab._, dsl._
 
@@ -178,7 +214,15 @@ if (find) println(solution)
 # *** (Lines 7 to 10) add constraints so that each sum for each row, column, and diagonal become 15
 # *** (Line 12) print found solution if it exists
 * Alphametic Problem *SAT + IS + FUN = TRUE*
-$S*100 + A*10 + T + I*10 + S + F*100 + U*10 + N = T*1000 + R*100 + U*10 + E$
+  - Alphametic Problem (see also [[https://en.wikipedia.org/wiki/Verbal_arithmetic][Verbal arithmetic in Wikipedia]]) is
+    one kind of puzzle which represent numbers by alphabets.
+  - Goal is to find hidden numbers represented in alphabets by using
+    relations between given words. 
+  - The following gives an instance *SAT + IS + FUN = TRUE* (by
+    Prof. Daniel Le Berre) which is 
+    originally from an instance *CP + IS + FUN = TRUE* used in a
+    tutorial of [[https://developers.google.com/optimization/?hl=ja][or-tools]].
+  - *SAT + IS + FUN = TRUE* is understood as $S*100 + A*10 + T + I*10 + S + F*100 + U*10 + N = T*1000 + R*100 + U*10 + E$.
   #+BEGIN_SRC scala
 import jp.kobe_u.scarab._, dsl._
 
@@ -222,6 +266,14 @@ object SimpleEnum {
 *** (Line 7) define *Sat4j("iterator")* for ModelIterator
 *** (Line 15) *solver.enumerate* enumerates models
 * Open-shop Scheduling
+  - Open-shop scheduling is a scheduling problem. 
+  - The following example uses an instance ``gp03-01'' given by the paper:
+    - ([[https://doi.org/10.1023/A:1018930613891][DOI]]) Guéret, C., & Prins, C. (1999). A new lower bound for the
+      open-shop problem. Annals of Operations Research, 92, 165–183.
+  - The following model is given by the paper:
+    - ([[https://doi.org/10.1007/s10601-008-9061-0][DOI]]) Naoyuki Tamura, Akiko Taga, Satoshi Kitagawa, Mutsunori
+      Banbara. Compiling finite linear CSP into SAT. Constraints,
+      14:254–272, 2009. 
   #+BEGIN_SRC scala
 import jp.kobe_u.scarab._, dsl._
 
@@ -270,6 +322,22 @@ while (find('makespan <= ub)) {
 *** (Lines 27 to 31) forces for operations sharing same resource do not overlap each other
 *** (Lines 33 to 38) coumputes optimum solution
 * Colored N Queen
+  - Colored N Queen (aka. Queen graph coloring problem) is a problem
+    to place \(n\) queens of \(n\) coloring groups to \(n \times n\)
+    chess board so that \(n\) queens belonging to the same coloring
+    group cannot be threaten each other. 
+  - This problem is picked up in several places:
+    - keynote talk by Donald E. Knuth, at the SAT 2012 Conference in
+      Trento, Italy ([[https://www-cs-faculty.stanford.edu/~knuth/sat2012.pdf][slides]])
+    - http://vivi.dyndns.org/tech/puzzle/NQueen.html
+    - http://www.nqueens.de/sub/WorldRecord.en.html
+    - [[http://deepgreen.game.coocan.jp/NQueens(GPU)/GI27-07.pdf]]
+    - http://demonstrations.wolfram.com/The12x12QueensProblem/
+    - ([[https://doi.org/10.1007/978-3-319-78825-8_20][DOI]]) Michel Vasquez and Yannick Vimont. On Solving the Queen
+      Graph Coloring Problem. International Workshop on Combinatorial
+      Algorithms (IWOCA 2017): Combinatorial Algorithms, pp
+      244-251, 2018. 
+
   #+BEGIN_SRC scala
 import jp.kobe_u.scarab._, dsl._
 
