@@ -174,6 +174,12 @@
 
 # #+ATTR_HTML: :border 0 :rules all :frame void
 * 受賞歴
+** {{{date(2019/08)}}} {{{item(日本ソフトウェア科学会 第7回解説論文賞 (2018年度))}}}
+*** (URL) https://www.jssst.or.jp/award/detail/kaisetsu_ronbunsho_list.html
+
+** {{{date(2019/08)}}} {{{item(人工知能学会 2019年度(第33回) 全国大会優秀賞)}}}
+*** (URL) https://www.ai-gakkai.or.jp/about/award/jsai_award-conf/#CONFERENCE
+
 ** {{{date(2018/09)}}} {{{item(情報処理学会 2018 年度特選論文)}}}
 *** (URL) http://www.ipsj.or.jp/award/ssp_award.html
 #  - {{{others((共同受賞) 寸田智也\, 宋剛秀\, 番原睦則\, 田村直之\, 井上 克巳)}}}
@@ -219,7 +225,7 @@
 
 * 研究奨励金，競争的研究資金の獲得実績 (代表者)
  *(代表者)*
-** COMMENT {{{date(2019/08 - 2021/07)}}} 
+** {{{date(2019/08 - 2021/07)}}} 
 *** (*研究代表者*) {{{item(SAT技術を用いた非同期なオートマタネットワークにおけるアトラクタの計算)}}} {{{going}}}  
 *** {{{others(JSPS 二国間交流事業(共同研究) フランスとの共同研究(MEAE-MESRI) ``SAKURAプログラム''>)}}} 
 

@@ -5,7 +5,6 @@
 #+OPTIONS: ^:nil toc:nil H:1 num:2 creater:nil
 #+OPTIONS: html-postamble:nil
 
-
 #+HTML_HEAD: <!-- Global site tag (gtag.js) - Google Analytics -->
 #+HTML_HEAD: <script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
 #+HTML_HEAD: <script>
@@ -134,6 +133,14 @@
 
 #     Award of International CSP Solver Competition (http://www.cril.univ-artois.fr/XCSP18/)
 * Award
+** {{{date(2019/08)}}} {{{item(JSSST 7th Best Review Paper Award (2018))}}}
+*** (URL) https://www.jssst.or.jp/award/detail/kaisetsu_ronbunsho_list.html
+
+
+** {{{date(2019/08)}}} {{{item(JSAI Annual Conference Award 2019 (33th))}}}
+*** (URL) https://www.ai-gakkai.or.jp/about/award/jsai_award-conf/#CONFERENCE
+
+
 ** {{{date(2018 Sep.)}}} {{{item(Specially Selected Paper --- Journal of Information Processing\, IPSJ)}}}
 *** (URL) http://www.ipsj.or.jp/award/ssp_award.html
 
@@ -172,7 +179,7 @@
 *** (*PI*) {{{item(Research and Development of a New SAT-based Parallel CSP Solver using Multiple Constraint Modelings and SAT Encodings)}}} {{{going}}}                                             
 *** {{{others(2019 NII Collaborative Research Grants)}}} 
 
-** COMMENT {{{date(2019/08 - 2021/07)}}} 
+** {{{date(2019/08 - 2021/07)}}} 
 *** (*PI*) {{{item(Computing Attractors in Asynchronous Automata Networks using SAT Technology)}}} 
 *** {{{others(JSPS Bilateral Programs (Joint Research Projects) Joint Research Projects with FRANCE (MEAE-MESRI) ``SAKURA Program'')}}} {{{going}}}                                             
 
