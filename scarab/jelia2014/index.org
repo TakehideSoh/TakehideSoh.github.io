@@ -1,0 +1,946 @@
+#+TITLE: Supplemental Materials
+#+AUTHOR: Takehide Soh
+#+OPTIONS: ^:nil toc:nil H:2 num:nil timestamp:nil
+
+#+HTML_HEAD: <!-- Global site tag (gtag.js) - Google Analytics -->
+#+HTML_HEAD: <script async src="https://www.googletagmanager.com/gtag/js?id=UA-6313627-5"></script>
+#+HTML_HEAD: <script>
+#+HTML_HEAD:   window.dataLayer = window.dataLayer || [];
+#+HTML_HEAD:  function gtag(){dataLayer.push(arguments);}
+#+HTML_HEAD:  gtag('js', new Date());
+#+HTML_HEAD:  gtag('config', 'UA-6313627-5');
+#+HTML_HEAD: </script>
+h
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../myhome.css" />
+#+HTML_HEAD: <script type="text/javascript" src="./hide.js"></script>
+
+#+MACRO: table @@html: <a href="javascript:void(0)" onclick="hide('$1');">Show the result table (cpu time in seconds)</a>@@
+#+MACRO: begin_div @@html:<div id="$1" style="display:none;">@@
+#+MACRO: end_div @@html:</div>@@
+#+BEGIN_HTML
+<style type="text/css">
+#table1 th    { background-color: #3B5998; color: white; border-style: solid; border-color: black; border-width: thin; border: none}
+#table1 td    { background-color: #eeeeee; color: black; border-style: solid; border-color: black; border-width: thin; border: none}
+#table1 td+td { background-color: #efefff; color: black;}
+#table1 td             { text-align: right; background-color: #3B5998; color: white; width:50px}
+#table1 td+td          { text-align: right; width:100px; color: black;}
+#table1 td+td+td       { text-align: right; width:100px; color: black;}
+#table1 td+td+td+td    { text-align: right; width:100px; color: black;}
+#table1 td+td+td+td+td { text-align: right; width:100px; color: black;}
+
+#table1small th    { font-size: 70%; background-color: #3B5998; color: white; border-style: solid; border-color: black; border-width: thin; border: none}
+#table1small td    { font-size: 70%; background-color: #eeeeee; color: black; border-style: solid; border-color: black; border-width: thin; border: none}
+#table1small td+td { background-color: #efefff; color: black;}
+#table1small td             { text-align: right; background-color: #3B5998; color: white; width:50px}
+#table1small td+td          { text-align: right; width:100px; color: black;}
+#table1small td+td+td       { text-align: right; width:100px; color: black;}
+#table1small td+td+td+td    { text-align: right; width:100px; color: black;}
+#table1small td+td+td+td+td { text-align: right; width:100px; color: black;}
+
+#table2small th    { font-size: 70%; background-color: #3B5998; color: white; border-style: solid; border-color: black; border-width: thin; border: none}
+#table2small td    { font-size: 70%; background-color: #eeeeee; color: black; border-style: solid; border-color: black; border-width: thin; border: none}
+#table2small td+td { background-color: #efefff; color: black;}
+
+#table2 th    { background-color: #3B5998; color: white; border-style: solid; border-color: black; border-width: thin; border: none}
+#table2 td    { background-color: #efefee; color: black; border-style: solid; border-color: black; border-width: thin; border: none}
+#table2 td             { text-align: right; background-color: #efefff; width:20px; color: black;}
+#table2 td+td+td+td+td+td { text-align: right; background-color: #3B5998; color: white; width:20px;}
+#table2 td+td+td+td+td+td+td { text-align: right; background-color: #efefff; width:100px; color: black;}
+
+#table3 th    { background-color: #3B5998; color: white; border-style: solid; border-color: black; border-width: thin; border: none}
+#table3 td    { background-color: #3B5998; color: white; border-style: solid; border-color: black; border-width: thin; border: none}
+#table3 td+td { background-color: #efefff; color: black;}
+#table3 td+td+td+td+td { background-color: #efefff; color: black; width:500px}
+</style>
+#+END_HTML
+
+* Overview
+** Note
+@@html:<div align="center"><font color="red" size="+0">
+<b>[2015.01.13] Our HCP solver is updated. We recommend you to use the
+latest version which has better performance.</b></font></div>@@
+- Please look [[http://kix.istc.kobe-u.ac.jp/~soh/scarab/hcp.html][new page]]!
+
+** Description
+- This page provides supplemental materials of the following paper submitted to JELIA 2014.
+- Incremental SAT-based Method with Native Boolean Cardinality Handling for the Hamiltonian Cycle Problem. Takehide Soh, Daniel Le Berre, Stephanie Roussel, Mutsunori Banbara, and Naoyuki Tamura.
+- You can find the pre-print (full-version) of the paper [[file:soh14jelia-preprint.pdf][here]].
+
+Programs and benchmarks can be downloaded. Moreover, detailed results
+of experiments are available. 
+
+
+* Download
+  - Benchmark Sets
+    - [[./bench.tar.gz][All Benchmark Sets]] (155MB)
+  - Programs
+    - [[./IHCP.tar.gz][Incremental SAT-based HCP Sover]]
+    - [[./velev09.tar.gz][SAT-based method by (Velev and Gao, 2009)]] (our implementation)
+
+* Programs
+
+** How to run Incremental SAT-based HCP Solver
+- Requirements
+  - Scala 2.10.* 
+  - Java 1.6.*
+  - (optional) any external SAT solver if you want to use
+
+1. Download [[./IHCP.tar.gz][IHCP.tar.gz]] which archives the followings:
+   - Scarab + Sat4j ([[../scarab-v1-0-8.jar][Scarab version 1.0.8]])
+   - Scarab Program of Incremental SAT-based HCP Solver ([[./HCP.jar][HCP.jar]])
+   - Small sample instances (myciel3.col and myciel7.col)
+2. Execute folloing commands
+
+#+BEGIN_SRC sh
+$ cd IHCP/
+$ scala -cp lib/scarab-v1-0-8.jar:lib/HCP.jar hcpSolver examples/myciel3.col
+
+# it will generate
+Scarab-HCP-Solver Version 3.0
+cSizes,4,7
+Iteration 1: 2 cycles are found (2 cycles in total) 0sec passed.
+cSizes,11
+Iteration 2: 1 cycles are found (3 cycles in total) 0sec passed.
+HC found
+5 9 11 6 4 10 3 7 1 2 8 5
+CSV,myciel3.col,11,20,SAT,40,68,2,3,7,7,8,1,0.02,0.10,sat4j,native
+#+END_SRC
+
+- Available options
+|----------------------+----------------------------------------------------------------------------------------------|
+| -bc <BC encoding>    | select encoders: native (default), seqcounter, totalizer                                     |
+| -solver <SAT solver> | select SAT solvers: Sat4j (default), minisat, glucose, lingeling                             |
+|                      | # you need to set paths so that we can see "minisat", "glucose", "lingeling" at current dir. |
+| -sat4j <config>      | select Sat4j prebuild solver: Glucose21 (default)                                            |
+| -timeout <Int>       | set timeout                                                                                  |
+| -o <file>            | output results to file                                                                       |
+| -v                   | verbose option                                                                               |
+|----------------------+----------------------------------------------------------------------------------------------|
+
+** Simple Version.
+   - Above program is full version which equips all BC encodings,
+     measuring time, logging function, etc.
+   - Simple version can be written in less than 100 lines of Scarab
+     program. 
+#+BEGIN_SRC scala -n
+import jp.kobe_u.scarab.csp._
+import jp.kobe_u.scarab.solver._
+import jp.kobe_u.scarab.sapp._
+import scala.io.Source
+
+case class Graph(var nodes: Set[Int] = Set.empty, var edges: Set[(Int, Int)] = Set.empty) {
+
+  def edge(n1: Int, n2: Int) = if (n1 < n2) (n1, n2) else (n2, n1)
+
+  private var adjacentMap: Map[Int, Set[Int]] = Map.empty
+  private def addAdjacent(n1: Int, n2: Int) =
+    adjacentMap += n1 -> (adjacentMap.getOrElse(n1, Set.empty) + n2)
+
+  def addNode(n1: Int) = nodes += n1
+  def addEdge(n1: Int, n2: Int) =
+    if (n1 != n2) {
+      edges += edge(n1, n2)
+      addAdjacent(n1, n2)
+      addAdjacent(n2, n1)
+    }
+  def adjacent(n: Int) = adjacentMap(n)
+  def adjacentEdge(n: Int) = adjacent(n).map(n2 => edge(n, n2))
+}
+
+object Graph {
+  def parse(source: Source): Graph = {
+    val graph = Graph()
+    val re = """e\s+(\d+)\s+(\d+)""".r
+    for (line <- source.getLines.map(_.trim)) {
+      line match {
+        case re(s1, s2) => {
+          val n1 = s1.toInt; graph.addNode(n1)
+          val n2 = s2.toInt; graph.addNode(n2)
+          graph.addEdge(n1, n2)
+        }
+        case _ =>
+      }
+    }
+    graph
+  }
+}
+
+def getCycle(node: Int, initial: Int, cycle: List[Int]): List[Int] = {
+  val node2: Int = graph.adjacent(node).find(node2 => solver.solution('arc(node, node2)) > 0).get
+  if (node2 == initial) node2 :: cycle
+  else getCycle(node2, initial, node2 :: cycle)
+}
+
+def getCycles: Set[List[Int]] = {
+  var cycles: Set[List[Int]] = Set.empty
+  var nodes = graph.nodes
+  while (!nodes.isEmpty) {
+    val node = nodes.head
+    val cycle = getCycle(node, node, List(node))
+    cycles += cycle
+    nodes --= cycle
+  }
+  cycles
+}
+
+def define = {
+  for ((n1, n2) <- graph.edges) {
+    int('arc(n1, n2), 0, 1)
+    int('arc(n2, n1), 0, 1)
+    add('arc(n1, n2) + 'arc(n2, n1) <= 1)
+  }
+  for (n1 <- graph.nodes) {
+    val nodes = graph.adjacent(n1).toSeq
+    add(Sum(nodes.map(i => 'arc(i, n1))) === 1)
+    add(Sum(nodes.map(i => 'arc(n1, i))) === 1)
+  }
+}
+
+def addBlockingClauses(cycle: List[Int]) {
+  val ceArcs = for (edge <- cycle.sliding(2).toList) 
+             yield (edge(0), edge(1))
+  add(Or(ceArcs.map(i => 'arc(i._1, i._2) <= 0)))
+  add(Or(ceArcs.map(i => 'arc(i._2, i._1) <= 0)))
+}
+
+val graph = Graph.parse(Source.fromFile(args(0)))
+
+use(new Sat4j("Glucose21"))
+use(new NativeEncoder(csp, satSolver))
+
+define
+
+while (find) {
+  val cycles: Set[List[Int]] = getCycles
+  if (cycles.size == 1) {
+    println("A Hamiltonian Cycle is Found")
+	  println(Some(cycles.head).get.mkString(" "))
+    System.exit(0)
+  } else
+    for (cycle <- cycles)
+      addBlockingClauses(cycle)
+}
+println("This Graph has no Hamiltonian Cycle")
+#+END_SRC
+   - The source code is available [[./hcp.sc][here]].
+   - After copying it to ICHP directory you can run it by the
+     following without compiling it. 
+#+BEGIN_SRC sh
+$ cd IHCP/
+$ scala -cp lib/scarab-v1-0-8.jar hcp.sc examples/myciel3.col
+#+END_SRC
+
+* Environment, Benchmark and Systems used in Experiments
+** Environment
+@@html:<div align="center">@@
+#+ATTR_HTML: :id table3
+|---------------------+---------------------------------------------|
+| Item                | Description                                 |
+|---------------------+---------------------------------------------|
+| <l>                 | <l>                                         |
+| Machine and OS      | CPU: Intel(R) Xeon(R) CPU X5670  @ 2.93GHz  |
+|                     | Memory: 64GB (-Xms4g -Xmx4g)                |
+|                     | Mac OS X 10.7.5                             |
+|---------------------+---------------------------------------------|
+| Runtime Environment | Scala 2.10.2                                |
+|                     | Java 1.6.0_51 (vendor is Apple Inc.)        |
+|---------------------+---------------------------------------------|
+| Timeout             | 500 seconds                                 |
+|---------------------+---------------------------------------------|
+@@html:</div>@@
+
+** Benchmark 
+- Download [[./bench.tar.gz][All Benchmark Sets]] (155MB)
+#+ATTR_HTML: :id table3
+|----------+-------+-------+-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Name     | #Ins. | #Node | #Node | Description                                                                                                                                                                                          |
+|          |       |  Min. |  Max. |                                                                                                                                                                                                      |
+|----------+-------+-------+-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| color04  |   119 |    11 | 10000 | [[http://mat.gsia.cmu.edu/COLOR/instances.html][DIMACS graph coloring]] instances                                                                                                                                                                      |
+|----------+-------+-------+-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| random   |   320 |   100 | 50000 | Randomly generated instances at the phase transition region using parameters $m=c∗n∗(\ln{n}+\ln{\ln{n}})/2$ , where $m$ is the number of edges, $n$ is the number of nodes, $c$ ranges 1.08 to 1.10. |
+|----------+-------+-------+-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| complete |    15 |   100 |  1500 | complete graph instances                                                                                                                                                                             |
+|----------+-------+-------+-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| knight   |    11 |    64 | 10000 | Knight's Tour instances of 8x8, 12x12, 20x20, ..., 100x100                                                                                                                                           |
+|----------+-------+-------+-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| tsplib   |     9 |  1000 |  5000 | HCP instances provided by [[http://www.iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95/][TSPLIB]]                                                                                                                                                                     |
+|----------+-------+-------+-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+** Systems
+@@html:<div align="center">@@
+#+ATTR_HTML: :id table3
+|-------------+------------------------+---------------+-----------------------------------|
+| System Name | System Base            | SAT Solver    | Other Description                 |
+|             | (Programming Language) |               |                                   |
+|-------------+------------------------+---------------+-----------------------------------|
+| <c>         | <c>                    | <l>           | <l>                               |
+| S4J-N       | [[../scarab-v1-0-8.jar][Scarab version 1.0.8]]   | [[http://www.sat4j.org][Sat4j]]         | Native BC                         |
+| S4J-S       | (Scala)                |               | Sequential Counter                |
+| S4J-T       |                        |               | Totalizer                         |
+| Min-S       |                        | [[http://minisat.se/MiniSat.html][Minisat 2.2]]   | Sequential Counter                |
+| Min-T       |                        |               | Totalizer                         |
+| Lin-S       |                        | [[http://fmv.jku.at/lingeling/][Lingeling-ats]] | Sequential Counter                |
+| Lin-T       |                        |               | Totalizer                         |
+| Glu-S       |                        | [[http://www.labri.fr/perso/lsimon/glucose/][Glucose 3.0]]   | Sequential Counter                |
+| Glu-T       |                        |               | Totalizer                         |
+|-------------+------------------------+---------------+-----------------------------------|
+| Velev       | (Perl)                 | [[http://minisat.se/MiniSat.html][Minisat 2.2]]   | [[./velev09.tar.gz][Our implementation]] of [Velev '09] |
+|-------------+------------------------+---------------+-----------------------------------|
+| LKH         | (C)                    | ---           | [[http://www.akira.ruc.dk/~keld/research/LKH/][LKH 2.0.7]]                         |
+|-------------+------------------------+---------------+-----------------------------------|
+@@html:</div>@@
+
+* Number of Solved Instances
+#+ATTR_HTML: :id table1small
+|----------+-------+-----+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+| Name     |       | LKH | Velev | Glu-S | Glu-T | Lin-S | Lin-T | Min-S | Min-T | S4J-N | S4J-S | S4J-T |
+|----------+-------+-----+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+| <l>      |   <r> | <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |
+| color04  | (119) |  61 |    59 |    88 |    87 |    43 |    47 |    88 |    86 |    92 |    90 |    88 |
+| random   | (320) | 295 |   145 |   308 |   304 |   180 |   177 |   306 |   303 |   313 |   308 |   299 |
+| complete |  (15) |   0 |     4 |     2 |     1 |     0 |     0 |     2 |     2 |    14 |     3 |     4 |
+| knight   |  (11) |  11 |     2 |     7 |     6 |     3 |     3 |     6 |     7 |     5 |     5 |     6 |
+| tsplib   |   (9) |   9 |     1 |     9 |     9 |     2 |     3 |     9 |     9 |     9 |     9 |     8 |
+|----------+-------+-----+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+|          |       | 376 |   211 |   414 |   407 |   228 |   230 |   411 |   407 |   433 |   415 |   405 |
+|----------+-------+-----+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+#+TBLFM: @8$2=vsum(@3..@7)::@8$5=vsum(@3..@7)::@8$6=vsum(@3..@7)::@8$7=vsum(@3..@7)::@8$8=vsum(@3..@7)::@8$9=vsum(@3..@7)::@8$10=vsum(@3..@7)::@8$11=vsum(@3..@7)::@8$12=vsum(@3..@7)::@8$13=vsum(@3..@7)::::@8$3=vsum(@3..@7)
+
+
+
+* Cactus Plots
+** color04
+#+BEGIN_HTML
+<center>
+<img src="./figs/color04.jpg"" width="72%">
+</center>
+#+END_HTML
+
+** random
+#+BEGIN_HTML
+<center>
+<img src="./figs/random.jpg"" width="72%">
+</center>
+#+END_HTML
+
+** complete
+#+BEGIN_HTML
+<center>
+<img src="./figs/complete.jpg"" width="72%">
+</center>
+#+END_HTML
+
+** knight
+#+BEGIN_HTML
+<center>
+<img src="./figs/knight.jpg"" width="72%">
+</center>
+#+END_HTML
+
+** tsplib
+#+BEGIN_HTML
+<center>
+<img src="./figs/tsplib.jpg"" width="72%">
+</center>
+#+END_HTML
+
+ 
+* Statistics of Iterations and Cycles on each Benchmark Sets
+** color04
+@@html:<div align="center">@@
+#+ATTR_HTML: :id table1small
+|-----------+----------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+|           |          | Glu-S | Glu-T | Lin-S | Lin-T | Min-S | Min-T | S4J-N | S4J-S | S4J-T |
+|-----------+----------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+|           | Median   |     8 |    10 |    36 |    22 |     9 |    11 |     6 |     9 |     9 |
+| Iteration | Average  |  58.9 |  20.6 |  51.7 |  38.5 |  39.2 |  21.8 |  35.2 |  66.5 |  21.0 |
+|           | Maximum  |  2784 |   205 |   223 |   189 |   541 |   121 |   761 |  3332 |   343 |
+|-----------+----------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+|           | Median   |    32 |    55 |   129 |    94 |    38 |    61 |    15 |    40 |    51 |
+| Cycle     | Aveerage | 271.9 | 195.5 | 271.2 | 206.7 | 332.9 | 196.5 | 247.5 | 344.4 | 203.5 |
+|           | Maximum  |  6885 |  1591 |  1584 |  1511 |  5533 |  1678 |  6707 |  9188 |  3362 |
+|-----------+----------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+@@html:</div>@@
+
+** random
+@@html:<div align="center">@@
+#+ATTR_HTML: :id table1small
+|-----------+---------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+|           |         | Glu-S | Glu-T | Lin-S | Lin-T | Min-S | Min-T | S4J-N | S4J-S | S4J-T |
+|-----------+---------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+|           | Median  |     7 |     9 |    22 |    31 |     8 |     9 |     8 |     8 |    10 |
+| Iteration | Average |   8.6 |  11.2 |  30.3 |  39.7 |   9.9 |  11.6 |  10.4 |   9.6 |  12.5 |
+|           | Maximum |    59 |    50 |   112 |   112 |    44 |    63 |    47 |    33 |    35 |
+|-----------+---------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+|           | Meding  |    28 |    37 |    75 |   149 |    31 |    36 |    30 |    32 |    47 |
+| Cycle     | Average |  34.5 |  46.7 | 147.2 | 180.8 |  38.1 |  45.5 |  38.1 |  37.8 |  53.7 |
+|           | Maximum |   228 |   225 |   555 |   529 |   178 |   187 |   160 |   113 |   194 |
+|-----------+---------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+@@html:</div>@@
+
+** complete
+@@html:<div align="center">@@
+#+ATTR_HTML: :id table1small
+|-----------+---------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+|           |         | Glu-S | Glu-T | Lin-S | Lin-T | Min-S | Min-T | S4J-N | S4J-S | S4J-T |
+|-----------+---------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+|           | Median  |    70 |   154 | ---   | ---   |    76 |    61 |     3 |    76 |    42 |
+| Iteration | Average |  72.3 | 154.0 | ---   | ---   |  86.0 |  65.0 |   3.0 |  86.0 |  48.8 |
+|           | Maximum |   107 |   154 | ---   | ---   |   141 |    83 |     4 |   141 |   102 |
+|-----------+---------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+|           | Median  |   559 |   721 | ---   | ---   |   632 |   906 |     9 |   630 |   370 |
+| Cycle     | Average | 607.5 | 721.0 | ---   | ---   | 803.6 | 760.6 |   9.0 | 803.0 | 482.3 |
+|           | Maximum |  1050 |   721 | ---   | ---   |  1587 |   964 |    15 |  1587 |   958 |
+|-----------+---------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+@@html:</div>@@
+
+** knight
+@@html:<div align="center">@@
+#+ATTR_HTML: :id table1small
+|-----------+---------+--------+--------+-------+-------+--------+-------+--------+-------+--------|
+|           |         |  Glu-S |  Glu-T | Lin-S | Lin-T |  Min-S | Min-T |  S4J-N | S4J-S |  S4J-T |
+|-----------+---------+--------+--------+-------+-------+--------+-------+--------+-------+--------|
+|           | Median  |     14 |     12 |    37 |    53 |     13 |     8 |     16 |    10 |      6 |
+| Iteration | Average |   61.1 |   68.1 |  37.7 |  47.8 |   56.7 |  29.4 |   99.2 |   9.6 |   61.3 |
+|           | Maximum |    232 |    227 |    74 |    82 |    262 |    91 |    453 |    19 |    288 |
+|-----------+---------+--------+--------+-------+-------+--------+-------+--------+-------+--------|
+|           | Median  |    142 |    106 |   155 |   356 |    128 |    80 |     90 |    42 |     41 |
+| Cycle     | Average | 1520.1 | 1609.1 | 248.7 | 496.8 | 1669.4 | 712.9 | 1574.6 |  86.6 | 1237.3 |
+|           | Maximum |   5541 |   7289 |   586 |  1267 |   9101 |  2899 |   7604 |   259 |   6579 |
+|-----------+---------+--------+--------+-------+-------+--------+-------+--------+-------+--------|
+@@html:</div>@@
+
+** tsplib
+@@html:<div align="center">@@
+#+ATTR_HTML: :id table1small
+|-----------+---------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+|           |         | Glu-S | Glu-T | Lin-S | Lin-T | Min-S | Min-T | S4J-N | S4J-S | S4J-T |
+|-----------+---------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+|           | Median  |    15 |    13 |    16 |    15 |     9 |    17 |    22 |    24 |    66 |
+| Iteration | Average |  21.0 |  28.0 |  16.3 |  18.0 |  15.0 |  18.9 |  26.6 |  30.1 | 103.9 |
+|           | Maximum |    53 |    96 |    26 |    32 |    38 |    38 |    74 |    85 |   510 |
+|-----------+---------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+|           | Median  |    52 |    66 |    85 |   103 |    40 |    80 |   129 |   107 |   329 |
+| Cycle     | Average |  99.4 | 143.0 |  96.0 | 105.0 |  63.7 |  78.1 | 146.9 | 143.3 | 606.7 |
+|           | Maximum |   300 |   525 |   160 |   173 |   176 |   144 |   457 |   403 |  3188 |
+|-----------+---------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+@@html:</div>@@
+
+
+* CPU Time for each Instances
+** color04 
+#+ATTR_HTML: :id table1small
+|-----------------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+| Name            |   LKH | Velev | Glu-S | Glu-T | Lin-S | Lin-T | Min-S | Min-T | S4J-N | S4J-S | S4J-T |
+|-----------------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+| <l>             |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |
+| 1-FullIns_3     |   0.0 |   0.0 |   2.2 |   2.2 |   2.5 |   2.6 |   2.2 |   1.7 |   1.3 |   2.0 |   2.1 |
+| 1-FullIns_4     |   0.6 |   0.5 |   6.0 |   4.5 | 124.6 |  18.6 |   3.9 |   4.2 |   2.9 |   4.6 |   4.1 |
+| 1-FullIns_5     |  20.1 |  T.O. | 192.8 |  73.1 |  T.O. |  T.O. |  39.9 |  76.0 |  T.O. |  60.1 | 197.5 |
+| 1-Insertions_4  |   0.1 |   0.1 |   2.5 |   2.8 |  11.7 |  14.2 |   2.6 |   2.7 |   2.5 |   3.0 |   2.6 |
+| 1-Insertions_5  |   0.8 |   0.3 |  20.4 |   9.6 |  T.O. |  T.O. |  24.0 |   9.8 |  12.5 |  25.7 |  12.6 |
+| 1-Insertions_6  |  24.0 | 292.8 |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| 2-FullIns_3     |   0.1 |   0.0 |   2.2 |   2.4 |   6.5 |   6.7 |   2.7 |   2.5 |   1.2 |   2.8 |   2.7 |
+| 2-FullIns_4     |   3.9 | 371.2 |  12.8 |  15.8 |  T.O. |  T.O. |  13.1 |  10.3 |  11.9 |   7.7 |   9.0 |
+| 2-FullIns_5     |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| 2-Insertions_3  |   0.0 |   0.1 |   2.2 |   1.7 |   3.7 |   1.8 |   2.3 |   1.8 |   1.4 |   1.9 |   1.5 |
+| 2-Insertions_4  |   0.1 |   0.1 |   3.3 |   4.9 |  66.0 |  34.1 |   9.5 |   7.0 |   1.6 |   4.4 |   4.4 |
+| 2-Insertions_5  |   6.5 |  25.3 |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| 3-FullIns_3     |   0.1 |   0.0 |   3.3 |   3.1 |  15.8 |  10.5 |   2.8 |   2.7 |   2.1 |   3.4 |   2.8 |
+| 3-FullIns_4     |  15.6 |  T.O. |  69.9 |  32.2 |  T.O. |  T.O. | 384.9 |  T.O. |  T.O. | 101.6 |  46.5 |
+| 3-FullIns_5     |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| 3-Insertions_3  |   0.0 |   0.0 |   2.0 |   2.6 |   3.0 |   3.1 |   3.8 |   1.4 |   1.1 |   2.4 |   2.0 |
+| 3-Insertions_4  |   0.8 |   0.2 |  11.2 |  19.7 | 483.7 |  T.O. |  12.4 |   8.2 |  10.9 |  32.2 |  13.0 |
+| 3-Insertions_5  | 133.7 |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| 4-FullIns_3     |   0.3 |   0.2 |   4.2 |   4.3 |  18.5 |  63.7 |   4.2 |   3.6 |   3.1 |   4.9 |   3.5 |
+| 4-FullIns_4     | 410.4 |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| 4-FullIns_5     |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| 4-Insertions_3  |   0.0 |   0.0 |   2.5 |   2.2 |   6.5 |   8.9 |   2.7 |   2.2 |   3.3 |   3.5 |   1.9 |
+| 4-Insertions_4  |   0.7 | 123.6 | 241.3 |  36.3 |  T.O. |  T.O. |  81.8 |  60.2 | 256.0 |  39.4 |  T.O. |
+| 5-FullIns_3     |   0.7 |   0.1 |   5.0 |   5.0 |  18.7 |  65.5 |   4.4 |   4.5 |   4.3 |   4.6 |   4.9 |
+| 5-FullIns_4     |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| DSJC1000.1      |  T.O. |  T.O. |  87.1 | 176.6 |  T.O. |  T.O. |  83.5 | 158.2 |  17.8 |  52.7 |  66.0 |
+| DSJC1000.5      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  60.9 |  T.O. | 420.4 |
+| DSJC1000.9      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. | 130.9 |  T.O. |  T.O. |
+| DSJC125.1       |   1.0 |  17.0 |   4.2 |   4.6 |  64.8 |  27.2 |   4.4 |   4.3 |   2.0 |   3.9 |   3.7 |
+| DSJC125.5       |  T.O. |   0.9 |  13.3 |  15.3 |  T.O. |  T.O. |  13.9 |  13.9 |   5.5 |   9.6 |  10.0 |
+| DSJC125.9       |  T.O. |   1.7 |  52.6 |  46.2 |  T.O. |  T.O. |  43.5 |  39.9 |   6.3 |  19.2 |  18.4 |
+| DSJC250.1       |  77.6 |  T.O. |  10.8 |  12.0 |  T.O. |  T.O. |  12.3 |  10.7 |   6.2 |   7.7 |   8.3 |
+| DSJC250.5       |  T.O. |   7.8 |  92.9 |  55.3 |  T.O. |  T.O. |  79.2 |  70.9 |   8.3 |  26.2 |  30.6 |
+| DSJC250.9       |  T.O. |  12.5 |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |   9.9 | 128.6 | 132.2 |
+| DSJC500.1       |  T.O. |  T.O. |  22.2 |  54.5 |  T.O. |  T.O. |  28.5 |  46.4 |   8.6 |  16.0 |  19.8 |
+| DSJC500.5       |  T.O. | 117.7 | 116.3 | 322.0 |  T.O. |  T.O. | 126.2 | 196.9 |  18.3 |  70.2 | 157.0 |
+| DSJC500.9       |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  23.8 | 415.2 |  T.O. |
+| DSJR500.1       |  11.6 |  T.O. |  84.7 |  53.4 |  T.O. |  T.O. | 108.1 |  40.8 |  12.6 |  19.7 |  19.0 |
+| DSJR500.1c      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  30.5 |  T.O. |  T.O. |
+| DSJR500.5       |  T.O. |  T.O. | 232.6 | 363.8 |  T.O. |  T.O. | 240.2 | 397.8 |  14.1 | 106.9 | 155.2 |
+| abb313GPIA      |  T.O. |  T.O. | 360.9 |  T.O. |  T.O. |  T.O. | 214.8 |  T.O. |  T.O. |  90.9 |  T.O. |
+| anna            |   0.0 |   0.0 |   2.8 |   2.8 |   3.0 |   2.8 |   2.8 |   2.7 |   1.5 |   2.8 |   2.4 |
+| ash331GPIA      |   0.0 |   0.0 |   6.8 |   7.2 |   7.3 |   7.3 |   6.7 |   6.8 |   4.8 |   7.0 |   7.6 |
+| ash608GPIA      |   0.0 |   0.0 |   9.9 |  11.8 |  10.8 |  10.7 |   9.6 |   9.4 |   5.7 |  11.4 |  11.0 |
+| ash958GPIA      |   0.1 |   0.0 |  12.2 |  14.2 |  12.7 |  12.1 |  12.0 |  12.3 |   6.8 |  13.1 |  12.7 |
+| david           |   0.0 |   0.0 |   2.6 |   3.0 |   2.7 |   2.8 |   2.5 |   2.6 |   1.4 |   2.6 |   2.6 |
+| fpsol2.i.1      |  T.O. |  T.O. | 154.9 | 317.3 |  T.O. |  T.O. |  64.9 |  84.5 |  27.2 |  26.4 |  20.1 |
+| fpsol2.i.2      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| fpsol2.i.3      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| games120        |   0.5 |  T.O. |  22.3 |  26.5 |  64.3 | 104.5 |  13.4 |  15.0 |   3.1 |   7.3 |   6.0 |
+| homer           |   0.0 |   0.0 |   5.3 |   6.2 |   5.3 |   5.2 |   5.3 |   5.8 |   3.8 |   5.9 |   4.3 |
+| huck            |   0.0 |   0.0 |   2.3 |   2.5 |   2.3 |   2.3 |   2.3 |   2.3 |   1.4 |   2.5 |   2.2 |
+| inithx.i.1      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| inithx.i.2      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| inithx.i.3      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| jean            |   0.0 |   0.0 |   2.3 |   2.2 |   2.1 |   2.1 |   2.3 |   2.1 |   1.2 |   2.1 |   2.1 |
+| latin_square_10 |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  65.8 |  T.O. |  T.O. |
+| le450_15a       |  T.O. |  T.O. |  18.2 |  14.0 |  T.O. |  T.O. |  18.3 |  18.0 |   7.4 |  13.1 |  13.7 |
+| le450_15b       |   0.0 |   0.0 |   9.9 |  10.4 |   9.4 |   9.9 |   9.7 |  10.8 |   5.0 |  10.3 |  10.1 |
+| le450_15c       |  T.O. |  T.O. |  46.8 |  51.9 |  T.O. |  T.O. |  42.0 |  63.0 |   9.7 |  20.3 |  19.5 |
+| le450_15d       |  T.O. |  T.O. |  46.6 |  61.4 |  T.O. |  T.O. |  42.2 |  78.4 |  10.8 |  20.2 |  26.8 |
+| le450_25a       |  T.O. |  T.O. |  22.1 |  32.1 |  T.O. |  27.5 |  20.0 |  27.1 |   7.5 |  13.5 |  15.3 |
+| le450_25b       |  T.O. |  T.O. |  18.3 |  23.8 |  T.O. |  T.O. |  18.1 |  30.1 |   6.4 |  14.2 |  15.5 |
+| le450_25c       |  T.O. |  T.O. |  34.9 |  60.0 |  T.O. |  T.O. |  34.1 |  61.8 |   8.9 |  20.9 |  24.4 |
+| le450_25d       |  T.O. |  T.O. |  64.2 |  43.1 |  T.O. |  T.O. |  59.3 |  44.1 |  10.8 |  22.7 |  23.2 |
+| le450_5a        | 148.2 |  T.O. |  17.1 |  19.0 |  T.O. | 361.8 |  15.5 |  20.9 |   5.9 |  11.5 |  12.3 |
+| le450_5b        | 151.8 |  T.O. |  19.2 |  14.8 |  T.O. |  T.O. |  15.4 |  17.3 |   6.0 |  11.6 |  10.7 |
+| le450_5c        |  T.O. |  T.O. |  19.9 |  37.3 |  T.O. |  T.O. |  18.6 |  39.9 |   8.5 |  13.6 |  14.3 |
+| le450_5d        |  T.O. |  T.O. |  31.3 |  27.8 |  T.O. |  T.O. |  30.4 |  27.9 |   7.7 |  16.0 |  14.2 |
+| miles1000       |  T.O. |   8.9 |  15.5 |  16.1 |  T.O. |  20.1 |  14.2 |  46.7 |   5.4 |  10.1 |   9.4 |
+| miles1500       |  T.O. |   1.5 |  15.8 |  34.2 |  T.O. |  T.O. |  17.7 |  37.5 |   6.4 |  12.1 |  15.0 |
+| miles250        |   0.0 |   0.0 |   2.7 |   2.6 |   2.6 |   2.4 |   2.7 |   2.5 |   1.4 |   2.7 |   2.4 |
+| miles500        |  20.1 |  T.O. |  T.O. |   9.5 |  T.O. | 442.6 |  72.1 |  17.1 |   5.7 | 290.0 |   8.2 |
+| miles750        | 188.2 | 368.7 |  12.6 |  11.1 |  T.O. |  T.O. |  12.1 |  14.3 |   5.5 |   7.8 |   7.7 |
+| mug100_1        |   0.1 |   0.0 |   2.6 |   2.5 |   2.6 |   2.4 |   2.6 |   2.1 |   1.9 |   2.4 |   2.2 |
+| mug100_25       |   0.4 |   0.0 |   2.5 |   2.2 |   3.0 |   2.4 |   2.5 |   2.2 |   1.8 |   2.5 |   2.1 |
+| mug88_1         |   0.1 |   0.0 |   4.7 |   3.9 |   5.2 |   4.7 |   4.6 |   4.0 |   2.8 |   3.2 |   2.8 |
+| mug88_25        |   0.1 |   0.0 |   2.2 |   2.0 |   2.5 |   1.9 |   2.1 |   2.0 |   1.6 |   2.2 |   2.0 |
+| mulsol.i.1      |  T.O. |  29.0 |  12.1 |  13.3 |  T.O. |  T.O. |  12.8 |  14.3 |   6.7 |  10.2 |  12.1 |
+| mulsol.i.2      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| mulsol.i.3      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| mulsol.i.4      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| mulsol.i.5      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| myciel3         |   0.0 |   0.0 |   1.1 |   1.0 |   1.2 |   0.9 |   1.1 |   0.9 |   0.8 |   1.0 |   0.9 |
+| myciel4         |   0.0 |   0.0 |   1.4 |   1.5 |   1.4 |   1.9 |   1.5 |   1.5 |   1.1 |   1.5 |   1.5 |
+| myciel5         |   0.1 |   0.0 |   2.6 |   2.6 |   4.9 |   8.0 |   2.5 |   2.7 |   1.5 |   2.3 |   2.6 |
+| myciel6         |   0.8 |   0.1 |   4.4 |   5.2 |  10.1 |  93.4 |   6.5 |   4.6 |   2.8 |   4.8 |   4.3 |
+| myciel7         |   7.3 |   3.6 |  12.3 |  11.2 |  T.O. |  T.O. |  10.6 |  10.7 |  43.3 |  11.4 |  10.8 |
+| qg.order100     |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+|                 |       |       |       |       |       |       |       |       | (514) |       |       |
+| qg.order30      |  T.O. |  T.O. | 108.4 | 110.2 |  T.O. |  T.O. |  78.1 | 244.3 |  14.9 |  35.5 |  38.8 |
+| qg.order40      |  T.O. |  T.O. | 119.1 | 225.4 |  T.O. |  T.O. | 138.1 | 186.9 |  22.5 |  80.3 | 131.7 |
+| qg.order60      |  T.O. |  T.O. | 445.2 |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. | 126.8 |  T.O. |  T.O. |
+| queen10_10      |  51.7 |   0.7 |  10.7 |  10.2 | 200.3 |  19.5 |  10.1 |   9.6 |   4.8 |   6.4 |   7.2 |
+| queen11_11      | 103.6 |   0.5 |  11.7 |  11.8 | 131.1 |  31.0 |  10.6 |  11.2 |   4.2 |   6.9 |   7.7 |
+| queen12_12      | 188.3 |   0.7 |   7.3 |   8.3 | 434.5 |  19.2 |   7.4 |   7.8 |   5.1 |   7.3 |   8.6 |
+| queen13_13      | 341.8 |   1.1 |  11.6 |  14.2 |  T.O. |  T.O. |  11.8 |  12.8 |   5.1 |   8.9 |   9.4 |
+| queen14_14      |  T.O. |  T.O. |  13.3 |  14.1 |  T.O. |  T.O. |  15.5 |  12.8 |   5.4 |  10.5 |  11.5 |
+| queen15_15      |  T.O. |  T.O. |  15.0 |  17.1 |  T.O. |  T.O. |  16.6 |  16.5 |   6.1 |  11.1 |  13.3 |
+| queen16_16      |  T.O. |  T.O. |  15.7 |  34.7 |  T.O. |  T.O. |  15.7 |  31.5 |   6.8 |  11.8 |  14.2 |
+| queen5_5        |   0.3 |   0.0 |   2.3 |   2.1 |   3.6 |   3.3 |   2.1 |   2.0 |   1.3 |   2.0 |   2.0 |
+| queen6_6        |   1.1 |   0.0 |   2.9 |   3.2 |   4.0 |   7.3 |   2.9 |   3.2 |   1.4 |   2.8 |   2.9 |
+| queen7_7        |   3.6 |   0.0 |   3.6 |  10.3 |  23.7 |   3.9 |   3.5 |   9.4 |   1.7 |   3.4 |   3.5 |
+| queen8_12       |  44.1 |   8.0 |   9.9 |  10.1 |  67.2 |  75.5 |   9.2 |   9.7 |   4.4 |   6.0 |   6.6 |
+| queen8_8        |  10.4 |   0.1 |   4.4 |   4.2 | 111.5 |   9.2 |   4.0 |   4.3 |   2.6 |   3.9 |   4.4 |
+| queen9_9        |  23.8 |   0.2 |   8.7 |   8.5 | 153.9 |  40.7 |   8.4 |   8.1 |   3.1 |   5.4 |   5.4 |
+| school1         |   0.1 |   0.1 |  14.1 |  14.8 |  13.7 |  13.3 |  13.9 |  13.2 |   7.3 |  15.5 |  15.8 |
+| school1_nsh     |   0.1 |   0.0 |  12.2 |  13.1 |  12.5 |  12.1 |  12.2 |  12.3 |   6.1 |  13.5 |  14.3 |
+| wap01a          |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| wap02a          |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| wap03a          |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| wap04a          |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| wap05a          |  T.O. |  T.O. | 158.4 | 114.5 |  T.O. |  T.O. | 127.7 |  T.O. |  20.5 |  47.7 | 118.4 |
+| wap06a          |  T.O. |  T.O. | 192.3 | 179.5 |  T.O. |  T.O. | 106.4 | 270.4 |  78.7 |  60.3 |  76.8 |
+| wap07a          |  T.O. |  T.O. | 144.8 | 217.1 |  T.O. |  T.O. | 130.9 | 183.1 |  40.2 | 106.2 | 182.8 |
+| wap08a          |  T.O. |  T.O. | 231.0 | 327.0 |  T.O. |  T.O. | 134.3 | 330.3 |  43.6 | 124.6 | 177.6 |
+| will199GPIA     |  77.0 |  T.O. |  37.1 |  39.7 |  T.O. |  T.O. |  35.0 |  36.5 |   9.3 |  16.2 |  18.0 |
+| zeroin.i.1      |  T.O. |   1.0 |  42.4 |  14.8 |  T.O. | 117.9 |  12.5 |  19.7 |   6.5 |  10.5 |  10.9 |
+| zeroin.i.2      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| zeroin.i.3      |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+|-----------------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+
+** random
+#+ATTR_HTML: :id table1small
+|--------------+-------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+| Name         |   LKH | Velev | Glue-S | Glue-T | Ling-S | Ling-T | Mini-S | Mini-T | S4Jg-N | S4Jg-S | S4Jg-T |
+|--------------+-------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+| <l>          |   <r> |   <r> |    <r> |    <r> |    <r> |    <r> |    <r> |    <r> |    <r> |    <r> |    <r> |
+| rnd_00100_01 |   0.1 |   0.2 |    3.0 |    2.6 |    6.1 |    7.5 |    2.8 |    2.9 |    1.5 |    2.9 |    2.4 |
+| rnd_00100_02 |   0.1 |   0.8 |    2.7 |    2.6 |    5.7 |    8.5 |    2.7 |    2.9 |    1.8 |    2.9 |    2.8 |
+| rnd_00100_03 |   0.1 |   0.4 |    3.1 |    3.1 |    2.7 |    2.6 |    3.2 |    3.0 |    1.3 |    3.4 |    2.8 |
+| rnd_00100_04 |   0.1 |   0.1 |    2.4 |    2.8 |    9.5 |    3.9 |    2.4 |    3.0 |    1.7 |    2.6 |    3.0 |
+| rnd_00100_05 |   0.0 |   0.0 |    2.3 |    2.3 |    2.4 |    2.3 |    2.3 |    2.5 |    1.3 |    2.6 |    2.3 |
+| rnd_00100_06 |   0.0 |   0.0 |    2.3 |    2.3 |    2.3 |    2.3 |    2.3 |    2.5 |    1.3 |    2.5 |    2.3 |
+| rnd_00100_07 |   0.1 |   0.7 |    3.2 |    2.8 |    3.5 |   11.8 |    2.9 |    3.5 |    1.5 |    3.1 |    2.7 |
+| rnd_00100_08 |   0.0 |   0.0 |    2.3 |    2.3 |    2.4 |    2.2 |    2.3 |    2.6 |    1.3 |    2.5 |    2.2 |
+| rnd_00100_09 |   0.0 |   0.0 |    2.3 |    2.3 |    2.4 |    2.3 |    2.3 |    2.5 |    1.3 |    2.3 |    2.4 |
+| rnd_00100_10 |   0.0 |   0.0 |    2.3 |    2.2 |    2.4 |    2.2 |    2.3 |    2.4 |    1.3 |    2.4 |    2.2 |
+| rnd_00200_01 |   0.2 | 120.4 |    4.3 |    4.0 |   13.8 |   50.3 |    4.2 |    4.3 |    2.1 |    3.7 |    5.0 |
+| rnd_00200_02 |   0.2 | 197.3 |    4.2 |    3.6 |   39.0 |   48.8 |    4.5 |    5.5 |    2.1 |    4.1 |    4.7 |
+| rnd_00200_03 |   0.2 |  59.3 |    4.4 |    4.7 |    5.5 |   31.9 |    4.4 |    5.1 |    1.9 |    4.1 |    4.6 |
+| rnd_00200_04 |   0.0 |   0.0 |    3.4 |    3.5 |    3.5 |    3.5 |    3.4 |    3.9 |    1.9 |    3.4 |    3.4 |
+| rnd_00200_05 |   0.0 |   0.0 |    3.5 |    3.7 |    3.5 |    3.9 |    3.4 |    4.0 |    1.9 |    3.6 |    3.6 |
+| rnd_00200_06 |   0.0 |   0.0 |    3.4 |    3.6 |    3.5 |    3.6 |    3.4 |    4.0 |    1.9 |    3.4 |    3.4 |
+| rnd_00200_07 |   0.0 |   0.0 |    3.4 |    3.5 |    3.4 |    3.4 |    3.4 |    3.7 |    1.8 |    3.6 |    3.5 |
+| rnd_00200_08 |   0.2 |  55.6 |    4.0 |    7.1 |    7.7 |   51.4 |    4.0 |    5.6 |    3.1 |    4.1 |    4.7 |
+| rnd_00200_09 |   0.0 |   0.0 |    3.4 |    3.7 |    3.5 |    3.8 |    3.4 |    3.7 |    1.9 |    3.6 |    3.4 |
+| rnd_00200_10 |   0.0 |   0.0 |    3.4 |    3.7 |    3.5 |    4.0 |    3.4 |    4.1 |    1.8 |    3.5 |    3.7 |
+| rnd_00300_01 |   0.4 |  T.O. |    9.6 |    9.9 |   27.3 |  140.4 |    9.2 |    6.7 |    4.5 |    7.5 |    6.6 |
+| rnd_00300_02 |   0.0 |   0.0 |    4.9 |    5.2 |    5.3 |    5.2 |    5.1 |    5.5 |    3.6 |    5.1 |    5.5 |
+| rnd_00300_03 |   0.0 |   0.0 |    4.9 |    5.1 |    5.1 |    5.0 |    5.0 |    5.4 |    3.6 |    5.0 |    5.1 |
+| rnd_00300_04 |   0.4 |  T.O. |    8.8 |    6.3 |   43.1 |   70.0 |    8.9 |    6.9 |    4.0 |    5.9 |    5.8 |
+| rnd_00300_05 |   0.4 |  T.O. |    8.9 |    9.5 |   42.7 |   26.8 |    9.6 |    6.3 |    4.1 |    6.5 |    6.1 |
+| rnd_00300_06 |   0.0 |   0.0 |    4.9 |    5.2 |    5.2 |    5.2 |    5.1 |    5.8 |    3.4 |    5.4 |    5.8 |
+| rnd_00300_07 |   0.0 |   0.0 |    5.0 |    5.3 |    5.3 |    5.6 |    5.4 |    5.8 |    3.8 |    5.6 |    5.3 |
+| rnd_00300_08 |   0.0 |   0.0 |    4.9 |    5.3 |    5.2 |    5.2 |    5.3 |    5.5 |    3.7 |    5.8 |    5.3 |
+| rnd_00300_09 |   0.0 |   0.0 |    5.1 |    5.0 |    5.2 |    5.0 |    5.6 |    5.8 |    3.7 |    5.8 |    5.3 |
+| rnd_00300_10 |   0.0 |   0.0 |    4.9 |    5.4 |    5.3 |    5.2 |    5.6 |    5.9 |    3.6 |    5.6 |    5.7 |
+| rnd_00400_01 |   0.0 |   0.0 |    5.2 |    5.3 |    5.3 |    5.6 |    5.6 |    6.0 |    4.1 |    5.9 |    5.7 |
+| rnd_00400_02 |   0.6 |  T.O. |    9.5 |    6.0 |   30.3 |   38.7 |   10.4 |   11.2 |    5.3 |    7.9 |    7.4 |
+| rnd_00400_03 |   0.6 |  T.O. |   10.1 |   10.3 |   67.2 |  162.2 |   11.4 |   10.7 |    5.3 |    6.8 |    6.6 |
+| rnd_00400_04 |   0.0 |   0.0 |    5.2 |    5.5 |    5.8 |    5.3 |    5.5 |    6.1 |    4.0 |    5.3 |    5.6 |
+| rnd_00400_05 |   0.6 |  T.O. |   10.0 |    6.2 |  275.6 |  298.4 |   11.2 |    6.7 |    4.9 |    6.8 |    7.5 |
+| rnd_00400_06 |   0.0 |   0.0 |    5.3 |    5.4 |    6.1 |    5.6 |    5.9 |    6.1 |    4.0 |    5.9 |    5.6 |
+| rnd_00400_07 |   0.6 |  T.O. |   12.4 |    9.0 |   44.3 |   35.6 |   13.6 |    9.9 |    6.3 |    7.3 |    7.3 |
+| rnd_00400_08 |   0.0 |   0.0 |    5.1 |    5.5 |    5.4 |    5.9 |    5.7 |    6.1 |    3.8 |    5.6 |    5.5 |
+| rnd_00400_09 |   0.0 |   0.0 |    5.2 |    5.6 |    5.9 |    5.6 |    5.7 |    6.2 |    4.0 |    6.0 |    5.6 |
+| rnd_00400_10 |   0.0 |   0.0 |    5.2 |    5.4 |    5.7 |    5.8 |    5.6 |    6.1 |    4.1 |    5.9 |    5.6 |
+| rnd_00500_01 |   0.0 |   0.0 |    9.6 |    6.0 |   10.2 |    5.9 |   10.5 |    6.8 |    4.2 |    6.1 |    6.3 |
+| rnd_00500_02 |   0.9 |  T.O. |    9.9 |   11.4 |  438.4 |   T.O. |   10.7 |   11.4 |    6.2 |    7.0 |    7.5 |
+| rnd_00500_03 |   1.0 |  T.O. |   13.7 |   11.8 |   T.O. |   40.1 |   11.6 |   14.2 |    5.3 |    7.1 |    7.6 |
+| rnd_00500_04 |   1.0 |  T.O. |   10.8 |   10.4 |   18.4 |  164.6 |   11.5 |   15.2 |    5.4 |    7.8 |    7.7 |
+| rnd_00500_05 |   1.0 |  T.O. |   10.8 |   13.9 |   T.O. |   28.6 |   11.8 |   11.4 |    5.6 |    8.4 |    7.3 |
+| rnd_00500_06 |   0.0 |   0.0 |    9.8 |    5.9 |   10.4 |    6.5 |    6.5 |    6.6 |    4.2 |    6.4 |    6.4 |
+| rnd_00500_07 |   0.0 |   0.0 |    9.6 |    5.9 |   10.4 |    6.2 |   10.4 |   11.0 |    4.2 |    6.4 |    6.2 |
+| rnd_00500_08 |   0.0 |   0.0 |    9.7 |    5.9 |   10.2 |    6.2 |   10.7 |    6.6 |    4.1 |    6.7 |    6.1 |
+| rnd_00500_09 |   1.0 |  T.O. |   13.0 |   14.8 |  376.7 |   T.O. |   12.2 |   12.4 |    5.3 |    7.6 |    7.7 |
+| rnd_00500_10 |   0.0 |   0.0 |    9.7 |    6.0 |   10.0 |    6.0 |   10.5 |    6.8 |    4.2 |    6.3 |    6.3 |
+| rnd_00600_01 |   1.4 |  T.O. |   10.4 |    7.9 |   T.O. |  109.7 |    7.9 |    9.2 |    5.8 |    9.0 |    8.5 |
+| rnd_00600_02 |   1.4 |  T.O. |    7.8 |   10.6 |   T.O. |   T.O. |    8.2 |    8.7 |    6.2 |    7.8 |    8.3 |
+| rnd_00600_03 |   1.4 |  T.O. |   10.7 |   11.0 |   14.7 |   29.6 |   10.8 |    9.0 |    5.8 |    7.9 |    8.3 |
+| rnd_00600_04 |   0.0 |   0.0 |    6.2 |    6.8 |    6.5 |    7.6 |    6.8 |    7.5 |    4.4 |    7.1 |    7.2 |
+| rnd_00600_05 |   0.0 |   0.0 |    6.2 |    6.9 |    6.5 |    7.4 |    6.8 |    7.6 |    4.4 |    7.0 |    7.4 |
+| rnd_00600_06 |   1.4 |  T.O. |   12.9 |    7.9 |   25.4 |   T.O. |   11.1 |   11.9 |    5.5 |    8.2 |    8.4 |
+| rnd_00600_07 |   1.3 |  T.O. |   10.0 |    7.9 |  315.2 |   T.O. |   11.2 |   10.9 |    7.6 |    8.2 |    8.3 |
+| rnd_00600_08 |   1.4 |  T.O. |    7.2 |    8.6 |   T.O. |  387.1 |    8.3 |   16.9 |    5.6 |    8.5 |    8.3 |
+| rnd_00600_09 |   0.0 |   0.0 |    6.2 |    6.9 |    6.8 |    6.8 |    6.8 |    7.8 |    4.3 |    7.2 |    7.4 |
+| rnd_00600_10 |   0.0 |   0.0 |    5.9 |    6.7 |    6.6 |    6.9 |    6.7 |    7.3 |    4.4 |    6.3 |    7.1 |
+| rnd_00700_01 |   0.0 |   0.0 |    6.7 |    7.1 |    7.0 |    7.3 |    7.1 |    8.0 |    4.7 |    7.0 |    7.6 |
+| rnd_00700_02 |   0.0 |   0.0 |    6.4 |    6.9 |    6.8 |    7.0 |    7.0 |    7.7 |    4.7 |    6.9 |    7.3 |
+| rnd_00700_03 |   0.0 |   0.0 |    6.5 |    7.0 |    7.1 |    7.2 |    7.0 |    7.8 |    4.5 |    7.3 |    7.4 |
+| rnd_00700_04 |   1.8 |  T.O. |   11.2 |   11.8 |  440.0 |  129.6 |   15.0 |   10.3 |    6.4 |    9.5 |    8.6 |
+| rnd_00700_05 |   0.0 |   0.0 |    6.5 |    6.9 |    6.9 |    7.2 |    7.0 |    7.9 |    4.6 |    7.4 |    7.6 |
+| rnd_00700_06 |   0.0 |   0.0 |    6.4 |    6.9 |    6.8 |    7.1 |    7.1 |    7.6 |    4.8 |    7.4 |    7.6 |
+| rnd_00700_07 |   2.0 |  T.O. |    9.9 |   11.4 |   T.O. |   T.O. |   11.1 |   12.7 |    6.6 |    9.3 |    8.9 |
+| rnd_00700_08 |   1.8 |  T.O. |    9.8 |   12.6 |   T.O. |  140.2 |   11.5 |    9.2 |    6.4 |    9.0 |    8.5 |
+| rnd_00700_09 |   2.0 |  T.O. |    9.9 |   10.4 |  175.8 |   T.O. |    8.1 |   12.1 |    6.3 |   11.1 |    9.2 |
+| rnd_00700_10 |   0.0 |   0.0 |    6.4 |    7.1 |    6.6 |    7.1 |    7.0 |    7.8 |    4.6 |    7.4 |    7.7 |
+| rnd_00800_01 |   2.4 |  T.O. |   11.3 |   14.3 |   T.O. |   28.5 |   13.2 |   16.1 |    6.7 |   10.5 |   10.0 |
+| rnd_00800_02 |   0.0 |   0.0 |    6.9 |    7.4 |    7.4 |    7.7 |    7.8 |    7.9 |    4.9 |    8.1 |    7.8 |
+| rnd_00800_03 |   0.0 |   0.0 |    6.9 |    7.4 |    7.5 |    7.7 |    7.5 |    7.7 |    4.7 |    7.9 |    7.9 |
+| rnd_00800_04 |   0.0 |   0.0 |    6.9 |    7.1 |    7.3 |    7.4 |    7.5 |    8.0 |    4.6 |    8.4 |    7.9 |
+| rnd_00800_05 |   2.3 |  T.O. |   17.9 |   12.2 |   T.O. |   43.1 |   13.3 |   16.4 |    8.1 |   12.7 |   10.6 |
+| rnd_00800_06 |   2.6 |  T.O. |    7.4 |   12.0 |   T.O. |   T.O. |   13.2 |   15.1 |    6.3 |    9.9 |   11.1 |
+| rnd_00800_07 |   2.6 |  T.O. |   12.2 |   12.8 |   T.O. |   T.O. |   19.6 |   13.9 |    6.3 |   10.1 |   10.2 |
+| rnd_00800_08 |   2.4 |  T.O. |   13.1 |   12.6 |   T.O. |   T.O. |   16.3 |   20.6 |    8.4 |   11.1 |    9.7 |
+| rnd_00800_09 |   2.4 |  T.O. |   16.0 |   13.8 |   46.7 |   T.O. |   13.1 |   13.4 |    6.3 |    9.0 |    8.6 |
+| rnd_00800_10 |   0.0 |   0.0 |    7.0 |    7.3 |    8.1 |    8.3 |    7.6 |    7.8 |    4.7 |    8.0 |    7.7 |
+| rnd_00900_01 |   0.0 |   0.0 |    7.1 |    7.6 |    7.8 |    7.9 |    7.7 |    8.4 |    4.8 |    8.4 |    7.9 |
+| rnd_00900_02 |   0.0 |   0.0 |    7.0 |    7.3 |    7.9 |    7.7 |    7.8 |    8.0 |    5.1 |    8.3 |    8.3 |
+| rnd_00900_03 |   0.0 |   0.0 |    7.1 |    7.5 |    7.8 |    7.9 |    7.7 |    8.3 |    5.0 |    8.5 |    7.9 |
+| rnd_00900_04 |   3.2 |  T.O. |   16.1 |   11.4 |   T.O. |   T.O. |   14.4 |   14.3 |    6.3 |   10.9 |   10.0 |
+| rnd_00900_05 |   0.0 |   0.0 |    7.0 |    7.5 |    7.6 |    7.6 |    8.0 |    7.9 |    5.0 |    8.0 |    8.0 |
+| rnd_00900_06 |   0.0 |   0.0 |    7.4 |    7.5 |    7.8 |    7.6 |    7.8 |    8.4 |    4.9 |    8.2 |    8.0 |
+| rnd_00900_07 |   3.1 |  T.O. |   11.0 |   12.1 |   T.O. |   T.O. |   13.7 |   15.9 |    7.7 |   10.2 |   11.1 |
+| rnd_00900_08 |   3.3 |  T.O. |   11.2 |   13.7 |   T.O. |   T.O. |   12.2 |   24.4 |    6.4 |   10.3 |   10.9 |
+| rnd_00900_09 |   0.0 |   0.0 |    7.1 |    7.5 |    8.0 |    7.4 |    8.2 |    8.4 |    4.9 |    8.1 |    8.0 |
+| rnd_00900_10 |   3.0 |  T.O. |   15.4 |   17.9 |   T.O. |   T.O. |   14.0 |   50.7 |    6.3 |   11.7 |   11.2 |
+| rnd_01000_01 |   4.0 |  T.O. |    9.3 |   14.7 |   T.O. |   T.O. |   12.4 |   11.9 |    7.7 |   10.8 |   12.2 |
+| rnd_01000_02 |   0.0 |   0.0 |    7.7 |    8.2 |    8.4 |    8.7 |    8.7 |    9.4 |    4.9 |    9.0 |    8.0 |
+| rnd_01000_03 |   0.0 |   0.0 |    7.8 |    8.5 |    8.4 |    8.1 |    8.5 |    9.2 |    5.0 |    9.1 |    8.1 |
+| rnd_01000_04 |   3.8 |  T.O. |    8.2 |   10.0 |   T.O. |   T.O. |   17.0 |   13.7 |    9.7 |   12.0 |   11.4 |
+| rnd_01000_05 |   4.0 |  T.O. |    8.8 |   12.4 |  363.0 |  277.1 |   11.9 |   12.9 |    8.2 |   11.4 |   11.5 |
+| rnd_01000_06 |   0.0 |   0.0 |    7.7 |    8.4 |    8.0 |    8.9 |    8.8 |   10.0 |    4.9 |    9.1 |    8.3 |
+| rnd_01000_07 |   0.0 |   0.0 |    7.8 |    8.3 |    8.5 |    8.1 |    8.7 |   10.0 |    5.0 |    9.1 |    8.2 |
+| rnd_01000_08 |   0.0 |   0.0 |    7.8 |    8.2 |    8.7 |    8.1 |    8.5 |    8.9 |    4.9 |    9.3 |    8.2 |
+| rnd_01000_09 |   3.9 |  T.O. |   10.0 |   12.3 |   35.3 |  384.3 |   32.3 |   14.2 |    6.9 |   14.0 |   11.1 |
+| rnd_01000_10 |   0.0 |   0.0 |    7.7 |    8.4 |    8.2 |    9.1 |    8.6 |   10.0 |    4.9 |    8.7 |    8.2 |
+| rnd_01500_01 |   0.1 |   0.1 |    9.1 |    9.8 |   10.4 |    9.4 |   10.3 |   10.7 |    5.6 |   10.8 |   10.7 |
+| rnd_01500_02 |   0.1 |   0.1 |    9.1 |    9.8 |   10.0 |    9.5 |   10.2 |   10.1 |    5.7 |   10.7 |   10.8 |
+| rnd_01500_03 |   0.1 |   0.1 |    9.1 |    9.8 |   10.3 |    9.4 |   10.2 |   10.6 |    5.7 |   10.5 |   10.7 |
+| rnd_01500_04 |   0.1 |   0.1 |    9.1 |    9.8 |   10.2 |    9.4 |   10.1 |   10.7 |    5.7 |   11.2 |   10.7 |
+| rnd_01500_05 |   8.4 |  T.O. |   24.2 |   27.4 |  488.8 |   T.O. |   40.1 |   25.1 |    8.4 |   16.5 |   14.9 |
+| rnd_01500_06 |   0.1 |   0.1 |    9.2 |    9.7 |    9.8 |    9.5 |   10.4 |   10.8 |    5.8 |    9.8 |   10.4 |
+| rnd_01500_07 |   0.1 |   0.1 |    9.1 |    9.7 |   10.4 |    9.6 |   10.2 |   11.0 |    5.7 |   10.6 |   10.9 |
+| rnd_01500_08 |   8.6 |  T.O. |   29.4 |   32.8 |   T.O. |   T.O. |   31.3 |   67.4 |    8.9 |   15.0 |   14.3 |
+| rnd_01500_09 |   0.1 |   0.1 |    9.0 |    9.6 |    9.5 |   11.0 |   10.1 |   10.6 |    5.8 |   10.7 |   10.6 |
+| rnd_01500_10 |   8.5 |  T.O. |    9.7 |   30.0 |   T.O. |   T.O. |   31.6 |   18.7 |    8.7 |   14.1 |   25.1 |
+| rnd_02000_01 |   0.1 |   0.1 |   10.4 |   11.1 |   11.2 |   11.9 |   11.7 |   12.4 |    6.7 |   11.6 |   12.0 |
+| rnd_02000_02 |  14.8 |  T.O. |   38.9 |   30.8 |   T.O. |   T.O. |   31.9 |   27.0 |   12.4 |   16.9 |   18.6 |
+| rnd_02000_03 |   0.1 |   0.1 |   10.3 |   11.3 |   11.6 |   11.9 |   11.6 |   12.6 |    6.3 |   12.1 |   12.1 |
+| rnd_02000_04 |  14.2 |  T.O. |   16.6 |   28.4 |   T.O. |   T.O. |   30.8 |   44.3 |   11.9 |   16.7 |   26.1 |
+| rnd_02000_05 |   0.1 |   0.1 |   10.6 |   11.4 |   11.6 |   11.5 |   11.8 |   11.8 |    6.4 |   13.0 |   12.0 |
+| rnd_02000_06 |  14.8 |  T.O. |   48.4 |   30.7 |   T.O. |   T.O. |   67.4 |   30.2 |   10.2 |   24.8 |   33.1 |
+| rnd_02000_07 |   0.1 |   0.1 |   10.6 |   11.1 |   11.8 |   11.5 |   11.9 |   12.6 |    6.6 |   13.0 |   12.2 |
+| rnd_02000_08 |   0.1 |   0.1 |   10.6 |   11.2 |   11.0 |   11.6 |   11.9 |   12.4 |    6.6 |   13.0 |   12.1 |
+| rnd_02000_09 |   0.1 |   0.1 |   10.5 |   11.2 |   11.2 |   11.6 |   11.8 |   12.6 |    6.4 |   12.0 |   12.4 |
+| rnd_02000_10 |   0.1 |   0.1 |   10.3 |   11.0 |   11.5 |   11.3 |   11.8 |   12.5 |    7.0 |   12.3 |   12.1 |
+| rnd_02500_01 |  21.4 |  T.O. |   85.8 |   22.5 |   T.O. |   T.O. |   62.7 |   25.3 |   13.3 |   23.5 |   20.5 |
+| rnd_02500_02 |   0.1 |   0.1 |   11.4 |   11.9 |   13.0 |   12.2 |   13.0 |   13.1 |    6.7 |   13.0 |   12.9 |
+| rnd_02500_03 |  20.5 |  T.O. |   29.9 |   29.4 |   T.O. |   T.O. |   46.5 |   33.5 |   17.1 |   23.2 |   17.2 |
+| rnd_02500_04 |  21.1 |  T.O. |   34.2 |   19.6 |   T.O. |   T.O. |   39.4 |   49.4 |   11.3 |   19.7 |   19.6 |
+| rnd_02500_05 |   0.1 |   0.1 |   13.5 |   12.0 |   12.3 |   12.4 |   12.7 |   13.7 |    6.5 |   13.6 |   12.7 |
+| rnd_02500_06 |  21.7 |  T.O. |   38.3 |   22.6 |   T.O. |   T.O. |   57.9 |   53.2 |   11.6 |   23.9 |   27.2 |
+| rnd_02500_07 |  20.4 |  T.O. |   35.6 |   35.5 |   T.O. |   T.O. |   33.1 |   31.7 |   10.1 |   40.1 |   25.2 |
+| rnd_02500_08 |  22.0 |  T.O. |   52.9 |   35.5 |   T.O. |   T.O. |   22.8 |   39.0 |   21.1 |   18.6 |   28.5 |
+| rnd_02500_09 |   0.1 |   0.1 |   11.4 |   12.2 |   12.5 |   12.3 |   12.9 |   13.4 |    6.5 |   13.4 |   13.1 |
+| rnd_02500_10 |  20.3 |  T.O. |   40.4 |   33.7 |   T.O. |   T.O. |   47.5 |   24.1 |   13.0 |   19.2 |   34.3 |
+| rnd_03000_01 |  29.2 |  T.O. |   41.9 |   80.5 |   T.O. |   T.O. |   44.4 |   27.3 |   16.0 |   34.9 |   24.1 |
+| rnd_03000_02 |  29.6 |  T.O. |   59.6 |   59.5 |   T.O. |   T.O. |   51.9 |   86.9 |   13.6 |   18.4 |   21.0 |
+| rnd_03000_03 |  29.9 |  T.O. |   28.0 |  192.1 |   T.O. |   T.O. |   91.6 |   62.3 |   13.8 |   22.0 |   25.9 |
+| rnd_03000_04 |  27.9 |  T.O. |   18.0 |   28.8 |   T.O. |   T.O. |   31.6 |   56.6 |   15.1 |   16.7 |   23.3 |
+| rnd_03000_05 |  29.7 |  T.O. |   59.3 |   42.1 |   T.O. |   T.O. |   56.6 |  132.4 |   16.7 |   45.2 |   19.8 |
+| rnd_03000_06 |   0.1 |   0.1 |   12.5 |   12.7 |   13.7 |   13.3 |   13.4 |   14.1 |    7.7 |   14.1 |   14.0 |
+| rnd_03000_07 |   0.1 |   0.1 |   12.6 |   12.8 |   13.2 |   13.7 |   14.0 |   13.9 |    8.0 |   15.3 |   14.3 |
+| rnd_03000_08 |   0.1 |   0.1 |   12.3 |   13.3 |   12.8 |   13.2 |   14.1 |   14.0 |    7.7 |   13.8 |   14.4 |
+| rnd_03000_09 |  28.8 |  T.O. |   44.5 |   49.1 |   T.O. |   T.O. |   38.6 |   41.6 |   11.4 |   19.9 |   32.0 |
+| rnd_03000_10 |   0.1 |   0.1 |   12.5 |   13.4 |   13.5 |   12.6 |   13.9 |   14.2 |    7.9 |   13.9 |   14.3 |
+| rnd_03500_01 |   0.2 |   0.1 |   13.4 |   13.9 |   14.8 |   13.7 |   14.7 |   14.9 |    7.8 |   15.4 |   15.1 |
+| rnd_03500_02 |  37.8 |  T.O. |  101.6 |   41.4 |   T.O. |   T.O. |   53.9 |   32.7 |   15.3 |   26.6 |   29.7 |
+| rnd_03500_03 |   0.2 |   0.1 |   13.5 |   14.1 |   13.9 |   13.6 |   15.4 |   15.0 |    7.7 |   16.3 |   15.2 |
+| rnd_03500_04 |   0.2 |   0.1 |   13.5 |   14.2 |   15.2 |   13.9 |   15.4 |   15.5 |    7.9 |   14.9 |   15.5 |
+| rnd_03500_05 |   0.2 |   0.1 |   13.4 |   13.6 |   14.2 |   13.5 |   15.2 |   15.3 |    8.1 |   16.2 |   15.1 |
+| rnd_03500_06 |   0.2 |   0.1 |   13.4 |   14.0 |   14.4 |   13.7 |   15.3 |   15.4 |    8.2 |   14.7 |   15.1 |
+| rnd_03500_07 |  39.8 |  T.O. |   40.9 |   35.9 |   T.O. |   T.O. |   68.6 |   70.1 |   17.4 |   24.9 |   57.2 |
+| rnd_03500_08 |  38.1 |  T.O. |   41.2 |   35.1 |   T.O. |   T.O. |  124.5 |   28.4 |   16.9 |   32.0 |   24.8 |
+| rnd_03500_09 |   0.2 |   0.1 |   13.3 |   14.0 |   14.3 |   13.7 |   15.1 |   14.7 |    7.9 |   15.0 |   15.4 |
+| rnd_03500_10 |  39.9 |  T.O. |   46.0 |   29.8 |   T.O. |   T.O. |   44.7 |  112.4 |   12.0 |   22.4 |   28.5 |
+| rnd_04000_01 |   0.2 |   0.2 |   14.6 |   16.5 |   15.1 |   14.6 |   16.2 |   15.6 |    8.3 |   16.8 |   16.8 |
+| rnd_04000_02 |   0.2 |   0.2 |   14.4 |   14.9 |   16.0 |   14.5 |   16.3 |   15.4 |    8.3 |   16.7 |   16.4 |
+| rnd_04000_03 |  49.3 |  T.O. |   57.2 |   45.7 |   T.O. |   T.O. |   60.0 |   61.4 |   12.4 |   31.6 |   55.6 |
+| rnd_04000_04 |  48.8 |  T.O. |   34.3 |   54.2 |   T.O. |   T.O. |   41.4 |   35.9 |   13.0 |   24.1 |   43.6 |
+| rnd_04000_05 |  48.8 |  T.O. |   31.0 |   70.9 |   T.O. |   T.O. |   36.9 |  103.1 |   17.9 |   28.6 |   31.6 |
+| rnd_04000_06 |  47.9 |  T.O. |   27.7 |   56.6 |   T.O. |   T.O. |   32.3 |   49.0 |   11.9 |   26.5 |   27.3 |
+| rnd_04000_07 |   0.2 |   0.2 |   14.5 |   14.7 |   15.6 |   14.4 |   16.1 |   15.8 |    8.4 |   17.0 |   16.5 |
+| rnd_04000_08 |   0.2 |   0.2 |   14.2 |   14.9 |   14.9 |   15.6 |   16.8 |   14.9 |    8.3 |   16.7 |   16.8 |
+| rnd_04000_09 |  47.0 |  T.O. |  100.2 |   94.0 |   T.O. |   T.O. |   37.8 |   25.1 |   12.0 |   29.5 |   52.7 |
+| rnd_04000_10 |   0.2 |   0.2 |   14.2 |   14.9 |   15.1 |   14.5 |   16.1 |   14.8 |    8.1 |   17.4 |   16.7 |
+| rnd_04500_01 |  60.1 |  T.O. |   41.0 |   42.0 |  167.0 |   T.O. |   39.7 |   66.5 |   13.1 |   67.1 |   42.6 |
+| rnd_04500_02 |   0.2 |   0.2 |   14.4 |   14.8 |   15.3 |   17.8 |   16.4 |   16.6 |    8.4 |   17.9 |   17.6 |
+| rnd_04500_03 |   0.2 |   0.2 |   14.3 |   15.2 |   14.9 |   15.3 |   16.0 |   16.0 |    8.4 |   17.3 |   17.4 |
+| rnd_04500_04 |   0.2 |   0.2 |   14.4 |   14.9 |   15.7 |   15.6 |   15.9 |   16.4 |    8.0 |   17.1 |   17.4 |
+| rnd_04500_05 |  61.2 |  T.O. |   73.4 |   38.8 |   T.O. |   T.O. |   31.2 |   64.9 |   17.1 |   33.1 |   62.6 |
+| rnd_04500_06 |  60.6 |  T.O. |   93.6 |   44.2 |   T.O. |   T.O. |   55.4 |  177.6 |   14.5 |   33.2 |   48.7 |
+| rnd_04500_07 |  59.6 |  T.O. |   37.1 |   78.4 |   T.O. |   T.O. |   36.2 |   42.9 |   33.0 |   35.0 |   42.5 |
+| rnd_04500_08 |  59.0 |  T.O. |   58.2 |   43.0 |   T.O. |   T.O. |   58.7 |   58.2 |   34.0 |   37.2 |   52.1 |
+| rnd_04500_09 |  59.7 |  T.O. |   42.1 |   56.2 |   T.O. |   T.O. |  112.2 |   44.9 |   16.8 |   33.1 |   41.1 |
+| rnd_04500_10 |  61.4 |  T.O. |   32.7 |   42.3 |   T.O. |   T.O. |   67.3 |   52.1 |   23.8 |   47.2 |   43.5 |
+| rnd_05000_01 |  75.1 |  T.O. |   34.2 |   71.6 |   T.O. |   T.O. |   64.5 |  142.4 |   14.6 |   28.9 |   31.8 |
+| rnd_05000_02 |  71.3 |  T.O. |   33.6 |   64.0 |   T.O. |   T.O. |   82.7 |  141.2 |   16.1 |   27.9 |   32.8 |
+| rnd_05000_03 |   0.2 |   0.2 |   15.8 |   16.5 |   18.2 |   16.4 |   19.7 |   17.4 |    8.5 |   19.7 |   18.7 |
+| rnd_05000_04 |   0.2 |   0.2 |   15.2 |   16.1 |   15.8 |   16.3 |   17.7 |   17.5 |    8.2 |   18.4 |   19.0 |
+| rnd_05000_05 |  68.5 |  T.O. |   76.5 |  105.9 |   T.O. |   T.O. |   51.3 |   86.4 |   15.0 |   45.6 |   39.8 |
+| rnd_05000_06 |   0.2 |   0.2 |   15.8 |   16.3 |   16.0 |   17.5 |   17.1 |   17.8 |    8.6 |   18.7 |   18.9 |
+| rnd_05000_07 |  74.0 |  T.O. |   41.4 |   55.1 |   T.O. |   T.O. |   45.8 |   31.5 |   20.7 |   31.0 |   83.2 |
+| rnd_05000_08 |  74.2 |  T.O. |   35.6 |   48.0 |   T.O. |   T.O. |   79.1 |   52.3 |   14.9 |   38.0 |   43.7 |
+| rnd_05000_09 |   0.3 |   0.2 |   15.5 |   15.9 |   17.0 |   17.0 |   17.5 |   17.8 |    7.6 |   18.4 |   18.8 |
+| rnd_05000_10 |  70.2 |  T.O. |   37.4 |   50.2 |   T.O. |   T.O. |  156.0 |   42.0 |   16.1 |   34.0 |   77.2 |
+| rnd_05500_01 |  84.3 |  T.O. |   62.0 |   78.7 |   T.O. |   T.O. |  118.2 |  122.9 |   31.5 |   50.2 |   58.7 |
+| rnd_05500_02 |  85.3 |  T.O. |   40.9 |   42.3 |   T.O. |   T.O. |   45.2 |   85.2 |   13.8 |   69.4 |   53.3 |
+| rnd_05500_03 |   0.3 |   0.2 |   16.7 |   17.0 |   17.4 |   17.2 |   18.4 |   18.7 |    9.0 |   20.4 |   21.2 |
+| rnd_05500_04 |  82.4 |  T.O. |   67.6 |  115.5 |   T.O. |   T.O. |   69.1 |   56.8 |   26.1 |   77.7 |   44.1 |
+| rnd_05500_05 |  86.8 |  T.O. |   33.2 |  209.9 |   T.O. |   T.O. |   66.7 |  150.1 |   17.1 |   51.4 |   45.3 |
+| rnd_05500_06 |   0.3 |   0.2 |   16.4 |   17.2 |   16.9 |   17.9 |   18.2 |   18.5 |   10.0 |   20.2 |   21.4 |
+| rnd_05500_07 |   0.3 |   0.2 |   16.3 |   17.2 |   17.0 |   18.0 |   18.4 |   18.8 |    8.9 |   21.3 |   21.1 |
+| rnd_05500_08 |  86.6 |  T.O. |   57.2 |  116.1 |   T.O. |   T.O. |   36.4 |   70.6 |   19.3 |   47.3 |   44.8 |
+| rnd_05500_09 |  85.4 |  T.O. |   75.8 |   75.0 |   T.O. |   T.O. |   52.1 |   96.4 |   16.8 |   48.0 |   67.4 |
+| rnd_05500_10 |   0.3 |   0.2 |   16.3 |   16.6 |   16.6 |   16.6 |   18.5 |   18.6 |    9.7 |   21.0 |   19.2 |
+| rnd_06000_01 | 100.3 |  T.O. |   35.5 |   64.7 |   T.O. |   T.O. |   51.6 |  115.3 |   19.1 |   69.9 |   47.6 |
+| rnd_06000_02 |   0.3 |   0.2 |   17.6 |   18.2 |   18.4 |   18.6 |   19.4 |   20.1 |    9.6 |   22.6 |   21.9 |
+| rnd_06000_03 | 102.8 |  T.O. |   46.2 |   89.9 |   T.O. |   T.O. |   38.7 |  122.3 |   13.1 |   41.6 |   47.9 |
+| rnd_06000_04 | 102.3 |  T.O. |   42.6 |   77.1 |   T.O. |   T.O. |   65.1 |   54.2 |   32.0 |   77.2 |   75.6 |
+| rnd_06000_05 |  99.5 |  T.O. |   55.0 |   47.8 |   T.O. |   T.O. |  167.5 |   42.6 |   17.1 |   40.3 |  103.5 |
+| rnd_06000_06 |   0.3 |   0.2 |   17.4 |   18.4 |   18.3 |   20.6 |   19.6 |   19.5 |    9.4 |   21.9 |   21.7 |
+| rnd_06000_07 | 100.6 |  T.O. |   50.4 |   61.0 |   T.O. |   T.O. |   68.8 |   57.1 |   22.6 |   73.8 |  144.3 |
+| rnd_06000_08 |   0.3 |   0.2 |   17.6 |   20.5 |   18.4 |   20.1 |   19.7 |   21.8 |    9.8 |   22.0 |   22.2 |
+| rnd_06000_09 |  97.2 |  T.O. |   37.2 |   79.5 |   T.O. |   T.O. |   47.5 |  193.5 |   19.1 |   71.3 |   78.7 |
+| rnd_06000_10 |  94.1 |  T.O. |   73.0 |   83.7 |   T.O. |   T.O. |   78.4 |   98.6 |   19.5 |   62.7 |   62.8 |
+| rnd_06500_01 |   0.3 |   0.3 |   18.4 |   19.2 |   19.4 |   19.5 |   20.2 |   20.5 |   10.2 |   24.5 |   23.8 |
+| rnd_06500_02 | 109.2 |  T.O. |   70.3 |   77.5 |   T.O. |   T.O. |   51.9 |  139.3 |   25.9 |   41.0 |   63.9 |
+| rnd_06500_03 | 113.6 |  T.O. |   63.8 |  217.1 |   T.O. |   T.O. |   67.0 |   73.6 |   19.2 |   67.1 |   74.4 |
+| rnd_06500_04 | 115.6 |  T.O. |   49.4 |   97.3 |   T.O. |   T.O. |   45.0 |   67.6 |   17.2 |   42.0 |  119.7 |
+| rnd_06500_05 | 112.1 |  T.O. |   49.0 |   94.9 |   T.O. |   T.O. |  175.1 |   78.2 |   21.9 |   86.7 |   76.6 |
+| rnd_06500_06 |   0.3 |   0.3 |   19.6 |   19.4 |   20.0 |   20.0 |   21.0 |   21.0 |   10.8 |   23.7 |   23.7 |
+| rnd_06500_07 |   0.3 |   0.3 |   19.7 |   19.6 |   20.4 |   20.2 |   20.5 |   20.8 |   10.9 |   23.6 |   23.5 |
+| rnd_06500_08 | 116.3 |  T.O. |   69.1 |   70.6 |   T.O. |   T.O. |  156.3 |   52.9 |   18.0 |   49.3 |   39.9 |
+| rnd_06500_09 |   0.3 |   0.3 |   19.2 |   19.7 |   20.5 |   20.0 |   20.5 |   20.8 |    9.8 |   23.9 |   24.3 |
+| rnd_06500_10 |   0.3 |   0.3 |   19.3 |   20.1 |   20.7 |   20.5 |   20.6 |   20.7 |   10.7 |   24.4 |   23.8 |
+| rnd_07000_01 | 132.3 |  T.O. |   46.0 |   77.5 |   T.O. |   T.O. |  204.5 |  144.3 |   71.6 |   41.3 |   55.4 |
+| rnd_07000_02 | 126.5 |  T.O. |   41.3 |  137.3 |   T.O. |   T.O. |   95.9 |  128.9 |   23.0 |   49.0 |  135.8 |
+| rnd_07000_03 |   0.4 |   0.3 |   20.2 |   20.8 |   21.8 |   21.0 |   23.4 |   23.1 |   11.2 |   25.7 |   25.9 |
+| rnd_07000_04 |   0.4 |   0.3 |   20.2 |   20.4 |   21.3 |   22.1 |   22.3 |   22.6 |   10.5 |   25.5 |   25.6 |
+| rnd_07000_05 |   0.3 |   0.3 |   20.5 |   20.6 |   21.1 |   20.9 |   22.2 |   22.5 |   10.9 |   25.2 |   25.5 |
+| rnd_07000_06 |   0.4 |   0.3 |   20.2 |   20.9 |   21.1 |   21.1 |   22.7 |   22.7 |   11.6 |   25.2 |   26.0 |
+| rnd_07000_07 |   0.3 |   0.3 |   20.6 |   20.4 |   21.1 |   21.0 |   22.5 |   22.8 |   11.5 |   26.0 |   26.3 |
+| rnd_07000_08 |   0.4 |   0.3 |   20.6 |   20.8 |   20.9 |   21.3 |   22.6 |   22.7 |   11.3 |   25.6 |   25.7 |
+| rnd_07000_09 |   0.4 |   0.3 |   20.1 |   20.6 |   21.0 |   21.0 |   23.2 |   22.9 |   11.3 |   26.3 |   26.4 |
+| rnd_07000_10 | 129.1 |  T.O. |   57.3 |  322.8 |   T.O. |   T.O. |   46.3 |   57.5 |   51.9 |   52.4 |   63.2 |
+| rnd_07500_01 |   0.4 |   0.3 |   21.6 |   21.8 |   22.5 |   22.2 |   24.5 |   23.9 |   11.5 |   26.6 |   26.7 |
+| rnd_07500_02 |   0.4 |   0.3 |   21.8 |   21.3 |   22.9 |   22.5 |   24.7 |   24.2 |   10.6 |   26.8 |   27.7 |
+| rnd_07500_03 | 153.2 |  T.O. |   70.0 |  101.8 |   T.O. |   T.O. |   40.3 |   72.5 |   30.6 |   89.8 |  125.0 |
+| rnd_07500_04 | 150.2 |  T.O. |  114.2 |   91.3 |   T.O. |   T.O. |   66.4 |   93.8 |   40.2 |   63.7 |  117.8 |
+| rnd_07500_05 |   0.4 |   0.3 |   21.1 |   23.3 |   22.9 |   24.0 |   23.6 |   25.7 |   11.3 |   26.7 |   26.5 |
+| rnd_07500_06 |   0.4 |   0.3 |   21.6 |   24.7 |   22.6 |   22.3 |   23.8 |   23.8 |   11.8 |   27.8 |   26.8 |
+| rnd_07500_07 | 149.2 |  T.O. |   76.7 |  128.4 |   T.O. |   T.O. |  162.4 |  108.6 |   36.7 |   71.1 |  132.9 |
+| rnd_07500_08 |   0.4 |   0.3 |   22.1 |   21.4 |   22.1 |   22.0 |   23.9 |   24.3 |   11.5 |   27.0 |   27.0 |
+| rnd_07500_09 |   0.4 |   0.3 |   22.3 |   24.5 |   22.5 |   22.6 |   24.2 |   24.4 |   11.2 |   27.1 |   28.1 |
+| rnd_07500_10 |   0.4 |   0.3 |   22.2 |   21.2 |   22.6 |   22.0 |   24.3 |   24.3 |   11.7 |   27.0 |   26.6 |
+| rnd_08000_01 | 168.4 |  T.O. |   60.1 |   85.9 |   T.O. |   T.O. |   57.9 |  164.4 |   27.5 |   72.6 |   99.1 |
+| rnd_08000_02 | 170.6 |  T.O. |   55.0 |  138.4 |   T.O. |   T.O. |   90.5 |  135.2 |   21.3 |   86.0 |   71.8 |
+| rnd_08000_03 | 170.2 |  T.O. |   58.5 |  300.6 |   T.O. |   T.O. |  100.2 |   69.3 |   21.9 |   73.6 |   86.1 |
+| rnd_08000_04 | 157.4 |  T.O. |   47.5 |   82.3 |   T.O. |   T.O. |  165.0 |   65.5 |   26.3 |   58.1 |  100.3 |
+| rnd_08000_05 | 170.1 |  T.O. |  156.1 |  195.4 |   T.O. |   T.O. |   89.5 |   91.0 |   27.9 |   72.8 |   93.8 |
+| rnd_08000_06 |   0.4 |   0.3 |   23.1 |   22.5 |   23.7 |   23.4 |   24.3 |   25.4 |   12.3 |   30.0 |   29.0 |
+| rnd_08000_07 | 170.3 |  T.O. |   55.5 |   76.8 |   T.O. |   T.O. |   76.0 |   94.1 |   45.7 |  112.9 |  114.4 |
+| rnd_08000_08 | 161.4 |  T.O. |   75.8 |   52.6 |   T.O. |   T.O. |  113.8 |   43.7 |   92.1 |   74.3 |   55.0 |
+| rnd_08000_09 | 160.2 |  T.O. |   57.9 |  182.2 |   T.O. |   T.O. |   93.9 |  146.1 |   25.4 |   68.7 |   98.4 |
+| rnd_08000_10 | 161.9 |  T.O. |   97.6 |   63.2 |   T.O. |   T.O. |   56.5 |   61.2 |   28.1 |   56.3 |   72.5 |
+| rnd_08500_01 | 182.0 |  T.O. |   58.7 |   80.5 |   T.O. |   T.O. |  171.0 |  193.6 |   48.5 |   87.3 |   94.2 |
+| rnd_08500_02 | 182.3 |  T.O. |   63.9 |   78.8 |   T.O. |   T.O. |  119.5 |  167.6 |   35.8 |   80.0 |  100.5 |
+| rnd_08500_03 | 184.3 |  T.O. |  108.7 |  140.0 |   T.O. |   T.O. |   45.7 |  231.3 |   33.3 |   76.4 |   77.8 |
+| rnd_08500_04 | 184.7 |  T.O. |   99.3 |   41.7 |   T.O. |   T.O. |  130.9 |  112.0 |   36.9 |   63.4 |  112.9 |
+| rnd_08500_05 | 180.7 |  T.O. |   75.5 |   77.8 |   T.O. |   T.O. |  216.3 |  102.2 |   32.3 |   96.3 |   93.3 |
+| rnd_08500_06 |   0.4 |   0.4 |   25.4 |   23.3 |   26.9 |   24.2 |   28.0 |   25.6 |   12.3 |   30.3 |   29.2 |
+| rnd_08500_07 | 190.5 |  T.O. |  146.0 |   94.0 |   T.O. |   T.O. |   77.4 |   79.4 |   40.8 |   47.7 |   92.3 |
+| rnd_08500_08 |   0.4 |   0.4 |   26.1 |   23.2 |   24.0 |   24.2 |   25.9 |   25.6 |   11.8 |   30.7 |   28.5 |
+| rnd_08500_09 |   0.4 |   0.4 |   26.2 |   23.5 |   24.3 |   24.5 |   25.8 |   25.7 |   12.4 |   32.3 |   29.5 |
+| rnd_08500_10 | 184.6 |  T.O. |  245.2 |  173.6 |   T.O. |   T.O. |   71.1 |  146.5 |   36.8 |   49.2 |   63.0 |
+| rnd_09000_01 |   0.5 |   0.4 |   26.4 |   24.8 |   25.9 |   25.6 |   26.9 |   27.5 |   11.7 |   32.2 |   30.6 |
+| rnd_09000_02 | 201.8 |  T.O. |  120.0 |  143.5 |   T.O. |   T.O. |   83.4 |  121.5 |   27.6 |   90.2 |  111.3 |
+| rnd_09000_03 |   0.5 |   0.4 |   26.9 |   24.4 |   25.2 |   25.2 |   27.1 |   27.7 |   12.7 |   32.1 |   31.2 |
+| rnd_09000_04 |   0.5 |   0.4 |   27.7 |   25.0 |   25.6 |   24.9 |   28.0 |   27.6 |   12.6 |   32.5 |   30.7 |
+| rnd_09000_05 |   0.5 |   0.4 |   27.2 |   24.3 |   26.2 |   25.0 |   27.3 |   26.7 |   11.8 |   32.5 |   30.5 |
+| rnd_09000_06 |   0.5 |   0.4 |   26.5 |   24.8 |   25.1 |   25.3 |   26.5 |   27.1 |   12.2 |   31.6 |   31.2 |
+| rnd_09000_07 | 198.3 |  T.O. |   86.1 |  130.7 |   T.O. |   T.O. |   48.0 |  156.5 |   39.2 |   97.8 |  161.8 |
+| rnd_09000_08 | 193.9 |  T.O. |  212.0 |  118.3 |   T.O. |   T.O. |   77.3 |   60.6 |   95.6 |   58.8 |   94.3 |
+| rnd_09000_09 |   0.5 |   0.4 |   27.1 |   24.6 |   25.4 |   25.7 |   28.9 |   27.0 |   11.9 |   31.7 |   31.0 |
+| rnd_09000_10 | 196.4 |  T.O. |   77.1 |   88.9 |   T.O. |   T.O. |  185.1 |   92.3 |   52.4 |   69.5 |   79.9 |
+| rnd_09500_01 | 220.5 |  T.O. |   70.1 |   81.5 |   T.O. |   T.O. |   88.5 |  116.4 |   26.5 |   52.5 |   79.7 |
+| rnd_09500_02 |   0.5 |   0.4 |   26.8 |   25.3 |   27.1 |   26.7 |   28.4 |   28.7 |   12.4 |   34.0 |   31.6 |
+| rnd_09500_03 | 221.6 |  T.O. |   T.O. |   93.6 |   T.O. |   T.O. |  177.7 |   94.4 |   79.0 |   68.2 |  126.1 |
+| rnd_09500_04 | 230.4 |  T.O. |  143.1 |  168.7 |   T.O. |   T.O. |  136.3 |  130.6 |   49.6 |  189.3 |  232.2 |
+| rnd_09500_05 | 224.6 |  T.O. |   73.8 |  111.4 |   T.O. |   T.O. |   62.6 |  366.1 |   34.1 |   61.8 |  221.1 |
+| rnd_09500_06 | 214.3 |  T.O. |   48.3 |   80.9 |   T.O. |   T.O. |  163.2 |   84.5 |   25.9 |   65.4 |   82.8 |
+| rnd_09500_07 |   0.5 |   0.4 |   26.2 |   24.7 |   25.9 |   26.2 |   30.4 |   27.8 |   11.9 |   33.3 |   31.8 |
+| rnd_09500_08 | 228.6 |  T.O. |  179.8 |  124.8 |   T.O. |   T.O. |  123.6 |  203.0 |   32.6 |  135.0 |  124.2 |
+| rnd_09500_09 | 230.8 |  T.O. |   99.9 |  144.6 |   T.O. |   T.O. |  239.1 |  106.3 |  107.2 |   85.4 |  155.0 |
+| rnd_09500_10 |   0.5 |   0.4 |   26.1 |   25.5 |   27.4 |   26.4 |   28.1 |   29.2 |   13.3 |   34.5 |   32.3 |
+| rnd_10000_01 | 245.4 |  T.O. |  147.4 |   77.7 |   T.O. |   T.O. |  238.9 |  148.5 |   54.4 |  133.8 |   93.9 |
+| rnd_10000_02 | 249.8 |  T.O. |   84.5 |   T.O. |   T.O. |   T.O. |  401.5 |   87.0 |   42.3 |   91.1 |   84.8 |
+| rnd_10000_03 | 238.6 |  T.O. |  152.0 |   92.9 |   T.O. |   T.O. |  162.7 |   91.8 |   53.7 |   55.3 |  169.8 |
+| rnd_10000_04 |   0.5 |   0.4 |   27.3 |   29.6 |   27.4 |   28.2 |   29.2 |   29.4 |   12.5 |   35.0 |   33.8 |
+| rnd_10000_05 | 240.8 |  T.O. |   72.5 |  147.9 |   T.O. |   T.O. |   94.6 |  381.2 |   77.0 |   75.0 |  117.0 |
+| rnd_10000_06 | 242.9 |  T.O. |   66.2 |  103.6 |   T.O. |   T.O. |   72.3 |  117.0 |   62.2 |   71.7 |   96.9 |
+| rnd_10000_07 | 253.5 |  T.O. |   92.6 |  136.6 |   T.O. |   T.O. |   63.5 |   95.3 |   26.2 |  102.2 |   90.1 |
+| rnd_10000_08 |   0.5 |   0.4 |   27.0 |   29.7 |   27.9 |   27.9 |   30.0 |   29.3 |   13.4 |   35.2 |   33.6 |
+| rnd_10000_09 |   0.5 |   0.4 |   26.8 |   29.7 |   27.9 |   27.9 |   29.9 |   29.3 |   13.2 |   35.9 |   33.5 |
+| rnd_10000_10 | 245.8 |  T.O. |   54.8 |  200.3 |   T.O. |   T.O. |  131.5 |  181.6 |  125.5 |   63.1 |  136.0 |
+| rnd_20000_01 |  T.O. |  T.O. |  296.3 |  217.9 |   T.O. |   T.O. |  329.1 |  413.1 |  251.8 |  156.1 |   T.O. |
+| rnd_20000_02 |  T.O. |  T.O. |  210.4 |  228.5 |   T.O. |   T.O. |  211.5 |   T.O. |   63.5 |  247.5 |  161.8 |
+| rnd_20000_03 |  T.O. |  T.O. |  215.9 |  248.4 |   T.O. |   T.O. |  320.6 |  401.5 |  226.7 |  191.4 |  372.5 |
+| rnd_20000_04 |  T.O. |  T.O. |  152.5 |  134.5 |   T.O. |   T.O. |  147.0 |  202.3 |  319.2 |  196.7 |  301.2 |
+| rnd_20000_05 |  T.O. |  T.O. |  274.2 |  188.2 |   T.O. |   T.O. |  199.0 |  327.9 |   83.6 |  122.9 |   T.O. |
+| rnd_20000_06 |  T.O. |  T.O. |  158.4 |  458.2 |   T.O. |   T.O. |  161.6 |  232.8 |  111.5 |  147.9 |  490.1 |
+| rnd_20000_07 |   1.2 |  T.O. |   50.9 |   49.9 |   52.2 |   53.4 |   51.1 |   48.4 |   18.3 |   69.2 |   66.6 |
+| rnd_20000_08 |   1.3 |  T.O. |   51.4 |   51.4 |   52.5 |   54.8 |   49.7 |   49.6 |   18.7 |   66.9 |   65.0 |
+| rnd_20000_09 |   1.2 |  T.O. |   51.3 |   49.1 |   52.7 |   52.9 |   47.9 |   49.2 |   18.0 |   67.2 |   63.5 |
+| rnd_20000_10 |   1.4 |  T.O. |   51.2 |   50.1 |   52.5 |   51.0 |   48.5 |   49.2 |   18.0 |   65.9 |   64.3 |
+| rnd_30000_01 |   2.1 |  T.O. |   77.9 |   77.2 |   80.1 |   78.9 |   72.7 |   75.6 |   25.9 |  105.4 |  105.6 |
+| rnd_30000_02 |  T.O. |  T.O. |  431.3 |   T.O. |   T.O. |   T.O. |  262.6 |   T.O. |   T.O. |  279.2 |   T.O. |
+| rnd_30000_03 |   2.2 |  T.O. |   78.3 |   76.3 |   79.4 |   79.7 |   73.5 |   71.9 |   26.3 |  109.7 |  103.2 |
+| rnd_30000_04 |  T.O. |  T.O. |   T.O. |  329.9 |   T.O. |   T.O. |   T.O. |  227.1 |  230.1 |   T.O. |   T.O. |
+| rnd_30000_05 |  T.O. |  T.O. |  194.6 |  294.7 |   T.O. |   T.O. |   T.O. |   T.O. |  140.0 |   T.O. |   T.O. |
+| rnd_30000_06 |   2.0 |  T.O. |   78.0 |   75.5 |   78.2 |   78.9 |   71.1 |   72.3 |   25.7 |  106.5 |  103.9 |
+| rnd_30000_07 |  T.O. |  T.O. |  419.4 |  344.0 |   T.O. |   T.O. |   T.O. |  494.6 |  405.1 |  229.0 |   T.O. |
+| rnd_30000_08 |  T.O. |  T.O. |  244.7 |   T.O. |   T.O. |   T.O. |  300.7 |   T.O. |  175.6 |  368.2 |   T.O. |
+| rnd_30000_09 |  T.O. |  T.O. |   T.O. |  447.3 |   T.O. |   T.O. |   T.O. |   T.O. |  452.7 |   T.O. |   T.O. |
+| rnd_30000_10 |  T.O. |  T.O. |  262.0 |   T.O. |   T.O. |   T.O. |   T.O. |  264.4 |   98.8 |  238.4 |   T.O. |
+| rnd_40000_01 |  T.O. |  T.O. |   T.O. |   T.O. |   T.O. |   T.O. |  416.6 |   T.O. |  122.1 |   T.O. |   T.O. |
+| rnd_40000_02 |  T.O. |  T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |  188.4 |   T.O. |   T.O. |
+| rnd_40000_03 |  T.O. |  T.O. |  292.5 |   T.O. |   T.O. |   T.O. |  366.0 |   T.O. |  273.4 |   T.O. |   T.O. |
+| rnd_40000_04 |  T.O. |  T.O. |  474.3 |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |
+| rnd_40000_05 |   2.8 |  T.O. |  104.8 |  100.2 |  107.9 |  107.9 |  103.7 |   97.6 |   34.5 |  151.2 |  150.3 |
+| rnd_40000_06 |   2.8 |  T.O. |  106.6 |  100.3 |  107.6 |  107.4 |  101.0 |   98.1 |   34.6 |  148.3 |  149.4 |
+| rnd_40000_07 |   2.7 |  T.O. |  105.5 |  100.0 |  106.6 |  108.5 |  100.2 |   98.2 |   33.9 |  147.8 |  149.9 |
+| rnd_40000_08 |   2.7 |  T.O. |  103.3 |   99.0 |  107.1 |  106.3 |  102.5 |   98.3 |   34.6 |  150.6 |  146.1 |
+| rnd_40000_09 |   2.8 |  T.O. |  105.6 |   99.1 |  107.4 |  107.7 |  102.0 |   96.7 |   33.7 |  148.2 |  145.2 |
+| rnd_40000_10 |  T.O. |  T.O. |  335.1 |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |  224.3 |  387.2 |   T.O. |
+| rnd_50000_01 |  T.O. |  T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |
+| rnd_50000_02 |  T.O. |  T.O. |   T.O. |   T.O. |   T.O. |   T.O. |  368.6 |   T.O. |  448.3 |   T.O. |   T.O. |
+| rnd_50000_03 |  T.O. |  T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |
+| rnd_50000_04 |   3.5 |  T.O. |  132.8 |  128.5 |  137.9 |  134.9 |  130.8 |  127.2 |   42.8 |  187.7 |  186.1 |
+| rnd_50000_05 |  T.O. |  T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |
+| rnd_50000_06 |  T.O. |  T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |
+| rnd_50000_07 |   3.8 |  T.O. |  131.8 |  131.2 |  140.8 |   T.O. |  132.4 |  129.6 |   43.1 |  183.9 |  186.5 |
+| rnd_50000_08 |   3.6 |  T.O. |  133.9 |  128.6 |  135.2 |   T.O. |  128.3 |  129.5 |   42.5 |  191.6 |  186.6 |
+| rnd_50000_09 |  T.O. |  T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |  442.8 |  426.3 |   T.O. |
+| rnd_50000_10 |  T.O. |  T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |   T.O. |  483.1 |   T.O. |
+|--------------+-------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+
+** complete
+#+ATTR_HTML: :id table1small
+|--------------+------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+| Name         |  LKH | Velev | Glu-S | Glu-T | Lin-S | Lin-T | Min-S | Min-T | S4J-N | S4J-S | S4J-T |
+|--------------+------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+| <l>          |  <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |
+| complete0100 | T.O. |   0.8 |  37.4 | 114.4 |  T.O. |  T.O. |  34.1 |  64.4 |   5.1 |  16.7 |  19.7 |
+| complete0200 | T.O. |   6.5 | 444.9 |  T.O. |  T.O. |  T.O. | 496.9 |  T.O. |   8.2 |  85.2 | 129.3 |
+| complete0300 | T.O. |  21.5 |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. | 475.2 |  12.7 | 302.8 | 158.8 |
+| complete0400 | T.O. |  53.3 |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  17.0 |  T.O. |  T.O. |
+| complete0500 | T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  24.1 |  T.O. | 148.9 |
+| complete0600 | T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  39.3 |  T.O. |  T.O. |
+| complete0700 | T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  49.5 |  T.O. |  T.O. |
+| complete0800 | T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  66.6 |  T.O. |  T.O. |
+| complete0900 | T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  90.3 |  T.O. |  T.O. |
+| complete1000 | T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. | 123.6 |  T.O. |  T.O. |
+| complete1100 | T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. | 172.9 |  T.O. |  T.O. |
+| complete1200 | T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. | 195.0 |  T.O. |  T.O. |
+| complete1300 | T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. | 251.0 |  T.O. |  T.O. |
+| complete1400 | T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. | 374.2 |  T.O. |  T.O. |
+| complete1500 | T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+|--------------+------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+
+** Knight
+#+ATTR_HTML: :id table1small
+|---------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+| Name    |   LKH | Velev | Glu-S | Glu-T | Lin-S | Lin-T | Min-S | Min-T | S4J-N | S4J-S | S4J-T |
+|---------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+| <l>     |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |
+| 8_8     |   0.0 |   0.0 |   1.9 |   1.8 |   2.0 |   2.2 |   1.9 |   1.8 |   1.2 |   1.7 |   2.0 |
+| 12_12   |   0.1 |   0.8 |   2.9 |   3.1 |  18.8 |  14.1 |   3.0 |   3.2 |   1.7 |   2.7 |   2.6 |
+| 20_20   |   0.3 |  T.O. |   8.8 |   8.6 | 141.0 | 127.5 |   5.0 |   8.5 |   4.3 |   5.7 |   4.6 |
+| 30_30   |   0.9 |  T.O. |  14.4 |  11.6 |  T.O. |  T.O. |  15.9 |  10.8 |   7.3 |  10.9 |   8.4 |
+| 40_40   |   2.3 |  T.O. |  38.2 |  69.3 |  T.O. |  T.O. |  22.7 |  18.6 |  68.3 |  14.6 |  23.0 |
+| 50_50   |  33.0 |  T.O. | 409.6 | 205.2 |  T.O. |  T.O. | 194.8 | 107.9 |  T.O. |  T.O. | 170.3 |
+| 60_60   |   9.0 |  T.O. | 387.0 |  T.O. |  T.O. |  T.O. |  T.O. | 228.2 |  T.O. |  T.O. |  T.O. |
+| 70_70   |  15.4 |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| 80_80   | 262.6 |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| 90_90   | 141.4 |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+| 100_100 | 274.0 |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |  T.O. |
+|---------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+
+** tsplib
+#+ATTR_HTML: :id table1small
+|----------+------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+| Name     |  LKH | Velev | Glu-S | Glu-T | Lin-S | Lin-T | Min-S | Min-T | S4J-N | S4J-S | S4J-T |
+|----------+------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+| <l>      |  <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |   <r> |
+| alb1000  |  0.4 | 489.7 |  15.8 |  10.8 |  22.1 |  69.2 |  11.0 |  13.7 |   5.8 |   8.0 |  10.9 |
+| alb2000  |  1.7 |  T.O. |  17.8 |  49.1 |  T.O. |  T.O. |  25.7 |  36.9 |   7.2 |  15.2 |  35.2 |
+| alb3000a |  3.9 |  T.O. |  25.0 |  58.8 | 237.0 |  T.O. |  18.8 |  44.9 |  14.1 |  14.6 |  12.4 |
+| alb3000b |  3.7 |  T.O. |  52.2 |  11.2 |  T.O. |  T.O. |  64.6 |  16.9 |  15.3 |  32.0 |  58.4 |
+| alb3000c |  3.8 |  T.O. |  46.1 |  29.6 |  T.O. |  T.O. |  41.1 |  16.5 |   9.7 |  23.9 |  39.4 |
+| alb3000d |  3.7 |  T.O. |  28.4 |  14.4 |  T.O. |  T.O. |  16.9 |  34.3 |  12.6 |  80.5 |  13.5 |
+| alb3000e |  3.8 |  T.O. |  25.6 |  16.7 |  T.O. |  56.4 |  21.4 |  13.0 |   9.0 |  22.1 |  22.0 |
+| alb4000  |  7.0 |  T.O. | 101.4 | 186.6 |  T.O. | 269.3 |  24.9 |  37.5 |  24.7 |  26.4 |  73.0 |
+| alb5000  | 11.2 |  T.O. |  18.6 |  36.6 |  T.O. |  T.O. |  49.5 |  73.1 |  46.5 |  26.6 |  T.O. |
+|----------+------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
